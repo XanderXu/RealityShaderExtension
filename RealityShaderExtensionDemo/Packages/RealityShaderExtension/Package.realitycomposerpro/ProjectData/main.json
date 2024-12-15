@@ -8,6 +8,11 @@
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Immersive.usda" : "AF09ED6F-1707-48FD-8720-65B998362C09",
     "RealityKitContent\/Sources\/RealityKitContent\/RealityKitContent.rkassets\/Scene.usda" : "D66134B1-3681-4A8E-AFE5-29F257229F3B",
     "RealityShaderExtension\/Sources\/RealityShaderExtension\/RealityShaderExtension.rkassets\/Immersive.usda" : "208518D5-717F-4135-9675-68881D3D5152",
+    "RealityShaderExtension\/Sources\/RealityShaderExtension\/RealityShaderExtension.rkassets\/Materials\/GlitchNode.usda" : "90BDA009-4DA3-4FAE-B8E7-D7BE82C14582",
+    "RealityShaderExtension\/Sources\/RealityShaderExtension\/RealityShaderExtension.rkassets\/Materials\/GridMaterial.usda" : "E09B1A08-1A3A-40D1-BED3-7D1CEF0552BE",
+    "RealityShaderExtension\/Sources\/RealityShaderExtension\/RealityShaderExtension.rkassets\/Materials\/Nodes\/UENode.usda" : "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+    "RealityShaderExtension\/Sources\/RealityShaderExtension\/RealityShaderExtension.rkassets\/Materials\/Nodes\/XNode.usda" : "06736923-D089-4A07-BFAC-C76EE035BD38",
+    "RealityShaderExtension\/Sources\/RealityShaderExtension\/RealityShaderExtension.rkassets\/Materials\/UEMaterial.usda" : "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
     "RealityShaderExtension\/Sources\/RealityShaderExtension\/RealityShaderExtension.rkassets\/Materials\/UENode.usda" : "A6689D6A-EE6C-4FF8-B798-751326675DF0",
     "RealityShaderExtension\/Sources\/RealityShaderExtension\/RealityShaderExtension.rkassets\/Materials\/Untitled%20Scene.usda" : "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE"
   }
