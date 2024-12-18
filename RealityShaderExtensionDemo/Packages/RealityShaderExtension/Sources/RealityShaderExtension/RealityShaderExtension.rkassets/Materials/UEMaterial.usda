@@ -62,12 +62,19 @@ def Xform "Root"
                     }
                 }
             )
-            float2 inputs:B = (0.5, 0.5)
-            float inputs:Hardness (
+            float2 inputs:B = (0.5, 0.5) (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (287.5986, 47.905205)
+                        int stackingOrderInSubgraph = 1278
+                    }
+                }
+            )
+            float inputs:Hardness = 100 (
                 customData = {
                     dictionary realitykit = {
                         float2 positionInSubgraph = (285.69922, 174.77344)
-                        int stackingOrderInSubgraph = 1137
+                        int stackingOrderInSubgraph = 1284
                     }
                 }
             )
@@ -81,7 +88,7 @@ def Xform "Root"
             )
             bool inputs:UseCustomA = 0
             float2 ui:nodegraph:node:pos = (-672.06805, 75.788666)
-            int ui:nodegraph:node:stackingOrder = 45
+            int ui:nodegraph:node:stackingOrder = 49
             string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:A"]
 
             over "Multiply_1"
@@ -92,8 +99,10 @@ def Xform "Root"
 
             over "Range"
             {
-                bool inputs:doclamp = 1
-                int ui:nodegraph:node:stackingOrder = 1153
+                bool inputs:doclamp = 0
+                float inputs:gamma.connect = None
+                float inputs:inlow.connect = None
+                int ui:nodegraph:node:stackingOrder = 1281
             }
 
             def Scope "Group" (
@@ -108,6 +117,18 @@ def Xform "Root"
             over "MTLSelect"
             {
                 int ui:nodegraph:node:stackingOrder = 1272
+            }
+
+            over "Subtract"
+            {
+                float2 ui:nodegraph:node:pos = (481.9144, -24.633524)
+                int ui:nodegraph:node:stackingOrder = 1275
+            }
+
+            over "Multiply"
+            {
+                float2 ui:nodegraph:node:pos = (507.039, 148.32)
+                int ui:nodegraph:node:stackingOrder = 1278
             }
         }
     }
