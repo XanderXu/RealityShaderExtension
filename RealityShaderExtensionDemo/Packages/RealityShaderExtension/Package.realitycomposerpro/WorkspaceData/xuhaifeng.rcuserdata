@@ -2,7 +2,6 @@
   "advancedEditorSelectedIdentifier" : "ShaderGraphEditorPluginID",
   "openSceneRelativePaths" : [
     "Immersive.usda",
-    "Materials\/Nodes\/XNode.usda",
     "Materials\/UEMaterial.usda",
     "Materials\/Nodes\/UENode.usda"
   ],
@@ -244,6 +243,28 @@
       }
     ],
     "7FF16649-B3D7-4A5B-9193-076A64EB06E6" : [
+      {
+        "date" : 756218474.106027,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          -0.09081731,
+          0.0009979834,
+          0.3505563,
+          1
+        ]
+      },
       {
         "date" : 756140765.521442,
         "title" : "Untitled",
@@ -644,6 +665,28 @@
       }
     ],
     "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232" : [
+      {
+        "date" : 756218596.111415,
+        "title" : "Untitled",
+        "transform" : [
+          0.96634376,
+          9.817115e-10,
+          0.25725418,
+          0,
+          0.03481362,
+          0.9908009,
+          -0.13077307,
+          0,
+          -0.25488767,
+          0.13532774,
+          0.95745426,
+          0,
+          0.36656255,
+          0.062460847,
+          0.51412374,
+          1
+        ]
+      },
       {
         "date" : 756141466.907839,
         "title" : "Untitled",

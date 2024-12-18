@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["GeneratedBandMaterial", "SphereMaskMaterial", "FresnelMaterial", "CurveLinearMaterial", "CameraDepthFadeMaterial", "GeneratedOffsetBandsMaterial", "Cube", "Sphere", "Cube_1", "Cube_2", "Cube_3", "Cube_4"]
+    reorder nameChildren = ["GeneratedBandMaterial", "SphereMaskMaterial", "FresnelMaterial", "CameraDepthFadeMaterial", "GeneratedOffsetBandsMaterial", "NormalFromHeightmapMaterial", "Cube", "Sphere", "Cube_1", "Cube_2", "Cube_3", "Cube_4"]
     def Material "SphereMaskMaterial" (
         references = None
     )
@@ -70,11 +70,11 @@ def Xform "Root"
                     }
                 }
             )
-            float inputs:Hardness = 100 (
+            float inputs:Hardness (
                 customData = {
                     dictionary realitykit = {
                         float2 positionInSubgraph = (285.69922, 174.77344)
-                        int stackingOrderInSubgraph = 1284
+                        int stackingOrderInSubgraph = 1529
                     }
                 }
             )
@@ -88,7 +88,7 @@ def Xform "Root"
             )
             bool inputs:UseCustomA = 0
             float2 ui:nodegraph:node:pos = (-672.06805, 75.788666)
-            int ui:nodegraph:node:stackingOrder = 49
+            int ui:nodegraph:node:stackingOrder = 50
             string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:A"]
 
             over "Multiply_1"
@@ -173,7 +173,7 @@ def Xform "Root"
             )
             float inputs:Exp = 1
             float2 ui:nodegraph:node:pos = (-641.3594, 95.16016)
-            int ui:nodegraph:node:stackingOrder = 7
+            int ui:nodegraph:node:stackingOrder = 8
         }
 
         def Shader "Convert"
@@ -224,7 +224,7 @@ def Xform "Root"
             float inputs:Sharpness
             float inputs:Width
             float2 ui:nodegraph:node:pos = (-436.76257, 46.12561)
-            int ui:nodegraph:node:stackingOrder = 973
+            int ui:nodegraph:node:stackingOrder = 974
         }
     }
 
@@ -267,69 +267,6 @@ def Xform "Root"
         float3 xformOp:scale = (1, 1, 1)
         float3 xformOp:translate = (-0.3, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
-
-    def Material "CurveLinearMaterial"
-    {
-        token outputs:mtlx:surface.connect = </Root/CurveLinearMaterial/PreviewSurface.outputs:out>
-        token outputs:realitykit:vertex
-        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
-
-        def Shader "PreviewSurface"
-        {
-            uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-            color3f inputs:diffuseColor.connect = </Root/CurveLinearMaterial/Convert_1.outputs:out>
-            float inputs:metallic
-            float inputs:opacity
-            float inputs:roughness
-            token outputs:out
-            float2 ui:nodegraph:node:pos = (93.5, 100.5)
-        }
-
-        def NodeGraph "CurveLinear" (
-            references = @Nodes/UENode.usda@</Root/CurveLinear>
-        )
-        {
-            float inputs:TimeCurve = 0
-            float inputs:TimeCurve.connect = </Root/CurveLinearMaterial/Sin.outputs:out>
-            float2 ui:nodegraph:node:pos = (-392.7461, 52.820312)
-            int ui:nodegraph:node:stackingOrder = 17
-        }
-
-        def Shader "Convert"
-        {
-            uniform token info:id = "ND_convert_vector4_color4"
-            float4 inputs:in.connect = </Root/CurveLinearMaterial/CurveLinear.outputs:Out>
-            color4f outputs:out
-            float2 ui:nodegraph:node:pos = (-169.52344, 129.09766)
-            int ui:nodegraph:node:stackingOrder = 11
-        }
-
-        def Shader "Convert_1"
-        {
-            uniform token info:id = "ND_convert_color4_color3"
-            prepend color4f inputs:in.connect = </Root/CurveLinearMaterial/Convert.outputs:out>
-            color3f outputs:out
-            float2 ui:nodegraph:node:pos = (-94.60547, 27.523438)
-            int ui:nodegraph:node:stackingOrder = 12
-        }
-
-        def Shader "Time"
-        {
-            uniform token info:id = "ND_time_float"
-            float outputs:out
-            float2 ui:nodegraph:node:pos = (-725.84766, 52.527344)
-            int ui:nodegraph:node:stackingOrder = 18
-        }
-
-        def Shader "Sin"
-        {
-            uniform token info:id = "ND_sin_float"
-            float inputs:in.connect = </Root/CurveLinearMaterial/Time.outputs:out>
-            float outputs:out
-            float2 ui:nodegraph:node:pos = (-584.1172, 60.89453)
-            int ui:nodegraph:node:stackingOrder = 23
-        }
     }
 
     def Cube "Cube_2" (
@@ -431,7 +368,7 @@ def Xform "Root"
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
-        rel material:binding = </Root/CurveLinearMaterial> (
+        rel material:binding = </Root/NormalFromHeightmapMaterial> (
             bindMaterialAs = "weakerThanDescendants"
         )
         double size = 0.2
@@ -458,6 +395,46 @@ def Xform "Root"
         float3 xformOp:scale = (1, 1, 1)
         float3 xformOp:translate = (0.9, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "NormalFromHeightmapMaterial"
+    {
+        token outputs:mtlx:surface.connect = </Root/NormalFromHeightmapMaterial/PreviewSurface.outputs:out>
+        token outputs:realitykit:vertex
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+        def Shader "PreviewSurface"
+        {
+            uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+            color3f inputs:diffuseColor.connect = </Root/NormalFromHeightmapMaterial/Convert.outputs:out>
+            float inputs:metallic
+            float inputs:roughness
+            token outputs:out
+            float2 ui:nodegraph:node:pos = (93.5, 100.5)
+        }
+
+        def "NormalFromHeightmap_1" (
+            active = true
+            instanceable = true
+            references = @Nodes/UENode.usda@</Root/NormalFromHeightmap>
+        )
+        {
+            asset inputs:HeightMap
+            float4 inputs:HeightMapChannelSelector
+            float inputs:HeightMapUVOffset
+            float inputs:NormalMapIntensity
+            float2 ui:nodegraph:node:pos = (-389.16022, 52.171867)
+            int ui:nodegraph:node:stackingOrder = 1067
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_vector3_color3"
+            float3 inputs:in.connect = </Root/NormalFromHeightmapMaterial/NormalFromHeightmap_1.outputs:Normal>
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-117.97266, 126.11719)
+            int ui:nodegraph:node:stackingOrder = 1063
+        }
     }
 }
 
