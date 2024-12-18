@@ -16,57 +16,58 @@ def Xform "Root"
         float2 inputs:A = (0, 0) (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-192.52432, -117.15865)
-                    int stackingOrderInSubgraph = 1270
+                    float2 positionInSubgraph = (-404.85837, -147.8678)
+                    int stackingOrderInSubgraph = 1477
                 }
             }
         )
         float2 inputs:B = (0.5, 0.5) (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (291.17188, 84.41406)
-                    int stackingOrderInSubgraph = 1272
+                    float2 positionInSubgraph = (-0.5617834, 230.23872)
+                    int stackingOrderInSubgraph = 1646
                 }
             }
         )
-        float inputs:Hardness = 1 (
+        float inputs:Hardness = 0 (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (285.69922, 174.77344)
-                    int stackingOrderInSubgraph = 1137
+                    float2 positionInSubgraph = (2.6202536, 475.79825)
+                    int stackingOrderInSubgraph = 1529
                 }
             }
         )
-        float inputs:Radius = 0.4 (
+        float inputs:Radius = 0.5 (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (287.21875, 263.60547)
-                    int stackingOrderInSubgraph = 1137
+                    float2 positionInSubgraph = (-2.7921915, 358.8785)
+                    int stackingOrderInSubgraph = 1649
                 }
             }
         )
         bool inputs:UseCustomA = 0 (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-385.85043, 116.3704)
-                    int stackingOrderInSubgraph = 1246
+                    float2 positionInSubgraph = (-352.3573, 29.584417)
+                    int stackingOrderInSubgraph = 1500
                 }
             }
         )
-        float outputs:Oneminus_out.connect = </Root/SphereMask/Oneminus.outputs:out>
+        float outputs:Oneminus_out.connect = </Root/SphereMask/MTLCospi.outputs:out>
         float2 ui:nodegraph:node:pos = (-714.68396, 25.64183)
         int ui:nodegraph:node:stackingOrder = 785
-        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1118.75, 147.5)
-        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 958
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1571.9099, 82.907974)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1564
 
         def Shader "Multiply"
         {
             uniform token info:id = "ND_multiply_float"
-            float inputs:in1.connect = </Root/SphereMask.inputs:Radius>
-            float inputs:in2.connect = </Root/SphereMask.inputs:Hardness>
+            float inputs:in1.connect = </Root/SphereMask.inputs:Hardness>
+            float inputs:in2 = 0.01
+            float inputs:in2.connect = None
             float outputs:out
-            float2 ui:nodegraph:node:pos = (548.71484, 157.17969)
-            int ui:nodegraph:node:stackingOrder = 1137
+            float2 ui:nodegraph:node:pos = (170.8795, 472.86765)
+            int ui:nodegraph:node:stackingOrder = 1529
         }
 
         def Shader "Subtract"
@@ -75,32 +76,8 @@ def Xform "Root"
             float2 inputs:in1.connect = </Root/SphereMask/Add.outputs:out>
             float2 inputs:in2.connect = </Root/SphereMask.inputs:B>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (486.40625, 67.52734)
-            int ui:nodegraph:node:stackingOrder = 1137
-        }
-
-        def Shader "Oneminus"
-        {
-            uniform token info:id = "ND_realitykit_oneminus_float"
-            float inputs:in.connect = </Root/SphereMask/Range.outputs:out>
-            float outputs:out
-            float2 ui:nodegraph:node:pos = (949.75, 147.5)
-            int ui:nodegraph:node:stackingOrder = 1137
-        }
-
-        def Shader "Range"
-        {
-            uniform token info:id = "ND_range_float"
-            bool inputs:doclamp = 1
-            float inputs:gamma
-            float inputs:in.connect = </Root/SphereMask/Magnitude.outputs:out>
-            float inputs:inhigh.connect = </Root/SphereMask.inputs:Radius>
-            float inputs:inlow.connect = </Root/SphereMask/Multiply.outputs:out>
-            float inputs:outhigh = 1
-            float inputs:outlow = 0
-            float outputs:out
-            float2 ui:nodegraph:node:pos = (796.5, 147.5)
-            int ui:nodegraph:node:stackingOrder = 1278
+            float2 ui:nodegraph:node:pos = (450.05792, -84.117294)
+            int ui:nodegraph:node:stackingOrder = 1281
         }
 
         def Shader "Magnitude"
@@ -108,8 +85,8 @@ def Xform "Root"
             uniform token info:id = "ND_magnitude_vector2"
             float2 inputs:in.connect = </Root/SphereMask/Subtract.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (626.4375, 80.171875)
-            int ui:nodegraph:node:stackingOrder = 1137
+            float2 ui:nodegraph:node:pos = (586.58307, -76.7678)
+            int ui:nodegraph:node:stackingOrder = 1283
             string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
         }
 
@@ -118,8 +95,8 @@ def Xform "Root"
             uniform token info:id = "ND_texcoord_vector2"
             int inputs:index = 0
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-196.85953, -39.504898)
-            int ui:nodegraph:node:stackingOrder = 1269
+            float2 ui:nodegraph:node:pos = (-112.00531, -90.85475)
+            int ui:nodegraph:node:stackingOrder = 1490
             string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
         }
 
@@ -128,8 +105,8 @@ def Xform "Root"
             uniform token info:id = "ND_realitykit_oneminus_float"
             float inputs:in.connect = </Root/SphereMask/MTLSelect.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (17.685246, 118.75062)
-            int ui:nodegraph:node:stackingOrder = 1246
+            float2 ui:nodegraph:node:pos = (53.56439, 41.39299)
+            int ui:nodegraph:node:stackingOrder = 1498
         }
 
         def Shader "MTLSelect"
@@ -138,8 +115,8 @@ def Xform "Root"
             float inputs:b
             bool inputs:c.connect = </Root/SphereMask.inputs:UseCustomA>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-170.81581, 88.51978)
-            int ui:nodegraph:node:stackingOrder = 1246
+            float2 ui:nodegraph:node:pos = (-117.71107, 28.279898)
+            int ui:nodegraph:node:stackingOrder = 1496
         }
 
         def Shader "Multiply_1"
@@ -158,8 +135,8 @@ def Xform "Root"
             float2 inputs:in1.connect = </Root/SphereMask/TextureCoordinates.outputs:out>
             float inputs:in2.connect = </Root/SphereMask/Oneminus_1.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (135.67554, -45.720097)
-            int ui:nodegraph:node:stackingOrder = 1264
+            float2 ui:nodegraph:node:pos = (130.78592, -38.81667)
+            int ui:nodegraph:node:stackingOrder = 1493
         }
 
         def Shader "Add"
@@ -188,6 +165,89 @@ def Xform "Root"
             string ui:group:annotation = "Center"
             string ui:group:annotationDescription = ""
             string[] ui:group:members = ["i:inputs:B"]
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/SphereMask/Magnitude.outputs:out>
+            float inputs:in2.connect = </Root/SphereMask/Abs.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (737.24396, -42.28077)
+            int ui:nodegraph:node:stackingOrder = 1407
+        }
+
+        def Shader "Abs"
+        {
+            uniform token info:id = "ND_absval_float"
+            float inputs:in.connect = </Root/SphereMask.inputs:Radius>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (191.05048, 326.92395)
+            int ui:nodegraph:node:stackingOrder = 1651
+        }
+
+        def Shader "MTLCospi"
+        {
+            uniform token info:id = "ND_MTL_cospi_float"
+            float inputs:x.connect = </Root/SphereMask/Range_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (1405.1165, 84.95503)
+            int ui:nodegraph:node:stackingOrder = 1564
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SphereMask/Clamp_1.outputs:out>
+            float inputs:in2.connect = </Root/SphereMask/Clamp.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (670.4945, 335.81085)
+            int ui:nodegraph:node:stackingOrder = 1643
+        }
+
+        def Shader "Clamp_1"
+        {
+            uniform token info:id = "ND_clamp_float"
+            float inputs:high
+            float inputs:in.connect = </Root/SphereMask/Divide.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (842.2626, -37.560177)
+            int ui:nodegraph:node:stackingOrder = 1472
+        }
+
+        def Shader "Range_1"
+        {
+            uniform token info:id = "ND_range_float"
+            bool inputs:doclamp = 0
+            float inputs:gamma
+            float inputs:in.connect = </Root/SphereMask/Clamp_1.outputs:out>
+            float inputs:inhigh = 1
+            float inputs:inlow.connect = </Root/SphereMask/Fractional.outputs:out>
+            float inputs:outhigh = 0.5
+            float inputs:outlow
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (1197.9062, 56.660774)
+            int ui:nodegraph:node:stackingOrder = 1654
+        }
+
+        def Shader "Clamp"
+        {
+            uniform token info:id = "ND_clamp_float"
+            float inputs:high
+            float inputs:in.connect = </Root/SphereMask/Multiply.outputs:out>
+            float inputs:low
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (398.56467, 379.87082)
+            int ui:nodegraph:node:stackingOrder = 1713
+        }
+
+        def Shader "Fractional"
+        {
+            uniform token info:id = "ND_realitykit_fractional_float"
+            float inputs:in.connect = </Root/SphereMask/Multiply_3.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (941.67725, 245.65057)
+            int ui:nodegraph:node:stackingOrder = 1715
         }
     }
 
@@ -365,7 +425,7 @@ def Xform "Root"
         def Shader "Separate2"
         {
             uniform token info:id = "ND_separate2_vector2"
-            float2 inputs:in.connect = </Root/GeneratedBand/Subtract_1.outputs:out>
+            float2 inputs:in.connect = </Root/GeneratedBand/Add.outputs:out>
             float outputs:outx
             float outputs:outy
             float2 ui:nodegraph:node:pos = (752.12805, 50.18009)
@@ -397,7 +457,7 @@ def Xform "Root"
             float inputs:in.connect = </Root/GeneratedBand/MTLSelect.outputs:out>
             float outputs:out
             float2 ui:nodegraph:node:pos = (1162.0714, 163.93248)
-            int ui:nodegraph:node:stackingOrder = 1760
+            int ui:nodegraph:node:stackingOrder = 1910
         }
 
         def "SphereMask" (
@@ -412,7 +472,7 @@ def Xform "Root"
             float inputs:Radius.connect = </Root/GeneratedBand.inputs:Width>
             bool inputs:UseCustomA = 1
             float2 ui:nodegraph:node:pos = (1638.75, 343)
-            int ui:nodegraph:node:stackingOrder = 1760
+            int ui:nodegraph:node:stackingOrder = 1912
         }
 
         def Shader "Combine2"
@@ -421,18 +481,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/GeneratedBand/Fractional_1.outputs:out>
             float inputs:in2.connect = </Root/GeneratedBand.inputs:Compare>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (1400.5382, 169.21753)
-            int ui:nodegraph:node:stackingOrder = 1760
-        }
-
-        def Shader "Subtract_1"
-        {
-            uniform token info:id = "ND_subtract_vector2"
-            float2 inputs:in1.connect = </Root/GeneratedBand/TextureCoordinates.outputs:out>
-            float2 inputs:in2.connect = </Root/GeneratedBand/Convert.outputs:out>
-            float2 outputs:out
-            float2 ui:nodegraph:node:pos = (622.47406, 46.13897)
-            int ui:nodegraph:node:stackingOrder = 1896
+            float2 ui:nodegraph:node:pos = (1428.9279, 199.14738)
+            int ui:nodegraph:node:stackingOrder = 1909
         }
 
         def Shader "Convert"
@@ -442,6 +492,16 @@ def Xform "Root"
             float2 outputs:out
             float2 ui:nodegraph:node:pos = (492.21823, 72.9517)
             int ui:nodegraph:node:stackingOrder = 1898
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector2"
+            float2 inputs:in1.connect = </Root/GeneratedBand/TextureCoordinates.outputs:out>
+            float2 inputs:in2.connect = </Root/GeneratedBand/Convert.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (620.30585, 43.90564)
+            int ui:nodegraph:node:stackingOrder = 1906
         }
     }
 
@@ -637,7 +697,7 @@ def Xform "Root"
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (177.86731, 106.45092)
-                    int stackingOrderInSubgraph = 2244
+                    int stackingOrderInSubgraph = 2263
                 }
             }
         )
@@ -666,7 +726,7 @@ def Xform "Root"
             }
         )
         float inputs:Offset.connect = None
-        float inputs:Sharpness = 0.25 (
+        float inputs:Sharpness = 0 (
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (648.2649, 495.8301)
@@ -674,62 +734,37 @@ def Xform "Root"
                 }
             }
         )
-        float inputs:Width = 0.25 (
+        float inputs:Width = 0.5 (
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (659.5469, 576.16907)
-                    int stackingOrderInSubgraph = 1991
+                    int stackingOrderInSubgraph = 2303
                 }
             }
         )
-        float outputs:SphereMask_Oneminus_out.connect = </Root/GeneratedOffsetBands/SphereMask.outputs:Oneminus_out>
+        float outputs:SphereMask_Oneminus_out.connect = </Root/GeneratedOffsetBands/NodeGraph.outputs:Oneminus_out>
         float2 ui:nodegraph:node:pos = (-1124.0477, 1086.399)
         int ui:nodegraph:node:stackingOrder = 961
-        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1871.5, 343)
-        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1978
-
-        def "SphereMask" (
-            active = true
-            instanceable = true
-            references = @UENode.usda@</Root/SphereMask>
-        )
-        {
-            float2 inputs:A.connect = </Root/GeneratedOffsetBands/Convert_3.outputs:out>
-            float2 inputs:B.connect = </Root/GeneratedOffsetBands/Convert_4.outputs:out>
-            float inputs:Hardness.connect = </Root/GeneratedOffsetBands.inputs:Sharpness>
-            float inputs:Radius.connect = </Root/GeneratedOffsetBands.inputs:Width>
-            bool inputs:UseCustomA = 1
-            float outputs:Oneminus_out.connect = </Root/GeneratedOffsetBands/SphereMask/Oneminus.outputs:out>
-            float2 ui:nodegraph:node:pos = (1558.9312, 306.6835)
-            int ui:nodegraph:node:stackingOrder = 2248
-        }
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (2037.8438, 369.0013)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 2313
 
         def Shader "Convert_4"
         {
             uniform token info:id = "ND_convert_float_vector2"
             float inputs:in.connect = </Root/GeneratedOffsetBands.inputs:Compare>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (917.57544, 373.27765)
-            int ui:nodegraph:node:stackingOrder = 1985
-        }
-
-        def Shader "Convert_3"
-        {
-            uniform token info:id = "ND_convert_float_vector2"
-            float inputs:in.connect = </Root/GeneratedOffsetBands/MTLSelect.outputs:out>
-            float2 outputs:out
-            float2 ui:nodegraph:node:pos = (1322.0211, 197.14926)
-            int ui:nodegraph:node:stackingOrder = 2239
+            float2 ui:nodegraph:node:pos = (1280.7853, 322.56915)
+            int ui:nodegraph:node:stackingOrder = 2301
         }
 
         def Shader "Separate2"
         {
             uniform token info:id = "ND_separate2_vector2"
-            float2 inputs:in.connect = </Root/GeneratedOffsetBands/Abs.outputs:out>
+            float2 inputs:in.connect = </Root/GeneratedOffsetBands/Add.outputs:out>
             float outputs:outx
             float outputs:outy
-            float2 ui:nodegraph:node:pos = (917.91235, 36.59067)
-            int ui:nodegraph:node:stackingOrder = 2235
+            float2 ui:nodegraph:node:pos = (850.564, 84.81352)
+            int ui:nodegraph:node:stackingOrder = 2275
         }
 
         def Shader "MTLSelect"
@@ -746,20 +781,11 @@ def Xform "Root"
         def Shader "Multiply"
         {
             uniform token info:id = "ND_multiply_vector2FA"
-            float2 inputs:in1.connect = </Root/GeneratedOffsetBands/TextureCoordinates.outputs:out>
+            float2 inputs:in1
             float inputs:in2.connect = </Root/GeneratedOffsetBands.inputs:Bands>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (412.21198, 8.98245)
-            int ui:nodegraph:node:stackingOrder = 2123
-        }
-
-        def Shader "Sin"
-        {
-            uniform token info:id = "ND_sin_vector2"
-            float2 inputs:in.connect = </Root/GeneratedOffsetBands/Multiply.outputs:out>
-            float2 outputs:out
-            float2 ui:nodegraph:node:pos = (521.1692, 10.964599)
-            int ui:nodegraph:node:stackingOrder = 2229
+            float2 ui:nodegraph:node:pos = (366.1654, 60.112503)
+            int ui:nodegraph:node:stackingOrder = 2294
         }
 
         def Shader "Convert"
@@ -768,34 +794,75 @@ def Xform "Root"
             float inputs:in.connect = </Root/GeneratedOffsetBands.inputs:Offset>
             float2 outputs:out
             float2 ui:nodegraph:node:pos = (463.4557, 133.76013)
-            int ui:nodegraph:node:stackingOrder = 2245
+            int ui:nodegraph:node:stackingOrder = 2286
         }
 
         def Shader "Abs"
         {
             uniform token info:id = "ND_absval_vector2"
-            float2 inputs:in.connect = </Root/GeneratedOffsetBands/Subtract.outputs:out>
+            float2 inputs:in.connect = </Root/GeneratedOffsetBands/Add.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (752.0877, 30.701473)
-            int ui:nodegraph:node:stackingOrder = 2233
+            float2 ui:nodegraph:node:pos = (750.5295, -17.021132)
+            int ui:nodegraph:node:stackingOrder = 2273
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector2"
+            float2 inputs:in1.connect = </Root/GeneratedOffsetBands/TextureCoordinates.outputs:out>
+            float2 inputs:in2.connect = </Root/GeneratedOffsetBands/Convert.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (640.8457, 70.0029)
+            int ui:nodegraph:node:stackingOrder = 2251
+        }
+
+        def Shader "MTLSinpi"
+        {
+            uniform token info:id = "ND_MTL_sinpi_vector2"
+            float2 inputs:x.connect = </Root/GeneratedOffsetBands/Multiply.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (505.2568, -71.811615)
+            int ui:nodegraph:node:stackingOrder = 2296
+        }
+
+        def Shader "Fractional"
+        {
+            uniform token info:id = "ND_realitykit_fractional_float"
+            float inputs:in.connect = </Root/GeneratedOffsetBands/MTLSelect.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (1342.6411, 125.40384)
+            int ui:nodegraph:node:stackingOrder = 2292
+        }
+
+        def Shader "Combine2"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/GeneratedOffsetBands/Fractional.outputs:out>
+            float inputs:in2.connect = </Root/GeneratedOffsetBands.inputs:Compare>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (1552.2479, 143.22255)
+            int ui:nodegraph:node:stackingOrder = 2289
         }
 
         def Shader "TextureCoordinates"
         {
             uniform token info:id = "ND_texcoord_vector2"
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (218.47017, 1.5496774)
-            int ui:nodegraph:node:stackingOrder = 2243
+            float2 ui:nodegraph:node:pos = (228.78473, -38.943836)
+            int ui:nodegraph:node:stackingOrder = 2299
         }
 
-        def Shader "Subtract"
+        def NodeGraph "NodeGraph" (
+            references = @UENode.usda@</Root/SphereMask>
+        )
         {
-            uniform token info:id = "ND_subtract_vector2"
-            float2 inputs:in1.connect = </Root/GeneratedOffsetBands/Sin.outputs:out>
-            float2 inputs:in2.connect = </Root/GeneratedOffsetBands/Convert.outputs:out>
-            float2 outputs:out
-            float2 ui:nodegraph:node:pos = (638.0524, 43.18103)
-            int ui:nodegraph:node:stackingOrder = 2252
+            float2 inputs:A.connect = </Root/GeneratedOffsetBands/Combine2.outputs:out>
+            float2 inputs:B.connect = </Root/GeneratedOffsetBands/Convert_4.outputs:out>
+            float inputs:Hardness.connect = </Root/GeneratedOffsetBands.inputs:Sharpness>
+            float inputs:Radius.connect = </Root/GeneratedOffsetBands.inputs:Width>
+            bool inputs:UseCustomA = 1
+            float2 ui:nodegraph:node:pos = (1768.4214, 290.6663)
+            int ui:nodegraph:node:stackingOrder = 2311
         }
     }
 
@@ -811,7 +878,7 @@ def Xform "Root"
             references = None
         )
         {
-            reorder nameChildren = ["GeneratedOffsetBands_1", "DefaultSurfaceShader", "PreviewSurface", "GeneratedBand_1", "Convert"]
+            reorder nameChildren = ["GeneratedOffsetBands_1", "GeneratedBand_1", "DefaultSurfaceShader", "PreviewSurface", "Convert"]
             token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
@@ -845,27 +912,11 @@ def Xform "Root"
             {
                 float inputs:Compare
                 bool inputs:Direction_Switch
-                float inputs:Offset (
-                    customData = {
-                        dictionary realitykit = {
-                            float2 positionInSubgraph = (612.8597, 207.74715)
-                            int stackingOrderInSubgraph = 1860
-                        }
-                    }
-                )
-                float inputs:Sharpness = 0.5
-                float inputs:Width = 0.25
-                float2 ui:nodegraph:node:pos = (-795.88727, -88.76272)
-                int ui:nodegraph:node:stackingOrder = 987
-            }
-
-            def Shader "Convert"
-            {
-                uniform token info:id = "ND_convert_float_color3"
-                float inputs:in.connect = </Root/Cube/DefaultMaterial/GeneratedOffsetBands_1.outputs:SphereMask_Oneminus_out>
-                color3f outputs:out
-                float2 ui:nodegraph:node:pos = (-539.55457, 72.94241)
-                int ui:nodegraph:node:stackingOrder = 964
+                float inputs:Offset
+                float inputs:Sharpness
+                float inputs:Width
+                float2 ui:nodegraph:node:pos = (-677.74634, -107.61353)
+                int ui:nodegraph:node:stackingOrder = 1028
             }
 
             def "GeneratedOffsetBands_1" (
@@ -880,8 +931,17 @@ def Xform "Root"
                 float inputs:Offset
                 float inputs:Sharpness
                 float inputs:Width
-                float2 ui:nodegraph:node:pos = (-833.7383, 173.61606)
-                int ui:nodegraph:node:stackingOrder = 983
+                float2 ui:nodegraph:node:pos = (-764.16034, 125.75148)
+                int ui:nodegraph:node:stackingOrder = 1052
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_float_color3"
+                float inputs:in.connect = </Root/Cube/DefaultMaterial/GeneratedOffsetBands_1.outputs:SphereMask_Oneminus_out>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-503.6073, 160.21027)
+                int ui:nodegraph:node:stackingOrder = 1046
             }
         }
     }
