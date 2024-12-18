@@ -54,82 +54,9 @@ def Xform "Root"
             references = @Nodes/UENode.usda@</Root/SphereMask>
         )
         {
-            float2 inputs:A = (0, 0) (
-                customData = {
-                    dictionary realitykit = {
-                        float2 positionInSubgraph = (-178.22559, -138.1686)
-                        int stackingOrderInSubgraph = 1269
-                    }
-                }
-            )
-            float2 inputs:B = (0.5, 0.5) (
-                customData = {
-                    dictionary realitykit = {
-                        float2 positionInSubgraph = (287.5986, 47.905205)
-                        int stackingOrderInSubgraph = 1278
-                    }
-                }
-            )
-            float inputs:Hardness (
-                customData = {
-                    dictionary realitykit = {
-                        float2 positionInSubgraph = (285.69922, 174.77344)
-                        int stackingOrderInSubgraph = 1529
-                    }
-                }
-            )
-            float inputs:Radius (
-                customData = {
-                    dictionary realitykit = {
-                        float2 positionInSubgraph = (287.21875, 263.60547)
-                        int stackingOrderInSubgraph = 1137
-                    }
-                }
-            )
-            bool inputs:UseCustomA = 0
-            float2 ui:nodegraph:node:pos = (-672.06805, 75.788666)
-            int ui:nodegraph:node:stackingOrder = 50
-            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:A"]
-
-            over "Multiply_1"
-            {
-                float2 inputs:in1.connect = </Root/SphereMaskMaterial/SphereMask.inputs:A>
-                int ui:nodegraph:node:stackingOrder = 1154
-            }
-
-            over "Range"
-            {
-                bool inputs:doclamp = 0
-                float inputs:gamma.connect = None
-                float inputs:inlow.connect = None
-                int ui:nodegraph:node:stackingOrder = 1281
-            }
-
-            def Scope "Group" (
-                kind = "group"
-            )
-            {
-                string ui:group:annotation = "Custom Coor"
-                string ui:group:annotationDescription = ""
-                string[] ui:group:members = ["i:inputs:A"]
-            }
-
-            over "MTLSelect"
-            {
-                int ui:nodegraph:node:stackingOrder = 1272
-            }
-
-            over "Subtract"
-            {
-                float2 ui:nodegraph:node:pos = (481.9144, -24.633524)
-                int ui:nodegraph:node:stackingOrder = 1275
-            }
-
-            over "Multiply"
-            {
-                float2 ui:nodegraph:node:pos = (507.039, 148.32)
-                int ui:nodegraph:node:stackingOrder = 1278
-            }
+            float2 inputs:B = (0.5, 0.5)
+            float2 ui:nodegraph:node:pos = (-726.91406, 49.847656)
+            int ui:nodegraph:node:stackingOrder = 66
         }
     }
 
@@ -219,12 +146,12 @@ def Xform "Root"
         )
         {
             float inputs:Compare
-            bool inputs:Direction_Switch
+            bool inputs:Direction_Switch = 0
             float inputs:Offset
             float inputs:Sharpness
             float inputs:Width
             float2 ui:nodegraph:node:pos = (-436.76257, 46.12561)
-            int ui:nodegraph:node:stackingOrder = 974
+            int ui:nodegraph:node:stackingOrder = 1001
         }
     }
 
@@ -354,12 +281,12 @@ def Xform "Root"
         {
             float inputs:Bonds
             float inputs:Compare
-            bool inputs:Direction_Switch
+            bool inputs:Direction_Switch = 0
             float inputs:Offset
             float inputs:Sharpness
             float inputs:Width
             float2 ui:nodegraph:node:pos = (-463.08173, 17.763577)
-            int ui:nodegraph:node:stackingOrder = 965
+            int ui:nodegraph:node:stackingOrder = 976
         }
     }
 
@@ -406,7 +333,7 @@ def Xform "Root"
         def Shader "PreviewSurface"
         {
             uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-            color3f inputs:diffuseColor.connect = </Root/NormalFromHeightmapMaterial/Convert.outputs:out>
+            color3f inputs:diffuseColor
             float inputs:metallic
             float inputs:roughness
             token outputs:out
@@ -424,7 +351,7 @@ def Xform "Root"
             float inputs:HeightMapUVOffset
             float inputs:NormalMapIntensity
             float2 ui:nodegraph:node:pos = (-389.16022, 52.171867)
-            int ui:nodegraph:node:stackingOrder = 1067
+            int ui:nodegraph:node:stackingOrder = 1073
         }
 
         def Shader "Convert"
