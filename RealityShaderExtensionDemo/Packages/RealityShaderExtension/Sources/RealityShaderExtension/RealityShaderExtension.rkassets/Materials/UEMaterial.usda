@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["SphereMaskMaterial", "FresnelMaterial", "CameraDepthFadeMaterial", "GeneratedBandMaterial", "GeneratedOffsetBandsMaterial", "NormalFromHeightmapMaterial", "Cube", "Sphere", "Cube_1", "Cube_2", "Cube_3", "Cube_4"]
+    reorder nameChildren = ["SphereMaskMaterial", "FresnelMaterial", "CameraDepthFadeMaterial", "GeneratedBandMaterial", "GeneratedOffsetBandsMaterial", "NormalFromHeightmapMaterial", "NormalFromHeightmapChaosMaterial", "Cube", "Sphere", "Cube_1", "Cube_2", "Cube_3", "Cube_4", "Cube_5"]
     def Material "SphereMaskMaterial" (
         references = None
     )
@@ -308,7 +308,7 @@ def Xform "Root"
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
-        rel material:binding = </Root/CameraDepthFadeMaterial> (
+        rel material:binding = </Root/NormalFromHeightmapChaosMaterial> (
             bindMaterialAs = "weakerThanDescendants"
         )
         double size = 0.2
@@ -322,6 +322,7 @@ def Xform "Root"
 
     def Material "NormalFromHeightmapMaterial"
     {
+        reorder nameChildren = ["PreviewSurface", "NormalFromHeightmap", "Convert"]
         token outputs:mtlx:surface.connect = </Root/NormalFromHeightmapMaterial/PreviewSurface.outputs:out>
         token outputs:realitykit:vertex
         float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
@@ -337,7 +338,7 @@ def Xform "Root"
             float2 ui:nodegraph:node:pos = (93.5, 100.5)
         }
 
-        def "NormalFromHeightmap_1" (
+        def "NormalFromHeightmap" (
             active = true
             instanceable = true
             references = @Nodes/UENode.usda@</Root/NormalFromHeightmap>
@@ -354,10 +355,67 @@ def Xform "Root"
         def Shader "Convert"
         {
             uniform token info:id = "ND_convert_vector3_color3"
-            float3 inputs:in.connect = </Root/NormalFromHeightmapMaterial/NormalFromHeightmap_1.outputs:Normal>
+            float3 inputs:in.connect = </Root/NormalFromHeightmapMaterial/NormalFromHeightmap.outputs:Normal>
             color3f outputs:out
             float2 ui:nodegraph:node:pos = (-117.97266, 126.11719)
             int ui:nodegraph:node:stackingOrder = 1063
+        }
+    }
+
+    def Cube "Cube_5" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/CameraDepthFadeMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (256.5, 144.5)
+        int ui:nodegraph:node:stackingOrder = 3
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (1.2, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "NormalFromHeightmapChaosMaterial"
+    {
+        reorder nameChildren = ["PreviewSurface", "NormalFromHeightmap", "Convert"]
+        token outputs:mtlx:surface.connect = </Root/NormalFromHeightmapChaosMaterial/PreviewSurface.outputs:out>
+        token outputs:realitykit:vertex
+        float2 ui:nodegraph:node:pos = (-55.95511, 84.83594)
+        int ui:nodegraph:node:stackingOrder = 1
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+        def Shader "PreviewSurface"
+        {
+            uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+            color3f inputs:diffuseColor.connect = </Root/NormalFromHeightmapChaosMaterial/Convert.outputs:out>
+            float inputs:metallic
+            float inputs:opacity
+            float inputs:roughness
+            token outputs:out
+            float2 ui:nodegraph:node:pos = (93.5, 100.5)
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_vector3_color3"
+            float3 inputs:in.connect = </Root/NormalFromHeightmapChaosMaterial/NormalFromHeightmapChaos_1.outputs:Normal>
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-117.97266, 126.11719)
+            int ui:nodegraph:node:stackingOrder = 1063
+        }
+
+        def "NormalFromHeightmapChaos_1" (
+            active = true
+            instanceable = true
+            references = @Nodes/UENode.usda@</Root/NormalFromHeightmapChaos>
+        )
+        {
+            float2 ui:nodegraph:node:pos = (-428.77545, -16.023438)
+            int ui:nodegraph:node:stackingOrder = 1076
         }
     }
 }
