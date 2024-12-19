@@ -2,19 +2,70 @@
   "advancedEditorSelectedIdentifier" : "ShaderGraphEditorPluginID",
   "openSceneRelativePaths" : [
     "Immersive.usda",
-    "Materials\/GlitchNode.usda",
-    "Materials\/UENode.usda"
+    "Materials\/Nodes\/UENode.usda",
+    "Materials\/UEMaterial.usda"
   ],
   "recentIdentifiers" : {
     "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE" : [
 
+    ],
+    "7FF16649-B3D7-4A5B-9193-076A64EB06E6" : [
+
+    ],
+    "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232" : [
+
     ]
   },
   "sceneCameraHistory" : {
-
+    "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232" : [
+      {
+        "date" : 756283424.199583,
+        "title" : "Untitled",
+        "transform" : [
+          0.9856349,
+          1.4901161e-08,
+          -0.1688895,
+          0,
+          0.033165403,
+          0.9805291,
+          0.19355255,
+          0,
+          0.16560109,
+          -0.19637349,
+          0.96644384,
+          0,
+          0.14336108,
+          -0.1700007,
+          0.8366517,
+          1
+        ]
+      },
+      {
+        "date" : 756282825.080697,
+        "title" : "Untitled",
+        "transform" : [
+          0.99999994,
+          0,
+          0,
+          0,
+          0,
+          0.7071068,
+          -0.7071067,
+          0,
+          0,
+          0.7071067,
+          0.7071068,
+          0,
+          0,
+          0.6121432,
+          0.6121433,
+          1
+        ]
+      }
+    ]
   },
   "sceneViewportBackgroundColors" : {
 
   },
-  "selectedSceneRelativePath" : "Materials\/GlitchNode.usda"
+  "selectedSceneRelativePath" : "Materials\/Nodes\/UENode.usda"
 }

@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["GeneratedBandMaterial", "SphereMaskMaterial", "FresnelMaterial", "CameraDepthFadeMaterial", "GeneratedOffsetBandsMaterial", "NormalFromHeightmapMaterial", "Cube", "Sphere", "Cube_1", "Cube_2", "Cube_3", "Cube_4"]
+    reorder nameChildren = ["SphereMaskMaterial", "FresnelMaterial", "CameraDepthFadeMaterial", "GeneratedBandMaterial", "GeneratedOffsetBandsMaterial", "NormalFromHeightmapMaterial", "Cube", "Sphere", "Cube_1", "Cube_2", "Cube_3", "Cube_4"]
     def Material "SphereMaskMaterial" (
         references = None
     )
@@ -50,13 +50,14 @@ def Xform "Root"
             int ui:nodegraph:node:stackingOrder = 5
         }
 
-        def NodeGraph "SphereMask" (
+        def "SphereMask" (
+            active = true
+            instanceable = true
             references = @Nodes/UENode.usda@</Root/SphereMask>
         )
         {
-            float2 inputs:B = (0.5, 0.5)
-            float2 ui:nodegraph:node:pos = (-726.91406, 49.847656)
-            int ui:nodegraph:node:stackingOrder = 66
+            float2 ui:nodegraph:node:pos = (-736.486, 52.621155)
+            int ui:nodegraph:node:stackingOrder = 791
         }
     }
 
@@ -86,23 +87,6 @@ def Xform "Root"
             float2 ui:nodegraph:node:pos = (-255, 105)
         }
 
-        def NodeGraph "Fresnel" (
-            references = @Nodes/UENode.usda@</Root/Fresnel>
-        )
-        {
-            float inputs:BaseReflectFraction (
-                customData = {
-                    dictionary realitykit = {
-                        float2 positionInSubgraph = (800.3037, 201.2741)
-                        int stackingOrderInSubgraph = 369
-                    }
-                }
-            )
-            float inputs:Exp = 1
-            float2 ui:nodegraph:node:pos = (-641.3594, 95.16016)
-            int ui:nodegraph:node:stackingOrder = 8
-        }
-
         def Shader "Convert"
         {
             uniform token info:id = "ND_convert_float_color3"
@@ -110,6 +94,16 @@ def Xform "Root"
             color3f outputs:out
             float2 ui:nodegraph:node:pos = (-458.8828, 136.22266)
             int ui:nodegraph:node:stackingOrder = 6
+        }
+
+        def "Fresnel" (
+            active = true
+            instanceable = true
+            references = @Nodes/UENode.usda@</Root/Fresnel>
+        )
+        {
+            float2 ui:nodegraph:node:pos = (-687.99097, 100.69348)
+            int ui:nodegraph:node:stackingOrder = 712
         }
     }
 
@@ -151,7 +145,7 @@ def Xform "Root"
             float inputs:Sharpness
             float inputs:Width
             float2 ui:nodegraph:node:pos = (-436.76257, 46.12561)
-            int ui:nodegraph:node:stackingOrder = 1001
+            int ui:nodegraph:node:stackingOrder = 1003
         }
     }
 
@@ -229,14 +223,6 @@ def Xform "Root"
             float2 ui:nodegraph:node:pos = (93.5, 100.5)
         }
 
-        def NodeGraph "CameraDepthFade" (
-            references = @Nodes/UENode.usda@</Root/CameraDepthFade>
-        )
-        {
-            float2 ui:nodegraph:node:pos = (-258.7578, 67)
-            int ui:nodegraph:node:stackingOrder = 4
-        }
-
         def Shader "Convert"
         {
             uniform token info:id = "ND_convert_float_color3"
@@ -244,6 +230,16 @@ def Xform "Root"
             color3f outputs:out
             float2 ui:nodegraph:node:pos = (-86.32422, 79.69922)
             int ui:nodegraph:node:stackingOrder = 5
+        }
+
+        def "CameraDepthFade" (
+            active = true
+            instanceable = true
+            references = @Nodes/UENode.usda@</Root/CameraDepthFade>
+        )
+        {
+            float2 ui:nodegraph:node:pos = (-308.0338, 35.443848)
+            int ui:nodegraph:node:stackingOrder = 8
         }
     }
 
@@ -286,7 +282,7 @@ def Xform "Root"
             float inputs:Sharpness
             float inputs:Width
             float2 ui:nodegraph:node:pos = (-463.08173, 17.763577)
-            int ui:nodegraph:node:stackingOrder = 976
+            int ui:nodegraph:node:stackingOrder = 981
         }
     }
 
@@ -333,8 +329,9 @@ def Xform "Root"
         def Shader "PreviewSurface"
         {
             uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-            color3f inputs:diffuseColor
+            color3f inputs:diffuseColor.connect = </Root/NormalFromHeightmapMaterial/Convert.outputs:out>
             float inputs:metallic
+            float inputs:opacity
             float inputs:roughness
             token outputs:out
             float2 ui:nodegraph:node:pos = (93.5, 100.5)
@@ -351,7 +348,7 @@ def Xform "Root"
             float inputs:HeightMapUVOffset
             float inputs:NormalMapIntensity
             float2 ui:nodegraph:node:pos = (-389.16022, 52.171867)
-            int ui:nodegraph:node:stackingOrder = 1073
+            int ui:nodegraph:node:stackingOrder = 1074
         }
 
         def Shader "Convert"
