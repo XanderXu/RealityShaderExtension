@@ -787,7 +787,7 @@ def Xform "Root"
             def Shader "PreviewSurface"
             {
                 uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-                color3f inputs:diffuseColor.connect = </Root/Cube/DefaultMaterial/Convert_2.outputs:out>
+                color3f inputs:diffuseColor.connect = </Root/Cube/DefaultMaterial/Convert_1.outputs:out>
                 float inputs:metallic
                 float3 inputs:normal
                 float inputs:opacity
@@ -844,8 +844,8 @@ def Xform "Root"
             )
             {
                 float2 inputs:B = (0, 0.5)
-                float2 ui:nodegraph:node:pos = (-695.4256, -129.29944)
-                int ui:nodegraph:node:stackingOrder = 2353
+                float2 ui:nodegraph:node:pos = (-660.16187, -243.93898)
+                int ui:nodegraph:node:stackingOrder = 2393
 
                 over "Range_1"
                 {
@@ -951,30 +951,7 @@ def Xform "Root"
                 asset inputs:Texture.connect = None
                 float2 inputs:TextureCoordinate.connect = </Root/Cube/DefaultMaterial/TextureCoordinates.outputs:out>
                 float2 ui:nodegraph:node:pos = (-902.4738, -109.28691)
-                int ui:nodegraph:node:stackingOrder = 2390
-            }
-
-            def Shader "Separate3"
-            {
-                uniform token info:id = "ND_separate3_vector3"
-                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/Motion_4WayChaos_1.outputs:Result>
-                float outputs:outx
-                float outputs:outy
-                float outputs:outz
-                float2 ui:nodegraph:node:pos = (-680.8203, -8.2818985)
-                int ui:nodegraph:node:stackingOrder = 2376
-                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:outx"]
-            }
-
-            def Shader "Combine3"
-            {
-                uniform token info:id = "ND_combine3_color3"
-                float inputs:in1.connect = </Root/Cube/DefaultMaterial/Separate3.outputs:outx>
-                float inputs:in2.connect = </Root/Cube/DefaultMaterial/Separate3.outputs:outx>
-                float inputs:in3.connect = </Root/Cube/DefaultMaterial/Separate3.outputs:outx>
-                color3f outputs:out
-                float2 ui:nodegraph:node:pos = (-493.47617, -3.4033017)
-                int ui:nodegraph:node:stackingOrder = 2384
+                int ui:nodegraph:node:stackingOrder = 2402
             }
 
             def Shader "Convert_2"
@@ -982,8 +959,8 @@ def Xform "Root"
                 uniform token info:id = "ND_convert_vector3_color3"
                 float3 inputs:in.connect = </Root/Cube/DefaultMaterial/Motion_4WayChaos_1.outputs:Result>
                 color3f outputs:out
-                float2 ui:nodegraph:node:pos = (-494.25015, -67.464226)
-                int ui:nodegraph:node:stackingOrder = 2391
+                float2 ui:nodegraph:node:pos = (-636.37366, -28.505356)
+                int ui:nodegraph:node:stackingOrder = 2396
             }
 
             def Shader "TextureCoordinates"
@@ -1530,7 +1507,7 @@ def Xform "Root"
                 customData = {
                     dictionary realitykit = {
                         float2 positionInSubgraph = (-1317.6787, 417.50687)
-                        int stackingOrderInSubgraph = 731
+                        int stackingOrderInSubgraph = 873
                     }
                 }
             )
@@ -1554,9 +1531,9 @@ def Xform "Root"
             float2 inputs:TextureCoordinate.connect = </Root/NormalFromHeightmapChaos/Add.outputs:out>
             float3 outputs:Result.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Multiply.outputs:out>
             float2 ui:nodegraph:node:pos = (-776.5464, -141.19461)
-            int ui:nodegraph:node:stackingOrder = 2487
-            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (101.67992, 97.81873)
-            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 776
+            int ui:nodegraph:node:stackingOrder = 2495
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (219.03133, -27.371452)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 886
 
             def "Panner_1" (
                 active = true
@@ -1581,7 +1558,7 @@ def Xform "Root"
                 float2 inputs:TextureCoordinate.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Add_2.outputs:out>
                 float inputs:Time.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Multiply_1.outputs:out>
                 float2 ui:nodegraph:node:pos = (-951.30914, -111.23219)
-                int ui:nodegraph:node:stackingOrder = 631
+                int ui:nodegraph:node:stackingOrder = 909
             }
 
             def Shader "Add_2"
@@ -1682,13 +1659,13 @@ def Xform "Root"
                 uniform token info:id = "ND_image_vector3"
                 asset inputs:file = @../Texture/DefaultTexture1.png@
                 prepend asset inputs:file.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos.inputs:Texture>
-                string inputs:filtertype = "closest"
+                string inputs:filtertype = "linear"
                 prepend float2 inputs:texcoord.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Panner_1.outputs:Result>
                 string inputs:uaddressmode = "periodic"
                 string inputs:vaddressmode = "periodic"
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-599.5186, -550.43555)
-                int ui:nodegraph:node:stackingOrder = 819
+                float2 ui:nodegraph:node:pos = (-629.8757, -606.02545)
+                int ui:nodegraph:node:stackingOrder = 902
             }
 
             def Shader "Multiply_1"
@@ -1706,7 +1683,7 @@ def Xform "Root"
                 uniform token info:id = "ND_time_float"
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-1318.7048, 487.54507)
-                int ui:nodegraph:node:stackingOrder = 731
+                int ui:nodegraph:node:stackingOrder = 872
             }
 
             def Shader "Add"
@@ -1724,27 +1701,28 @@ def Xform "Root"
                 uniform token info:id = "ND_image_vector3"
                 asset inputs:file = @../Texture/DefaultTexture1.png@
                 prepend asset inputs:file.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos.inputs:Texture>
-                string inputs:filtertype = "closest"
+                string inputs:filtertype = "linear"
                 prepend float2 inputs:texcoord.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Panner_3.outputs:Result>
                 string inputs:uaddressmode = "periodic"
                 string inputs:vaddressmode = "periodic"
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-592.512, 83.37134)
-                int ui:nodegraph:node:stackingOrder = 827
+                float2 ui:nodegraph:node:pos = (-614.4748, 43.042473)
+                int ui:nodegraph:node:stackingOrder = 897
             }
 
             def Shader "Image_1"
             {
                 uniform token info:id = "ND_image_vector3"
+                float3 inputs:default
                 asset inputs:file = @../Texture/DefaultTexture1.png@
-                prepend asset inputs:file.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos.inputs:Texture>
-                string inputs:filtertype = "closest"
-                prepend float2 inputs:texcoord.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Panner_2.outputs:Result>
+                asset inputs:file.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos.inputs:Texture>
+                string inputs:filtertype = "linear"
+                float2 inputs:texcoord.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Panner_2.outputs:Result>
                 string inputs:uaddressmode = "periodic"
                 string inputs:vaddressmode = "periodic"
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-615.41693, -221.25583)
-                int ui:nodegraph:node:stackingOrder = 823
+                float2 ui:nodegraph:node:pos = (-517.6736, -353.8751)
+                int ui:nodegraph:node:stackingOrder = 900
             }
 
             def Shader "Add_1"
@@ -1753,8 +1731,8 @@ def Xform "Root"
                 prepend float3 inputs:in1.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Image.outputs:out>
                 float3 inputs:in2.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Image_1.outputs:out>
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-362.60342, -222.18292)
-                int ui:nodegraph:node:stackingOrder = 758
+                float2 ui:nodegraph:node:pos = (-231.76506, -228.74396)
+                int ui:nodegraph:node:stackingOrder = 840
             }
 
             def Shader "Image_4"
@@ -1762,13 +1740,13 @@ def Xform "Root"
                 uniform token info:id = "ND_image_vector3"
                 asset inputs:file = @../Texture/DefaultTexture1.png@
                 prepend asset inputs:file.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos.inputs:Texture>
-                string inputs:filtertype = "closest"
+                string inputs:filtertype = "linear"
                 prepend float2 inputs:texcoord.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Panner_4.outputs:Result>
                 string inputs:uaddressmode = "periodic"
                 string inputs:vaddressmode = "periodic"
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-593.45605, 344.71365)
-                int ui:nodegraph:node:stackingOrder = 831
+                float2 ui:nodegraph:node:pos = (-483.71893, 348.3796)
+                int ui:nodegraph:node:stackingOrder = 869
             }
 
             def Shader "Add_4"
@@ -1777,8 +1755,8 @@ def Xform "Root"
                 prepend float3 inputs:in1.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Image_3.outputs:out>
                 float3 inputs:in2.connect = </Root/NormalFromHeightmapChaos/Motion_4WayChaos/Image_4.outputs:out>
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-377.2646, 274.5253)
-                int ui:nodegraph:node:stackingOrder = 754
+                float2 ui:nodegraph:node:pos = (-306.89963, 274.40762)
+                int ui:nodegraph:node:stackingOrder = 850
             }
         }
 
@@ -1877,7 +1855,7 @@ def Xform "Root"
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (-864.5945, -17.178223)
-                    int stackingOrderInSubgraph = 2054
+                    int stackingOrderInSubgraph = 2072
                 }
             }
         )
@@ -1893,7 +1871,7 @@ def Xform "Root"
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (-796.8127, 95.73418)
-                    int stackingOrderInSubgraph = 2049
+                    int stackingOrderInSubgraph = 2073
                 }
             }
         )
@@ -1905,9 +1883,9 @@ def Xform "Root"
                 }
             }
         )
-        float2 outputs:Result.connect = </Root/Panner/Multiply.outputs:out>
+        float2 outputs:Result.connect = </Root/Panner/Add.outputs:out>
         float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (147.09917, -130.74405)
-        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 2037
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 2049
 
         def "InputTextureCoordinate_1" (
             active = true
@@ -1920,24 +1898,33 @@ def Xform "Root"
             int ui:nodegraph:node:stackingOrder = 2047
         }
 
-        def Shader "Multiply"
-        {
-            uniform token info:id = "ND_multiply_vector2"
-            float2 inputs:in1.connect = </Root/Panner/InputTextureCoordinate_1.outputs:Add_out>
-            float2 inputs:in2.connect = </Root/Panner/Multiply_1.outputs:out>
-            float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-117.59214, -112.16636)
-            int ui:nodegraph:node:stackingOrder = 2040
-        }
-
         def Shader "Multiply_1"
         {
             uniform token info:id = "ND_multiply_vector2FA"
             prepend float2 inputs:in1.connect = </Root/Panner.inputs:Speed>
             float inputs:in2.connect = </Root/Panner.inputs:Time>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-489.9396, 16.16043)
-            int ui:nodegraph:node:stackingOrder = 2041
+            float2 ui:nodegraph:node:pos = (-612.6205, 38.8978)
+            int ui:nodegraph:node:stackingOrder = 2059
+        }
+
+        def Shader "Fractional"
+        {
+            uniform token info:id = "ND_realitykit_fractional_vector2"
+            float2 inputs:in.connect = </Root/Panner/Multiply_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-406.75967, 85.55603)
+            int ui:nodegraph:node:stackingOrder = 2066
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector2"
+            float2 inputs:in1.connect = </Root/Panner/InputTextureCoordinate_1.outputs:Add_out>
+            float2 inputs:in2.connect = </Root/Panner/Multiply_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-153.45984, -121.54819)
+            int ui:nodegraph:node:stackingOrder = 2062
         }
     }
 }
