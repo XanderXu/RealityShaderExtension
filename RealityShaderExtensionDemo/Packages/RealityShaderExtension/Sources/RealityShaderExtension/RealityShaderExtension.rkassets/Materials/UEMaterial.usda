@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cube_SphereMask", "Sphere_Fresnel", "Cube_GeneratedBand", "Cube_GenaratedOffsetBands", "Cube_NormalFromHeightmap", "Cube_NormalFromHeightmapChaos", "Cube_DepthFade", "Cube_RadialGradientExponential", "Cube_DiamondGradient", "RadialGradientExponentialMaterial"]
+    reorder nameChildren = ["Cube_SphereMask", "Sphere_Fresnel", "Cube_GeneratedBand", "Cube_GenaratedOffsetBands", "Cube_NormalFromHeightmap", "Cube_NormalFromHeightmapChaos", "Cube_Panner", "Cube_RadialGradientExponential", "Cube_DiamondGradient", "RadialGradientExponentialMaterial"]
     def Cube "Cube_GeneratedBand" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -21,7 +21,7 @@ def Xform "Root"
             bindMaterialAs = "weakerThanDescendants"
         )
         double size = 0.2
-        float3 xformOp:translate = (-0.3, 0, 0)
+        float3 xformOp:translate = (0, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Material "GeneratedBandMaterial"
@@ -207,7 +207,7 @@ def Xform "Root"
         int ui:nodegraph:node:stackingOrder = 1
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.3, 0, 0)
+        float3 xformOp:translate = (0.6, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Material "NormalFromHeightmapMaterial"
@@ -266,7 +266,7 @@ def Xform "Root"
         int ui:nodegraph:node:stackingOrder = 2
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.6, 0, 0)
+        float3 xformOp:translate = (0.9, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Material "NormalFromHeightmapChaosMaterial"
@@ -310,12 +310,12 @@ def Xform "Root"
         }
     }
 
-    def Cube "Cube_DepthFade" (
+    def Cube "Cube_Panner" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
-        rel material:binding = </Root/Cube_DepthFade/CameraDepthFadeMaterial> (
+        rel material:binding = </Root/Cube_Panner/PannerMaterial> (
             bindMaterialAs = "weakerThanDescendants"
         )
         double size = 0.2
@@ -323,8 +323,61 @@ def Xform "Root"
         int ui:nodegraph:node:stackingOrder = 3
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.9, 0, 0)
+        float3 xformOp:translate = (-0.3, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "PannerMaterial"
+        {
+            token outputs:mtlx:surface.connect = </Root/Cube_Panner/PannerMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_Panner/PannerMaterial/Image.outputs:out>
+                float inputs:metallic
+                float3 inputs:normal
+                float inputs:opacity
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+            }
+
+            def "Panner_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/UENode.usda@</Root/Panner>
+            )
+            {
+                float2 inputs:Speed = (0.1, 0)
+                float inputs:Time.connect = </Root/Cube_Panner/PannerMaterial/Time.outputs:out>
+                float2 ui:nodegraph:node:pos = (-447.95312, 69.29297)
+                int ui:nodegraph:node:stackingOrder = 10
+            }
+
+            def Shader "Image"
+            {
+                uniform token info:id = "ND_image_color3"
+                color3f inputs:default
+                asset inputs:file = @Texture/DefaultTexture1.png@
+                string inputs:filtertype
+                float2 inputs:texcoord.connect = </Root/Cube_Panner/PannerMaterial/Panner_1.outputs:Result>
+                string inputs:uaddressmode
+                string inputs:vaddressmode
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-163.51562, 18.792969)
+                int ui:nodegraph:node:stackingOrder = 9
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-694.66016, 99.42578)
+                int ui:nodegraph:node:stackingOrder = 11
+            }
+        }
     }
 
     def Cube "Cube_RadialGradientExponential" (
@@ -461,7 +514,7 @@ def Xform "Root"
         int ui:nodegraph:node:stackingOrder = 1
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0, 0, 0)
+        float3 xformOp:translate = (0.3, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Material "GeneratedOffsetBandsMaterial"
