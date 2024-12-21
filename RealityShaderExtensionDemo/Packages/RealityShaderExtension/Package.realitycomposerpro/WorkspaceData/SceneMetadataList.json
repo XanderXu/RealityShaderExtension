@@ -64,6 +64,24 @@
       [
         "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
         "Root",
+        "Cube_1"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
+        "Root",
+        "SphereMaskMaterial"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
+        "Root",
         "SphereMaskMaterial",
         "SphereMask"
       ],
@@ -82,25 +100,7 @@
       [
         "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
         "Root",
-        "Cube_1"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
-        "Root",
         "RandomNoise"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
-        "Root",
-        "SphereMaskMaterial"
       ],
       {
         "isExpanded" : true,
@@ -113,7 +113,7 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
-        "InputTextureCoordinate"
+        "DiamondGradient"
       ],
       {
         "isExpanded" : true,
@@ -123,9 +123,7 @@
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
         "Cube",
-        "DefaultMaterial",
-        "nodegraph",
-        "SphereMask_1"
+        "DefaultMaterial"
       ],
       {
         "isExpanded" : true,
@@ -143,16 +141,10 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
-        "Panner"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "NormalFromHeightmapChaos"
+        "Cube",
+        "DefaultMaterial",
+        "nodegraph",
+        "SphereMask_1"
       ],
       {
         "isExpanded" : true,
@@ -180,8 +172,16 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
-        "Cube",
-        "DefaultMaterial"
+        "InputTextureCoordinate"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "ExponentialDensity"
       ],
       {
         "isExpanded" : true,
@@ -206,7 +206,7 @@
       [
         "A6689D6A-EE6C-4FF8-B798-751326675DF0",
         "Root",
-        "SphereMask"
+        "Cube"
       ],
       {
         "isExpanded" : true,
@@ -223,8 +223,7 @@
       [
         "A6689D6A-EE6C-4FF8-B798-751326675DF0",
         "Root",
-        "Cube",
-        "DefaultMaterial"
+        "SphereMask"
       ],
       {
         "isExpanded" : true,
@@ -233,7 +232,8 @@
       [
         "A6689D6A-EE6C-4FF8-B798-751326675DF0",
         "Root",
-        "Cube"
+        "Cube",
+        "DefaultMaterial"
       ],
       {
         "isExpanded" : true,
@@ -275,6 +275,71 @@
     "objectMetadataList" : [
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_DiamondGradient"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_DiamondGradient",
+        "DiamondGradientMaterial"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_SphereMask"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_GeneratedBand"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Sphere_Fresnel"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_RadialGradientExponential"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_7",
+        "DiamondGradientMaterial"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root"
       ],
       {
@@ -284,7 +349,34 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "NormalFromHeightmapChaosMaterial"
+        "Cube_NormalFromHeightmapChaos"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_DepthFade"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_NormalFromHeightmap"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_GenaratedOffsetBands"
       ],
       {
         "isExpanded" : true,

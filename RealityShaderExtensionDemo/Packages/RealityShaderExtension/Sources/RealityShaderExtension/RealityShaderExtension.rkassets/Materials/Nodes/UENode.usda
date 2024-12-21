@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["InputTextureCoordinate", "Panner", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "Cube"]
+    reorder nameChildren = ["InputTextureCoordinate", "Panner", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "Cube"]
     def NodeGraph "SphereMask"
     {
         reorder nameChildren = ["Multiply", "Subtract", "Magnitude", "Group", "Group2", "Divide", "Abs", "MTLCospi", "Multiply_3", "Clamp_1", "Range_1", "Clamp", "Fractional", "UV", "InputTextureCoordinate_1"]
@@ -768,7 +768,7 @@ def Xform "Root"
             references = None
         )
         {
-            reorder nameChildren = ["GeneratedBand_1", "DefaultSurfaceShader", "PreviewSurface", "Convert", "GeneratedOffsetBands_1", "SphereMask_2", "InputTextureCoordinate_1", "NormalFromHeightmapChaos_1"]
+            reorder nameChildren = ["GeneratedBand_1", "DefaultSurfaceShader", "PreviewSurface", "Convert", "GeneratedOffsetBands_1", "NormalFromHeightmapChaos_1", "Convert_1", "Convert_2", "DiamondGradient_1"]
             token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
@@ -787,7 +787,7 @@ def Xform "Root"
             def Shader "PreviewSurface"
             {
                 uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-                color3f inputs:diffuseColor.connect = </Root/Cube/DefaultMaterial/Convert_1.outputs:out>
+                color3f inputs:diffuseColor.connect = </Root/Cube/DefaultMaterial/Convert_2.outputs:out>
                 float inputs:metallic
                 float3 inputs:normal
                 float inputs:opacity
@@ -839,86 +839,6 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 1281
             }
 
-            def NodeGraph "SphereMask_2" (
-                references = </Root/SphereMask>
-            )
-            {
-                float2 inputs:B = (0, 0.5)
-                float2 ui:nodegraph:node:pos = (-660.16187, -243.93898)
-                int ui:nodegraph:node:stackingOrder = 2393
-
-                over "Range_1"
-                {
-                    float2 ui:nodegraph:node:pos = (1197.9062, 56.660774)
-                }
-
-                over "Magnitude"
-                {
-                    float2 ui:nodegraph:node:pos = (586.58307, -76.7678)
-                }
-
-                over "Fractional"
-                {
-                    float2 ui:nodegraph:node:pos = (941.67725, 245.65057)
-                }
-
-                over "Multiply"
-                {
-                    float2 ui:nodegraph:node:pos = (170.8795, 472.86765)
-                }
-
-                over "Abs"
-                {
-                    float2 ui:nodegraph:node:pos = (191.05048, 326.92395)
-                }
-
-                over "InputTextureCoordinate_1"
-                {
-                    float2 ui:nodegraph:node:pos = (166.79086, -112.980446)
-                }
-
-                over "Multiply_3"
-                {
-                    float2 ui:nodegraph:node:pos = (670.4945, 335.81085)
-                }
-
-                over "Clamp"
-                {
-                    float2 ui:nodegraph:node:pos = (398.56467, 379.87082)
-                }
-
-                over "Subtract"
-                {
-                    float2 ui:nodegraph:node:pos = (450.05792, -84.117294)
-                }
-
-                over "Clamp_1"
-                {
-                    float2 ui:nodegraph:node:pos = (842.2626, -37.560177)
-                }
-
-                over "Divide"
-                {
-                    float2 ui:nodegraph:node:pos = (737.24396, -42.28077)
-                }
-
-                over "MTLCospi"
-                {
-                    float2 ui:nodegraph:node:pos = (1391.1366, 89.5694)
-                }
-            }
-
-            def "InputTextureCoordinate_1" (
-                active = true
-                instanceable = true
-                references = </Root/InputTextureCoordinate>
-            )
-            {
-                float2 inputs:TextureCoordinate
-                float2 ui:nodegraph:node:pos = (-344.71768, -211.75021)
-                int ui:nodegraph:node:stackingOrder = 2031
-            }
-
             def "NormalFromHeightmapChaos_1" (
                 active = true
                 instanceable = true
@@ -929,7 +849,7 @@ def Xform "Root"
                 float inputs:HeightBias = 0.5
                 float2 inputs:TextureCoordinate = (0, 0)
                 float2 ui:nodegraph:node:pos = (-884.10284, 94.39017)
-                int ui:nodegraph:node:stackingOrder = 2382
+                int ui:nodegraph:node:stackingOrder = 2497
                 string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:Normal"]
             }
 
@@ -942,33 +862,32 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 2370
             }
 
-            def "Motion_4WayChaos_1" (
-                active = true
-                instanceable = true
-                references = </Root/NormalFromHeightmapChaos/Motion_4WayChaos>
-            )
-            {
-                asset inputs:Texture.connect = None
-                float2 inputs:TextureCoordinate.connect = </Root/Cube/DefaultMaterial/TextureCoordinates.outputs:out>
-                float2 ui:nodegraph:node:pos = (-902.4738, -109.28691)
-                int ui:nodegraph:node:stackingOrder = 2402
-            }
-
             def Shader "Convert_2"
             {
-                uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/Motion_4WayChaos_1.outputs:Result>
+                uniform token info:id = "ND_convert_float_color3"
+                float inputs:in.connect = </Root/Cube/DefaultMaterial/DiamondGradient_1.outputs:Result>
                 color3f outputs:out
-                float2 ui:nodegraph:node:pos = (-636.37366, -28.505356)
-                int ui:nodegraph:node:stackingOrder = 2396
+                float2 ui:nodegraph:node:pos = (-688.1407, -51.110497)
+                int ui:nodegraph:node:stackingOrder = 2504
             }
 
-            def Shader "TextureCoordinates"
+            def "DiamondGradient_1" (
+                active = true
+                instanceable = true
+                references = </Root/DiamondGradient>
+            )
             {
-                uniform token info:id = "ND_texcoord_vector2"
-                float2 outputs:out
-                float2 ui:nodegraph:node:pos = (-1240.4708, -138.26631)
-                int ui:nodegraph:node:stackingOrder = 2389
+                float inputs:Falloff = 3 (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (-567.7656, 385.57812)
+                            int stackingOrderInSubgraph = 9
+                        }
+                    }
+                )
+                float2 ui:nodegraph:node:pos = (-964.19324, -128.14442)
+                int ui:nodegraph:node:stackingOrder = 2509
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:Result", "inputs:Falloff"]
             }
         }
     }
@@ -1925,6 +1844,466 @@ def Xform "Root"
             float2 outputs:out
             float2 ui:nodegraph:node:pos = (-153.45984, -121.54819)
             int ui:nodegraph:node:stackingOrder = 2062
+        }
+    }
+
+    def NodeGraph "RadialGradientExponential" (
+        active = true
+    )
+    {
+        reorder nameChildren = ["MTLSelect", "InputTextureCoordinate_1", "MTLDistance", "Divide", "Oneminus", "ExponentialDensity_1"]
+        float2 inputs:CenterPosition = (0.5, 0.5) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1506.5323, -27.999403)
+                    int stackingOrderInSubgraph = 2095
+                }
+            }
+        )
+        float inputs:Density = 2.33 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1422.6837, 226.98267)
+                    int stackingOrderInSubgraph = 2095
+                }
+            }
+        )
+        bool inputs:InvertDensity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-795.2717, 388.53506)
+                    int stackingOrderInSubgraph = 2195
+                }
+            }
+        )
+        float inputs:Radius = 0.5 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1441.9808, 63.12706)
+                    int stackingOrderInSubgraph = 2098
+                }
+            }
+        )
+        float2 inputs:UVs = (0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1742.797, -136.09937)
+                    int stackingOrderInSubgraph = 2095
+                }
+            }
+        )
+        float outputs:Result (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-585, 126.5)
+                    int stackingOrderInSubgraph = 4
+                }
+            }
+        )
+        float outputs:Result.connect = </Root/RadialGradientExponential/MTLSelect.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "MTLSelect"
+        {
+            uniform token info:id = "ND_MTL_select_float"
+            float inputs:a.connect = </Root/RadialGradientExponential/Oneminus_1.outputs:out>
+            float inputs:b.connect = </Root/RadialGradientExponential/ExponentialDensity_2.outputs:Result>
+            bool inputs:c.connect = </Root/RadialGradientExponential.inputs:InvertDensity>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-279.20312, 70.53516)
+            int ui:nodegraph:node:stackingOrder = 6
+        }
+
+        def "InputTextureCoordinate_1" (
+            active = true
+            instanceable = true
+            references = </Root/InputTextureCoordinate>
+        )
+        {
+            float2 inputs:TextureCoordinate.connect = </Root/RadialGradientExponential.inputs:UVs>
+            float2 ui:nodegraph:node:pos = (-1486.461, -150.98222)
+            int ui:nodegraph:node:stackingOrder = 2095
+        }
+
+        def Shader "MTLDistance"
+        {
+            uniform token info:id = "ND_MTL_distance_vector2_float"
+            float2 inputs:x.connect = </Root/RadialGradientExponential/InputTextureCoordinate_1.outputs:Add_out>
+            float2 inputs:y.connect = </Root/RadialGradientExponential.inputs:CenterPosition>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1265.7635, -92.36622)
+            int ui:nodegraph:node:stackingOrder = 2095
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/RadialGradientExponential/MTLDistance.outputs:out>
+            float inputs:in2.connect = </Root/RadialGradientExponential.inputs:Radius>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1115.8015, -22.846767)
+            int ui:nodegraph:node:stackingOrder = 2100
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/RadialGradientExponential/Divide.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-935.5731, -23.994514)
+            int ui:nodegraph:node:stackingOrder = 2186
+        }
+
+        def "ExponentialDensity_1" (
+            active = true
+            instanceable = true
+            references = </Root/ExponentialDensity>
+        )
+        {
+            float inputs:Density.connect = </Root/RadialGradientExponential.inputs:Density>
+            float inputs:Depth.connect = </Root/RadialGradientExponential/Oneminus.outputs:out>
+            bool inputs:UseExp2
+            float2 ui:nodegraph:node:pos = (-689.39856, -48.903008)
+            int ui:nodegraph:node:stackingOrder = 2188
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/RadialGradientExponential/ExponentialDensity_1.outputs:Result>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-515.92804, 0.79983246)
+            int ui:nodegraph:node:stackingOrder = 2186
+        }
+
+        def Scope "Group" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "Normal Density"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Oneminus_1", "p:Oneminus", "p:ExponentialDensity_1"]
+        }
+
+        def "ExponentialDensity_2" (
+            active = true
+            instanceable = true
+            references = </Root/ExponentialDensity>
+        )
+        {
+            float inputs:Density.connect = </Root/RadialGradientExponential.inputs:Density>
+            float inputs:Depth.connect = </Root/RadialGradientExponential/Divide.outputs:out>
+            bool inputs:UseExp2
+            float2 ui:nodegraph:node:pos = (-743.68945, 187.0011)
+            int ui:nodegraph:node:stackingOrder = 2192
+        }
+
+        def Scope "Group2" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "Inverted Density"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:ExponentialDensity_2"]
+        }
+    }
+
+    def NodeGraph "ExponentialDensity" (
+        active = true
+    )
+    {
+        float inputs:Density = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-827.46875, 75.83594)
+                    int stackingOrderInSubgraph = 72
+                }
+            }
+        )
+        float inputs:Depth = 0.66 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-823.4258, -61.14453)
+                    int stackingOrderInSubgraph = 71
+                }
+            }
+        )
+        bool inputs:UseExp2 = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-834.8203, 156.03906)
+                    int stackingOrderInSubgraph = 2
+                }
+            }
+        )
+        float outputs:Result (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-54, 46.5)
+                    int stackingOrderInSubgraph = 50
+                }
+            }
+        )
+        float outputs:Result.connect = </Root/ExponentialDensity/IfGreater.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (430.78516, 88.74609)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 21
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/ExponentialDensity.inputs:Depth>
+            float inputs:in2.connect = </Root/ExponentialDensity.inputs:Density>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-688.7344, 33.285156)
+            int ui:nodegraph:node:stackingOrder = 6
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/ExponentialDensity/Multiply.outputs:out>
+            float inputs:in2.connect = </Root/ExponentialDensity/Multiply.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-575.504, 60.97754)
+            int ui:nodegraph:node:stackingOrder = 75
+        }
+
+        def Shader "MTLSelect"
+        {
+            uniform token info:id = "ND_MTL_select_float"
+            float inputs:a.connect = </Root/ExponentialDensity/Multiply.outputs:out>
+            float inputs:b.connect = </Root/ExponentialDensity/Multiply_1.outputs:out>
+            prepend bool inputs:c.connect = </Root/ExponentialDensity.inputs:UseExp2>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-406.77927, 35.85241)
+            int ui:nodegraph:node:stackingOrder = 73
+        }
+
+        def Shader "Exp"
+        {
+            uniform token info:id = "ND_exp_float"
+            float inputs:in.connect = </Root/ExponentialDensity/MTLSelect.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-219.08594, 109.783585)
+            int ui:nodegraph:node:stackingOrder = 85
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/ExponentialDensity/ConstantFloat.outputs:out>
+            float inputs:in2.connect = </Root/ExponentialDensity/Exp.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-25.392578, 52.830765)
+            int ui:nodegraph:node:stackingOrder = 82
+        }
+
+        def Shader "ConstantFloat"
+        {
+            uniform token info:id = "ND_constant_float"
+            float inputs:value = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-209.85646, 45.53051)
+            int ui:nodegraph:node:stackingOrder = 80
+        }
+
+        def Shader "IfGreater"
+        {
+            uniform token info:id = "ND_ifgreater_float"
+            float inputs:in1.connect = </Root/ExponentialDensity/Divide.outputs:out>
+            float inputs:in2.connect = </Root/ExponentialDensity/ConstantFloat_1.outputs:out>
+            float inputs:value1.connect = </Root/ExponentialDensity.inputs:Depth>
+            float inputs:value2.connect = </Root/ExponentialDensity/ConstantFloat_2.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (237.91406, -65.984375)
+            int ui:nodegraph:node:stackingOrder = 68
+        }
+
+        def Shader "ConstantFloat_1"
+        {
+            uniform token info:id = "ND_constant_float"
+            float inputs:value = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (7.6154027, 125.03763)
+            int ui:nodegraph:node:stackingOrder = 87
+        }
+
+        def Shader "ConstantFloat_2"
+        {
+            uniform token info:id = "ND_constant_float"
+            float inputs:value = 0
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-94.73088, -26.531519)
+            int ui:nodegraph:node:stackingOrder = 78
+        }
+
+        def Scope "Group" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "Skip if depth less than 0"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:IfGreater"]
+        }
+    }
+
+    def NodeGraph "DiamondGradient" (
+        active = true
+    )
+    {
+        float inputs:Falloff = 3 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-567.7656, 385.57812)
+                    int stackingOrderInSubgraph = 9
+                }
+            }
+        )
+        float outputs:Result (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-398, 58.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float outputs:Result.connect = </Root/DiamondGradient/Power.outputs:out>
+        string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:Result"]
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (-37.78125, 96.77734)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 7
+
+        def Shader "Power"
+        {
+            uniform token info:id = "ND_power_float"
+            float inputs:in1.connect = </Root/DiamondGradient/Multiply.outputs:out>
+            float inputs:in2.connect = </Root/DiamondGradient.inputs:Falloff>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-306.58203, 112.69922)
+            int ui:nodegraph:node:stackingOrder = 5
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/DiamondGradient/Oneminus.outputs:out>
+            float inputs:in2.connect = </Root/DiamondGradient/Oneminus_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-463.65625, 100.01953)
+            int ui:nodegraph:node:stackingOrder = 11
+        }
+
+        def Shader "RampHorizontal"
+        {
+            uniform token info:id = "ND_ramplr_float"
+            float2 inputs:texcoord
+            float inputs:valuer = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1485.8318, -40.621353)
+            int ui:nodegraph:node:stackingOrder = 75
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/DiamondGradient/RampHorizontal.outputs:out>
+            float inputs:in2.connect = </Root/DiamondGradient/ConstantFloat.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1314.4142, -26.891853)
+            int ui:nodegraph:node:stackingOrder = 112
+        }
+
+        def Shader "ConstantFloat"
+        {
+            uniform token info:id = "ND_constant_float"
+            float inputs:value = -0.5
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1489.3396, 277.49194)
+            int ui:nodegraph:node:stackingOrder = 126
+        }
+
+        def Shader "RampVertical"
+        {
+            uniform token info:id = "ND_ramptb_float"
+            float2 inputs:texcoord
+            float inputs:valueb = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1488.7185, 132.33177)
+            int ui:nodegraph:node:stackingOrder = 75
+        }
+
+        def Shader "Add_1"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/DiamondGradient/RampVertical.outputs:out>
+            float inputs:in2.connect = </Root/DiamondGradient/ConstantFloat.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1307.2775, 158.47144)
+            int ui:nodegraph:node:stackingOrder = 112
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/DiamondGradient/Add.outputs:out>
+            float inputs:in2.connect = </Root/DiamondGradient/ConstantFloat_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1139.3967, -19.698673)
+            int ui:nodegraph:node:stackingOrder = 119
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/DiamondGradient/Add_1.outputs:out>
+            float inputs:in2.connect = </Root/DiamondGradient/ConstantFloat_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1137.7772, 158.40472)
+            int ui:nodegraph:node:stackingOrder = 114
+        }
+
+        def Shader "ConstantFloat_1"
+        {
+            uniform token info:id = "ND_constant_float"
+            float inputs:value = 2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1309.4547, 349.36447)
+            int ui:nodegraph:node:stackingOrder = 117
+        }
+
+        def Shader "Abs"
+        {
+            uniform token info:id = "ND_absval_float"
+            float inputs:in.connect = </Root/DiamondGradient/Multiply_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-985.206, -20.795763)
+            int ui:nodegraph:node:stackingOrder = 123
+        }
+
+        def Shader "Abs_1"
+        {
+            uniform token info:id = "ND_absval_float"
+            float inputs:in.connect = </Root/DiamondGradient/Multiply_2.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-982.7079, 156.79947)
+            int ui:nodegraph:node:stackingOrder = 121
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/DiamondGradient/Abs.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-784.344, -18.292883)
+            int ui:nodegraph:node:stackingOrder = 124
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/DiamondGradient/Abs_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-774.9831, 153.36098)
+            int ui:nodegraph:node:stackingOrder = 125
         }
     }
 }
