@@ -64,7 +64,26 @@
       [
         "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
         "Root",
+        "SphereMaskMaterial",
+        "SphereMask"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
+        "Root",
         "RandomNoise"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
+        "Root",
+        "Cube_1"
       ],
       {
         "isExpanded" : true,
@@ -86,25 +105,6 @@
       {
         "isExpanded" : true,
         "isLocked" : false
-      },
-      [
-        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
-        "Root",
-        "Cube_1"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
-        "Root",
-        "SphereMaskMaterial",
-        "SphereMask"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
       }
     ]
   },
@@ -114,9 +114,16 @@
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
         "Cube",
-        "DefaultMaterial",
-        "nodegraph",
-        "SphereMask_1"
+        "DefaultMaterial"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "ExponentialDensity"
       ],
       {
         "isExpanded" : true,
@@ -143,6 +150,18 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
+        "Cube",
+        "DefaultMaterial",
+        "nodegraph",
+        "SphereMask_1"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
         "GeneratedOffsetBands",
         "GeneratedBand_1"
       ],
@@ -154,15 +173,7 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
-        "ExponentialDensity"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root"
+        "ValueStep"
       ],
       {
         "isExpanded" : true,
@@ -179,9 +190,7 @@
       },
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "Cube",
-        "DefaultMaterial"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -214,14 +223,6 @@
     "objectMetadataList" : [
       [
         "A6689D6A-EE6C-4FF8-B798-751326675DF0",
-        "Root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A6689D6A-EE6C-4FF8-B798-751326675DF0",
         "Root",
         "Cube"
       ],
@@ -234,6 +235,14 @@
         "Root",
         "Cube",
         "DefaultMaterial"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A6689D6A-EE6C-4FF8-B798-751326675DF0",
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -255,7 +264,7 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Sphere_Right"
+        "Sphere_Left"
       ],
       {
         "isExpanded" : true,
@@ -272,7 +281,7 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Sphere_Left"
+        "Sphere_Right"
       ],
       {
         "isExpanded" : true,
@@ -285,16 +294,8 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube_NormalFromHeightmap"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
-        "Root",
-        "Cube_DiamondGradient"
+        "Cube_ValueStop",
+        "ValueStepMaterial"
       ],
       {
         "isExpanded" : true,
@@ -311,34 +312,8 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube_SphereMask"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
-        "Root",
-        "Cube_GeneratedBand"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
-        "Root",
-        "Sphere_Fresnel"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
-        "Root",
-        "Cube_Panner"
+        "Cube_ValueStep",
+        "ValueStepMaterial"
       ],
       {
         "isExpanded" : true,
@@ -357,7 +332,7 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube_RadialGradientExponential"
+        "Cube_SmoothCurve"
       ],
       {
         "isExpanded" : true,
@@ -366,36 +341,7 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube_DiamondGradient",
-        "DiamondGradientMaterial"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
-        "Root",
-        "Cube_NormalFromHeightmapChaos"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
-        "Root",
-        "Cube_GenaratedOffsetBands"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
-        "Root",
-        "Cube_Panner",
-        "PannerMaterial"
+        "Cube_ValueStep"
       ],
       {
         "isExpanded" : true,
