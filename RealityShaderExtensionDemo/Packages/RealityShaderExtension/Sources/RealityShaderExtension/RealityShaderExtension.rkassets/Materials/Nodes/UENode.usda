@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["InputTextureCoordinate", "Panner", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "Cube"]
+    reorder nameChildren = ["InputTextureCoordinate", "Panner", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "SmoothCurve", "Cube"]
     def NodeGraph "SphereMask"
     {
         reorder nameChildren = ["Multiply", "Subtract", "Magnitude", "Group", "Group2", "Divide", "Abs", "MTLCospi", "Multiply_3", "Clamp_1", "Range_1", "Clamp", "Fractional", "UV", "InputTextureCoordinate_1"]
@@ -768,7 +768,7 @@ def Xform "Root"
             references = None
         )
         {
-            reorder nameChildren = ["GeneratedBand_1", "DefaultSurfaceShader", "PreviewSurface", "Convert", "GeneratedOffsetBands_1", "NormalFromHeightmapChaos_1", "Convert_1", "Convert_2", "DiamondGradient_1"]
+            reorder nameChildren = ["GeneratedBand_1", "DefaultSurfaceShader", "PreviewSurface", "Convert", "GeneratedOffsetBands_1", "NormalFromHeightmapChaos_1", "Convert_1", "Convert_2", "DiamondGradient_1", "SmoothCurve_1"]
             token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
@@ -865,10 +865,10 @@ def Xform "Root"
             def Shader "Convert_2"
             {
                 uniform token info:id = "ND_convert_float_color3"
-                float inputs:in.connect = </Root/Cube/DefaultMaterial/DiamondGradient_1.outputs:Result>
+                float inputs:in.connect = </Root/Cube/DefaultMaterial/SmoothCurve_1.outputs:Result>
                 color3f outputs:out
-                float2 ui:nodegraph:node:pos = (-688.1407, -51.110497)
-                int ui:nodegraph:node:stackingOrder = 2504
+                float2 ui:nodegraph:node:pos = (-524.05255, 21.07045)
+                int ui:nodegraph:node:stackingOrder = 2550
             }
 
             def "DiamondGradient_1" (
@@ -885,9 +885,48 @@ def Xform "Root"
                         }
                     }
                 )
-                float2 ui:nodegraph:node:pos = (-964.19324, -128.14442)
-                int ui:nodegraph:node:stackingOrder = 2509
+                float2 ui:nodegraph:node:pos = (-1022.8631, -57.644497)
+                int ui:nodegraph:node:stackingOrder = 2553
                 string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:Result", "inputs:Falloff"]
+            }
+
+            def "SmoothCurve_1" (
+                active = true
+                instanceable = true
+                references = </Root/SmoothCurve>
+            )
+            {
+                float inputs:Tangent0
+                float inputs:Tangent1 (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (-1236.3954, 181.50896)
+                            int stackingOrderInSubgraph = 131
+                        }
+                    }
+                )
+                float inputs:X = 0
+                float inputs:X.connect = </Root/Cube/DefaultMaterial/Separate2.outputs:outx>
+                float2 ui:nodegraph:node:pos = (-794.0197, -226.75546)
+                int ui:nodegraph:node:stackingOrder = 2570
+            }
+
+            def Shader "TextureCoordinates"
+            {
+                uniform token info:id = "ND_texcoord_vector2"
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (-1185.8601, -256.36743)
+                int ui:nodegraph:node:stackingOrder = 2567
+            }
+
+            def Shader "Separate2"
+            {
+                uniform token info:id = "ND_separate2_vector2"
+                float2 inputs:in.connect = </Root/Cube/DefaultMaterial/TextureCoordinates.outputs:out>
+                float outputs:outx
+                float outputs:outy
+                float2 ui:nodegraph:node:pos = (-987.0252, -229.35674)
+                int ui:nodegraph:node:stackingOrder = 2568
             }
         }
     }
@@ -2304,6 +2343,240 @@ def Xform "Root"
             float outputs:out
             float2 ui:nodegraph:node:pos = (-774.9831, 153.36098)
             int ui:nodegraph:node:stackingOrder = 125
+        }
+    }
+
+    def NodeGraph "SmoothCurve" (
+        active = true
+    )
+    {
+        float inputs:Tangent0 = 2 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1206.3759, -22.027498)
+                    int stackingOrderInSubgraph = 86
+                }
+            }
+        )
+        float inputs:Tangent1 = 2 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1236.3954, 181.50896)
+                    int stackingOrderInSubgraph = 131
+                }
+            }
+        )
+        float inputs:X = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1207.0067, -234.00653)
+                    int stackingOrderInSubgraph = 215
+                }
+            }
+        )
+        float outputs:Result (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-609, 93.5)
+                    int stackingOrderInSubgraph = 4
+                }
+            }
+        )
+        float outputs:Result.connect = </Root/SmoothCurve/Add.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/SmoothCurve/Multiply.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve/Add_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-197.05469, 94.07031)
+            int ui:nodegraph:node:stackingOrder = 3
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SmoothCurve/RampHorizontal.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve.inputs:Tangent0>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-339.5078, -12.4296875)
+            int ui:nodegraph:node:stackingOrder = 5
+        }
+
+        def Shader "Add_1"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/SmoothCurve/Multiply_1.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve/Multiply_2.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-272.875, 234.78516)
+            int ui:nodegraph:node:stackingOrder = 24
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SmoothCurve/RampHorizontal.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve/Multiply_6.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-372.6544, 163.3252)
+            int ui:nodegraph:node:stackingOrder = 75
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SmoothCurve/RampHorizontal.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve/Multiply_3.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-364.65573, 292.18558)
+            int ui:nodegraph:node:stackingOrder = 34
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SmoothCurve/RampHorizontal.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve/Multiply_4.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-477.95105, 321.19894)
+            int ui:nodegraph:node:stackingOrder = 36
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SmoothCurve/Subtract.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve.inputs:Tangent0>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-675.5531, 351.6344)
+            int ui:nodegraph:node:stackingOrder = 37
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/SmoothCurve/Subtract_1.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve/ConstantFloat_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-814.83246, 385.6991)
+            int ui:nodegraph:node:stackingOrder = 211
+        }
+
+        def Shader "Subtract_1"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/SmoothCurve/ConstantFloat.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve.inputs:Tangent1>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-951.8519, 390.9157)
+            int ui:nodegraph:node:stackingOrder = 211
+        }
+
+        def Shader "ConstantFloat"
+        {
+            uniform token info:id = "ND_constant_float"
+            float inputs:value = 3
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1182.6691, 383.67313)
+            int ui:nodegraph:node:stackingOrder = 211
+        }
+
+        def Shader "ConstantFloat_1"
+        {
+            uniform token info:id = "ND_constant_float"
+            float inputs:value = 2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1012.6909, 232.45567)
+            int ui:nodegraph:node:stackingOrder = 131
+        }
+
+        def Shader "Add_2"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/SmoothCurve.inputs:Tangent0>
+            float inputs:in2.connect = </Root/SmoothCurve.inputs:Tangent1>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-999.1681, 162.72028)
+            int ui:nodegraph:node:stackingOrder = 131
+        }
+
+        def Shader "Subtract_2"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/SmoothCurve/Add_2.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve/ConstantFloat_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-785.20795, 186.74532)
+            int ui:nodegraph:node:stackingOrder = 70
+        }
+
+        def Shader "Multiply_5"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SmoothCurve/RampHorizontal.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve/Subtract_2.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-635.4688, 176.26959)
+            int ui:nodegraph:node:stackingOrder = 79
+        }
+
+        def Shader "Multiply_6"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SmoothCurve/RampHorizontal.outputs:out>
+            float inputs:in2.connect = </Root/SmoothCurve/Multiply_5.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-497.33276, 166.97969)
+            int ui:nodegraph:node:stackingOrder = 77
+        }
+
+        def Scope "Group" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "C"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["i:inputs:Tangent0"]
+        }
+
+        def Scope "Group2" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "A"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["i:inputs:Tangent1", "p:Add_2", "p:ConstantFloat_1"]
+        }
+
+        def Scope "Group3" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "B"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Subtract", "p:ConstantFloat", "p:Subtract_1"]
+        }
+
+        def Shader "Combine2"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/SmoothCurve.inputs:X>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1013.4726, -268.0822)
+            int ui:nodegraph:node:stackingOrder = 221
+        }
+
+        def Shader "RampHorizontal"
+        {
+            uniform token info:id = "ND_ramplr_float"
+            float2 inputs:texcoord.connect = </Root/SmoothCurve/Combine2.outputs:out>
+            float inputs:valuer = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-821.55396, -288.2892)
+            int ui:nodegraph:node:stackingOrder = 223
         }
     }
 }
