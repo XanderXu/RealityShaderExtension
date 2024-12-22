@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["InputTextureCoordinate", "Panner", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "SmoothCurve", "ValueStep", "FuzzyShading", "Cube"]
+    reorder nameChildren = ["InputTextureCoordinate", "Panner", "Desaturation", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "SmoothCurve", "ValueStep", "FuzzyShading", "FuzzyShadingGrass", "Cube"]
     def NodeGraph "SphereMask"
     {
         reorder nameChildren = ["Multiply", "Subtract", "Magnitude", "Group", "Group2", "Divide", "Abs", "MTLCospi", "Multiply_3", "Clamp_1", "Range_1", "Clamp", "Fractional", "UV", "InputTextureCoordinate_1"]
@@ -768,7 +768,7 @@ def Xform "Root"
             references = None
         )
         {
-            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Convert_2", "DiamondGradient_1", "SmoothCurve_1", "TextureCoordinates", "Separate2", "ValueStep_1", "Multiply", "FuzzyShading_1"]
+            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Convert_2", "DiamondGradient_1", "SmoothCurve_1", "TextureCoordinates", "Separate2", "ValueStep_1", "Multiply", "FuzzyShading_1", "Convert", "ConstantFloat", "Image", "ConstantFloat3", "FuzzyShadingGrass_1"]
             token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
@@ -906,7 +906,7 @@ def Xform "Root"
             def Shader "Convert"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/FuzzyShading_1.outputs:Result>
+                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/FuzzyShadingGrass_1.outputs:Result>
                 color3f outputs:out
                 float2 ui:nodegraph:node:pos = (-466.60635, 207.42392)
                 int ui:nodegraph:node:stackingOrder = 2959
@@ -939,6 +939,23 @@ def Xform "Root"
                 float3 outputs:out
                 float2 ui:nodegraph:node:pos = (-1082.3016, 104.440636)
                 int ui:nodegraph:node:stackingOrder = 2959
+            }
+
+            def "FuzzyShadingGrass_1" (
+                active = true
+                instanceable = true
+                references = </Root/FuzzyShadingGrass>
+            )
+            {
+                float inputs:CoreDarkness
+                float3 inputs:Diffuse.connect = </Root/Cube/DefaultMaterial/ConstantFloat3.outputs:out>
+                float inputs:EdgeBrightness.connect = </Root/Cube/DefaultMaterial/ConstantFloat.outputs:out>
+                float3 inputs:EdgeColor
+                float inputs:EdgeDesat
+                float3 inputs:Normal.connect = </Root/Cube/DefaultMaterial/Image.outputs:out>
+                float inputs:Power
+                float2 ui:nodegraph:node:pos = (-691.3348, 376.01755)
+                int ui:nodegraph:node:stackingOrder = 2964
             }
         }
     }
@@ -2759,7 +2776,7 @@ def Xform "Root"
         active = true
     )
     {
-        float3 inputs:BaseColor = (0, 0, 0) (
+        float3 inputs:BaseColor = (0.5, 0.5, 0.5) (
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (-243.63281, -15.300781)
@@ -2778,8 +2795,8 @@ def Xform "Root"
         float inputs:EdgeBrightness = 0.8 (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-1464.7266, -88.75781)
-                    int stackingOrderInSubgraph = 323
+                    float2 positionInSubgraph = (-1527.9324, 475.07663)
+                    int stackingOrderInSubgraph = 590
                 }
             }
         )
@@ -2794,8 +2811,8 @@ def Xform "Root"
         float inputs:Power = 6 (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-1465.6133, -157.0625)
-                    int stackingOrderInSubgraph = 326
+                    float2 positionInSubgraph = (-1528.8191, 406.77194)
+                    int stackingOrderInSubgraph = 590
                 }
             }
         )
@@ -2826,8 +2843,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/FuzzyShading/Multiply_1.outputs:out>
             float inputs:in2.connect = </Root/FuzzyShading/Add_1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-334.60938, 59.460938)
-            int ui:nodegraph:node:stackingOrder = 128
+            float2 ui:nodegraph:node:pos = (-320.95444, 140.44937)
+            int ui:nodegraph:node:stackingOrder = 592
             string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:in2", "outputs:out"]
         }
 
@@ -2837,8 +2854,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/FuzzyShading/Power.outputs:out>
             float inputs:in2.connect = </Root/FuzzyShading.inputs:EdgeBrightness>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-437, -52.929688)
-            int ui:nodegraph:node:stackingOrder = 328
+            float2 ui:nodegraph:node:pos = (-473.9835, 397.48022)
+            int ui:nodegraph:node:stackingOrder = 549
         }
 
         def Shader "Add_1"
@@ -2906,8 +2923,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/FuzzyShading/Oneminus_1.outputs:out>
             float inputs:in2.connect = </Root/FuzzyShading.inputs:Power>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-558.8672, -97.26953)
-            int ui:nodegraph:node:stackingOrder = 332
+            float2 ui:nodegraph:node:pos = (-595.85065, 353.14038)
+            int ui:nodegraph:node:stackingOrder = 549
         }
 
         def Shader "Oneminus_1"
@@ -2915,8 +2932,8 @@ def Xform "Root"
             uniform token info:id = "ND_realitykit_oneminus_float"
             float inputs:in.connect = </Root/FuzzyShading/Clamp.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-697.8672, -131.15625)
-            int ui:nodegraph:node:stackingOrder = 335
+            float2 ui:nodegraph:node:pos = (-734.85065, 319.25366)
+            int ui:nodegraph:node:stackingOrder = 549
         }
 
         def Shader "NormalMap"
@@ -2937,6 +2954,308 @@ def Xform "Root"
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (-1401.7319, -1.6616759)
             int ui:nodegraph:node:stackingOrder = 478
+        }
+    }
+
+    def NodeGraph "FuzzyShadingGrass" (
+        active = true
+    )
+    {
+        reorder nameChildren = ["Multiply", "Multiply_1", "Add_1", "Oneminus", "ConstantFloat", "Multiply_2", "Clamp", "DotProduct", "Power", "Oneminus_1", "NormalMap", "ViewDirection", "Clamp_1", "Mix", "Multiply_3", "Desaturation"]
+        float inputs:CoreDarkness = 0.8 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1282.8281, 309.34375)
+                    int stackingOrderInSubgraph = 435
+                }
+            }
+        )
+        float3 inputs:Diffuse = (0.5, 0.5, 0.5) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-602.8555, -49.673847)
+                    int stackingOrderInSubgraph = 817
+                }
+            }
+        )
+        float inputs:EdgeBrightness = 0.8 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1500.8129, 530.26447)
+                    int stackingOrderInSubgraph = 812
+                }
+            }
+        )
+        float3 inputs:EdgeColor = (1.5, 1.5, 1.5) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-309.66577, -149.568)
+                    int stackingOrderInSubgraph = 777
+                }
+            }
+        )
+        float inputs:EdgeDesat = 0.5 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-588.87933, -338.56982)
+                    int stackingOrderInSubgraph = 780
+                }
+            }
+        )
+        float3 inputs:Normal = (0.5, 0.5, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1767.2695, 71.55078)
+                    int stackingOrderInSubgraph = 380
+                }
+            }
+        )
+        float inputs:Power = 6 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1501.6996, 461.95978)
+                    int stackingOrderInSubgraph = 812
+                }
+            }
+        )
+        float3 outputs:Result (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-568, 53.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Result.connect = </Root/FuzzyShadingGrass/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-874.75977, 80.140625)
+        int ui:nodegraph:node:stackingOrder = 1
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (301.56857, -48.48062)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 509
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            float3 inputs:in1.connect = </Root/FuzzyShadingGrass.inputs:Diffuse>
+            float inputs:in2.connect = </Root/FuzzyShadingGrass/Add_1.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-173.75624, 111.12109)
+            int ui:nodegraph:node:stackingOrder = 504
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/FuzzyShadingGrass/Power.outputs:out>
+            float inputs:in2.connect = </Root/FuzzyShadingGrass.inputs:EdgeBrightness>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-438.9039, 389.09647)
+            int ui:nodegraph:node:stackingOrder = 763
+        }
+
+        def Shader "Add_1"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/FuzzyShadingGrass/Oneminus.outputs:out>
+            float inputs:in2.connect = </Root/FuzzyShadingGrass/ConstantFloat.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-453, 112.91797)
+            int ui:nodegraph:node:stackingOrder = 330
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/FuzzyShadingGrass/Multiply_2.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-626.78906, 102.26953)
+            int ui:nodegraph:node:stackingOrder = 113
+        }
+
+        def Shader "ConstantFloat"
+        {
+            uniform token info:id = "ND_constant_float"
+            float inputs:value = 0
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-657.8594, 187.11719)
+            int ui:nodegraph:node:stackingOrder = 132
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/FuzzyShadingGrass/Clamp.outputs:out>
+            float inputs:in2.connect = </Root/FuzzyShadingGrass.inputs:CoreDarkness>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-725.7539, 105.48047)
+            int ui:nodegraph:node:stackingOrder = 473
+        }
+
+        def Shader "Clamp"
+        {
+            uniform token info:id = "ND_clamp_float"
+            float inputs:high
+            float inputs:in.connect = </Root/FuzzyShadingGrass/DotProduct.outputs:out>
+            float inputs:low
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-844.6836, 30.714844)
+            int ui:nodegraph:node:stackingOrder = 312
+        }
+
+        def Shader "DotProduct"
+        {
+            uniform token info:id = "ND_dotproduct_vector3"
+            float3 inputs:in1.connect = </Root/FuzzyShadingGrass/ViewDirection.outputs:out>
+            float3 inputs:in2.connect = </Root/FuzzyShadingGrass/NormalMap.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1016.7578, 5.1914062)
+            int ui:nodegraph:node:stackingOrder = 315
+        }
+
+        def Shader "Power"
+        {
+            uniform token info:id = "ND_power_float"
+            float inputs:in1.connect = </Root/FuzzyShadingGrass/Oneminus_1.outputs:out>
+            float inputs:in2.connect = </Root/FuzzyShadingGrass.inputs:Power>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-560.7711, 344.75662)
+            int ui:nodegraph:node:stackingOrder = 763
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/FuzzyShadingGrass/Clamp.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-699.7711, 310.8699)
+            int ui:nodegraph:node:stackingOrder = 763
+        }
+
+        def Shader "NormalMap"
+        {
+            uniform token info:id = "ND_normalmap"
+            float3 inputs:in.connect = </Root/FuzzyShadingGrass.inputs:Normal>
+            float inputs:scale
+            float3 inputs:tangent
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-1337.2031, 152.69873)
+            int ui:nodegraph:node:stackingOrder = 480
+        }
+
+        def Shader "ViewDirection"
+        {
+            uniform token info:id = "ND_realitykit_viewdirection_vector3"
+            string inputs:space = "world"
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-1401.7319, -1.6616759)
+            int ui:nodegraph:node:stackingOrder = 478
+        }
+
+        def Shader "Clamp_1"
+        {
+            uniform token info:id = "ND_clamp_float"
+            float inputs:high
+            float inputs:in.connect = </Root/FuzzyShadingGrass/Multiply_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-275.0988, 347.45447)
+            int ui:nodegraph:node:stackingOrder = 763
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/FuzzyShadingGrass/Multiply.outputs:out>
+            float3 inputs:fg.connect = </Root/FuzzyShadingGrass/Multiply_3.outputs:out>
+            prepend float inputs:mix.connect = </Root/FuzzyShadingGrass/Clamp_1.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (77.369804, 30.308006)
+            int ui:nodegraph:node:stackingOrder = 518
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_vector3"
+            float3 inputs:in1.connect = </Root/FuzzyShadingGrass/Desaturation_1.outputs:Mix_1_out>
+            float3 inputs:in2.connect = </Root/FuzzyShadingGrass.inputs:EdgeColor>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-158.20692, -180.90167)
+            int ui:nodegraph:node:stackingOrder = 768
+        }
+
+        def "Desaturation_1" (
+            active = true
+            instanceable = true
+            references = </Root/Desaturation>
+        )
+        {
+            float3 inputs:Color.connect = </Root/FuzzyShadingGrass.inputs:Diffuse>
+            float inputs:Fraction.connect = </Root/FuzzyShadingGrass.inputs:EdgeDesat>
+            float2 ui:nodegraph:node:pos = (-303.52817, -256.78995)
+            int ui:nodegraph:node:stackingOrder = 782
+        }
+    }
+
+    def NodeGraph "Desaturation"
+    {
+        float3 inputs:Color (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (73.527016, 244.5968)
+                    int stackingOrderInSubgraph = 1022
+                }
+            }
+        )
+        float inputs:Fraction (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (506.718, 242.41565)
+                    int stackingOrderInSubgraph = 1016
+                }
+            }
+        )
+        float3 outputs:Mix_1_out.connect = </Root/Desaturation/Mix_1.outputs:out>
+        float2 ui:nodegraph:node:pos = (-289.77945, -286.87186)
+        int ui:nodegraph:node:stackingOrder = 777
+        string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:Mix_1_out"]
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1034.25, 157)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1024
+
+        def Shader "DotProduct_1"
+        {
+            uniform token info:id = "ND_dotproduct_vector3"
+            float3 inputs:in1.connect = </Root/Desaturation/BrightFactor.outputs:out>
+            float3 inputs:in2.connect = </Root/Desaturation.inputs:Color>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (290.56076, 155.64995)
+            int ui:nodegraph:node:stackingOrder = 1009
+        }
+
+        def Shader "Mix_1"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/Desaturation.inputs:Color>
+            float3 inputs:fg.connect = </Root/Desaturation/Convert.outputs:out>
+            float inputs:mix.connect = </Root/Desaturation.inputs:Fraction>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (781.5, 157)
+            int ui:nodegraph:node:stackingOrder = 1020
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector3"
+            float inputs:in.connect = </Root/Desaturation/DotProduct_1.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (509.56076, 155.64995)
+            int ui:nodegraph:node:stackingOrder = 1009
+        }
+
+        def Shader "BrightFactor"
+        {
+            uniform token info:id = "ND_constant_vector3"
+            float3 inputs:value = (0.212639, 0.715169, 0.072192)
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (82.55891, 142.59831)
+            int ui:nodegraph:node:stackingOrder = 1025
         }
     }
 }
