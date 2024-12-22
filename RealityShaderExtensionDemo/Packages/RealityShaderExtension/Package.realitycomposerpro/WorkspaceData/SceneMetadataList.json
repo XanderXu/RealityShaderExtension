@@ -74,15 +74,6 @@
       [
         "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
         "Root",
-        "RandomNoise"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
-        "Root",
         "Cube_1"
       ],
       {
@@ -91,7 +82,8 @@
       },
       [
         "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
-        "Root"
+        "Root",
+        "RandomNoise"
       ],
       {
         "isExpanded" : true,
@@ -105,6 +97,14 @@
       {
         "isExpanded" : true,
         "isLocked" : false
+      },
+      [
+        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
       }
     ]
   },
@@ -113,26 +113,7 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
-        "Cube",
-        "DefaultMaterial"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "ExponentialDensity"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "InputTextureCoordinate"
+        "ValueStep"
       ],
       {
         "isExpanded" : true,
@@ -162,18 +143,7 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
-        "GeneratedOffsetBands",
-        "GeneratedBand_1"
-      ],
-      {
-        "disallowsFraming" : true,
-        "isExpanded" : false,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "ValueStep"
+        "FuzzyShading"
       ],
       {
         "isExpanded" : true,
@@ -182,7 +152,8 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
-        "DiamondGradient"
+        "Cube",
+        "DefaultMaterial"
       ],
       {
         "isExpanded" : true,
@@ -203,6 +174,44 @@
       ],
       {
         "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "DiamondGradient"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "InputTextureCoordinate"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "ExponentialDensity"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "GeneratedOffsetBands",
+        "GeneratedBand_1"
+      ],
+      {
+        "disallowsFraming" : true,
+        "isExpanded" : false,
         "isLocked" : false
       }
     ]
@@ -223,8 +232,7 @@
     "objectMetadataList" : [
       [
         "A6689D6A-EE6C-4FF8-B798-751326675DF0",
-        "Root",
-        "Cube"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -242,7 +250,8 @@
       },
       [
         "A6689D6A-EE6C-4FF8-B798-751326675DF0",
-        "Root"
+        "Root",
+        "Cube"
       ],
       {
         "isExpanded" : true,
@@ -264,7 +273,7 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Sphere_Left"
+        "Sphere_Right"
       ],
       {
         "isExpanded" : true,
@@ -281,7 +290,7 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Sphere_Right"
+        "Sphere_Left"
       ],
       {
         "isExpanded" : true,
@@ -294,7 +303,7 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube_ValueStop",
+        "Cube_ValueStep",
         "ValueStepMaterial"
       ],
       {
@@ -312,8 +321,7 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube_ValueStep",
-        "ValueStepMaterial"
+        "Cube_FuzzyShading"
       ],
       {
         "isExpanded" : true,
@@ -322,8 +330,27 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube_7",
-        "DiamondGradientMaterial"
+        "Cube_ValueStep"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_FuzzyShading",
+        "FuzzyShadingMaterial"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_ValueStop",
+        "ValueStepMaterial"
       ],
       {
         "isExpanded" : true,
@@ -341,7 +368,8 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube_ValueStep"
+        "Cube_7",
+        "DiamondGradientMaterial"
       ],
       {
         "isExpanded" : true,
@@ -379,7 +407,9 @@
     "objectMetadataList" : [
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root"
+        "Root",
+        "GridMaterial",
+        "GridMaterial"
       ],
       {
         "isExpanded" : true,
@@ -387,9 +417,7 @@
       },
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root",
-        "GridMaterial",
-        "GridMaterial"
+        "Root"
       ],
       {
         "isExpanded" : true,
