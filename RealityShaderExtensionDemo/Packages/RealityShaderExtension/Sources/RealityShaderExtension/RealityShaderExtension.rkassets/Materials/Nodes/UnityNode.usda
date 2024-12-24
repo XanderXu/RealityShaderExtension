@@ -103,10 +103,6 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 107
             }
 
-            def "RoundedRectangle_1"
-            {
-            }
-
             def "RoundedPolygon_1" (
                 active = true
                 instanceable = true
@@ -115,11 +111,11 @@ def Xform "Root"
             {
                 float inputs:Height
                 float inputs:Roundness
-                float inputs:Sides
+                float inputs:Sides = 5
                 float2 inputs:UV
                 float inputs:Width
                 float2 ui:nodegraph:node:pos = (-948.53937, 27.465534)
-                int ui:nodegraph:node:stackingOrder = 109
+                int ui:nodegraph:node:stackingOrder = 132
             }
 
             def Shader "Convert"
@@ -2102,8 +2098,8 @@ def Xform "Root"
         float inputs:Roundness = 0.3 (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-2221.5337, 54.820236)
-                    int stackingOrderInSubgraph = 3199
+                    float2 positionInSubgraph = (-2400.4707, -75.68956)
+                    int stackingOrderInSubgraph = 3256
                 }
             }
         )
@@ -2214,8 +2210,8 @@ def Xform "Root"
             float inputs:in.connect = </Root/RoundedPolygon.inputs:Roundness>
             float inputs:low.connect = </Root/RoundedPolygon/epsilon.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1990.7397, 74.84158)
-            int ui:nodegraph:node:stackingOrder = 3199
+            float2 ui:nodegraph:node:pos = (-1980.1194, -72.74332)
+            int ui:nodegraph:node:stackingOrder = 3254
         }
 
         def Shader "Abs"
@@ -2290,8 +2286,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RoundedPolygon/halfAngle1.outputs:out>
             float inputs:in2 = 2
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-805.8481, 506.81177)
-            int ui:nodegraph:node:stackingOrder = 3128
+            float2 ui:nodegraph:node:pos = (-867.0969, 474.9806)
+            int ui:nodegraph:node:stackingOrder = 3391
         }
 
         def Scope "Group2" (
@@ -2308,8 +2304,8 @@ def Xform "Root"
             uniform token info:id = "ND_cos_float"
             float inputs:in.connect = </Root/RoundedPolygon/Divide_1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1438.1775, -504.80463)
-            int ui:nodegraph:node:stackingOrder = 2537
+            float2 ui:nodegraph:node:pos = (-1555.6255, -546.74695)
+            int ui:nodegraph:node:stackingOrder = 3332
         }
 
         def Shader "Divide_3"
@@ -2319,8 +2315,8 @@ def Xform "Root"
             float inputs:in1.connect = None
             float inputs:in2.connect = </Root/RoundedPolygon/Cos.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1282.2758, -480.418)
-            int ui:nodegraph:node:stackingOrder = 2953
+            float2 ui:nodegraph:node:pos = (-1356.2833, -533.1521)
+            int ui:nodegraph:node:stackingOrder = 3375
         }
 
         def Shader "Multiply_2"
@@ -2329,18 +2325,18 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RoundedPolygon/halfAngle.outputs:out>
             float inputs:in2.connect = </Root/RoundedPolygon/Clamp.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1448.7491, -127.73306)
-            int ui:nodegraph:node:stackingOrder = 3212
+            float2 ui:nodegraph:node:pos = (-1300.0198, -31.046497)
+            int ui:nodegraph:node:stackingOrder = 3381
         }
 
         def Shader "Subtract_2"
         {
             uniform token info:id = "ND_subtract_float"
-            float inputs:in1.connect = </Root/RoundedPolygon/Divide_1.outputs:out>
+            float inputs:in1.connect = </Root/RoundedPolygon/halfAngle.outputs:out>
             float inputs:in2.connect = </Root/RoundedPolygon/Multiply_2.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1311.5305, -330.92096)
-            int ui:nodegraph:node:stackingOrder = 3229
+            float2 ui:nodegraph:node:pos = (-1132.7661, -140.1844)
+            int ui:nodegraph:node:stackingOrder = 3379
         }
 
         def Scope "Group3" (
@@ -2357,8 +2353,8 @@ def Xform "Root"
             uniform token info:id = "ND_tan_float"
             float inputs:in.connect = </Root/RoundedPolygon/Subtract_2.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1099.8132, -339.5227)
-            int ui:nodegraph:node:stackingOrder = 2951
+            float2 ui:nodegraph:node:pos = (-1037.2853, -348.21857)
+            int ui:nodegraph:node:stackingOrder = 3365
         }
 
         def Shader "Tan_1"
@@ -2366,8 +2362,8 @@ def Xform "Root"
             uniform token info:id = "ND_tan_float"
             float inputs:in.connect = </Root/RoundedPolygon/Divide_1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1433.9342, -417.20898)
-            int ui:nodegraph:node:stackingOrder = 2947
+            float2 ui:nodegraph:node:pos = (-1580.5961, -369.84875)
+            int ui:nodegraph:node:stackingOrder = 3336
         }
 
         def Shader "Divide_4"
@@ -2376,8 +2372,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RoundedPolygon/Tan.outputs:out>
             float inputs:in2.connect = </Root/RoundedPolygon/Tan_1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-743.85284, -379.95602)
-            int ui:nodegraph:node:stackingOrder = 2329
+            float2 ui:nodegraph:node:pos = (-864.4183, -423.5756)
+            int ui:nodegraph:node:stackingOrder = 3363
         }
 
         def Shader "Sin"
@@ -2385,18 +2381,18 @@ def Xform "Root"
             uniform token info:id = "ND_sin_float"
             float inputs:in.connect = </Root/RoundedPolygon/Divide_1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1443.1417, -573.35675)
-            int ui:nodegraph:node:stackingOrder = 2535
+            float2 ui:nodegraph:node:pos = (-1556.9065, -476.6496)
+            int ui:nodegraph:node:stackingOrder = 3334
         }
 
         def Shader "Combine2_2"
         {
             uniform token info:id = "ND_combine2_vector2"
-            float inputs:in1.connect = </Root/RoundedPolygon/Sin.outputs:out>
-            float inputs:in2.connect = </Root/RoundedPolygon/Cos.outputs:out>
+            float inputs:in1.connect = </Root/RoundedPolygon/Cos.outputs:out>
+            float inputs:in2.connect = </Root/RoundedPolygon/Sin.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-1219.694, -565.6636)
-            int ui:nodegraph:node:stackingOrder = 2541
+            float2 ui:nodegraph:node:pos = (-1286.1967, -616.62036)
+            int ui:nodegraph:node:stackingOrder = 3373
         }
 
         def Shader "Multiply_3"
@@ -2415,8 +2411,8 @@ def Xform "Root"
             prepend float2 inputs:in1.connect = </Root/RoundedPolygon/Multiply_3.outputs:out>
             float inputs:in2.connect = </Root/RoundedPolygon/Divide_4.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-624.18744, -482.86655)
-            int ui:nodegraph:node:stackingOrder = 3224
+            float2 ui:nodegraph:node:pos = (-754.5641, -482.23245)
+            int ui:nodegraph:node:stackingOrder = 3265
         }
 
         def Scope "Group4" (
@@ -2434,8 +2430,8 @@ def Xform "Root"
             prepend float2 inputs:in1.connect = </Root/RoundedPolygon/Divide.outputs:out>
             float inputs:in2.connect = </Root/RoundedPolygon/Divide_3.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-1344.3196, 395.73853)
-            int ui:nodegraph:node:stackingOrder = 3158
+            float2 ui:nodegraph:node:pos = (-1416.1663, 364.3606)
+            int ui:nodegraph:node:stackingOrder = 3319
         }
 
         def Shader "Separate2"
@@ -2444,8 +2440,8 @@ def Xform "Root"
             float2 inputs:in.connect = </Root/RoundedPolygon/Multiply_5.outputs:out>
             float outputs:outx
             float outputs:outy
-            float2 ui:nodegraph:node:pos = (-1212.1396, 395.47687)
-            int ui:nodegraph:node:stackingOrder = 3158
+            float2 ui:nodegraph:node:pos = (-1244.4406, 393.6213)
+            int ui:nodegraph:node:stackingOrder = 3321
         }
 
         def Shader "Atan2"
@@ -2461,10 +2457,10 @@ def Xform "Root"
         def Shader "Magnitude_1"
         {
             uniform token info:id = "ND_magnitude_vector2"
-            float2 inputs:in.connect = </Root/RoundedPolygon/Divide.outputs:out>
+            float2 inputs:in.connect = </Root/RoundedPolygon/Multiply_5.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-124.89216, 107.717415)
-            int ui:nodegraph:node:stackingOrder = 3069
+            float2 ui:nodegraph:node:pos = (-1028.1686, 186.56367)
+            int ui:nodegraph:node:stackingOrder = 3353
         }
 
         def Shader "Add"
@@ -2473,8 +2469,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RoundedPolygon/Multiply_6.outputs:out>
             float inputs:in2.connect = </Root/RoundedPolygon/Atan2.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-840.9306, 380.39362)
-            int ui:nodegraph:node:stackingOrder = 3162
+            float2 ui:nodegraph:node:pos = (-923.0239, 378.45737)
+            int ui:nodegraph:node:stackingOrder = 3385
         }
 
         def Shader "pi_1"
@@ -2482,8 +2478,8 @@ def Xform "Root"
             uniform token info:id = "ND_constant_float"
             float inputs:value = 3.1415927
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1122.7123, 117.607445)
-            int ui:nodegraph:node:stackingOrder = 3092
+            float2 ui:nodegraph:node:pos = (-1166.4296, 315.379)
+            int ui:nodegraph:node:stackingOrder = 3351
             string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
         }
 
@@ -2493,8 +2489,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RoundedPolygon/pi_1.outputs:out>
             float inputs:in2 = 2.5
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-964.109, 315.6383)
-            int ui:nodegraph:node:stackingOrder = 3165
+            float2 ui:nodegraph:node:pos = (-1027.216, 318.13004)
+            int ui:nodegraph:node:stackingOrder = 3383
         }
 
         def Shader "Add_1"
@@ -2503,8 +2499,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RoundedPolygon/Add.outputs:out>
             float inputs:in2.connect = </Root/RoundedPolygon/halfAngle1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-714.3568, 386.20334)
-            int ui:nodegraph:node:stackingOrder = 3114
+            float2 ui:nodegraph:node:pos = (-827.95416, 387.06198)
+            int ui:nodegraph:node:stackingOrder = 3387
         }
 
         def Shader "MTLFmod"
@@ -2513,8 +2509,8 @@ def Xform "Root"
             float inputs:x.connect = </Root/RoundedPolygon/Add_1.outputs:out>
             float inputs:y.connect = </Root/RoundedPolygon/Multiply_1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-559.50085, 365.3119)
-            int ui:nodegraph:node:stackingOrder = 3113
+            float2 ui:nodegraph:node:pos = (-698.67554, 389.92477)
+            int ui:nodegraph:node:stackingOrder = 3389
         }
 
         def Shader "Subtract_3"
@@ -2523,8 +2519,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RoundedPolygon/MTLFmod.outputs:out>
             float inputs:in2.connect = </Root/RoundedPolygon/halfAngle1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-414.52643, 455.36035)
-            int ui:nodegraph:node:stackingOrder = 3130
+            float2 ui:nodegraph:node:pos = (-571.81824, 462.43488)
+            int ui:nodegraph:node:stackingOrder = 3417
         }
 
         def Shader "Abs_1"
@@ -2532,8 +2528,8 @@ def Xform "Root"
             uniform token info:id = "ND_absval_float"
             float inputs:in.connect = </Root/RoundedPolygon/Subtract_3.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-272.40945, 412.97995)
-            int ui:nodegraph:node:stackingOrder = 3124
+            float2 ui:nodegraph:node:pos = (-437.3605, 440.90466)
+            int ui:nodegraph:node:stackingOrder = 3417
         }
 
         def Shader "Cos_1"
@@ -2541,8 +2537,8 @@ def Xform "Root"
             uniform token info:id = "ND_cos_float"
             float inputs:in.connect = </Root/RoundedPolygon/Abs_1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (309.95966, 195.40813)
-            int ui:nodegraph:node:stackingOrder = 3223
+            float2 ui:nodegraph:node:pos = (21.270597, 318.14462)
+            int ui:nodegraph:node:stackingOrder = 3425
         }
 
         def Scope "Group5" (
@@ -2588,8 +2584,8 @@ def Xform "Root"
             uniform token info:id = "ND_magnitude_vector2"
             float2 inputs:in.connect = </Root/RoundedPolygon/Multiply_4.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-44.570984, -723.2809)
-            int ui:nodegraph:node:stackingOrder = 3035
+            float2 ui:nodegraph:node:pos = (-453.45892, -630.5803)
+            int ui:nodegraph:node:stackingOrder = 3272
         }
 
         def Shader "Separate2_1"
@@ -2598,8 +2594,8 @@ def Xform "Root"
             float2 inputs:in.connect = </Root/RoundedPolygon/Multiply_4.outputs:out>
             float outputs:outx
             float outputs:outy
-            float2 ui:nodegraph:node:pos = (-465.49387, -432.55746)
-            int ui:nodegraph:node:stackingOrder = 2423
+            float2 ui:nodegraph:node:pos = (-470.72824, -492.03674)
+            int ui:nodegraph:node:stackingOrder = 3279
         }
 
         def Shader "Oneminus_1"
@@ -2607,8 +2603,8 @@ def Xform "Root"
             uniform token info:id = "ND_realitykit_oneminus_float"
             float inputs:in.connect = </Root/RoundedPolygon/Separate2_1.outputs:outx>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-48.874733, -549.6806)
-            int ui:nodegraph:node:stackingOrder = 3037
+            float2 ui:nodegraph:node:pos = (-291.00305, -503.21442)
+            int ui:nodegraph:node:stackingOrder = 3276
         }
 
         def Scope "Group6" (
@@ -2701,7 +2697,7 @@ def Xform "Root"
         def Shader "Subtract_5"
         {
             uniform token info:id = "ND_subtract_float"
-            float inputs:in1.connect = </Root/RoundedPolygon/pi_1.outputs:out>
+            float inputs:in1.connect = </Root/RoundedPolygon/pi.outputs:out>
             float inputs:in2.connect = </Root/RoundedPolygon/Multiply_12.outputs:out>
             float outputs:out
             float2 ui:nodegraph:node:pos = (42.324196, -440.91464)
@@ -2743,8 +2739,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RoundedPolygon/halfAngle1.outputs:out>
             float inputs:in2.connect = </Root/RoundedPolygon/Abs_1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-9.151594, 469.513)
-            int ui:nodegraph:node:stackingOrder = 3217
+            float2 ui:nodegraph:node:pos = (-195.36589, 526.1291)
+            int ui:nodegraph:node:stackingOrder = 3420
         }
 
         def Shader "IfGreater"
@@ -2755,8 +2751,8 @@ def Xform "Root"
             float inputs:value1.connect = </Root/RoundedPolygon/Multiply_2.outputs:out>
             float inputs:value2.connect = </Root/RoundedPolygon/Subtract_7.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (763.67084, 412.4331)
-            int ui:nodegraph:node:stackingOrder = 3219
+            float2 ui:nodegraph:node:pos = (211.78621, 476.6724)
+            int ui:nodegraph:node:stackingOrder = 3423
         }
 
         def Shader "SquareRoot"
@@ -2791,10 +2787,11 @@ def Xform "Root"
             uniform token info:id = "ND_mix_float"
             float inputs:bg.connect = </Root/RoundedPolygon/Multiply_7.outputs:out>
             float inputs:fg.connect = </Root/RoundedPolygon/Divide_6.outputs:out>
+            float inputs:mix = 1
             float inputs:mix.connect = </Root/RoundedPolygon/IfGreater.outputs:out>
             float outputs:out
             float2 ui:nodegraph:node:pos = (1540.6213, 92.04253)
-            int ui:nodegraph:node:stackingOrder = 2943
+            int ui:nodegraph:node:stackingOrder = 3328
         }
 
         def Shader "Divide_6"
@@ -2850,8 +2847,8 @@ def Xform "Root"
             float inputs:value = 0
             float inputs:value.connect = </Root/RoundedPolygon/Divide_1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1583.2688, -255.63805)
-            int ui:nodegraph:node:stackingOrder = 3210
+            float2 ui:nodegraph:node:pos = (-1529.1243, -148.43094)
+            int ui:nodegraph:node:stackingOrder = 3377
         }
 
         def Shader "halfAngle1"
@@ -2870,8 +2867,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RoundedPolygon/Magnitude_1.outputs:out>
             prepend float inputs:in2.connect = </Root/RoundedPolygon/Cos_1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (544.6749, 148.61952)
-            int ui:nodegraph:node:stackingOrder = 3221
+            float2 ui:nodegraph:node:pos = (250.52481, 276.14566)
+            int ui:nodegraph:node:stackingOrder = 3427
         }
 
         def Scope "Group11" (
