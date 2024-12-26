@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["InputTextureCoordinate", "Cube", "PolarCoordinates", "RadialShear", "Rotate", "Spherize", "TilingAndOffset", "Twirl", "Ellipse", "Polygon", "Rectangle", "RoundedRectangle", "Checkerboard", "RoundedPolygon", "FresnelEffect", "SphereMask"]
+    reorder nameChildren = ["InputTextureCoordinate", "Cube", "PolarCoordinates", "RadialShear", "Rotate", "Spherize", "TilingAndOffset", "Twirl", "Ellipse", "Polygon", "Rectangle", "RoundedRectangle", "Checkerboard", "RoundedPolygon", "FresnelEffect", "SphereMask", "NoiseSinWave", "SawtoothWave", "SquareWave", "TriangleWave"]
     def Cube "Cube" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -21,7 +21,7 @@ def Xform "Root"
 
         def Material "DefaultMaterial"
         {
-            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "ConstantString", "RoundedPolygon_1", "SphereMask_1", "Group", "PolarCoordinates_1", "Convert", "Convert_1", "RadialShear_1", "FresnelEffect_1", "Normal", "ViewDirection"]
+            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "ConstantString", "SawtoothWave_1", "SquareWave_1", "TriangleWave_1", "NoiseSinWave_1", "Time", "Group", "PolarCoordinates_1", "Convert", "Convert_1", "RadialShear_1"]
             token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
@@ -103,71 +103,21 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 107
             }
 
-            def "RoundedPolygon_1" (
-                active = true
-                instanceable = true
-                references = </Root/RoundedPolygon>
-            )
-            {
-                float inputs:Height
-                float inputs:Roundness
-                float inputs:Sides = 5
-                float2 inputs:UV
-                float inputs:Width
-                float2 ui:nodegraph:node:pos = (-948.53937, 27.465534)
-                int ui:nodegraph:node:stackingOrder = 132
-            }
-
             def Shader "Convert"
             {
                 uniform token info:id = "ND_convert_float_vector3"
-                float inputs:in.connect = </Root/Cube/DefaultMaterial/SphereMask_1.outputs:Out>
+                float inputs:in.connect = </Root/Cube/DefaultMaterial/TriangleWave_1.outputs:Out>
                 float3 outputs:out
                 float2 ui:nodegraph:node:pos = (-618.6961, 85.5661)
                 int ui:nodegraph:node:stackingOrder = 36
             }
 
-            def "FresnelEffect_1" (
-                active = true
-                instanceable = true
-                references = </Root/FresnelEffect>
-            )
+            def Shader "Time"
             {
-                float3 inputs:Normal.connect = </Root/Cube/DefaultMaterial/Normal.outputs:out>
-                float inputs:Power
-                float3 inputs:ViewDir.connect = </Root/Cube/DefaultMaterial/ViewDirection.outputs:out>
-                float2 ui:nodegraph:node:pos = (-921.68854, 123.891304)
-                int ui:nodegraph:node:stackingOrder = 134
-            }
-
-            def Shader "Normal"
-            {
-                uniform token info:id = "ND_normal_vector3"
-                float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-1295.9661, 88.43309)
-                int ui:nodegraph:node:stackingOrder = 135
-            }
-
-            def Shader "ViewDirection"
-            {
-                uniform token info:id = "ND_realitykit_viewdirection_vector3"
-                float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-1226.5687, 168.82657)
-                int ui:nodegraph:node:stackingOrder = 136
-            }
-
-            def "SphereMask_1" (
-                active = true
-                instanceable = true
-                references = </Root/SphereMask>
-            )
-            {
-                float2 inputs:Center
-                float2 inputs:Coords
-                float inputs:Hardness
-                float inputs:Radius
-                float2 ui:nodegraph:node:pos = (-886.3675, -22.809221)
-                int ui:nodegraph:node:stackingOrder = 140
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1251.8628, 69.276855)
+                int ui:nodegraph:node:stackingOrder = 110
             }
         }
     }
@@ -3138,6 +3088,375 @@ def Xform "Root"
             float2 inputs:TextureCoordinate.connect = </Root/SphereMask.inputs:Coords>
             float2 ui:nodegraph:node:pos = (-680.3057, -13.418228)
             int ui:nodegraph:node:stackingOrder = 2036
+        }
+    }
+
+    def NodeGraph "NoiseSinWave" (
+        active = true
+    )
+    {
+        float inputs:In = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1201.9485, 16.197998)
+                    int stackingOrderInSubgraph = 335
+                }
+            }
+        )
+        float2 inputs:MinMax = (-0.5, 0.5) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-447.2934, 3.7988281)
+                    int stackingOrderInSubgraph = 213
+                }
+            }
+        )
+        float outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-276, 85.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float outputs:Out.connect = </Root/NoiseSinWave/Add_2.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (243.76636, -71.784)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 216
+
+        def Shader "Sin"
+        {
+            uniform token info:id = "ND_sin_float"
+            float inputs:in.connect = </Root/NoiseSinWave.inputs:In>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1012.4053, -26.787537)
+            int ui:nodegraph:node:stackingOrder = 347
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/NoiseSinWave.inputs:In>
+            float inputs:in2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1072.7395, 60.40863)
+            int ui:nodegraph:node:stackingOrder = 335
+        }
+
+        def Shader "Sin_1"
+        {
+            uniform token info:id = "ND_sin_float"
+            float inputs:in.connect = </Root/NoiseSinWave/Add.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-954.43744, 45.734253)
+            int ui:nodegraph:node:stackingOrder = 335
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/NoiseSinWave/Sin.outputs:out>
+            float inputs:in2.connect = </Root/NoiseSinWave/Sin_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-838.77527, 4.9243774)
+            int ui:nodegraph:node:stackingOrder = 335
+        }
+
+        def Shader "Fractional"
+        {
+            uniform token info:id = "ND_realitykit_fractional_float"
+            float inputs:in.connect = </Root/NoiseSinWave/Multiply_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-271.987, 80.98193)
+            int ui:nodegraph:node:stackingOrder = 343
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/NoiseSinWave/Subtract.outputs:out>
+            float inputs:in2.connect = </Root/NoiseSinWave/Add_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-716.8441, 55.639954)
+            int ui:nodegraph:node:stackingOrder = 335
+        }
+
+        def Shader "Add_1"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1 = 12.9898
+            float inputs:in2 = 78.233
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-804.7566, 73.69226)
+            int ui:nodegraph:node:stackingOrder = 335
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/NoiseSinWave/Sin_2.outputs:out>
+            float inputs:in2 = 43758.547
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-458.2652, 97.36084)
+            int ui:nodegraph:node:stackingOrder = 350
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/NoiseSinWave/Separate2.outputs:outx>
+            float inputs:fg.connect = </Root/NoiseSinWave/Separate2.outputs:outy>
+            float inputs:mix.connect = </Root/NoiseSinWave/Fractional.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-28.216919, 26.07837)
+            int ui:nodegraph:node:stackingOrder = 120
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+        }
+
+        def Shader "Separate2"
+        {
+            uniform token info:id = "ND_separate2_vector2"
+            float2 inputs:in.connect = </Root/NoiseSinWave.inputs:MinMax>
+            float outputs:outx
+            float outputs:outy
+            float2 ui:nodegraph:node:pos = (-245.0393, 6.689331)
+            int ui:nodegraph:node:stackingOrder = 213
+        }
+
+        def Shader "Add_2"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/NoiseSinWave/Sin.outputs:out>
+            float inputs:in2.connect = </Root/NoiseSinWave/Mix.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (98.919556, -94.69702)
+            int ui:nodegraph:node:stackingOrder = 124
+        }
+
+        def Shader "Sin_2"
+        {
+            uniform token info:id = "ND_sin_float"
+            float inputs:in.connect = </Root/NoiseSinWave/Multiply.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-590.41864, 63.840576)
+            int ui:nodegraph:node:stackingOrder = 338
+        }
+    }
+
+    def NodeGraph "SawtoothWave" (
+        active = true
+    )
+    {
+        float inputs:In = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-835.5226, 46.50952)
+                    int stackingOrderInSubgraph = 13
+                }
+            }
+        )
+        float outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-424, 100.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float outputs:Out.connect = </Root/SawtoothWave/Multiply.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/SawtoothWave.inputs:In>
+            float inputs:in2.connect = </Root/SawtoothWave/Floor.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-404.34186, 53.83722)
+            int ui:nodegraph:node:stackingOrder = 8
+        }
+
+        def Shader "Floor"
+        {
+            uniform token info:id = "ND_floor_float"
+            float inputs:in.connect = </Root/SawtoothWave/Add.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-535.45636, 81.417725)
+            int ui:nodegraph:node:stackingOrder = 16
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/SawtoothWave.inputs:In>
+            float inputs:in2 = 0.5
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-662.14496, 96.28851)
+            int ui:nodegraph:node:stackingOrder = 14
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SawtoothWave/Subtract.outputs:out>
+            float inputs:in2 = 2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-267.31677, 52.260986)
+            int ui:nodegraph:node:stackingOrder = 17
+        }
+    }
+
+    def NodeGraph "SquareWave" (
+        active = true
+    )
+    {
+        float inputs:In = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-675.97675, -2.4569092)
+                    int stackingOrderInSubgraph = 2
+                }
+            }
+        )
+        float outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-320, 90.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float outputs:Out.connect = </Root/SquareWave/Oneminus.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (130.85681, 85.069885)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 9
+
+        def Shader "Fractional"
+        {
+            uniform token info:id = "ND_realitykit_fractional_float"
+            float inputs:in.connect = </Root/SquareWave.inputs:In>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-458.76215, -3.1932373)
+            int ui:nodegraph:node:stackingOrder = 3
+        }
+
+        def Shader "Round"
+        {
+            uniform token info:id = "ND_round_float"
+            float inputs:in.connect = </Root/SquareWave/Fractional.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-270.38293, 0.29632568)
+            int ui:nodegraph:node:stackingOrder = 4
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SquareWave/Round.outputs:out>
+            float inputs:in2 = 2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-150.82153, 14.898376)
+            int ui:nodegraph:node:stackingOrder = 7
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/SquareWave/Multiply.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-51.661255, 43.50421)
+            int ui:nodegraph:node:stackingOrder = 8
+        }
+    }
+
+    def NodeGraph "TriangleWave" (
+        active = true
+    )
+    {
+        float inputs:In = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-602.2166, 30.17627)
+                    int stackingOrderInSubgraph = 2
+                }
+            }
+        )
+        float outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-370, 76.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float outputs:Out.connect = </Root/TriangleWave/Subtract_1.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (303.3871, 65.022156)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 14
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/TriangleWave.inputs:In>
+            float inputs:in2.connect = </Root/TriangleWave/Floor.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-244.37885, 40.36145)
+            int ui:nodegraph:node:stackingOrder = 12
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/TriangleWave.inputs:In>
+            float inputs:in2 = 0.5
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-472.7077, 71.67285)
+            int ui:nodegraph:node:stackingOrder = 7
+        }
+
+        def Shader "Floor"
+        {
+            uniform token info:id = "ND_floor_float"
+            float inputs:in.connect = </Root/TriangleWave/Add.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-367.15198, 77.125305)
+            int ui:nodegraph:node:stackingOrder = 8
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/TriangleWave/Subtract.outputs:out>
+            float inputs:in2 = 2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-140.15112, 47.3584)
+            int ui:nodegraph:node:stackingOrder = 15
+        }
+
+        def Shader "Abs"
+        {
+            uniform token info:id = "ND_absval_float"
+            float inputs:in.connect = </Root/TriangleWave/Multiply.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-23.748657, 47.87274)
+            int ui:nodegraph:node:stackingOrder = 19
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/TriangleWave/Abs.outputs:out>
+            float inputs:in2 = 2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (107.369995, 68.597534)
+            int ui:nodegraph:node:stackingOrder = 23
+        }
+
+        def Shader "Subtract_1"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/TriangleWave/Multiply_1.outputs:out>
+            float inputs:in2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (198.81958, 66.114624)
+            int ui:nodegraph:node:stackingOrder = 24
         }
     }
 }
