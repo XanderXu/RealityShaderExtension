@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["InputTextureCoordinate", "Cube", "PolarCoordinates", "RadialShear", "Rotate", "Spherize", "TilingAndOffset", "Twirl", "Ellipse", "Polygon", "Rectangle", "RoundedRectangle", "Checkerboard", "RoundedPolygon", "FresnelEffect", "SphereMask", "NoiseSinWave", "SawtoothWave", "SquareWave", "TriangleWave", "ChannelMixer", "Contrast", "Hue", "ReplaceColor", "Saturation"]
+    reorder nameChildren = ["InputTextureCoordinate", "Cube", "PolarCoordinates", "RadialShear", "Rotate", "Spherize", "TilingAndOffset", "Twirl", "Ellipse", "Polygon", "Rectangle", "RoundedRectangle", "Checkerboard", "RoundedPolygon", "FresnelEffect", "SphereMask", "NoiseSinWave", "SawtoothWave", "SquareWave", "TriangleWave", "ChannelMixer", "Contrast", "Hue", "ReplaceColor", "Saturation", "WhiteBalance"]
     def Cube "Cube" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -21,7 +21,7 @@ def Xform "Root"
 
         def Material "DefaultMaterial"
         {
-            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Hue_1", "TriangleWave_1", "ConstantString", "Saturation_1", "Time", "Group", "PolarCoordinates_1", "Convert", "Convert_1", "RadialShear_1", "ReplaceColor_1"]
+            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Hue_1", "TriangleWave_1", "ConstantString", "Saturation_1", "Time", "Group", "PolarCoordinates_1", "Convert", "Convert_1", "RadialShear_1", "ReplaceColor_1", "WhiteBalance_1"]
             token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
@@ -83,7 +83,7 @@ def Xform "Root"
             def Shader "Convert_1"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/Saturation_1.outputs:Out>
+                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/WhiteBalance_1.outputs:Out>
                 color3f outputs:out
                 float2 ui:nodegraph:node:pos = (-453.0749, 71.935974)
                 int ui:nodegraph:node:stackingOrder = 34
@@ -162,6 +162,19 @@ def Xform "Root"
                 float inputs:Saturation = 0
                 float2 ui:nodegraph:node:pos = (-729.6225, 119.29314)
                 int ui:nodegraph:node:stackingOrder = 216
+            }
+
+            def "WhiteBalance_1" (
+                active = true
+                instanceable = true
+                references = </Root/WhiteBalance>
+            )
+            {
+                float3 inputs:In = (1, 1, 1)
+                float inputs:Temperature = 0
+                float inputs:Tint
+                float2 ui:nodegraph:node:pos = (-783.1266, 165.90541)
+                int ui:nodegraph:node:stackingOrder = 229
             }
         }
     }
@@ -4509,6 +4522,391 @@ def Xform "Root"
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (94.36841, -37.030273)
             int ui:nodegraph:node:stackingOrder = 42
+        }
+    }
+
+    def NodeGraph "WhiteBalance" (
+        active = true
+    )
+    {
+        float3 inputs:In = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1566.1494, -286.48843)
+                    int stackingOrderInSubgraph = 365
+                }
+            }
+        )
+        float inputs:Temperature = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1589.382, 77.38603)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float inputs:Tint = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1600.7854, 217.31633)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float3 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-255, 60.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Out.connect = </Root/WhiteBalance/TransformMatrix_2.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1030.4138, -21.337276)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 464
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/WhiteBalance.inputs:Temperature>
+            float inputs:in2 = 10
+            float inputs:in2.connect = </Root/WhiteBalance/Divide.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1451.3414, 94.21062)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1 = 10
+            float inputs:in2 = 6
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1578.5072, 146.99626)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Divide.outputs:out>
+            float inputs:in2.connect = </Root/WhiteBalance.inputs:Tint>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1452.8077, 212.58635)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Scope "Group" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "t1"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Multiply"]
+        }
+
+        def Scope "Group2" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "t2"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Multiply_1"]
+        }
+
+        def Shader "IfGreater"
+        {
+            uniform token info:id = "ND_ifgreater_float"
+            float inputs:in1 = 0.1
+            float inputs:in2 = 0.05
+            float inputs:value1 = 0
+            float inputs:value1.connect = None
+            float inputs:value2.connect = </Root/WhiteBalance/Multiply.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1297.1356, -32.7336)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/WhiteBalance/IfGreater.outputs:out>
+            float inputs:in2.connect = </Root/WhiteBalance/Multiply.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1177.6266, 60.976727)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Multiply_2.outputs:out>
+            float inputs:in2 = 2.87
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1017.21497, 31.331463)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Multiply_3.outputs:out>
+            float inputs:in2.connect = </Root/WhiteBalance/Multiply_5.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-925.0309, 44.73112)
+            int ui:nodegraph:node:stackingOrder = 241
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Multiply_2.outputs:out>
+            float inputs:in2.connect = </Root/WhiteBalance/Multiply_2.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1094.8876, 89.98271)
+            int ui:nodegraph:node:stackingOrder = 223
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+        }
+
+        def Shader "Multiply_5"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Multiply_4.outputs:out>
+            float inputs:in2 = 3
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1012.00305, 97.15434)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Subtract_1"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Subtract.outputs:out>
+            float inputs:in2 = 0.27509508
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-805.0526, 90.47695)
+            int ui:nodegraph:node:stackingOrder = 248
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Subtract_1.outputs:out>
+            float inputs:in2.connect = </Root/WhiteBalance/Multiply_6.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-705.4968, 193.87436)
+            int ui:nodegraph:node:stackingOrder = 246
+        }
+
+        def Shader "Multiply_6"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Multiply_1.outputs:out>
+            float inputs:in2 = 0.05
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1261.3309, 226.28618)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "w1"
+        {
+            uniform token info:id = "ND_constant_vector3"
+            float3 inputs:value = (0.949237, 1.03542, 1.08728)
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (50.893616, -70.191025)
+            int ui:nodegraph:node:stackingOrder = 436
+        }
+
+        def Scope "Group3" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "y"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Add"]
+        }
+
+        def Shader "Y"
+        {
+            uniform token info:id = "ND_constant_float"
+            float inputs:value = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-676.1055, -5.8235655)
+            int ui:nodegraph:node:stackingOrder = 303
+        }
+
+        def Scope "Group4" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "x"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Subtract_1"]
+        }
+
+        def Shader "Divide_1"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Subtract_1.outputs:out>
+            float inputs:in2.connect = </Root/WhiteBalance/Add.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-619.5654, 62.455425)
+            int ui:nodegraph:node:stackingOrder = 281
+        }
+
+        def Shader "Multiply_7"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Y.outputs:out>
+            float inputs:in2.connect = </Root/WhiteBalance/Divide_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-478.96765, -19.937279)
+            int ui:nodegraph:node:stackingOrder = 439
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/WhiteBalance/Subtract_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-599.90454, 117.45241)
+            int ui:nodegraph:node:stackingOrder = 286
+        }
+
+        def Shader "Subtract_2"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Oneminus.outputs:out>
+            float inputs:in2.connect = </Root/WhiteBalance/Add.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-511.61163, 132.48914)
+            int ui:nodegraph:node:stackingOrder = 289
+        }
+
+        def Shader "Divide_2"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Subtract_2.outputs:out>
+            float inputs:in2.connect = </Root/WhiteBalance/Add.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-423.18192, 139.92249)
+            int ui:nodegraph:node:stackingOrder = 300
+        }
+
+        def Scope "Group5" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "X"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Multiply_7"]
+        }
+
+        def Shader "Multiply_8"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/WhiteBalance/Y.outputs:out>
+            float inputs:in2.connect = </Root/WhiteBalance/Divide_2.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-323.22943, 112.58131)
+            int ui:nodegraph:node:stackingOrder = 304
+        }
+
+        def Scope "Group6" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "Z"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Multiply_8"]
+        }
+
+        def Shader "Combine3"
+        {
+            uniform token info:id = "ND_combine3_vector3"
+            prepend float inputs:in1.connect = </Root/WhiteBalance/Multiply_7.outputs:out>
+            prepend float inputs:in2.connect = </Root/WhiteBalance/Y.outputs:out>
+            prepend float inputs:in3.connect = </Root/WhiteBalance/Multiply_8.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-175.99884, 10.035012)
+            int ui:nodegraph:node:stackingOrder = 470
+        }
+
+        def Shader "Divide_3"
+        {
+            uniform token info:id = "ND_divide_vector3"
+            float3 inputs:in1.connect = </Root/WhiteBalance/w1.outputs:out>
+            float3 inputs:in2.connect = </Root/WhiteBalance/TransformMatrix.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (238.93561, -40.080414)
+            int ui:nodegraph:node:stackingOrder = 436
+        }
+
+        def Shader "Multiply_9"
+        {
+            uniform token info:id = "ND_multiply_vector3"
+            float3 inputs:in1.connect = </Root/WhiteBalance/TransformMatrix_1.outputs:out>
+            float3 inputs:in2.connect = </Root/WhiteBalance/Divide_3.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (358.1232, -54.95642)
+            int ui:nodegraph:node:stackingOrder = 457
+        }
+
+        def Shader "TransformMatrix_2"
+        {
+            uniform token info:id = "ND_transformmatrix_vector3"
+            float3 inputs:in.connect = </Root/WhiteBalance/Multiply_9.outputs:out>
+            matrix3d inputs:mat.connect = </Root/WhiteBalance/LMS_2_LIN_MAT.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (677.4953, -3.879501)
+            int ui:nodegraph:node:stackingOrder = 460
+        }
+
+        def Shader "TransformMatrix_1"
+        {
+            uniform token info:id = "ND_transformmatrix_vector3"
+            prepend float3 inputs:in.connect = </Root/WhiteBalance.inputs:In>
+            matrix3d inputs:mat.connect = </Root/WhiteBalance/LIN_2_LMS_MAT.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-454.41956, -290.01227)
+            int ui:nodegraph:node:stackingOrder = 478
+        }
+
+        def Shader "LIN_2_LMS_MAT"
+        {
+            uniform token info:id = "ND_constant_matrix33"
+            matrix3d inputs:value = ( (0.390405, 0.0708416, 0.023108), (0.549941, 0.963172, 0.128021), (0.00892632, 0.00135775, 0.936245) )
+            matrix3d outputs:out
+            float2 ui:nodegraph:node:pos = (-1410.2532, -180.24551)
+            int ui:nodegraph:node:stackingOrder = 500
+        }
+
+        def Shader "LMS_2_LIN_MAT"
+        {
+            uniform token info:id = "ND_constant_matrix33"
+            matrix3d inputs:value = ( (2.85847, -0.210182, -0.041812), (-1.62879, 1.1582, -0.118169), (-0.024891, 0.00032, 1.06867) )
+            matrix3d outputs:out
+            float2 ui:nodegraph:node:pos = (301.6865, 112.64167)
+            int ui:nodegraph:node:stackingOrder = 503
+        }
+
+        def Shader "TransformMatrix"
+        {
+            uniform token info:id = "ND_transformmatrix_vector3"
+            prepend float3 inputs:in.connect = </Root/WhiteBalance/Combine3.outputs:out>
+            matrix3d inputs:mat.connect = </Root/WhiteBalance/CIExyToLMS.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (49.189476, 14.461272)
+            int ui:nodegraph:node:stackingOrder = 501
+        }
+
+        def Shader "CIExyToLMS"
+        {
+            uniform token info:id = "ND_constant_matrix33"
+            matrix3d inputs:value = ( (0.7328, -0.7036, 0.003), (0.4296, 1.6975, 0.0136), (-0.1624, 0.0061, 0.9834) )
+            matrix3d outputs:out
+            float2 ui:nodegraph:node:pos = (-206.28601, 188.65259)
+            int ui:nodegraph:node:stackingOrder = 502
         }
     }
 }
