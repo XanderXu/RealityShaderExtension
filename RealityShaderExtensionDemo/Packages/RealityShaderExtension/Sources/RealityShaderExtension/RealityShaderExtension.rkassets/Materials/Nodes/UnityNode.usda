@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["InputTextureCoordinate", "Cube", "PolarCoordinates", "RadialShear", "Rotate", "Spherize", "TilingAndOffset", "Twirl", "Ellipse", "Polygon", "Rectangle", "RoundedRectangle", "Checkerboard", "RoundedPolygon", "FresnelEffect", "SphereMask", "NoiseSinWave", "SawtoothWave", "SquareWave", "TriangleWave", "ChannelMixer", "Contrast", "Hue"]
+    reorder nameChildren = ["InputTextureCoordinate", "Cube", "PolarCoordinates", "RadialShear", "Rotate", "Spherize", "TilingAndOffset", "Twirl", "Ellipse", "Polygon", "Rectangle", "RoundedRectangle", "Checkerboard", "RoundedPolygon", "FresnelEffect", "SphereMask", "NoiseSinWave", "SawtoothWave", "SquareWave", "TriangleWave", "ChannelMixer", "Contrast", "Hue", "ReplaceColor", "Saturation"]
     def Cube "Cube" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -21,7 +21,7 @@ def Xform "Root"
 
         def Material "DefaultMaterial"
         {
-            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Hue_1", "ConstantString", "Time", "Group", "PolarCoordinates_1", "Convert", "Convert_1", "RadialShear_1"]
+            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Hue_1", "TriangleWave_1", "ConstantString", "Saturation_1", "Time", "Group", "PolarCoordinates_1", "Convert", "Convert_1", "RadialShear_1", "ReplaceColor_1"]
             token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
@@ -83,7 +83,7 @@ def Xform "Root"
             def Shader "Convert_1"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/Hue_1.outputs:Out>
+                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/Saturation_1.outputs:Out>
                 color3f outputs:out
                 float2 ui:nodegraph:node:pos = (-453.0749, 71.935974)
                 int ui:nodegraph:node:stackingOrder = 34
@@ -108,8 +108,8 @@ def Xform "Root"
                 uniform token info:id = "ND_convert_float_vector3"
                 float inputs:in.connect = </Root/Cube/DefaultMaterial/TriangleWave_1.outputs:Out>
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-618.6961, 85.5661)
-                int ui:nodegraph:node:stackingOrder = 36
+                float2 ui:nodegraph:node:pos = (-645.606, 7.3833714)
+                int ui:nodegraph:node:stackingOrder = 160
             }
 
             def Shader "Time"
@@ -129,12 +129,39 @@ def Xform "Root"
                 float3 inputs:In = (1, 0, 0)
                 bool inputs:isOffsetInRadians = 0
                 float inputs:Offset = -90
-                float2 ui:nodegraph:node:pos = (-972.4822, -12.262449)
-                int ui:nodegraph:node:stackingOrder = 156
+                float2 ui:nodegraph:node:pos = (-1142.3746, -130.44084)
+                int ui:nodegraph:node:stackingOrder = 207
             }
 
             def "TriangleWave_1"
             {
+            }
+
+            def "ReplaceColor_1" (
+                active = true
+                instanceable = true
+                references = </Root/ReplaceColor>
+            )
+            {
+                float3 inputs:From = (1, 1, 1)
+                float inputs:Fuzziness = 0
+                float3 inputs:In = (1, 1, 1)
+                float inputs:Range = 1.5
+                float3 inputs:To = (0, 1, 0)
+                float2 ui:nodegraph:node:pos = (-981.9826, 42.834885)
+                int ui:nodegraph:node:stackingOrder = 208
+            }
+
+            def "Saturation_1" (
+                active = true
+                instanceable = true
+                references = </Root/Saturation>
+            )
+            {
+                float3 inputs:In = (1, 1, 1)
+                float inputs:Saturation = 0
+                float2 ui:nodegraph:node:pos = (-729.6225, 119.29314)
+                int ui:nodegraph:node:stackingOrder = 216
             }
         }
     }
@@ -4273,6 +4300,215 @@ def Xform "Root"
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (1428.8627, -126.53331)
             int ui:nodegraph:node:stackingOrder = 1053
+        }
+    }
+
+    def NodeGraph "ReplaceColor" (
+        active = true
+    )
+    {
+        float3 inputs:From = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1236.4312, -180.3811)
+                    int stackingOrderInSubgraph = 179
+                }
+            }
+        )
+        float inputs:Fuzziness = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-740.8696, -93.67688)
+                    int stackingOrderInSubgraph = 179
+                }
+            }
+        )
+        float3 inputs:In = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1241.032, -105.89441)
+                    int stackingOrderInSubgraph = 179
+                }
+            }
+        )
+        float inputs:Range = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-904.17505, -107.81128)
+                    int stackingOrderInSubgraph = 179
+                }
+            }
+        )
+        float3 inputs:To = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-612.0469, 45.52954)
+                    int stackingOrderInSubgraph = 47
+                }
+            }
+        )
+        float3 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-552, 95.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Out.connect = </Root/ReplaceColor/Mix.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "MTLDistance"
+        {
+            uniform token info:id = "ND_MTL_distance_vector3_float"
+            float3 inputs:x.connect = </Root/ReplaceColor.inputs:From>
+            float3 inputs:y.connect = </Root/ReplaceColor.inputs:In>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1039.6982, -195.45056)
+            int ui:nodegraph:node:stackingOrder = 179
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/ReplaceColor.inputs:To>
+            float3 inputs:fg.connect = </Root/ReplaceColor.inputs:In>
+            float inputs:mix.connect = </Root/ReplaceColor/Divide.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-208.28467, 49.90625)
+            int ui:nodegraph:node:stackingOrder = 88
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/ReplaceColor/MTLDistance.outputs:out>
+            float inputs:in2.connect = </Root/ReplaceColor.inputs:Range>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-829.81885, -232.52441)
+            int ui:nodegraph:node:stackingOrder = 179
+        }
+
+        def Shader "Clamp"
+        {
+            uniform token info:id = "ND_clamp_float"
+            float inputs:high
+            float inputs:in.connect = </Root/ReplaceColor/Subtract.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-723.51904, -226.81433)
+            int ui:nodegraph:node:stackingOrder = 179
+        }
+
+        def Shader "Max"
+        {
+            uniform token info:id = "ND_max_float"
+            float inputs:in1.connect = </Root/ReplaceColor.inputs:Fuzziness>
+            float inputs:in2 = 0.00001
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-586.1013, -126.14551)
+            int ui:nodegraph:node:stackingOrder = 182
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/ReplaceColor/Clamp.outputs:out>
+            float inputs:in2.connect = </Root/ReplaceColor/Max.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-464.1223, -150.32678)
+            int ui:nodegraph:node:stackingOrder = 184
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+        }
+    }
+
+    def NodeGraph "Saturation" (
+        active = true
+    )
+    {
+        float3 inputs:In = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-679.67017, -63.485962)
+                    int stackingOrderInSubgraph = 25
+                }
+            }
+        )
+        float inputs:Saturation = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-10.732178, 5.827881)
+                    int stackingOrderInSubgraph = 46
+                }
+            }
+        )
+        float3 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-322, 75.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Out.connect = </Root/Saturation/Add.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (273.3152, 98.512085)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 31
+
+        def Shader "DotProduct"
+        {
+            uniform token info:id = "ND_dotproduct_vector3"
+            float3 inputs:in1.connect = </Root/Saturation.inputs:In>
+            float3 inputs:in2.connect = </Root/Saturation/ConstantFloat3.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-478.59546, 11.963745)
+            int ui:nodegraph:node:stackingOrder = 17
+        }
+
+        def Shader "ConstantFloat3"
+        {
+            uniform token info:id = "ND_constant_vector3"
+            float3 inputs:value = (0.2126729, 0.7151522, 0.072175)
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-717.44604, 73.440796)
+            int ui:nodegraph:node:stackingOrder = 15
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector3"
+            prepend float inputs:in.connect = </Root/Saturation/DotProduct.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-300.94922, 4.631592)
+            int ui:nodegraph:node:stackingOrder = 20
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector3"
+            float3 inputs:in1.connect = </Root/Saturation/Multiply.outputs:out>
+            float3 inputs:in2.connect = </Root/Saturation/Convert.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (115.325195, 69.10437)
+            int ui:nodegraph:node:stackingOrder = 44
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector3"
+            float3 inputs:in1.connect = </Root/Saturation.inputs:In>
+            float3 inputs:in2.connect = </Root/Saturation/Convert.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-120.88599, -26.988647)
+            int ui:nodegraph:node:stackingOrder = 28
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/Saturation/Subtract.outputs:out>
+            float inputs:in2.connect = </Root/Saturation.inputs:Saturation>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (94.36841, -37.030273)
+            int ui:nodegraph:node:stackingOrder = 42
         }
     }
 }
