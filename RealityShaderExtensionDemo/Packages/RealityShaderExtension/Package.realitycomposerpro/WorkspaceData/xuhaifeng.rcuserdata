@@ -3,9 +3,13 @@
   "openSceneRelativePaths" : [
     "Immersive.usda",
     "Materials\/UEMaterial.usda",
-    "Materials\/Nodes\/UENode.usda"
+    "Materials\/Nodes\/UENode.usda",
+    "Materials\/Nodes\/UnityNode.usda"
   ],
   "recentIdentifiers" : {
+    "69F48840-7E19-4AE3-B581-9AC6CF6B9217" : [
+
+    ],
     "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE" : [
 
     ],
@@ -890,5 +894,5 @@
   "sceneViewportBackgroundColors" : {
 
   },
-  "selectedSceneRelativePath" : "Materials\/UEMaterial.usda"
+  "selectedSceneRelativePath" : "Materials\/Nodes\/UnityNode.usda"
 }
