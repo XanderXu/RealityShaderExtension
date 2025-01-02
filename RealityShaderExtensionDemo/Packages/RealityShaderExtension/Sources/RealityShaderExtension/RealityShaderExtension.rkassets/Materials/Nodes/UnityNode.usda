@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["InputTextureCoordinate", "Cube", "PolarCoordinates", "RadialShear", "Rotate", "Spherize", "TilingAndOffset", "Twirl", "Ellipse", "Polygon", "Rectangle", "RoundedRectangle", "Checkerboard", "RoundedPolygon", "FresnelEffect", "SphereMask", "NoiseSinWave", "SawtoothWave", "SquareWave", "TriangleWave", "ChannelMixer", "Contrast", "Hue", "ReplaceColor", "Saturation", "WhiteBalance"]
+    reorder nameChildren = ["InputTextureCoordinate", "Cube", "PolarCoordinates", "RadialShear", "Rotate", "Spherize", "TilingAndOffset", "Twirl", "Ellipse", "Polygon", "Rectangle", "RoundedRectangle", "RoundedPolygon", "Checkerboard", "FresnelEffect", "SphereMask", "NoiseSinWave", "SawtoothWave", "SquareWave", "TriangleWave", "ChannelMixer", "Contrast", "Hue", "ReplaceColor", "Saturation", "WhiteBalance"]
     def Cube "Cube" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -172,10 +172,10 @@ def Xform "Root"
             {
                 float3 inputs:In = (0, 1, 1)
                 float3 inputs:In.connect = </Root/Cube/DefaultMaterial/Image.outputs:out>
-                float inputs:Temperature = -1
-                float inputs:Tint = -1
+                float inputs:Temperature = 0
+                float inputs:Tint = 0
                 float2 ui:nodegraph:node:pos = (-809.2555, 214.22182)
-                int ui:nodegraph:node:stackingOrder = 280
+                int ui:nodegraph:node:stackingOrder = 289
             }
 
             def Shader "Image"
@@ -4912,15 +4912,6 @@ def Xform "Root"
             int ui:nodegraph:node:stackingOrder = 531
         }
 
-        def Shader "Transpose"
-        {
-            uniform token info:id = "ND_transpose_matrix33"
-            matrix3d inputs:in.connect = </Root/WhiteBalance/LIN_2_LMS_MAT.outputs:out>
-            matrix3d outputs:out
-            float2 ui:nodegraph:node:pos = (-1035.7229, -149.00124)
-            int ui:nodegraph:node:stackingOrder = 504
-        }
-
         def Shader "Transpose_1"
         {
             uniform token info:id = "ND_transpose_matrix33"
@@ -4928,15 +4919,6 @@ def Xform "Root"
             matrix3d outputs:out
             float2 ui:nodegraph:node:pos = (-15.946076, 135.92001)
             int ui:nodegraph:node:stackingOrder = 524
-        }
-
-        def Shader "Transpose_2"
-        {
-            uniform token info:id = "ND_transpose_matrix33"
-            matrix3d inputs:in.connect = </Root/WhiteBalance/LMS_2_LIN_MAT.outputs:out>
-            matrix3d outputs:out
-            float2 ui:nodegraph:node:pos = (505.38126, 112.39166)
-            int ui:nodegraph:node:stackingOrder = 509
         }
 
         def Shader "Subtract_3"
