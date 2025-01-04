@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["InputTextureCoordinate", "Panner", "Desaturation", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "SmoothCurve", "ValueStep", "FuzzyShading", "FuzzyShadingGrass", "Cube"]
+    reorder nameChildren = ["InputTextureCoordinate", "Panner", "Desaturation", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "SmoothCurve", "ValueStep", "FuzzyShading", "FuzzyShadingGrass", "BlackBody_WIP_", "_3ColorBlend", "CheapContrast", "CheapContrast_RGB", "Cube"]
     def NodeGraph "SphereMask"
     {
         reorder nameChildren = ["Multiply", "Subtract", "Magnitude", "Group", "Group2", "Divide", "Abs", "MTLCospi", "Multiply_3", "Clamp_1", "Range_1", "Clamp", "Fractional", "UV", "InputTextureCoordinate_1"]
@@ -768,7 +768,7 @@ def Xform "Root"
             references = None
         )
         {
-            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Convert_2", "DiamondGradient_1", "SmoothCurve_1", "TextureCoordinates", "Separate2", "ValueStep_1", "Multiply", "FuzzyShading_1", "Convert", "ConstantFloat", "Image", "ConstantFloat3", "FuzzyShadingGrass_1"]
+            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Convert", "ConstantFloat", "Image", "ConstantFloat3", "FuzzyShadingGrass_1", "_3ColorBlend_1", "CheapContrast_1", "Convert_1", "CheapContrast_RGB_1"]
             token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
@@ -796,120 +796,13 @@ def Xform "Root"
                 float2 ui:nodegraph:node:pos = (-255, 105)
             }
 
-            def Shader "Convert_2"
-            {
-                uniform token info:id = "ND_convert_float_color3"
-                float inputs:in.connect = </Root/Cube/DefaultMaterial/ValueStep_1.outputs:Result>
-                color3f outputs:out
-                float2 ui:nodegraph:node:pos = (-497.2868, -64.78352)
-                int ui:nodegraph:node:stackingOrder = 2755
-            }
-
-            def "DiamondGradient_1" (
-                active = true
-                instanceable = true
-                references = </Root/DiamondGradient>
-            )
-            {
-                float inputs:Falloff = 3 (
-                    customData = {
-                        dictionary realitykit = {
-                            float2 positionInSubgraph = (-567.7656, 385.57812)
-                            int stackingOrderInSubgraph = 9
-                        }
-                    }
-                )
-                float2 ui:nodegraph:node:pos = (-1265.4695, -81.863945)
-                int ui:nodegraph:node:stackingOrder = 2763
-                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:Result", "inputs:Falloff"]
-            }
-
-            def "SmoothCurve_1" (
-                active = true
-                instanceable = true
-                references = </Root/SmoothCurve>
-            )
-            {
-                float inputs:Tangent0
-                float inputs:Tangent1 (
-                    customData = {
-                        dictionary realitykit = {
-                            float2 positionInSubgraph = (-1236.3954, 181.50896)
-                            int stackingOrderInSubgraph = 131
-                        }
-                    }
-                )
-                float inputs:X = 0
-                float inputs:X.connect = </Root/Cube/DefaultMaterial/Separate2.outputs:outy>
-                float2 ui:nodegraph:node:pos = (-772.38947, -271.65698)
-                int ui:nodegraph:node:stackingOrder = 2770
-            }
-
-            def Shader "TextureCoordinates"
-            {
-                uniform token info:id = "ND_texcoord_vector2"
-                float2 outputs:out
-                float2 ui:nodegraph:node:pos = (-1330.5714, -221.10677)
-                int ui:nodegraph:node:stackingOrder = 2816
-            }
-
-            def Shader "Separate2"
-            {
-                uniform token info:id = "ND_separate2_vector2"
-                float2 inputs:in.connect = </Root/Cube/DefaultMaterial/TextureCoordinates.outputs:out>
-                float outputs:outx
-                float outputs:outy
-                float2 ui:nodegraph:node:pos = (-1069.0579, -229.35674)
-                int ui:nodegraph:node:stackingOrder = 2583
-                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:outy"]
-            }
-
-            def "ValueStep_1" (
-                active = true
-                instanceable = true
-                references = </Root/ValueStep>
-            )
-            {
-                float inputs:Gradient.connect = </Root/Cube/DefaultMaterial/Multiply.outputs:out>
-                float inputs:MaskOffsetValue
-                float inputs:NumberBeforeWhiteResult
-                float2 ui:nodegraph:node:pos = (-766.87756, -95.32713)
-                int ui:nodegraph:node:stackingOrder = 2786
-            }
-
-            def Shader "Multiply"
-            {
-                uniform token info:id = "ND_multiply_float"
-                float inputs:in1.connect = </Root/Cube/DefaultMaterial/Separate2.outputs:outy>
-                float inputs:in2 = 3
-                float inputs:in2.connect = None
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-945.00494, -151.33398)
-                int ui:nodegraph:node:stackingOrder = 2825
-            }
-
-            def "FuzzyShading_1" (
-                active = true
-                instanceable = true
-                references = </Root/FuzzyShading>
-            )
-            {
-                float3 inputs:BaseColor.connect = </Root/Cube/DefaultMaterial/ConstantFloat3.outputs:out>
-                float inputs:CoreDarkness
-                float inputs:EdgeBrightness.connect = </Root/Cube/DefaultMaterial/ConstantFloat.outputs:out>
-                float3 inputs:Normal.connect = </Root/Cube/DefaultMaterial/Image.outputs:out>
-                float inputs:Power
-                float2 ui:nodegraph:node:pos = (-683.5525, 162.61566)
-                int ui:nodegraph:node:stackingOrder = 2962
-            }
-
             def Shader "Convert"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/FuzzyShadingGrass_1.outputs:Result>
+                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/CheapContrast_RGB_1.outputs:Out>
                 color3f outputs:out
-                float2 ui:nodegraph:node:pos = (-466.60635, 207.42392)
-                int ui:nodegraph:node:stackingOrder = 2959
+                float2 ui:nodegraph:node:pos = (-490.87204, 150.80399)
+                int ui:nodegraph:node:stackingOrder = 2972
             }
 
             def Shader "ConstantFloat"
@@ -956,6 +849,62 @@ def Xform "Root"
                 float inputs:Power
                 float2 ui:nodegraph:node:pos = (-691.3348, 376.01755)
                 int ui:nodegraph:node:stackingOrder = 2964
+            }
+
+            def "_3ColorBlend_1" (
+                active = true
+                instanceable = true
+                references = </Root/_3ColorBlend>
+            )
+            {
+                float3 inputs:A
+                float inputs:Alpha
+                float3 inputs:B
+                float3 inputs:C
+                float2 ui:nodegraph:node:pos = (-750.0388, 237.5964)
+                int ui:nodegraph:node:stackingOrder = 2992
+            }
+
+            def "CheapContrast_1" (
+                active = true
+                instanceable = true
+                references = </Root/CheapContrast>
+            )
+            {
+                float inputs:Contrast
+                float inputs:In = 1
+                float2 ui:nodegraph:node:pos = (-781.17126, -107.32484)
+                int ui:nodegraph:node:stackingOrder = 2987
+            }
+
+            def Shader "Convert_1"
+            {
+                uniform token info:id = "ND_convert_float_vector3"
+                prepend float inputs:in.connect = </Root/Cube/DefaultMaterial/CheapContrast_1.outputs:Out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (-592.0511, -64.79819)
+                int ui:nodegraph:node:stackingOrder = 2979
+            }
+
+            def "CheapContrast_RGB_1" (
+                active = true
+                instanceable = true
+                references = </Root/CheapContrast_RGB>
+            )
+            {
+                float inputs:Contrast = 1
+                float3 inputs:In.connect = </Root/Cube/DefaultMaterial/Image_1.outputs:out>
+                float2 ui:nodegraph:node:pos = (-737.78516, 42.70703)
+                int ui:nodegraph:node:stackingOrder = 2996
+            }
+
+            def Shader "Image_1"
+            {
+                uniform token info:id = "ND_image_vector3"
+                asset inputs:file = @../Texture/HeatmapGradient.png@
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (-1004.5078, -17.859375)
+                int ui:nodegraph:node:stackingOrder = 2994
             }
         }
     }
@@ -3256,6 +3205,667 @@ def Xform "Root"
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (82.55891, 142.59831)
             int ui:nodegraph:node:stackingOrder = 1025
+        }
+    }
+
+    def NodeGraph "BlackBody_WIP_" (
+        active = true
+    )
+    {
+        float inputs:Temp_K = 1000 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1247.8112, -91.47907)
+                    int stackingOrderInSubgraph = 1067
+                }
+            }
+        )
+        float3 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-521, 68.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Out.connect = </Root/BlackBody_WIP_/Multiply_4.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (627.04285, 131.03325)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 559
+
+        def Shader "Clamp"
+        {
+            uniform token info:id = "ND_clamp_float"
+            float inputs:high = 40000
+            float inputs:in.connect = </Root/BlackBody_WIP_.inputs:Temp_K>
+            float inputs:low = 1000
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1066.4313, -11.416207)
+            int ui:nodegraph:node:stackingOrder = 1090
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Clamp.outputs:out>
+            float inputs:in2 = 100
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-900.7795, -48.200657)
+            int ui:nodegraph:node:stackingOrder = 891
+        }
+
+        def Shader "Remap"
+        {
+            uniform token info:id = "ND_remap_vector3"
+            float3 inputs:in.connect = </Root/BlackBody_WIP_/IfGreater.outputs:out>
+            float3 inputs:inhigh = (255, 255, 255)
+            float3 inputs:inlow
+            float3 inputs:outhigh
+            float3 inputs:outlow
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (193.0256, 10.5726795)
+            int ui:nodegraph:node:stackingOrder = 1080
+        }
+
+        def Shader "IfGreater"
+        {
+            uniform token info:id = "ND_ifgreater_vector3"
+            float3 inputs:in1.connect = </Root/BlackBody_WIP_/Combine3.outputs:out>
+            float3 inputs:in2.connect = </Root/BlackBody_WIP_/Combine3_1.outputs:out>
+            float inputs:value1.connect = </Root/BlackBody_WIP_/Divide.outputs:out>
+            float inputs:value2 = 66
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-57.987427, -48.228558)
+            int ui:nodegraph:node:stackingOrder = 1088
+        }
+
+        def Shader "Combine3"
+        {
+            uniform token info:id = "ND_combine3_vector3"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Multiply.outputs:out>
+            float inputs:in2.connect = </Root/BlackBody_WIP_/Multiply_1.outputs:out>
+            float inputs:in3 = 255
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-290.7301, -12.220539)
+            int ui:nodegraph:node:stackingOrder = 1086
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Divide.outputs:out>
+            float inputs:in2 = 60
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-784.60504, 10.323954)
+            int ui:nodegraph:node:stackingOrder = 997
+        }
+
+        def Shader "Power"
+        {
+            uniform token info:id = "ND_power_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Subtract.outputs:out>
+            float inputs:in2 = -0.13320476
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-625.0057, -4.5729046)
+            int ui:nodegraph:node:stackingOrder = 997
+        }
+
+        def Shader "Power_1"
+        {
+            uniform token info:id = "ND_power_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Subtract.outputs:out>
+            float inputs:in2 = -0.075514846
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-627.09, 60.431995)
+            int ui:nodegraph:node:stackingOrder = 997
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Power.outputs:out>
+            float inputs:in2 = 329.69873
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-481.9064, -24.712324)
+            int ui:nodegraph:node:stackingOrder = 997
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Power_1.outputs:out>
+            float inputs:in2 = 288.12216
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-472.2278, 57.128056)
+            int ui:nodegraph:node:stackingOrder = 997
+        }
+
+        def Shader "Combine3_1"
+        {
+            uniform token info:id = "ND_combine3_vector3"
+            float inputs:in1 = 255
+            float inputs:in2.connect = </Root/BlackBody_WIP_/Subtract_1.outputs:out>
+            float inputs:in3.connect = </Root/BlackBody_WIP_/IfGreater_1.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-265.38214, 79.347015)
+            int ui:nodegraph:node:stackingOrder = 1065
+        }
+
+        def Shader "Ln"
+        {
+            uniform token info:id = "ND_ln_float"
+            float inputs:in.connect = </Root/BlackBody_WIP_/Divide.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-751.75037, 145.10014)
+            int ui:nodegraph:node:stackingOrder = 1016
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Ln.outputs:out>
+            float inputs:in2 = 99.4708
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-609.7881, 135.26122)
+            int ui:nodegraph:node:stackingOrder = 1013
+        }
+
+        def Shader "Subtract_1"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Multiply_2.outputs:out>
+            float inputs:in2 = 161.11957
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-516.3694, 156.05658)
+            int ui:nodegraph:node:stackingOrder = 1018
+        }
+
+        def Shader "Subtract_2"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Divide.outputs:out>
+            float inputs:in2 = 10
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-843.0118, 299.8457)
+            int ui:nodegraph:node:stackingOrder = 1017
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+        }
+
+        def Shader "Ln_1"
+        {
+            uniform token info:id = "ND_ln_float"
+            float inputs:in.connect = </Root/BlackBody_WIP_/Subtract_2.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-709.3239, 350.60968)
+            int ui:nodegraph:node:stackingOrder = 1060
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Ln_1.outputs:out>
+            float inputs:in2 = 138.51773
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-554.2042, 351.3871)
+            int ui:nodegraph:node:stackingOrder = 1060
+        }
+
+        def Shader "Subtract_3"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Multiply_3.outputs:out>
+            float inputs:in2 = 305.0448
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-446.9284, 352.40256)
+            int ui:nodegraph:node:stackingOrder = 1060
+        }
+
+        def Shader "IfGreater_1"
+        {
+            uniform token info:id = "ND_ifgreater_float"
+            float inputs:in1.connect = </Root/BlackBody_WIP_/Subtract_3.outputs:out>
+            float inputs:in2
+            float inputs:value1.connect = </Root/BlackBody_WIP_/Subtract_2.outputs:out>
+            float inputs:value2 = 9
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-312.79358, 292.66937)
+            int ui:nodegraph:node:stackingOrder = 1063
+        }
+
+        def Shader "Range"
+        {
+            uniform token info:id = "ND_range_float"
+            bool inputs:doclamp = 1
+            float inputs:in.connect = </Root/BlackBody_WIP_.inputs:Temp_K>
+            float inputs:inhigh = 1000
+            float inputs:inlow = 0
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-762.2257, -274.2905)
+            int ui:nodegraph:node:stackingOrder = 1093
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            float3 inputs:in1.connect = </Root/BlackBody_WIP_/Remap.outputs:out>
+            float inputs:in2.connect = </Root/BlackBody_WIP_/Range.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (415.29135, -197.41089)
+            int ui:nodegraph:node:stackingOrder = 1082
+        }
+    }
+
+    def NodeGraph "_3ColorBlend" (
+        active = true
+    )
+    {
+        float3 inputs:A = (1, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-370.6764, -70.527504)
+                    int stackingOrderInSubgraph = 394
+                }
+            }
+        )
+        float inputs:Alpha = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1131.7582, 61.065674)
+                    int stackingOrderInSubgraph = 148
+                }
+            }
+        )
+        float3 inputs:B = (0, 1, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-354.9961, 48.76172)
+                    int stackingOrderInSubgraph = 135
+                }
+            }
+        )
+        float3 inputs:C = (0, 0, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-349.89667, 131.67801)
+                    int stackingOrderInSubgraph = 259
+                }
+            }
+        )
+        float3 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-16, 71.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Out.connect = </Root/_3ColorBlend/Mix_1.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (572.4258, 11.0078125)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 81
+
+        def Shader "TextureCoordinates"
+        {
+            uniform token info:id = "ND_texcoord_vector2"
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1110.8125, 156.63672)
+            int ui:nodegraph:node:stackingOrder = 77
+        }
+
+        def Shader "Separate2"
+        {
+            uniform token info:id = "ND_separate2_vector2"
+            float2 inputs:in.connect = </Root/_3ColorBlend/TextureCoordinates.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float2 ui:nodegraph:node:pos = (-920.0469, 149.73438)
+            int ui:nodegraph:node:stackingOrder = 70
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/_3ColorBlend/IfEqual.outputs:out>
+            float inputs:in2 = 2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-445.82724, -251.07112)
+            int ui:nodegraph:node:stackingOrder = 460
+        }
+
+        def Shader "Clamp"
+        {
+            uniform token info:id = "ND_clamp_float"
+            float inputs:high
+            float inputs:in.connect = </Root/_3ColorBlend/Multiply.outputs:out>
+            float inputs:low
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-324.82584, -256.32504)
+            int ui:nodegraph:node:stackingOrder = 460
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/_3ColorBlend.inputs:A>
+            float3 inputs:fg.connect = </Root/_3ColorBlend.inputs:B>
+            prepend float inputs:mix.connect = </Root/_3ColorBlend/Clamp.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-109.53209, -247.91605)
+            int ui:nodegraph:node:stackingOrder = 463
+        }
+
+        def Shader "Mix_1"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/_3ColorBlend/Mix.outputs:out>
+            float3 inputs:fg.connect = </Root/_3ColorBlend/Mix_2.outputs:out>
+            float inputs:mix.connect = </Root/_3ColorBlend/IfEqual.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (321.98438, -54.722656)
+            int ui:nodegraph:node:stackingOrder = 136
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/_3ColorBlend/IfEqual.outputs:out>
+            float inputs:in2 = -0.5
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-428.69006, 335.59824)
+            int ui:nodegraph:node:stackingOrder = 325
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/_3ColorBlend/Add.outputs:out>
+            float inputs:in2 = 2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-338.6145, 343.301)
+            int ui:nodegraph:node:stackingOrder = 325
+        }
+
+        def Shader "Clamp_1"
+        {
+            uniform token info:id = "ND_clamp_float"
+            float inputs:high
+            float inputs:in.connect = </Root/_3ColorBlend/Multiply_1.outputs:out>
+            float inputs:low
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-235.9508, 342.08652)
+            int ui:nodegraph:node:stackingOrder = 467
+        }
+
+        def Shader "Mix_2"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/_3ColorBlend.inputs:B>
+            float3 inputs:fg.connect = </Root/_3ColorBlend.inputs:C>
+            prepend float inputs:mix.connect = </Root/_3ColorBlend/Clamp_1.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-40.89741, 329.78833)
+            int ui:nodegraph:node:stackingOrder = 469
+        }
+
+        def Shader "IfEqual"
+        {
+            uniform token info:id = "ND_ifequal_float"
+            prepend float inputs:in1.connect = </Root/_3ColorBlend/Separate2.outputs:outx>
+            float inputs:in2.connect = </Root/_3ColorBlend.inputs:Alpha>
+            float inputs:value1.connect = </Root/_3ColorBlend.inputs:Alpha>
+            float inputs:value2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-706.4922, 67.27734)
+            int ui:nodegraph:node:stackingOrder = 74
+        }
+
+        def Scope "Group" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "Isolate 0.5-1"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Multiply_1", "p:Mix_2", "p:Add", "p:Clamp_1"]
+        }
+
+        def Scope "Group2" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "Isolate 0-0.5"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Clamp", "p:Multiply", "p:Mix"]
+        }
+    }
+
+    def NodeGraph "CheapContrast" (
+        active = true
+    )
+    {
+        float inputs:Contrast = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-839.91797, -136.2539)
+                    int stackingOrderInSubgraph = 108
+                }
+            }
+        )
+        float inputs:In = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-869.1875, 81.53516)
+                    int stackingOrderInSubgraph = 105
+                }
+            }
+        )
+        float outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-345, 128.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float outputs:Out.connect = </Root/CheapContrast/Clamp.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 2
+
+        def Shader "IfEqual"
+        {
+            uniform token info:id = "ND_ifequal_float"
+            float inputs:in1.connect = </Root/CheapContrast/Oneminus.outputs:out>
+            float inputs:in2.connect = </Root/CheapContrast.inputs:In>
+            float inputs:value1.connect = </Root/CheapContrast.inputs:In>
+            float inputs:value2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-673.09766, 118.65234)
+            int ui:nodegraph:node:stackingOrder = 105
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/CheapContrast/Separate2.outputs:outy>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-876.27734, 171.76172)
+            int ui:nodegraph:node:stackingOrder = 105
+        }
+
+        def Shader "Separate2"
+        {
+            uniform token info:id = "ND_separate2_vector2"
+            float2 inputs:in.connect = </Root/CheapContrast/TextureCoordinates.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float2 ui:nodegraph:node:pos = (-999.54297, 164.82031)
+            int ui:nodegraph:node:stackingOrder = 105
+        }
+
+        def Shader "TextureCoordinates"
+        {
+            uniform token info:id = "ND_texcoord_vector2"
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1235.2656, 155.48828)
+            int ui:nodegraph:node:stackingOrder = 105
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/CheapContrast/Subtract.outputs:out>
+            float inputs:fg.connect = </Root/CheapContrast/Add.outputs:out>
+            float inputs:mix.connect = </Root/CheapContrast.inputs:In>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-317.2461, 89.16016)
+            int ui:nodegraph:node:stackingOrder = 27
+        }
+
+        def Shader "Clamp"
+        {
+            uniform token info:id = "ND_clamp_float"
+            float inputs:high
+            float inputs:in.connect = </Root/CheapContrast/Mix.outputs:out>
+            float inputs:low
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-144.1875, 84.78906)
+            int ui:nodegraph:node:stackingOrder = 25
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/CheapContrast.inputs:Contrast>
+            float inputs:in2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-640.9453, -150.34766)
+            int ui:nodegraph:node:stackingOrder = 110
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = None
+            float inputs:in2.connect = </Root/CheapContrast.inputs:Contrast>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-644.64453, -43.578125)
+            int ui:nodegraph:node:stackingOrder = 113
+        }
+    }
+
+    def NodeGraph "CheapContrast_RGB" (
+        active = true
+    )
+    {
+        float inputs:Contrast = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-833.47266, -55.871094)
+                    int stackingOrderInSubgraph = 2
+                }
+            }
+        )
+        float3 inputs:In = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-816.9052, 71.171875)
+                    int stackingOrderInSubgraph = 21
+                }
+            }
+        )
+        float3 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-256, 64.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Out.connect = </Root/CheapContrast_RGB/Clamp.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (267.41043, -87.440765)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 41
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/CheapContrast_RGB.inputs:Contrast>
+            float inputs:in2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-626.8789, -125.61328)
+            int ui:nodegraph:node:stackingOrder = 7
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = None
+            float inputs:in2.connect = </Root/CheapContrast_RGB.inputs:Contrast>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-649.28125, -37.20703)
+            int ui:nodegraph:node:stackingOrder = 17
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/CheapContrast_RGB/Subtract.outputs:out>
+            float inputs:fg.connect = </Root/CheapContrast_RGB/Add.outputs:out>
+            float inputs:mix.connect = </Root/CheapContrast_RGB/Separate3.outputs:outx>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-427.90994, -196.28575)
+            int ui:nodegraph:node:stackingOrder = 29
+        }
+
+        def Shader "Separate3"
+        {
+            uniform token info:id = "ND_separate3_vector3"
+            float3 inputs:in.connect = </Root/CheapContrast_RGB.inputs:In>
+            float outputs:outx
+            float outputs:outy
+            float outputs:outz
+            float2 ui:nodegraph:node:pos = (-640.7776, 70.50423)
+            int ui:nodegraph:node:stackingOrder = 24
+        }
+
+        def Shader "Mix_1"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/CheapContrast_RGB/Subtract.outputs:out>
+            float inputs:fg.connect = </Root/CheapContrast_RGB/Add.outputs:out>
+            float inputs:mix.connect = </Root/CheapContrast_RGB/Separate3.outputs:outy>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-428.92004, -40.182373)
+            int ui:nodegraph:node:stackingOrder = 33
+        }
+
+        def Shader "Mix_2"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/CheapContrast_RGB/Subtract.outputs:out>
+            float inputs:fg.connect = </Root/CheapContrast_RGB/Add.outputs:out>
+            float inputs:mix.connect = </Root/CheapContrast_RGB/Separate3.outputs:outz>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-423.23303, 115.800125)
+            int ui:nodegraph:node:stackingOrder = 36
+        }
+
+        def Shader "Combine3"
+        {
+            uniform token info:id = "ND_combine3_vector3"
+            prepend float inputs:in1.connect = </Root/CheapContrast_RGB/Mix.outputs:out>
+            prepend float inputs:in2.connect = </Root/CheapContrast_RGB/Mix_1.outputs:out>
+            prepend float inputs:in3.connect = </Root/CheapContrast_RGB/Mix_2.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-206.78616, -75.255356)
+            int ui:nodegraph:node:stackingOrder = 44
+        }
+
+        def Shader "Clamp"
+        {
+            uniform token info:id = "ND_clamp_vector3"
+            float3 inputs:high
+            float3 inputs:in.connect = </Root/CheapContrast_RGB/Combine3.outputs:out>
+            float3 inputs:low
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-23.46123, -69.0221)
+            int ui:nodegraph:node:stackingOrder = 40
         }
     }
 }

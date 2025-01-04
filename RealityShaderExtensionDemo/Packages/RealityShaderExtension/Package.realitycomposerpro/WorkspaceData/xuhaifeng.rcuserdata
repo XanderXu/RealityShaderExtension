@@ -1,10 +1,9 @@
 {
   "advancedEditorSelectedIdentifier" : "ShaderGraphEditorPluginID",
   "openSceneRelativePaths" : [
-    "Immersive.usda",
     "Materials\/Nodes\/UnityNode.usda",
-    "Materials\/UnityMaterial.usda",
-    "Materials\/Nodes\/UENode.usda"
+    "Materials\/Nodes\/UENode.usda",
+    "Materials\/UEMaterial.usda"
   ],
   "recentIdentifiers" : {
     "69F48840-7E19-4AE3-B581-9AC6CF6B9217" : [
@@ -251,6 +250,28 @@
     ],
     "7FF16649-B3D7-4A5B-9193-076A64EB06E6" : [
       {
+        "date" : 757651546.11995,
+        "title" : "Untitled",
+        "transform" : [
+          0.9472238,
+          -4.5405432e-08,
+          -0.32057276,
+          0,
+          0.028708925,
+          0.99598193,
+          0.084828384,
+          0,
+          0.31928444,
+          -0.089555,
+          0.9434179,
+          0,
+          0.3167389,
+          0.019849516,
+          0.6550322,
+          1
+        ]
+      },
+      {
         "date" : 756554759.688203,
         "title" : "Untitled",
         "transform" : [
@@ -445,28 +466,6 @@
           -0.10913226,
           -0.061127227,
           -0.64937145,
-          1
-        ]
-      },
-      {
-        "date" : 756553103.350794,
-        "title" : "Untitled",
-        "transform" : [
-          -0.48584676,
-          -5.101148e-09,
-          0.87404424,
-          0,
-          -0.58798057,
-          0.7399039,
-          -0.32683513,
-          0,
-          -0.6467083,
-          -0.6727128,
-          -0.35948023,
-          0,
-          -0.123560995,
-          -0.43335778,
-          -0.47498024,
           1
         ]
       }
@@ -895,6 +894,28 @@
     ],
     "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232" : [
       {
+        "date" : 757603574.430457,
+        "title" : "Untitled",
+        "transform" : [
+          0.99634457,
+          -9.0023955e-10,
+          -0.08542587,
+          0,
+          -0.008867945,
+          0.99459726,
+          -0.10342919,
+          0,
+          0.08496433,
+          0.103808664,
+          0.99096155,
+          0,
+          0.19977656,
+          0.27726153,
+          1.254365,
+          1
+        ]
+      },
+      {
         "date" : 756555196.240518,
         "title" : "Untitled",
         "transform" : [
@@ -1091,33 +1112,11 @@
           0.487579,
           1
         ]
-      },
-      {
-        "date" : 756467969.452896,
-        "title" : "Untitled",
-        "transform" : [
-          0.9999247,
-          9.976332e-12,
-          -0.01226963,
-          0,
-          -0.00027796,
-          0.99974334,
-          -0.022652604,
-          0,
-          0.01226648,
-          0.022654308,
-          0.9996681,
-          0,
-          -0.79530656,
-          0.18580902,
-          0.4848807,
-          1
-        ]
       }
     ]
   },
   "sceneViewportBackgroundColors" : {
 
   },
-  "selectedSceneRelativePath" : "Materials\/UnityMaterial.usda"
+  "selectedSceneRelativePath" : "Materials\/UEMaterial.usda"
 }
