@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["InputTextureCoordinate", "Panner", "Desaturation", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "SmoothCurve", "ValueStep", "FuzzyShading", "FuzzyShadingGrass", "BlackBody_WIP_", "_3ColorBlend", "CheapContrast", "CheapContrast_RGB", "Cube"]
+    reorder nameChildren = ["InputTextureCoordinate", "Panner", "Desaturation", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "SmoothCurve", "ValueStep", "FuzzyShading", "FuzzyShadingGrass", "BlackBody_WIP_", "_3ColorBlend", "CheapContrast", "CheapContrast_RGB", "SCurve", "_3PointLevels", "HueShift", "SmoothThreshold", "Cube"]
     def NodeGraph "SphereMask"
     {
         reorder nameChildren = ["Multiply", "Subtract", "Magnitude", "Group", "Group2", "Divide", "Abs", "MTLCospi", "Multiply_3", "Clamp_1", "Range_1", "Clamp", "Fractional", "UV", "InputTextureCoordinate_1"]
@@ -3608,7 +3608,7 @@ def Xform "Root"
         def Shader "IfEqual"
         {
             uniform token info:id = "ND_ifequal_float"
-            prepend float inputs:in1.connect = </Root/_3ColorBlend/Separate2.outputs:outx>
+            float inputs:in1.connect = </Root/_3ColorBlend.inputs:Alpha>
             float inputs:in2.connect = </Root/_3ColorBlend.inputs:Alpha>
             float inputs:value1.connect = </Root/_3ColorBlend.inputs:Alpha>
             float inputs:value2
@@ -3866,6 +3866,752 @@ def Xform "Root"
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (-23.46123, -69.0221)
             int ui:nodegraph:node:stackingOrder = 40
+        }
+    }
+
+    def NodeGraph "SCurve" (
+        active = true
+    )
+    {
+        float3 inputs:In = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-831.25, -2.4179688)
+                    int stackingOrderInSubgraph = 8
+                }
+            }
+        )
+        float inputs:Power = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-369.0039, 8.7734375)
+                    int stackingOrderInSubgraph = 77
+                }
+            }
+        )
+        float3 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-16, 71.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Out.connect = </Root/SCurve/Combine3.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1019.0625, 73.30859)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 113
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/SCurve.inputs:In>
+            float inputs:in2 = 2
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-673.03906, -104.98828)
+            int ui:nodegraph:node:stackingOrder = 14
+        }
+
+        def Shader "Clamp"
+        {
+            uniform token info:id = "ND_clamp_vector3"
+            float3 inputs:high
+            float3 inputs:in.connect = </Root/SCurve/Multiply.outputs:out>
+            float3 inputs:low
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-514.8867, -101.23828)
+            int ui:nodegraph:node:stackingOrder = 17
+        }
+
+        def Shader "Power"
+        {
+            uniform token info:id = "ND_power_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/SCurve/Clamp.outputs:out>
+            float inputs:in2.connect = </Root/SCurve.inputs:Power>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-188.26562, -74.03906)
+            int ui:nodegraph:node:stackingOrder = 75
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/SCurve/Power.outputs:out>
+            float inputs:in2 = 0.5
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-50.558594, -66.40625)
+            int ui:nodegraph:node:stackingOrder = 75
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/SCurve.inputs:In>
+            float inputs:in2 = -0.5
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-665.76953, 114.51172)
+            int ui:nodegraph:node:stackingOrder = 27
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/SCurve/Add.outputs:out>
+            float inputs:in2 = 2
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-575.9961, 123.625)
+            int ui:nodegraph:node:stackingOrder = 30
+        }
+
+        def Shader "Clamp_1"
+        {
+            uniform token info:id = "ND_clamp_vector3"
+            float3 inputs:high
+            float3 inputs:in.connect = </Root/SCurve/Multiply_2.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-426.76172, 133.57812)
+            int ui:nodegraph:node:stackingOrder = 33
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector3"
+            float3 inputs:in.connect = </Root/SCurve/Clamp_1.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-280.8047, 184.4375)
+            int ui:nodegraph:node:stackingOrder = 80
+        }
+
+        def Shader "Power_1"
+        {
+            uniform token info:id = "ND_power_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/SCurve/Oneminus.outputs:out>
+            float inputs:in2.connect = </Root/SCurve.inputs:Power>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-145.52734, 159.30078)
+            int ui:nodegraph:node:stackingOrder = 83
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector3"
+            float3 inputs:in.connect = </Root/SCurve/Power_1.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-34.64453, 159.09375)
+            int ui:nodegraph:node:stackingOrder = 84
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/SCurve/Oneminus_1.outputs:out>
+            float inputs:in2 = 0.5
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (64.30078, 118.28906)
+            int ui:nodegraph:node:stackingOrder = 92
+        }
+
+        def Shader "Add_1"
+        {
+            uniform token info:id = "ND_add_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/SCurve/Multiply_3.outputs:out>
+            float inputs:in2 = 0.5
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (157.66797, 120.97266)
+            int ui:nodegraph:node:stackingOrder = 90
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/SCurve/Oneminus_1.outputs:out>
+            float inputs:in2 = 500
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (60.39453, 205.15625)
+            int ui:nodegraph:node:stackingOrder = 93
+        }
+
+        def Shader "Clamp_2"
+        {
+            uniform token info:id = "ND_clamp_vector3"
+            float3 inputs:high
+            float3 inputs:in.connect = </Root/SCurve/Multiply_4.outputs:out>
+            float3 inputs:low
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (217.50781, 238.89453)
+            int ui:nodegraph:node:stackingOrder = 119
+        }
+
+        def Shader "Separate3"
+        {
+            uniform token info:id = "ND_separate3_vector3"
+            float3 inputs:in.connect = </Root/SCurve/Multiply_1.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float outputs:outz
+            float2 ui:nodegraph:node:pos = (103.75781, -56.0625)
+            int ui:nodegraph:node:stackingOrder = 104
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/SCurve/Separate3.outputs:outx>
+            float inputs:fg.connect = </Root/SCurve/Separate3_1.outputs:outx>
+            float inputs:mix.connect = </Root/SCurve/Separate3_2.outputs:outx>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (573.8164, -96.35547)
+            int ui:nodegraph:node:stackingOrder = 121
+        }
+
+        def Shader "Separate3_1"
+        {
+            uniform token info:id = "ND_separate3_vector3"
+            float3 inputs:in.connect = </Root/SCurve/Add_1.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float outputs:outz
+            float2 ui:nodegraph:node:pos = (281.41016, 103.55078)
+            int ui:nodegraph:node:stackingOrder = 111
+        }
+
+        def Shader "Separate3_2"
+        {
+            uniform token info:id = "ND_separate3_vector3"
+            float3 inputs:in.connect = </Root/SCurve/Clamp_2.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float outputs:outz
+            float2 ui:nodegraph:node:pos = (400.66797, 262.83984)
+            int ui:nodegraph:node:stackingOrder = 120
+        }
+
+        def Shader "Mix_1"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/SCurve/Separate3.outputs:outy>
+            float inputs:fg.connect = </Root/SCurve/Separate3_1.outputs:outy>
+            float inputs:mix.connect = </Root/SCurve/Separate3_2.outputs:outy>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (616.86084, 66.41679)
+            int ui:nodegraph:node:stackingOrder = 126
+        }
+
+        def Shader "Mix_2"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/SCurve/Separate3.outputs:outz>
+            float inputs:fg.connect = </Root/SCurve/Separate3_1.outputs:outz>
+            float inputs:mix.connect = </Root/SCurve/Separate3_2.outputs:outz>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (650.62006, 215.02489)
+            int ui:nodegraph:node:stackingOrder = 129
+        }
+
+        def Shader "Combine3"
+        {
+            uniform token info:id = "ND_combine3_vector3"
+            prepend float inputs:in1.connect = </Root/SCurve/Mix.outputs:out>
+            prepend float inputs:in2.connect = </Root/SCurve/Mix_1.outputs:out>
+            prepend float inputs:in3.connect = </Root/SCurve/Mix_2.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (834.7498, 30.215057)
+            int ui:nodegraph:node:stackingOrder = 130
+        }
+    }
+
+    def NodeGraph "_3PointLevels" (
+        active = true
+    )
+    {
+        bool inputs:DefineInterpolationCurve = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-66.18064, -250.45079)
+                    int stackingOrderInSubgraph = 329
+                }
+            }
+        )
+        float inputs:InterpolationPower = 2 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-457.08795, 365.34802)
+                    int stackingOrderInSubgraph = 164
+                }
+            }
+        )
+        bool inputs:InvertInterpolationPower = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-699.6427, -264.2625)
+                    int stackingOrderInSubgraph = 328
+                }
+            }
+        )
+        float inputs:MiddlePoint = 0.5 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1088.4297, 125.83594)
+                    int stackingOrderInSubgraph = 47
+                }
+            }
+        )
+        float inputs:NewBlackValue = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (421.64795, -342.07367)
+                    int stackingOrderInSubgraph = 297
+                }
+            }
+        )
+        float inputs:NewMiddleValue = 0.5 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (416.40967, -249.3687)
+                    int stackingOrderInSubgraph = 336
+                }
+            }
+        )
+        float inputs:NewWhiteValue = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (410.17123, -151.98692)
+                    int stackingOrderInSubgraph = 334
+                }
+            }
+        )
+        float inputs:Texture = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1118.2031, 24.140625)
+                    int stackingOrderInSubgraph = 44
+                }
+            }
+        )
+        float outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-16, 71.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float outputs:Out.connect = </Root/_3PointLevels/Mix_2.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1230.6364, 96.597275)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 307
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/_3PointLevels.inputs:Texture>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-953.25, 7.6523438)
+            int ui:nodegraph:node:stackingOrder = 51
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/_3PointLevels.inputs:MiddlePoint>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-954.65625, 50.51953)
+            int ui:nodegraph:node:stackingOrder = 66
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/_3PointLevels/Oneminus.outputs:out>
+            float inputs:in2.connect = </Root/_3PointLevels/Oneminus_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-871.83203, 23.5625)
+            int ui:nodegraph:node:stackingOrder = 64
+        }
+
+        def Shader "Divide_1"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/_3PointLevels.inputs:Texture>
+            float inputs:in2.connect = </Root/_3PointLevels.inputs:MiddlePoint>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-913.6328, 134.3789)
+            int ui:nodegraph:node:stackingOrder = 62
+        }
+
+        def Shader "Clamp"
+        {
+            uniform token info:id = "ND_clamp_float"
+            float inputs:high
+            float inputs:in.connect = </Root/_3PointLevels/Divide.outputs:out>
+            float inputs:low
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-774.4531, 29.633709)
+            int ui:nodegraph:node:stackingOrder = 260
+        }
+
+        def Shader "Clamp_1"
+        {
+            uniform token info:id = "ND_clamp_float"
+            float inputs:high
+            float inputs:in.connect = </Root/_3PointLevels/Divide_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-780.2578, 219.82167)
+            int ui:nodegraph:node:stackingOrder = 258
+        }
+
+        def Shader "Oneminus_2"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/_3PointLevels/Clamp.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-635.4219, 10.9140625)
+            int ui:nodegraph:node:stackingOrder = 88
+        }
+
+        def Shader "Oneminus_3"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/_3PointLevels/Clamp_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-649.02734, 161.09375)
+            int ui:nodegraph:node:stackingOrder = 150
+        }
+
+        def Shader "IfEqual"
+        {
+            uniform token info:id = "ND_ifequal_floatB"
+            float inputs:in1.connect = </Root/_3PointLevels/Oneminus_2.outputs:out>
+            float inputs:in2.connect = </Root/_3PointLevels/Clamp.outputs:out>
+            bool inputs:value1.connect = </Root/_3PointLevels.inputs:InvertInterpolationPower>
+            bool inputs:value2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-445.67188, -28.316406)
+            int ui:nodegraph:node:stackingOrder = 145
+        }
+
+        def Shader "IfEqual_1"
+        {
+            uniform token info:id = "ND_ifequal_floatB"
+            prepend float inputs:in1.connect = </Root/_3PointLevels/Oneminus_3.outputs:out>
+            float inputs:in2.connect = </Root/_3PointLevels/Clamp_1.outputs:out>
+            bool inputs:value1.connect = </Root/_3PointLevels.inputs:InvertInterpolationPower>
+            bool inputs:value2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-451.79297, 176.78601)
+            int ui:nodegraph:node:stackingOrder = 264
+        }
+
+        def Shader "Power"
+        {
+            uniform token info:id = "ND_power_float"
+            float inputs:in1.connect = </Root/_3PointLevels/IfEqual.outputs:out>
+            float inputs:in2.connect = </Root/_3PointLevels.inputs:InterpolationPower>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-264.0957, 10.481952)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+
+        def Shader "Power_1"
+        {
+            uniform token info:id = "ND_power_float"
+            float inputs:in1.connect = </Root/_3PointLevels/IfEqual_1.outputs:out>
+            float inputs:in2.connect = </Root/_3PointLevels.inputs:InterpolationPower>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-240.53679, 190.65631)
+            int ui:nodegraph:node:stackingOrder = 327
+        }
+
+        def Shader "Oneminus_4"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/_3PointLevels/Power.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-145.47133, -34.264687)
+            int ui:nodegraph:node:stackingOrder = 232
+        }
+
+        def Shader "Oneminus_5"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/_3PointLevels/Power_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-114.42701, 164.79083)
+            int ui:nodegraph:node:stackingOrder = 236
+        }
+
+        def Shader "IfEqual_2"
+        {
+            uniform token info:id = "ND_ifequal_floatB"
+            float inputs:in1.connect = </Root/_3PointLevels/Oneminus_4.outputs:out>
+            float inputs:in2.connect = </Root/_3PointLevels/Power.outputs:out>
+            bool inputs:value1.connect = </Root/_3PointLevels.inputs:InvertInterpolationPower>
+            bool inputs:value2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-17.960665, -56.206966)
+            int ui:nodegraph:node:stackingOrder = 246
+        }
+
+        def Shader "IfEqual_3"
+        {
+            uniform token info:id = "ND_ifequal_floatB"
+            float inputs:in1.connect = </Root/_3PointLevels/Oneminus_5.outputs:out>
+            float inputs:in2.connect = </Root/_3PointLevels/Power_1.outputs:out>
+            bool inputs:value1.connect = </Root/_3PointLevels.inputs:InvertInterpolationPower>
+            bool inputs:value2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (20.515352, 158.22034)
+            int ui:nodegraph:node:stackingOrder = 242
+        }
+
+        def Shader "IfEqual_4"
+        {
+            uniform token info:id = "ND_ifequal_floatB"
+            float inputs:in1.connect = </Root/_3PointLevels/IfEqual_2.outputs:out>
+            float inputs:in2.connect = </Root/_3PointLevels/Clamp.outputs:out>
+            bool inputs:value1.connect = </Root/_3PointLevels.inputs:DefineInterpolationCurve>
+            bool inputs:value2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (210.18422, 10.582746)
+            int ui:nodegraph:node:stackingOrder = 262
+        }
+
+        def Shader "IfEqual_5"
+        {
+            uniform token info:id = "ND_ifequal_floatB"
+            float inputs:in1.connect = </Root/_3PointLevels/IfEqual_3.outputs:out>
+            float inputs:in2.connect = </Root/_3PointLevels/Clamp_1.outputs:out>
+            bool inputs:value1.connect = </Root/_3PointLevels.inputs:DefineInterpolationCurve>
+            bool inputs:value2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (214.5676, 226.9821)
+            int ui:nodegraph:node:stackingOrder = 256
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/_3PointLevels.inputs:NewBlackValue>
+            float inputs:fg.connect = </Root/_3PointLevels.inputs:NewMiddleValue>
+            float inputs:mix.connect = </Root/_3PointLevels/IfEqual_5.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (723.3393, -272.7771)
+            int ui:nodegraph:node:stackingOrder = 329
+        }
+
+        def Shader "Mix_1"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/_3PointLevels.inputs:NewWhiteValue>
+            float inputs:fg.connect = </Root/_3PointLevels.inputs:NewMiddleValue>
+            float inputs:mix.connect = </Root/_3PointLevels/IfEqual_4.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (723.9461, -57.963955)
+            int ui:nodegraph:node:stackingOrder = 331
+        }
+
+        def Shader "Floor"
+        {
+            uniform token info:id = "ND_floor_float"
+            float inputs:in.connect = </Root/_3PointLevels/IfEqual_5.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (672.88916, 256.06415)
+            int ui:nodegraph:node:stackingOrder = 305
+        }
+
+        def Shader "Mix_2"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/_3PointLevels/Mix.outputs:out>
+            float inputs:fg.connect = </Root/_3PointLevels/Mix_1.outputs:out>
+            float inputs:mix.connect = </Root/_3PointLevels/Floor.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (980.29614, 51.417114)
+            int ui:nodegraph:node:stackingOrder = 317
+        }
+    }
+
+    def NodeGraph "HueShift" (
+        active = true
+    )
+    {
+        float inputs:HueShiftPercentage = 180 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-823.6719, -4.6367188)
+                    int stackingOrderInSubgraph = 27
+                }
+            }
+        )
+        float3 inputs:Texture = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-685.9375, 168.76953)
+                    int stackingOrderInSubgraph = 28
+                }
+            }
+        )
+        float3 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-377, 69.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Out.connect = </Root/HueShift/Add.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Rotate3D"
+        {
+            uniform token info:id = "ND_rotate3d_vector3"
+            float inputs:amount.connect = </Root/HueShift/Multiply_1.outputs:out>
+            float3 inputs:axis.connect = </Root/HueShift/Normalize.outputs:out>
+            float3 inputs:in.connect = </Root/HueShift.inputs:Texture>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-359.7578, 12.6875)
+            int ui:nodegraph:node:stackingOrder = 22
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector3"
+            float3 inputs:in1.connect = </Root/HueShift/Rotate3D.outputs:out>
+            float3 inputs:in2.connect = None
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-190.28125, 66.55469)
+            int ui:nodegraph:node:stackingOrder = 6
+        }
+
+        def Shader "Normalize"
+        {
+            uniform token info:id = "ND_normalize_vector3"
+            float3 inputs:in = (1, 1, 1)
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-657.25, 95.02344)
+            int ui:nodegraph:node:stackingOrder = 24
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/HueShift.inputs:HueShiftPercentage>
+            float inputs:in2 = 2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-656.1797, -0.8203125)
+            int ui:nodegraph:node:stackingOrder = 45
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/HueShift/Multiply.outputs:out>
+            float inputs:in2 = 180
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-552.72656, -5.6445312)
+            int ui:nodegraph:node:stackingOrder = 46
+        }
+    }
+
+    def NodeGraph "SmoothThreshold" (
+        active = true
+    )
+    {
+        float inputs:CutoffValue = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-822.1719, 245.59375)
+                    int stackingOrderInSubgraph = 6
+                }
+            }
+        )
+        float inputs:Gradient = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-764.96094, 14.441406)
+                    int stackingOrderInSubgraph = 2
+                }
+            }
+        )
+        float inputs:LerpValue = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-746.16016, -81.98047)
+                    int stackingOrderInSubgraph = 4
+                }
+            }
+        )
+        float outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-625, 94.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float outputs:Out.connect = </Root/SmoothThreshold/IfGreater.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (503.35938, 101.05078)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 29
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/SmoothThreshold.inputs:CutoffValue>
+            float inputs:in2.connect = </Root/SmoothThreshold.inputs:CutoffValue>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-649.28516, 223.04297)
+            int ui:nodegraph:node:stackingOrder = 9
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1 = 1
+            float inputs:in2.connect = </Root/SmoothThreshold/Add.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-658.09766, 116.89453)
+            int ui:nodegraph:node:stackingOrder = 43
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SmoothThreshold.inputs:Gradient>
+            float inputs:in2.connect = </Root/SmoothThreshold/Divide.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-563.96094, -35.484375)
+            int ui:nodegraph:node:stackingOrder = 41
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_float"
+            float inputs:bg.connect = </Root/SmoothThreshold.inputs:LerpValue>
+            float inputs:fg = 1
+            float inputs:mix.connect = </Root/SmoothThreshold/Multiply.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-401.0547, -69.84766)
+            int ui:nodegraph:node:stackingOrder = 33
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/SmoothThreshold/Mix.outputs:out>
+            float inputs:in2.connect = </Root/SmoothThreshold/Add.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-236.875, 168.66797)
+            int ui:nodegraph:node:stackingOrder = 38
+        }
+
+        def Shader "IfGreater"
+        {
+            uniform token info:id = "ND_ifgreater_float"
+            float inputs:in1.connect = </Root/SmoothThreshold.inputs:Gradient>
+            float inputs:in2.connect = </Root/SmoothThreshold/Multiply_1.outputs:out>
+            float inputs:value1.connect = </Root/SmoothThreshold.inputs:Gradient>
+            float inputs:value2.connect = </Root/SmoothThreshold/Add.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (82.61328, 53.07422)
+            int ui:nodegraph:node:stackingOrder = 31
         }
     }
 }
