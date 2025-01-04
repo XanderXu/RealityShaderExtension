@@ -3,7 +3,8 @@
   "openSceneRelativePaths" : [
     "Materials\/Nodes\/UnityNode.usda",
     "Materials\/Nodes\/UENode.usda",
-    "Materials\/UEMaterial.usda"
+    "Materials\/UEMaterial.usda",
+    "Materials\/UnityMaterial.usda"
   ],
   "recentIdentifiers" : {
     "69F48840-7E19-4AE3-B581-9AC6CF6B9217" : [
@@ -26,6 +27,30 @@
     ]
   },
   "sceneCameraHistory" : {
+    "69F48840-7E19-4AE3-B581-9AC6CF6B9217" : [
+      {
+        "date" : 757690520.783204,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          -4.040518e-14,
+          0.00011982361,
+          0,
+          -4.801891e-05,
+          0.916189,
+          0.4007467,
+          0,
+          -0.00010978108,
+          -0.40074667,
+          0.916189,
+          0,
+          -4.419253e-05,
+          -0.16132116,
+          0.3688132,
+          1
+        ]
+      }
+    ],
     "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE" : [
       {
         "date" : 755954221.620454,
@@ -1118,5 +1143,5 @@
   "sceneViewportBackgroundColors" : {
 
   },
-  "selectedSceneRelativePath" : "Materials\/UEMaterial.usda"
+  "selectedSceneRelativePath" : "Materials\/Nodes\/UnityNode.usda"
 }
