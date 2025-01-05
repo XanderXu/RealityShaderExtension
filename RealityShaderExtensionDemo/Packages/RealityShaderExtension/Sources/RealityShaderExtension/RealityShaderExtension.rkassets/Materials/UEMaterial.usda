@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cube_SphereMask", "Sphere_Fresnel", "Cube_Panner", "Cube_GeneratedBand", "Cube_GenaratedOffsetBands", "Cube_NormalFromHeightmap", "Cube_NormalFromHeightmapChaos", "Cube_RadialGradientExponential", "Cube_DiamondGradient", "Cube_SmoothCurve", "Cube_ValueStep", "Cube_Desaturation", "Cube_FuzzyShading", "Cube_FuzzyShadingGrass", "Cube__3ColorBlend", "Cube_CheapContrast", "Cube_CheapContrast_RGB", "Cube_SCurve", "Cube__3PointLevels", "Cube_HueShift", "Cube_SmoothThreshold", "Cube_SoftOpacity", "Cube_VectorToRadialValue", "Cube_LinearSine", "Cube_SCurve_1", "Cube__3PointLevels_1", "Cube_HueShift_1", "Cube_SmoothThreshold_1"]
+    reorder nameChildren = ["Cube_SphereMask", "Sphere_Fresnel", "Cube_Panner", "Cube_GeneratedBand", "Cube_GenaratedOffsetBands", "Cube_NormalFromHeightmap", "Cube_NormalFromHeightmapChaos", "Cube_RadialGradientExponential", "Cube_DiamondGradient", "Cube_SmoothCurve", "Cube_ValueStep", "Cube_Desaturation", "Cube_FuzzyShading", "Cube_FuzzyShadingGrass", "Cube__3ColorBlend", "Cube_CheapContrast", "Cube_CheapContrast_RGB", "Cube_SCurve", "Cube__3PointLevels", "Cube_HueShift", "Cube_SmoothThreshold", "Cube_SoftOpacity", "Cube_VectorToRadialValue", "Cube_LinearSine", "Cube_ViewAlignedReflection", "Cube__3PointLevels_1", "Cube_HueShift_1", "Cube_SmoothThreshold_1"]
     def Cube "Cube_GeneratedBand" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -1816,12 +1816,12 @@ def Xform "Root"
         }
     }
 
-    def Cube "Cube_SCurve_1" (
+    def Cube "Cube_ViewAlignedReflection" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
-        rel material:binding = </Root/Cube_SCurve_1/SCurveMaterial> (
+        rel material:binding = </Root/Cube_ViewAlignedReflection/ViewAlignedReflectionMaterial> (
             bindMaterialAs = "weakerThanDescendants"
         )
         double size = 0.2
@@ -1832,17 +1832,17 @@ def Xform "Root"
         float3 xformOp:translate = (0, 0.9, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
-        def Material "SCurveMaterial"
+        def Material "ViewAlignedReflectionMaterial"
         {
             reorder nameChildren = ["ValueStep_1", "Multiply", "PreviewSurface", "Convert", "TextureCoordinates", "Separate2", "SCurve_1"]
-            token outputs:mtlx:surface.connect = </Root/Cube_SCurve_1/SCurveMaterial/PreviewSurface.outputs:out>
+            token outputs:mtlx:surface.connect = </Root/Cube_ViewAlignedReflection/ViewAlignedReflectionMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
 
             def Shader "PreviewSurface"
             {
                 uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-                color3f inputs:diffuseColor.connect = </Root/Cube_SCurve_1/SCurveMaterial/Convert.outputs:out>
+                color3f inputs:diffuseColor.connect = </Root/Cube_ViewAlignedReflection/ViewAlignedReflectionMaterial/Convert.outputs:out>
                 float inputs:metallic
                 float3 inputs:normal
                 float inputs:opacity
@@ -1851,34 +1851,71 @@ def Xform "Root"
                 float2 ui:nodegraph:node:pos = (93.5, 100.5)
             }
 
-            def "SCurve_1" (
-                active = true
-                instanceable = true
-                references = @Nodes/UENode.usda@</Root/SCurve>
-            )
-            {
-                float3 inputs:In.connect = </Root/Cube_SCurve_1/SCurveMaterial/Image.outputs:out>
-                float inputs:Power = 100
-                float2 ui:nodegraph:node:pos = (-332.58984, 60.996094)
-                int ui:nodegraph:node:stackingOrder = 2603
-            }
-
             def Shader "Convert"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube_SCurve_1/SCurveMaterial/SCurve_1.outputs:Out>
+                float3 inputs:in.connect = </Root/Cube_ViewAlignedReflection/ViewAlignedReflectionMaterial/ViewAlignedReflection_1.outputs:Texture>
                 color3f outputs:out
                 float2 ui:nodegraph:node:pos = (-135.03224, 116.31452)
                 int ui:nodegraph:node:stackingOrder = 31
             }
 
-            def Shader "Image"
+            def "ViewAlignedReflection_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/UENode.usda@</Root/ViewAlignedReflection>
+            )
             {
-                uniform token info:id = "ND_image_vector3"
-                asset inputs:file = @Texture/number.jpeg@
+                asset inputs:ReflectionTexture = @Texture/DefaultTexture1.png@
+                float3 inputs:ReflectionVector.connect = </Root/Cube_ViewAlignedReflection/ViewAlignedReflectionMaterial/TransformMatrix.outputs:out>
+                float2 ui:nodegraph:node:pos = (-362.72266, 80.88867)
+                int ui:nodegraph:node:stackingOrder = 2610
+            }
+
+            def Shader "Reflect"
+            {
+                uniform token info:id = "ND_realitykit_reflect_vector3"
+                float3 inputs:in.connect = </Root/Cube_ViewAlignedReflection/ViewAlignedReflectionMaterial/Multiply.outputs:out>
+                float3 inputs:normal
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-638.9219, 56.222656)
-                int ui:nodegraph:node:stackingOrder = 2599
+                float2 ui:nodegraph:node:pos = (-822.64453, 77.48828)
+                int ui:nodegraph:node:stackingOrder = 2659
+            }
+
+            def Shader "ViewDirection"
+            {
+                uniform token info:id = "ND_realitykit_viewdirection_vector3"
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (-1126.1523, 72.49219)
+                int ui:nodegraph:node:stackingOrder = 2661
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_vector3FA"
+                prepend float3 inputs:in1.connect = </Root/Cube_ViewAlignedReflection/ViewAlignedReflectionMaterial/ViewDirection.outputs:out>
+                float inputs:in2 = -1
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (-963.8906, 80.17578)
+                int ui:nodegraph:node:stackingOrder = 2656
+            }
+
+            def Shader "WorldToView"
+            {
+                uniform token info:id = "ND_realitykit_surface_world_to_view"
+                matrix4d outputs:worldToView
+                float2 ui:nodegraph:node:pos = (-870.26953, 234.25)
+                int ui:nodegraph:node:stackingOrder = 2676
+            }
+
+            def Shader "TransformMatrix"
+            {
+                uniform token info:id = "ND_transformmatrix_vector3M4"
+                float3 inputs:in.connect = </Root/Cube_ViewAlignedReflection/ViewAlignedReflectionMaterial/Reflect.outputs:out>
+                matrix4d inputs:mat.connect = </Root/Cube_ViewAlignedReflection/ViewAlignedReflectionMaterial/WorldToView.outputs:worldToView>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (-615.52344, 164.70703)
+                int ui:nodegraph:node:stackingOrder = 2671
             }
         }
     }

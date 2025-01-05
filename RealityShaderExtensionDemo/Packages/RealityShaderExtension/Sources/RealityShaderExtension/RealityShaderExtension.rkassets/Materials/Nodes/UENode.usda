@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["InputTextureCoordinate", "Panner", "Desaturation", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "SmoothCurve", "ValueStep", "FuzzyShading", "FuzzyShadingGrass", "BlackBody_WIP_", "_3ColorBlend", "CheapContrast", "CheapContrast_RGB", "SCurve", "_3PointLevels", "HueShift", "SmoothThreshold", "SoftOpacity", "VectorToRadialValue", "LinearSine", "Cube"]
+    reorder nameChildren = ["InputTextureCoordinate", "Panner", "Desaturation", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "SmoothCurve", "ValueStep", "FuzzyShading", "FuzzyShadingGrass", "BlackBody_WIP_", "_3ColorBlend", "CheapContrast", "CheapContrast_RGB", "SCurve", "_3PointLevels", "HueShift", "SmoothThreshold", "SoftOpacity", "VectorToRadialValue", "LinearSine", "ViewAlignedReflection", "Cube"]
     def NodeGraph "SphereMask"
     {
         reorder nameChildren = ["Multiply", "Subtract", "Magnitude", "Group", "Group2", "Divide", "Abs", "MTLCospi", "Multiply_3", "Clamp_1", "Range_1", "Clamp", "Fractional", "UV", "InputTextureCoordinate_1"]
@@ -5180,6 +5180,122 @@ def Xform "Root"
             float outputs:out
             float2 ui:nodegraph:node:pos = (462.58502, 225.38232)
             int ui:nodegraph:node:stackingOrder = 610
+        }
+    }
+
+    def NodeGraph "ViewAlignedReflection" (
+        active = true
+    )
+    {
+        asset inputs:ReflectionTexture (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-219.63672, -56.5625)
+                    int stackingOrderInSubgraph = 15
+                }
+            }
+        )
+        float3 inputs:ReflectionVector = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1119.6445, 33.203125)
+                    int stackingOrderInSubgraph = 32
+                }
+            }
+        )
+        float3 outputs:Texture (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-16, 71.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Texture.connect = </Root/ViewAlignedReflection/Image.outputs:out>
+        float2 outputs:UVs (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-16, 71.5)
+                    int stackingOrderInSubgraph = 2
+                }
+            }
+        )
+        float2 outputs:UVs.connect = </Root/ViewAlignedReflection/Add.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (320.64453, 150.22266)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 22
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            float3 inputs:default
+            prepend asset inputs:file.connect = </Root/ViewAlignedReflection.inputs:ReflectionTexture>
+            string inputs:filtertype
+            float2 inputs:texcoord.connect = </Root/ViewAlignedReflection/Add.outputs:out>
+            string inputs:uaddressmode
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (33.83203, -12.816406)
+            int ui:nodegraph:node:stackingOrder = 22
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector2FA"
+            prepend float2 inputs:in1.connect = </Root/ViewAlignedReflection/Multiply.outputs:out>
+            float inputs:in2.connect = </Root/ViewAlignedReflection/ConstantFloat.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-231.6836, 54.910156)
+            int ui:nodegraph:node:stackingOrder = 26
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector2FA"
+            float2 inputs:in1.connect = </Root/ViewAlignedReflection/Combine2.outputs:out>
+            float inputs:in2.connect = </Root/ViewAlignedReflection/ConstantFloat.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-387.91016, 3.0898438)
+            int ui:nodegraph:node:stackingOrder = 27
+        }
+
+        def Shader "ConstantFloat"
+        {
+            uniform token info:id = "ND_constant_float"
+            float inputs:value = 0.5
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-543.97266, 65.27734)
+            int ui:nodegraph:node:stackingOrder = 33
+        }
+
+        def Shader "Combine2"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/ViewAlignedReflection/Separate3.outputs:outx>
+            float inputs:in2.connect = </Root/ViewAlignedReflection/Multiply_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-557.34375, -25.828125)
+            int ui:nodegraph:node:stackingOrder = 36
+        }
+
+        def Shader "Separate3"
+        {
+            uniform token info:id = "ND_separate3_vector3"
+            float3 inputs:in.connect = </Root/ViewAlignedReflection.inputs:ReflectionVector>
+            float outputs:outx
+            float outputs:outy
+            float outputs:outz
+            float2 ui:nodegraph:node:pos = (-939.9297, 32.48828)
+            int ui:nodegraph:node:stackingOrder = 37
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/ViewAlignedReflection/Separate3.outputs:outy>
+            float inputs:in2 = -1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-758.03906, 30.386719)
+            int ui:nodegraph:node:stackingOrder = 38
         }
     }
 }

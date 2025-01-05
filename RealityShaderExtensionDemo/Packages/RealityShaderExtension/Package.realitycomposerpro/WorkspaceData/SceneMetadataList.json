@@ -355,6 +355,15 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
+        "ViewAlignedReflection"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
         "CheapContrast_RGB"
       ],
       {
@@ -619,8 +628,7 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube_VectorToRadialValue",
-        "VectorToRadialValueMaterial"
+        "Cube_ViewAlignedReflection"
       ],
       {
         "isExpanded" : true,
@@ -629,7 +637,8 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube_VectorToRadialValue"
+        "Cube_ViewAlignedReflection",
+        "ViewAlignedReflectionMaterial"
       ],
       {
         "isExpanded" : true,
