@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cube_SphereMask", "Sphere_Fresnel", "Cube_Panner", "Cube_GeneratedBand", "Cube_GenaratedOffsetBands", "Cube_NormalFromHeightmap", "Cube_NormalFromHeightmapChaos", "Cube_RadialGradientExponential", "Cube_DiamondGradient", "Cube_SmoothCurve", "Cube_ValueStep", "Cube_Desaturation", "Cube_FuzzyShading", "Cube_FuzzyShadingGrass", "Cube__3ColorBlend", "Cube_CheapContrast", "Cube_CheapContrast_RGB", "Cube_SCurve", "Cube__3PointLevels", "Cube_HueShift", "Cube_SmoothThreshold"]
+    reorder nameChildren = ["Cube_SphereMask", "Sphere_Fresnel", "Cube_Panner", "Cube_GeneratedBand", "Cube_GenaratedOffsetBands", "Cube_NormalFromHeightmap", "Cube_NormalFromHeightmapChaos", "Cube_RadialGradientExponential", "Cube_DiamondGradient", "Cube_SmoothCurve", "Cube_ValueStep", "Cube_Desaturation", "Cube_FuzzyShading", "Cube_FuzzyShadingGrass", "Cube__3ColorBlend", "Cube_CheapContrast", "Cube_CheapContrast_RGB", "Cube_SCurve", "Cube__3PointLevels", "Cube_HueShift", "Cube_SmoothThreshold", "Cube_SoftOpacity", "Cube_VectorToRadialValue", "Cube_LinearSine", "Cube_SCurve_1", "Cube__3PointLevels_1", "Cube_HueShift_1", "Cube_SmoothThreshold_1"]
     def Cube "Cube_GeneratedBand" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -1577,6 +1577,580 @@ def Xform "Root"
             {
                 uniform token info:id = "ND_convert_float_color3"
                 float inputs:in.connect = </Root/Cube_SmoothThreshold/SmoothThresholdMaterial/SmoothThreshold_1.outputs:Out>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-442.0578, 64.154816)
+                int ui:nodegraph:node:stackingOrder = 3509
+            }
+
+            def Shader "Image"
+            {
+                uniform token info:id = "ND_image_float"
+                asset inputs:file = @Texture/DefaultTexture1.png@
+                string inputs:filtertype
+                float2 inputs:texcoord
+                string inputs:uaddressmode
+                string inputs:vaddressmode
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1162.6527, -225.1401)
+                int ui:nodegraph:node:stackingOrder = 3532
+            }
+
+            def Shader "ConstantFloat_1"
+            {
+                uniform token info:id = "ND_constant_float"
+                float inputs:value = 0.5
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1117.2229, 81.473366)
+                int ui:nodegraph:node:stackingOrder = 3557
+            }
+        }
+    }
+
+    def Cube "Cube_SoftOpacity" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_SoftOpacity/SoftOpacityMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (60, 60)
+        int ui:nodegraph:node:stackingOrder = 3
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.9, 0.9, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "SoftOpacityMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "_3ColorBlend_1", "Convert", "TextureCoordinates", "Separate2", "SoftOpacity_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_SoftOpacity/SoftOpacityMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_SoftOpacity/SoftOpacityMaterial/Image.outputs:out>
+                float inputs:metallic
+                float3 inputs:normal
+                float inputs:opacity.connect = </Root/Cube_SoftOpacity/SoftOpacityMaterial/SoftOpacity_1.outputs:OutputUsesDepthBias>
+                float inputs:roughness = 0
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 2552
+            }
+
+            def "SoftOpacity_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/UENode.usda@</Root/SoftOpacity>
+            )
+            {
+                float inputs:DepthFadeDistance
+                float inputs:FadeDistance
+                float inputs:OpacityIn
+                float2 ui:nodegraph:node:pos = (-351.08203, 139.34766)
+                int ui:nodegraph:node:stackingOrder = 2540
+            }
+
+            def Shader "Image"
+            {
+                uniform token info:id = "ND_image_color3"
+                asset inputs:file = @Texture/number.jpeg@
+                string inputs:filtertype
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-391.6953, -102.71484)
+                int ui:nodegraph:node:stackingOrder = 2549
+            }
+        }
+    }
+
+    def Cube "Cube_VectorToRadialValue" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_VectorToRadialValue/VectorToRadialValueMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (80, 80)
+        int ui:nodegraph:node:stackingOrder = 4
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.6, 0.9, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "VectorToRadialValueMaterial"
+        {
+            token outputs:mtlx:surface.connect = </Root/Cube_VectorToRadialValue/VectorToRadialValueMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_VectorToRadialValue/VectorToRadialValueMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+            }
+
+            def Shader "TextureCoordinates"
+            {
+                uniform token info:id = "ND_texcoord_vector2"
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (-871.5039, 28.503906)
+                int ui:nodegraph:node:stackingOrder = 2551
+            }
+
+            def "VectorToRadialValue_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/UENode.usda@</Root/VectorToRadialValue>
+            )
+            {
+                bool inputs:SwizzleCoordinateOutput = 0
+                float2 inputs:VectorOrUVs.connect = </Root/Cube_VectorToRadialValue/VectorToRadialValueMaterial/Subtract.outputs:out>
+                float2 ui:nodegraph:node:pos = (-427.17578, 19.890625)
+                int ui:nodegraph:node:stackingOrder = 2556
+            }
+
+            def Shader "Convert_1"
+            {
+                uniform token info:id = "ND_convert_vector2_vector3"
+                float2 inputs:in.connect = </Root/Cube_VectorToRadialValue/VectorToRadialValueMaterial/VectorToRadialValue_1.outputs:RadialCoordinates>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (-295.46094, 175.80469)
+                int ui:nodegraph:node:stackingOrder = 2545
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_VectorToRadialValue/VectorToRadialValueMaterial/Convert_1.outputs:out>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-127.96875, 70.55078)
+                int ui:nodegraph:node:stackingOrder = 2513
+            }
+
+            def Shader "Subtract"
+            {
+                uniform token info:id = "ND_subtract_vector2FA"
+                prepend float2 inputs:in1.connect = </Root/Cube_VectorToRadialValue/VectorToRadialValueMaterial/TextureCoordinates.outputs:out>
+                float inputs:in2 = 0.5
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (-696.2656, 117.87109)
+                int ui:nodegraph:node:stackingOrder = 2553
+            }
+        }
+    }
+
+    def Cube "Cube_LinearSine" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_LinearSine/LinearSineMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (316.5, 204.5)
+        int ui:nodegraph:node:stackingOrder = 6
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.3, 0.9, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "LinearSineMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "SmoothCurve_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_LinearSine/LinearSineMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_LinearSine/LinearSineMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float3 inputs:normal
+                float inputs:opacity
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+            }
+
+            def "LinearSine_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/UENode.usda@</Root/LinearSine>
+            )
+            {
+                bool inputs:Negative1To1 = 0
+                bool inputs:SinePhase = 1
+                float inputs:Value.connect = </Root/Cube_LinearSine/LinearSineMaterial/Time.outputs:out>
+                float2 ui:nodegraph:node:pos = (-383.91797, 22.015625)
+                int ui:nodegraph:node:stackingOrder = 50
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-673.6328, 12.140625)
+                int ui:nodegraph:node:stackingOrder = 43
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_float_color3"
+                float inputs:in.connect = </Root/Cube_LinearSine/LinearSineMaterial/LinearSine_1.outputs:RoundedLinearSine>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-135.03224, 116.31452)
+                int ui:nodegraph:node:stackingOrder = 31
+            }
+        }
+    }
+
+    def Cube "Cube_SCurve_1" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_SCurve_1/SCurveMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (336.5, 224.5)
+        int ui:nodegraph:node:stackingOrder = 7
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0.9, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "SCurveMaterial"
+        {
+            reorder nameChildren = ["ValueStep_1", "Multiply", "PreviewSurface", "Convert", "TextureCoordinates", "Separate2", "SCurve_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_SCurve_1/SCurveMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_SCurve_1/SCurveMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float3 inputs:normal
+                float inputs:opacity
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+            }
+
+            def "SCurve_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/UENode.usda@</Root/SCurve>
+            )
+            {
+                float3 inputs:In.connect = </Root/Cube_SCurve_1/SCurveMaterial/Image.outputs:out>
+                float inputs:Power = 100
+                float2 ui:nodegraph:node:pos = (-332.58984, 60.996094)
+                int ui:nodegraph:node:stackingOrder = 2603
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_SCurve_1/SCurveMaterial/SCurve_1.outputs:Out>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-135.03224, 116.31452)
+                int ui:nodegraph:node:stackingOrder = 31
+            }
+
+            def Shader "Image"
+            {
+                uniform token info:id = "ND_image_vector3"
+                asset inputs:file = @Texture/number.jpeg@
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (-638.9219, 56.222656)
+                int ui:nodegraph:node:stackingOrder = 2599
+            }
+        }
+    }
+
+    def Cube "Cube__3PointLevels_1" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube__3PointLevels_1/_3PointLevelsMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (356.5, 244.5)
+        int ui:nodegraph:node:stackingOrder = 8
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0.3, 0.9, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "_3PointLevelsMaterial"
+        {
+            reorder nameChildren = ["ValueStep_1", "PreviewSurface", "SmoothCurve_1", "Convert", "TextureCoordinates", "Separate2"]
+            token outputs:mtlx:surface.connect = </Root/Cube__3PointLevels_1/_3PointLevelsMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube__3PointLevels_1/_3PointLevelsMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float3 inputs:normal
+                float inputs:opacity
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+            }
+
+            def "_3PointLevels_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/UENode.usda@</Root/_3PointLevels>
+            )
+            {
+                bool inputs:DefineInterpolationCurve = 0
+                float inputs:InterpolationPower = 200
+                bool inputs:InvertInterpolationPower = 0
+                float inputs:MiddlePoint = 1 (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (-1088.4297, 125.83594)
+                            int stackingOrderInSubgraph = 47
+                        }
+                    }
+                )
+                float inputs:NewBlackValue = 0
+                float inputs:NewMiddleValue = 0.8 (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (416.40967, -249.3687)
+                            int stackingOrderInSubgraph = 336
+                        }
+                    }
+                )
+                float inputs:NewWhiteValue = 1
+                float inputs:Texture.connect = </Root/Cube__3PointLevels_1/_3PointLevelsMaterial/Separate3.outputs:outx>
+                float2 ui:nodegraph:node:pos = (-394.06177, 48.577557)
+                int ui:nodegraph:node:stackingOrder = 879
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_float_color3"
+                float inputs:in.connect = </Root/Cube__3PointLevels_1/_3PointLevelsMaterial/_3PointLevels_1.outputs:Out>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-135.03224, 116.31452)
+                int ui:nodegraph:node:stackingOrder = 31
+            }
+
+            def Shader "Image"
+            {
+                uniform token info:id = "ND_image_vector3"
+                asset inputs:file = @Texture/DefaultTexture1.png@
+                string inputs:filtertype
+                string inputs:vaddressmode
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (-940.1143, 37.37768)
+                int ui:nodegraph:node:stackingOrder = 868
+            }
+
+            def Shader "Separate3"
+            {
+                uniform token info:id = "ND_separate3_vector3"
+                float3 inputs:in.connect = </Root/Cube__3PointLevels_1/_3PointLevelsMaterial/Image.outputs:out>
+                float outputs:outx
+                float outputs:outy
+                float outputs:outz
+                float2 ui:nodegraph:node:pos = (-643.2888, 170.88634)
+                int ui:nodegraph:node:stackingOrder = 831
+            }
+        }
+    }
+
+    def Cube "Cube_HueShift_1" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        reorder nameChildren = ["HueShiftMaterial", "GeneratedOffsetBandsMaterial"]
+        rel material:binding = </Root/Cube_HueShift_1/HueShiftMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (-7.748047, 151.16016)
+        int ui:nodegraph:node:stackingOrder = 4
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0.6, 0.9, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "HueShiftMaterial"
+        {
+            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Image", "Convert", "ConstantFloat3", "ConstantFloat", "FuzzyShading_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_HueShift_1/HueShiftMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            token outputs:surface.connect = None
+            float2 ui:nodegraph:node:pos = (20, 20)
+            int ui:nodegraph:node:stackingOrder = 1
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 110.5)
+
+            def Shader "DefaultSurfaceShader" (
+                active = false
+            )
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 1, 1)
+                float inputs:roughness = 0.75
+                token outputs:surface
+            }
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_HueShift_1/HueShiftMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float3 inputs:normal.connect = None
+                float inputs:opacity
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (-255, 105)
+            }
+
+            def Shader "Image"
+            {
+                uniform token info:id = "ND_image_vector3"
+                asset inputs:file = @Texture/DefaultTexture1.png@
+                string inputs:filtertype
+                string inputs:vaddressmode
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (-1120.8373, 121.451866)
+                int ui:nodegraph:node:stackingOrder = 3539
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_HueShift_1/HueShiftMaterial/HueShift_1.outputs:Out>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-442.0578, 64.154816)
+                int ui:nodegraph:node:stackingOrder = 3509
+            }
+
+            def Shader "ConstantFloat"
+            {
+                uniform token info:id = "ND_constant_float"
+                float inputs:value = 0
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-966.15643, -36.61507)
+                int ui:nodegraph:node:stackingOrder = 3520
+            }
+
+            def "HueShift_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/UENode.usda@</Root/HueShift>
+            )
+            {
+                float inputs:HueShiftPercentage = 0.5
+                float3 inputs:Texture.connect = </Root/Cube_HueShift_1/HueShiftMaterial/Image.outputs:out>
+                float2 ui:nodegraph:node:pos = (-726.5622, 41.36231)
+                int ui:nodegraph:node:stackingOrder = 3555
+            }
+        }
+    }
+
+    def Cube "Cube_SmoothThreshold_1" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        reorder nameChildren = ["SmoothThresholdMaterial", "GeneratedOffsetBandsMaterial"]
+        rel material:binding = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (12.251953, 171.16016)
+        int ui:nodegraph:node:stackingOrder = 5
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0.9, 0.9, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "SmoothThresholdMaterial"
+        {
+            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Image", "Convert", "ConstantFloat3", "ConstantFloat", "FuzzyShading_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            token outputs:surface.connect = None
+            float2 ui:nodegraph:node:pos = (20, 20)
+            int ui:nodegraph:node:stackingOrder = 1
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 110.5)
+
+            def Shader "DefaultSurfaceShader" (
+                active = false
+            )
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 1, 1)
+                float inputs:roughness = 0.75
+                token outputs:surface
+            }
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float3 inputs:normal.connect = None
+                float inputs:opacity
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (-255, 105)
+            }
+
+            def Shader "ConstantFloat"
+            {
+                uniform token info:id = "ND_constant_float"
+                float inputs:value = 0.5
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1120.0715, 185.00719)
+                int ui:nodegraph:node:stackingOrder = 3556
+            }
+
+            def "SmoothThreshold_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/UENode.usda@</Root/SmoothThreshold>
+            )
+            {
+                float inputs:CutoffValue = 1
+                float inputs:CutoffValue.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/ConstantFloat_1.outputs:out>
+                float inputs:Gradient.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/Image.outputs:out>
+                float inputs:LerpValue.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/ConstantFloat.outputs:out>
+                float2 ui:nodegraph:node:pos = (-641.6714, -84.630936)
+                int ui:nodegraph:node:stackingOrder = 3542
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_float_color3"
+                float inputs:in.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/SmoothThreshold_1.outputs:Out>
                 color3f outputs:out
                 float2 ui:nodegraph:node:pos = (-442.0578, 64.154816)
                 int ui:nodegraph:node:stackingOrder = 3509
