@@ -4823,8 +4823,8 @@ def Xform "Root"
         def Shader "Atan2"
         {
             uniform token info:id = "ND_atan2_float"
-            float inputs:inx.connect = </Root/VectorToRadialValue/Separate2.outputs:outy>
-            float inputs:iny.connect = </Root/VectorToRadialValue/Separate2.outputs:outx>
+            float inputs:inx.connect = </Root/VectorToRadialValue/Separate2.outputs:outx>
+            float inputs:iny.connect = </Root/VectorToRadialValue/Separate2.outputs:outy>
             float outputs:out
             float2 ui:nodegraph:node:pos = (-997.6758, 23.046875)
             int ui:nodegraph:node:stackingOrder = 66
@@ -4835,8 +4835,8 @@ def Xform "Root"
             uniform token info:id = "ND_magnitude_vector2"
             float2 inputs:in.connect = </Root/VectorToRadialValue.inputs:VectorOrUVs>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1108.0078, -78.63281)
-            int ui:nodegraph:node:stackingOrder = 44
+            float2 ui:nodegraph:node:pos = (-997.4258, -126.82422)
+            int ui:nodegraph:node:stackingOrder = 95
         }
 
         def Shader "Divide"

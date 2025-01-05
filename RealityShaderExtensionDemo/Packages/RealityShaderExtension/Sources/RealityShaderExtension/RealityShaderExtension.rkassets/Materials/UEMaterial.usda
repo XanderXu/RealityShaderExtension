@@ -1713,10 +1713,10 @@ def Xform "Root"
                 references = @Nodes/UENode.usda@</Root/VectorToRadialValue>
             )
             {
-                bool inputs:SwizzleCoordinateOutput = 0
+                bool inputs:SwizzleCoordinateOutput = 1
                 float2 inputs:VectorOrUVs.connect = </Root/Cube_VectorToRadialValue/VectorToRadialValueMaterial/Subtract.outputs:out>
-                float2 ui:nodegraph:node:pos = (-427.17578, 19.890625)
-                int ui:nodegraph:node:stackingOrder = 2556
+                float2 ui:nodegraph:node:pos = (-502.29297, 40.578125)
+                int ui:nodegraph:node:stackingOrder = 2570
             }
 
             def Shader "Convert_1"
