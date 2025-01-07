@@ -1,0 +1,2311 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 2.0 (448.60.4)"
+    }
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    reorder nameChildren = ["Burn", "Darken", "Difference", "Dodge", "Divide", "Exclusion", "HardLight", "HardMix", "Lighten", "LinearBurn", "LinearDodge", "LinearLight", "LinearLightAddSub", "Multiply", "Negation", "Overlay", "PinLight", "Screen", "SoftLight", "Subtract", "VividLight", "Overwrite"]
+    def NodeGraph "Burn" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-629.55615, 146.61908)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-617.15674, 66.43927)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-460.4046, 199.27026)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-180, 74.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Burn/Mix.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (175.30737, 132.98877)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 160
+
+        def Shader "Burn"
+        {
+            uniform token info:id = "ND_burn_color4"
+            color4f inputs:bg
+            color4f inputs:fg
+            delete float inputs:mix.connect = </Root/Burn.inputs:Opacity>
+            color4f outputs:out
+            float2 ui:nodegraph:node:pos = (-198.04901, -72.16315)
+            int ui:nodegraph:node:stackingOrder = 167
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Burn.inputs:Base>
+            float4 inputs:fg.connect = </Root/Burn/Oneminus_1.outputs:out>
+            float inputs:mix.connect = </Root/Burn.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-73.29437, 125.976746)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Burn.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-458.5094, 63.623413)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector4"
+            float4 inputs:in1.connect = </Root/Burn/Oneminus.outputs:out>
+            float4 inputs:in2.connect = </Root/Burn.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-348.27173, 71.0813)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Burn/Divide.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-266.09528, 69.15454)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+    }
+
+    def NodeGraph "Darken" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-827.48444, 20.155602)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-804.7078, 118.68874)
+                    int stackingOrderInSubgraph = 152
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-704.7515, 252.3688)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-408, 130.5)
+                    int stackingOrderInSubgraph = 149
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Darken/Mix.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Min"
+        {
+            uniform token info:id = "ND_min_vector4"
+            float4 inputs:in1.connect = </Root/Darken.inputs:Base>
+            float4 inputs:in2.connect = </Root/Darken.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-558.8626, 35.40222)
+            int ui:nodegraph:node:stackingOrder = 150
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Darken.inputs:Base>
+            float4 inputs:fg.connect = </Root/Darken/Min.outputs:out>
+            float inputs:mix.connect = </Root/Darken.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-270.56067, 117.01239)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+    }
+
+    def NodeGraph "Difference" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-659.23535, 93.54457)
+                    int stackingOrderInSubgraph = 226
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-646.83594, 13.364761)
+                    int stackingOrderInSubgraph = 226
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-490.08374, 146.19576)
+                    int stackingOrderInSubgraph = 226
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-180, 74.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Difference/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-160, 94.5)
+        int ui:nodegraph:node:stackingOrder = 1
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (145.20251, 86.7038)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 93
+
+        def Shader "Difference"
+        {
+            uniform token info:id = "ND_difference_color4"
+            color4f inputs:bg
+            color4f inputs:fg
+            float inputs:mix
+            color4f outputs:out
+            float2 ui:nodegraph:node:pos = (-144.41974, -148.82959)
+            int ui:nodegraph:node:stackingOrder = 147
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Difference.inputs:Base>
+            float4 inputs:fg.connect = </Root/Difference/Abs.outputs:out>
+            float inputs:mix.connect = </Root/Difference.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-102.97354, 72.90224)
+            int ui:nodegraph:node:stackingOrder = 226
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector4"
+            float4 inputs:in1.connect = </Root/Difference.inputs:Blend>
+            float4 inputs:in2.connect = </Root/Difference.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-459.10626, 36.690796)
+            int ui:nodegraph:node:stackingOrder = 250
+        }
+
+        def Shader "Abs"
+        {
+            uniform token info:id = "ND_absval_vector4"
+            float4 inputs:in.connect = </Root/Difference/Subtract.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-345.20062, 34.90265)
+            int ui:nodegraph:node:stackingOrder = 250
+        }
+    }
+
+    def NodeGraph "Dodge" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-627.1859, 153.2508)
+                    int stackingOrderInSubgraph = 226
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-617.15674, 66.43927)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-460.4046, 199.27026)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-180, 74.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Dodge/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-185, 117.5)
+        int ui:nodegraph:node:stackingOrder = 1
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (175.30737, 132.98877)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 160
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Dodge.inputs:Base>
+            float4 inputs:fg.connect = </Root/Dodge/Divide.outputs:out>
+            float inputs:mix.connect = </Root/Dodge.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-73.29437, 125.976746)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Dodge.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-484.21106, 66.27643)
+            int ui:nodegraph:node:stackingOrder = 229
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector4"
+            float4 inputs:in1.connect = </Root/Dodge.inputs:Base>
+            float4 inputs:in2.connect = </Root/Dodge/Oneminus.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-348.27173, 71.0813)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Dodge"
+        {
+            uniform token info:id = "ND_dodge_float"
+            float2 ui:nodegraph:node:pos = (-150.37207, -93.33142)
+            int ui:nodegraph:node:stackingOrder = 224
+        }
+    }
+
+    def NodeGraph "Divide" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-627.1859, 153.2508)
+                    int stackingOrderInSubgraph = 226
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-617.15674, 66.43927)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-460.4046, 199.27026)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-180, 74.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Divide/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-165, 137.5)
+        int ui:nodegraph:node:stackingOrder = 2
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (175.30737, 132.98877)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 160
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Divide.inputs:Base>
+            float4 inputs:fg.connect = </Root/Divide/Divide.outputs:out>
+            float inputs:mix.connect = </Root/Divide.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-73.29437, 125.976746)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector4"
+            float4 inputs:in1.connect = </Root/Divide.inputs:Base>
+            float4 inputs:in2.connect = </Root/Divide/Add.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-348.27173, 71.0813)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/Divide.inputs:Blend>
+            float inputs:in2 = 1e-12
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-472.88867, 79.79224)
+            int ui:nodegraph:node:stackingOrder = 231
+        }
+    }
+
+    def NodeGraph "Exclusion" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-627.1859, 153.2508)
+                    int stackingOrderInSubgraph = 226
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-617.15674, 66.43927)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-460.4046, 199.27026)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-180, 74.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Exclusion/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-145, 157.5)
+        int ui:nodegraph:node:stackingOrder = 3
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (175.30737, 132.98877)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 160
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Exclusion.inputs:Base>
+            float4 inputs:fg.connect = </Root/Exclusion/Subtract.outputs:out>
+            float inputs:mix.connect = </Root/Exclusion.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-73.29437, 125.976746)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector4"
+            prepend float4 inputs:in1.connect = </Root/Exclusion.inputs:Blend>
+            float4 inputs:in2.connect = </Root/Exclusion.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-417.27893, 36.50885)
+            int ui:nodegraph:node:stackingOrder = 241
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/Exclusion.inputs:Blend>
+            float4 inputs:in2.connect = </Root/Exclusion.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-426.32062, 93.75958)
+            int ui:nodegraph:node:stackingOrder = 234
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/Exclusion/Multiply.outputs:out>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-338.8708, 94.29608)
+            int ui:nodegraph:node:stackingOrder = 235
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector4"
+            float4 inputs:in1.connect = </Root/Exclusion/Add.outputs:out>
+            float4 inputs:in2.connect = </Root/Exclusion/Multiply_1.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-258.93982, 72.154785)
+            int ui:nodegraph:node:stackingOrder = 238
+        }
+    }
+
+    def NodeGraph "HardLight" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-877.75745, 158.07349)
+                    int stackingOrderInSubgraph = 274
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-928.9003, -16.192322)
+                    int stackingOrderInSubgraph = 318
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-710.9761, 304.03656)
+                    int stackingOrderInSubgraph = 279
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-180, 74.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/HardLight/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-125, 177.5)
+        int ui:nodegraph:node:stackingOrder = 4
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (175.30737, 132.98877)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 160
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/HardLight.inputs:Base>
+            float4 inputs:fg.connect = </Root/HardLight/Add.outputs:out>
+            float inputs:mix.connect = </Root/HardLight.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-73.29437, 125.976746)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/HardLight.inputs:Blend>
+            float4 inputs:in2.connect = </Root/HardLight.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-625.7319, -38.096375)
+            int ui:nodegraph:node:stackingOrder = 353
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            float4 inputs:in1.connect = </Root/HardLight/Multiply.outputs:out>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-532.26276, -35.010254)
+            int ui:nodegraph:node:stackingOrder = 397
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/HardLight.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-678.0818, 61.83069)
+            int ui:nodegraph:node:stackingOrder = 393
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/HardLight.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-677.8964, 120.57019)
+            int ui:nodegraph:node:stackingOrder = 393
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/HardLight/Oneminus.outputs:out>
+            float4 inputs:in2.connect = </Root/HardLight/Oneminus_1.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-587.0135, 86.456726)
+            int ui:nodegraph:node:stackingOrder = 393
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/HardLight/Multiply_2.outputs:out>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-482.28833, 84.90454)
+            int ui:nodegraph:node:stackingOrder = 393
+        }
+
+        def Shader "Oneminus_2"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/HardLight/Multiply_3.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-407.9549, 86.70642)
+            int ui:nodegraph:node:stackingOrder = 393
+        }
+
+        def Shader "Step"
+        {
+            uniform token info:id = "ND_realitykit_step_vector4"
+            float4 inputs:edge.connect = </Root/HardLight.inputs:Blend>
+            float4 inputs:in.connect = </Root/HardLight/Convert.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-576.1157, -138.14746)
+            int ui:nodegraph:node:stackingOrder = 324
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector4"
+            float inputs:in = 0.5
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-793.02515, -139.28235)
+            int ui:nodegraph:node:stackingOrder = 416
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/HardLight/Step.outputs:out>
+            float4 inputs:in2.connect = </Root/HardLight/Multiply_1.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-403.1822, 17.387268)
+            int ui:nodegraph:node:stackingOrder = 404
+        }
+
+        def Shader "Oneminus_3"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/HardLight/Step.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-403.18756, -97.17639)
+            int ui:nodegraph:node:stackingOrder = 407
+        }
+
+        def Shader "Multiply_5"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/HardLight/Oneminus_3.outputs:out>
+            float4 inputs:in2.connect = </Root/HardLight/Oneminus_2.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-314.75043, -42.491272)
+            int ui:nodegraph:node:stackingOrder = 409
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/HardLight/Multiply_5.outputs:out>
+            float4 inputs:in2.connect = </Root/HardLight/Multiply_4.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-256.9897, 39.479614)
+            int ui:nodegraph:node:stackingOrder = 413
+        }
+    }
+
+    def NodeGraph "HardMix" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-627.1859, 153.2508)
+                    int stackingOrderInSubgraph = 226
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-617.15674, 66.43927)
+                    int stackingOrderInSubgraph = 223
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-463.84192, 242.90991)
+                    int stackingOrderInSubgraph = 244
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-180, 74.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/HardMix/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-125, 177.5)
+        int ui:nodegraph:node:stackingOrder = 4
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (175.30737, 132.98877)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 160
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/HardMix.inputs:Base>
+            float4 inputs:fg.connect = </Root/HardMix/Step.outputs:out>
+            float inputs:mix.connect = </Root/HardMix.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-73.29437, 125.976746)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/HardMix.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-502.95197, 112.24457)
+            int ui:nodegraph:node:stackingOrder = 250
+        }
+
+        def Shader "Step"
+        {
+            uniform token info:id = "ND_realitykit_step_vector4"
+            float4 inputs:edge.connect = </Root/HardMix/Oneminus.outputs:out>
+            float4 inputs:in.connect = </Root/HardMix.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-342.10126, 54.29071)
+            int ui:nodegraph:node:stackingOrder = 248
+        }
+    }
+
+    def NodeGraph "Lighten" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-827.48444, 20.155602)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-804.7078, 118.68874)
+                    int stackingOrderInSubgraph = 152
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-704.7515, 252.3688)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-408, 130.5)
+                    int stackingOrderInSubgraph = 149
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Lighten/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-388, 150.5)
+        int ui:nodegraph:node:stackingOrder = 1
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Lighten.inputs:Base>
+            float4 inputs:fg.connect = </Root/Lighten/Max.outputs:out>
+            float inputs:mix.connect = </Root/Lighten.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-270.56067, 117.01239)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+
+        def Shader "Max"
+        {
+            uniform token info:id = "ND_max_vector4"
+            float4 inputs:in1.connect = </Root/Lighten.inputs:Base>
+            float4 inputs:in2.connect = </Root/Lighten.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-533.1147, 38.801758)
+            int ui:nodegraph:node:stackingOrder = 161
+        }
+    }
+
+    def NodeGraph "LinearBurn" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-827.48444, 20.155602)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-804.7078, 118.68874)
+                    int stackingOrderInSubgraph = 152
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-704.7515, 252.3688)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-408, 130.5)
+                    int stackingOrderInSubgraph = 149
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/LinearBurn/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-368, 170.5)
+        int ui:nodegraph:node:stackingOrder = 2
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/LinearBurn.inputs:Base>
+            float4 inputs:fg.connect = </Root/LinearBurn/Subtract.outputs:out>
+            float inputs:mix.connect = </Root/LinearBurn.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-270.56067, 117.01239)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/LinearBurn.inputs:Base>
+            float4 inputs:in2.connect = </Root/LinearBurn.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-643.2785, 1.0835571)
+            int ui:nodegraph:node:stackingOrder = 160
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/LinearBurn/Add.outputs:out>
+            float inputs:in2 = 1
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-498.97693, 25.8891)
+            int ui:nodegraph:node:stackingOrder = 164
+        }
+    }
+
+    def NodeGraph "LinearDodge" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-827.48444, 20.155602)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-804.7078, 118.68874)
+                    int stackingOrderInSubgraph = 152
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-704.7515, 252.3688)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-408, 130.5)
+                    int stackingOrderInSubgraph = 149
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/LinearDodge/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-348, 190.5)
+        int ui:nodegraph:node:stackingOrder = 3
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/LinearDodge.inputs:Base>
+            float4 inputs:fg.connect = </Root/LinearDodge/Add.outputs:out>
+            float inputs:mix.connect = </Root/LinearDodge.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-270.56067, 117.01239)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/LinearDodge.inputs:Base>
+            float4 inputs:in2.connect = </Root/LinearDodge.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-643.2785, 1.0835571)
+            int ui:nodegraph:node:stackingOrder = 160
+        }
+    }
+
+    def NodeGraph "LinearLight" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1265.5526, 13.579796)
+                    int stackingOrderInSubgraph = 261
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1286.4266, 192.44919)
+                    int stackingOrderInSubgraph = 263
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-733.9914, 434.72598)
+                    int stackingOrderInSubgraph = 213
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-408, 130.5)
+                    int stackingOrderInSubgraph = 149
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/LinearLight/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-328, 210.5)
+        int ui:nodegraph:node:stackingOrder = 4
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/LinearLight.inputs:Base>
+            float4 inputs:fg.connect = </Root/LinearLight/Add_1.outputs:out>
+            float inputs:mix.connect = </Root/LinearLight.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-270.56067, 117.01239)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/LinearLight.inputs:Blend>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-1127.2842, 115.565674)
+            int ui:nodegraph:node:stackingOrder = 261
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/LinearLight/Multiply.outputs:out>
+            float inputs:in2 = 1
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-1038.4823, 118.00879)
+            int ui:nodegraph:node:stackingOrder = 261
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/LinearLight.inputs:Base>
+            float4 inputs:in2.connect = </Root/LinearLight/Subtract.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-961.3324, 98.77673)
+            int ui:nodegraph:node:stackingOrder = 261
+        }
+
+        def Shader "Max"
+        {
+            uniform token info:id = "ND_max_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/LinearLight/Add.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-852.1355, 42.50586)
+            int ui:nodegraph:node:stackingOrder = 261
+        }
+
+        def Shader "Min"
+        {
+            uniform token info:id = "ND_min_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/LinearLight/Add.outputs:out>
+            float inputs:in2 = 1
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-851.56274, 144.85052)
+            int ui:nodegraph:node:stackingOrder = 261
+        }
+
+        def Shader "Step"
+        {
+            uniform token info:id = "ND_realitykit_step_vector4"
+            float4 inputs:edge.connect = </Root/LinearLight/Convert.outputs:out>
+            float4 inputs:in.connect = </Root/LinearLight.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-836.01666, 259.0736)
+            int ui:nodegraph:node:stackingOrder = 276
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector4"
+            float inputs:in = 0.5
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-1051.9409, 300.19128)
+            int ui:nodegraph:node:stackingOrder = 273
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/LinearLight/Min.outputs:out>
+            float4 inputs:in2.connect = </Root/LinearLight/Step.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-669.5341, 169.7948)
+            int ui:nodegraph:node:stackingOrder = 280
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/LinearLight/Max.outputs:out>
+            float4 inputs:in2.connect = </Root/LinearLight/Oneminus.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-606.04694, 64.33545)
+            int ui:nodegraph:node:stackingOrder = 284
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/LinearLight/Step.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-635.4315, 304.45898)
+            int ui:nodegraph:node:stackingOrder = 282
+        }
+
+        def Shader "Add_1"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/LinearLight/Multiply_2.outputs:out>
+            float4 inputs:in2.connect = </Root/LinearLight/Multiply_1.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-481.52173, 84.27838)
+            int ui:nodegraph:node:stackingOrder = 287
+        }
+    }
+
+    def NodeGraph "LinearLightAddSub" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-827.48444, 20.155602)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-804.7078, 118.68874)
+                    int stackingOrderInSubgraph = 152
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-704.7515, 252.3688)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-408, 130.5)
+                    int stackingOrderInSubgraph = 149
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/LinearLightAddSub/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-328, 210.5)
+        int ui:nodegraph:node:stackingOrder = 4
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/LinearLightAddSub.inputs:Base>
+            float4 inputs:fg.connect = </Root/LinearLightAddSub/Subtract.outputs:out>
+            float inputs:mix.connect = </Root/LinearLightAddSub.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-270.56067, 117.01239)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/LinearLightAddSub/Multiply.outputs:out>
+            float4 inputs:in2.connect = </Root/LinearLightAddSub.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-550.2143, 38.300476)
+            int ui:nodegraph:node:stackingOrder = 162
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/LinearLightAddSub.inputs:Base>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-636.3961, 14.036011)
+            int ui:nodegraph:node:stackingOrder = 165
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/LinearLightAddSub/Add.outputs:out>
+            float inputs:in2 = 1
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-452.78516, 57.952026)
+            int ui:nodegraph:node:stackingOrder = 168
+        }
+    }
+
+    def NodeGraph "Multiply" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-827.48444, 20.155602)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-804.7078, 118.68874)
+                    int stackingOrderInSubgraph = 152
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-704.7515, 252.3688)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-408, 130.5)
+                    int stackingOrderInSubgraph = 149
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Multiply/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-328, 210.5)
+        int ui:nodegraph:node:stackingOrder = 4
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Multiply.inputs:Base>
+            float4 inputs:fg.connect = </Root/Multiply/Multiply.outputs:out>
+            float inputs:mix.connect = </Root/Multiply.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-270.56067, 117.01239)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/Multiply.inputs:Base>
+            float4 inputs:in2.connect = </Root/Multiply.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-587.8753, 31.632202)
+            int ui:nodegraph:node:stackingOrder = 166
+        }
+    }
+
+    def NodeGraph "Negation" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-947.10474, 14.095116)
+                    int stackingOrderInSubgraph = 197
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-924.3281, 112.62826)
+                    int stackingOrderInSubgraph = 197
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-704.7515, 252.3688)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-408, 130.5)
+                    int stackingOrderInSubgraph = 149
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Negation/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-308, 230.5)
+        int ui:nodegraph:node:stackingOrder = 5
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Negation.inputs:Base>
+            float4 inputs:fg.connect = </Root/Negation/Oneminus_1.outputs:out>
+            float inputs:mix.connect = </Root/Negation.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-270.56067, 117.01239)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Negation.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-786.9332, 0.43237305)
+            int ui:nodegraph:node:stackingOrder = 197
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector4"
+            float4 inputs:in1.connect = </Root/Negation/Oneminus.outputs:out>
+            float4 inputs:in2.connect = </Root/Negation.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-710.0563, 20.598267)
+            int ui:nodegraph:node:stackingOrder = 197
+        }
+
+        def Shader "Abs"
+        {
+            uniform token info:id = "ND_absval_vector4"
+            float4 inputs:in.connect = </Root/Negation/Subtract.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-601.72534, 19.622864)
+            int ui:nodegraph:node:stackingOrder = 197
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Negation/Abs.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-475.45227, 37.560303)
+            int ui:nodegraph:node:stackingOrder = 201
+        }
+    }
+
+    def NodeGraph "Overlay" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-930.49426, 158.07349)
+                    int stackingOrderInSubgraph = 418
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-928.9003, -16.192322)
+                    int stackingOrderInSubgraph = 318
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-710.9761, 304.03656)
+                    int stackingOrderInSubgraph = 279
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-180, 74.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Overlay/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-105, 197.5)
+        int ui:nodegraph:node:stackingOrder = 5
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (175.30737, 132.98877)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 160
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Overlay.inputs:Base>
+            float4 inputs:fg.connect = </Root/Overlay/Add.outputs:out>
+            float inputs:mix.connect = </Root/Overlay.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-73.29437, 125.976746)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/Overlay.inputs:Blend>
+            float4 inputs:in2.connect = </Root/Overlay.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-625.7319, -38.096375)
+            int ui:nodegraph:node:stackingOrder = 353
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            float4 inputs:in1.connect = </Root/Overlay/Multiply.outputs:out>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-532.26276, -35.010254)
+            int ui:nodegraph:node:stackingOrder = 397
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Overlay.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-678.0818, 61.83069)
+            int ui:nodegraph:node:stackingOrder = 393
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Overlay.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-677.8964, 120.57019)
+            int ui:nodegraph:node:stackingOrder = 393
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/Overlay/Oneminus.outputs:out>
+            float4 inputs:in2.connect = </Root/Overlay/Oneminus_1.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-587.0135, 86.456726)
+            int ui:nodegraph:node:stackingOrder = 393
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            float4 inputs:in1.connect = </Root/Overlay/Multiply_2.outputs:out>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-482.28833, 84.90454)
+            int ui:nodegraph:node:stackingOrder = 393
+        }
+
+        def Shader "Oneminus_2"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Overlay/Multiply_3.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-407.9549, 86.70642)
+            int ui:nodegraph:node:stackingOrder = 393
+        }
+
+        def Shader "Step"
+        {
+            uniform token info:id = "ND_realitykit_step_vector4"
+            float4 inputs:edge.connect = </Root/Overlay.inputs:Base>
+            float4 inputs:in.connect = </Root/Overlay/Convert.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-576.1157, -138.14746)
+            int ui:nodegraph:node:stackingOrder = 324
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector4"
+            float inputs:in = 0.5
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-793.02515, -139.28235)
+            int ui:nodegraph:node:stackingOrder = 416
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/Overlay/Step.outputs:out>
+            float4 inputs:in2.connect = </Root/Overlay/Multiply_1.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-403.1822, 17.387268)
+            int ui:nodegraph:node:stackingOrder = 404
+        }
+
+        def Shader "Oneminus_3"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Overlay/Step.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-403.18756, -97.17639)
+            int ui:nodegraph:node:stackingOrder = 407
+        }
+
+        def Shader "Multiply_5"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/Overlay/Oneminus_3.outputs:out>
+            float4 inputs:in2.connect = </Root/Overlay/Oneminus_2.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-314.75043, -42.491272)
+            int ui:nodegraph:node:stackingOrder = 409
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/Overlay/Multiply_5.outputs:out>
+            float4 inputs:in2.connect = </Root/Overlay/Multiply_4.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-256.9897, 39.479614)
+            int ui:nodegraph:node:stackingOrder = 413
+        }
+    }
+
+    def NodeGraph "PinLight" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-930.49426, 158.07349)
+                    int stackingOrderInSubgraph = 418
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-928.9003, -16.192322)
+                    int stackingOrderInSubgraph = 318
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-710.9761, 304.03656)
+                    int stackingOrderInSubgraph = 279
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-180, 74.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/PinLight/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-85, 217.5)
+        int ui:nodegraph:node:stackingOrder = 6
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (175.30737, 132.98877)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 160
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/PinLight.inputs:Base>
+            float4 inputs:fg.connect = </Root/PinLight/Add.outputs:out>
+            float inputs:mix.connect = </Root/PinLight.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-73.29437, 125.976746)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Step"
+        {
+            uniform token info:id = "ND_realitykit_step_vector4"
+            float4 inputs:edge.connect = </Root/PinLight/Convert.outputs:out>
+            float4 inputs:in.connect = </Root/PinLight.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-620.43567, -137.07094)
+            int ui:nodegraph:node:stackingOrder = 420
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector4"
+            float inputs:in = 0.5
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-826.27924, -138.47089)
+            int ui:nodegraph:node:stackingOrder = 418
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/PinLight/Step.outputs:out>
+            float4 inputs:in2.connect = </Root/PinLight/Max.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-303.1266, -10.53043)
+            int ui:nodegraph:node:stackingOrder = 433
+        }
+
+        def Shader "Oneminus_3"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/PinLight/Step.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-403.18756, -97.17639)
+            int ui:nodegraph:node:stackingOrder = 407
+        }
+
+        def Shader "Multiply_5"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/PinLight/Oneminus_3.outputs:out>
+            float4 inputs:in2.connect = </Root/PinLight/Min.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-307.20667, -76.4576)
+            int ui:nodegraph:node:stackingOrder = 436
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/PinLight/Multiply_5.outputs:out>
+            float4 inputs:in2.connect = </Root/PinLight/Multiply_4.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-227.14539, -19.651974)
+            int ui:nodegraph:node:stackingOrder = 431
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/PinLight.inputs:Base>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-672.1933, 1.6390177)
+            int ui:nodegraph:node:stackingOrder = 475
+        }
+
+        def Shader "Min"
+        {
+            uniform token info:id = "ND_min_vector4"
+            float4 inputs:in1.connect = </Root/PinLight.inputs:Blend>
+            float4 inputs:in2.connect = </Root/PinLight/Multiply.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-560.9453, -25.974794)
+            int ui:nodegraph:node:stackingOrder = 475
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/PinLight.inputs:Base>
+            float inputs:in2 = 0.5
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-735.3977, 116.67284)
+            int ui:nodegraph:node:stackingOrder = 478
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/PinLight/Subtract.outputs:out>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-630.9404, 109.37043)
+            int ui:nodegraph:node:stackingOrder = 481
+        }
+
+        def Shader "Max"
+        {
+            uniform token info:id = "ND_max_vector4"
+            float4 inputs:in1.connect = </Root/PinLight.inputs:Blend>
+            float4 inputs:in2 = (0, 0.27, 0, 0)
+            float4 inputs:in2.connect = </Root/PinLight/Multiply_1.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-522.26825, 95.64896)
+            int ui:nodegraph:node:stackingOrder = 486
+        }
+    }
+
+    def NodeGraph "Screen" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-947.10474, 14.095116)
+                    int stackingOrderInSubgraph = 197
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-976.6802, 112.62826)
+                    int stackingOrderInSubgraph = 203
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-704.7515, 252.3688)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-408, 130.5)
+                    int stackingOrderInSubgraph = 149
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Screen/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-288, 250.5)
+        int ui:nodegraph:node:stackingOrder = 6
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Screen.inputs:Base>
+            float4 inputs:fg.connect = </Root/Screen/Oneminus_1.outputs:out>
+            float inputs:mix.connect = </Root/Screen.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-270.56067, 117.01239)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Screen.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-786.9332, 0.43237305)
+            int ui:nodegraph:node:stackingOrder = 197
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Screen/Multiply.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-475.45227, 37.560303)
+            int ui:nodegraph:node:stackingOrder = 201
+        }
+
+        def Shader "Oneminus_2"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/Screen.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-801.7621, 112.91095)
+            int ui:nodegraph:node:stackingOrder = 204
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/Screen/Oneminus.outputs:out>
+            float4 inputs:in2.connect = </Root/Screen/Oneminus_2.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-621.865, 26.38153)
+            int ui:nodegraph:node:stackingOrder = 209
+        }
+    }
+
+    def NodeGraph "SoftLight" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1015.5778, 204.67122)
+                    int stackingOrderInSubgraph = 607
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1077.8938, -15.725195)
+                    int stackingOrderInSubgraph = 605
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-710.9761, 304.03656)
+                    int stackingOrderInSubgraph = 279
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-180, 74.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/SoftLight/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-85, 217.5)
+        int ui:nodegraph:node:stackingOrder = 6
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (175.30737, 132.98877)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 160
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/SoftLight.inputs:Base>
+            float4 inputs:fg.connect = </Root/SoftLight/Add.outputs:out>
+            float inputs:mix.connect = </Root/SoftLight.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-73.29437, 125.976746)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/SoftLight/Multiply_1.outputs:out>
+            float4 inputs:in2.connect = </Root/SoftLight.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-734.1119, -43.673138)
+            int ui:nodegraph:node:stackingOrder = 681
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            float4 inputs:in1.connect = </Root/SoftLight.inputs:Blend>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-916.4138, 3.3951151)
+            int ui:nodegraph:node:stackingOrder = 605
+        }
+
+        def Shader "Step"
+        {
+            uniform token info:id = "ND_realitykit_step_vector4"
+            float4 inputs:edge.connect = </Root/SoftLight/Convert.outputs:out>
+            float4 inputs:in.connect = </Root/SoftLight.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-610.1635, -166.99416)
+            int ui:nodegraph:node:stackingOrder = 675
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector4"
+            float inputs:in = 0.5
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-885.9147, -139.28235)
+            int ui:nodegraph:node:stackingOrder = 677
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/SoftLight/Step.outputs:out>
+            float4 inputs:in2.connect = </Root/SoftLight/Add_2.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-307.41562, 12.31779)
+            int ui:nodegraph:node:stackingOrder = 423
+        }
+
+        def Shader "Oneminus_3"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/SoftLight/Step.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-403.18756, -114.25667)
+            int ui:nodegraph:node:stackingOrder = 756
+        }
+
+        def Shader "Multiply_5"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/SoftLight/Oneminus_3.outputs:out>
+            float4 inputs:in2.connect = </Root/SoftLight/Add_1.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-314.4295, -78.60784)
+            int ui:nodegraph:node:stackingOrder = 425
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/SoftLight/Multiply_5.outputs:out>
+            float4 inputs:in2.connect = </Root/SoftLight/Multiply_4.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-226.83899, -22.224503)
+            int ui:nodegraph:node:stackingOrder = 421
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/SoftLight.inputs:Base>
+            float4 inputs:in2.connect = </Root/SoftLight.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-742.08264, 11.845037)
+            int ui:nodegraph:node:stackingOrder = 687
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/SoftLight/Multiply_1.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-660.7739, -22.065575)
+            int ui:nodegraph:node:stackingOrder = 685
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/SoftLight/Oneminus.outputs:out>
+            float4 inputs:in2.connect = </Root/SoftLight/Multiply_2.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-581.031, -8.627093)
+            int ui:nodegraph:node:stackingOrder = 595
+        }
+
+        def Shader "Add_1"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/SoftLight/Multiply.outputs:out>
+            float4 inputs:in2.connect = </Root/SoftLight/Multiply_3.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-487.2048, -36.63801)
+            int ui:nodegraph:node:stackingOrder = 758
+        }
+
+        def Shader "SquareRoot"
+        {
+            uniform token info:id = "ND_sqrt_vector4"
+            float4 inputs:in.connect = </Root/SoftLight.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-726.8514, 134.50233)
+            int ui:nodegraph:node:stackingOrder = 746
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/SoftLight/Multiply_1.outputs:out>
+            float inputs:in2 = 1
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-710.5283, 87.65624)
+            int ui:nodegraph:node:stackingOrder = 746
+        }
+
+        def Shader "Multiply_6"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/SoftLight/Subtract.outputs:out>
+            float4 inputs:in2.connect = </Root/SoftLight/SquareRoot.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-621.61475, 100.61545)
+            int ui:nodegraph:node:stackingOrder = 746
+        }
+
+        def Shader "Multiply_7"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/SoftLight.inputs:Base>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-745.7564, 226.80902)
+            int ui:nodegraph:node:stackingOrder = 668
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/SoftLight.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-879.3119, 129.38225)
+            int ui:nodegraph:node:stackingOrder = 753
+        }
+
+        def Shader "Multiply_8"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/SoftLight/Oneminus_1.outputs:out>
+            float4 inputs:in2.connect = </Root/SoftLight/Multiply_7.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-641.94244, 200.78133)
+            int ui:nodegraph:node:stackingOrder = 751
+        }
+
+        def Shader "Add_2"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/SoftLight/Multiply_6.outputs:out>
+            float4 inputs:in2.connect = </Root/SoftLight/Multiply_8.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-523.5011, 106.92061)
+            int ui:nodegraph:node:stackingOrder = 749
+        }
+    }
+
+    def NodeGraph "Subtract" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-827.48444, 20.155602)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-804.7078, 118.68874)
+                    int stackingOrderInSubgraph = 152
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-704.7515, 252.3688)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-408, 130.5)
+                    int stackingOrderInSubgraph = 149
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Subtract/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-368, 170.5)
+        int ui:nodegraph:node:stackingOrder = 2
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Subtract.inputs:Base>
+            float4 inputs:fg.connect = </Root/Subtract/Subtract.outputs:out>
+            float inputs:mix.connect = </Root/Subtract.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-270.56067, 117.01239)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector4"
+            float4 inputs:in1.connect = </Root/Subtract.inputs:Base>
+            float4 inputs:in2.connect = </Root/Subtract.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-563.2369, 29.863037)
+            int ui:nodegraph:node:stackingOrder = 160
+        }
+    }
+
+    def NodeGraph "VividLight" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1016.3217, 156.54138)
+                    int stackingOrderInSubgraph = 499
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1011.48944, -17.763626)
+                    int stackingOrderInSubgraph = 501
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-710.9761, 304.03656)
+                    int stackingOrderInSubgraph = 279
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-180, 74.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/VividLight/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-65, 237.5)
+        int ui:nodegraph:node:stackingOrder = 7
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (175.30737, 132.98877)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 160
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/VividLight.inputs:Base>
+            float4 inputs:fg.connect = </Root/VividLight/Add.outputs:out>
+            float inputs:mix.connect = </Root/VividLight.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-73.29437, 125.976746)
+            int ui:nodegraph:node:stackingOrder = 223
+        }
+
+        def Shader "Step"
+        {
+            uniform token info:id = "ND_realitykit_step_vector4"
+            float4 inputs:edge.connect = </Root/VividLight/Convert.outputs:out>
+            float4 inputs:in.connect = </Root/VividLight.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-620.43567, -137.07094)
+            int ui:nodegraph:node:stackingOrder = 420
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector4"
+            float inputs:in = 0.5
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-826.27924, -138.47089)
+            int ui:nodegraph:node:stackingOrder = 418
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/VividLight/Step.outputs:out>
+            float4 inputs:in2.connect = </Root/VividLight/Divide.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-303.1266, -10.53043)
+            int ui:nodegraph:node:stackingOrder = 433
+        }
+
+        def Shader "Oneminus_3"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/VividLight/Step.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-403.18756, -97.17639)
+            int ui:nodegraph:node:stackingOrder = 407
+        }
+
+        def Shader "Multiply_5"
+        {
+            uniform token info:id = "ND_multiply_vector4"
+            float4 inputs:in1.connect = </Root/VividLight/Oneminus_3.outputs:out>
+            float4 inputs:in2.connect = </Root/VividLight/Oneminus_2.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-307.20667, -76.4576)
+            int ui:nodegraph:node:stackingOrder = 436
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector4"
+            float4 inputs:in1.connect = </Root/VividLight/Multiply_5.outputs:out>
+            float4 inputs:in2.connect = </Root/VividLight/Multiply_4.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-227.14539, -19.651974)
+            int ui:nodegraph:node:stackingOrder = 431
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector4"
+            float4 inputs:in1.connect = </Root/VividLight.inputs:Blend>
+            float4 inputs:in2.connect = </Root/VividLight/Multiply_1.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-507.67215, 97.88735)
+            int ui:nodegraph:node:stackingOrder = 484
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/VividLight.inputs:Base>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-749.9849, 122.79594)
+            int ui:nodegraph:node:stackingOrder = 488
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/VividLight/Oneminus.outputs:out>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-645.25226, 112.88241)
+            int ui:nodegraph:node:stackingOrder = 485
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector4FA"
+            prepend float4 inputs:in1.connect = </Root/VividLight.inputs:Base>
+            float inputs:in2 = 2
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-775.9106, 40.41281)
+            int ui:nodegraph:node:stackingOrder = 489
+        }
+
+        def Shader "Oneminus_1"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/VividLight.inputs:Blend>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-739.3649, -20.98585)
+            int ui:nodegraph:node:stackingOrder = 493
+        }
+
+        def Shader "Divide_1"
+        {
+            uniform token info:id = "ND_divide_vector4"
+            float4 inputs:in1.connect = </Root/VividLight/Oneminus_1.outputs:out>
+            float4 inputs:in2.connect = </Root/VividLight/Multiply.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-604.6842, -23.232767)
+            int ui:nodegraph:node:stackingOrder = 496
+        }
+
+        def Shader "Oneminus_2"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_vector4"
+            float4 inputs:in.connect = </Root/VividLight/Divide_1.outputs:out>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-493.7158, -27.073322)
+            int ui:nodegraph:node:stackingOrder = 497
+        }
+    }
+
+    def NodeGraph "Overwrite" (
+        active = true
+    )
+    {
+        float4 inputs:Base = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-823.5331, 127.57168)
+                    int stackingOrderInSubgraph = 164
+                }
+            }
+        )
+        float4 inputs:Blend = (0, 0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-813.71326, 52.998253)
+                    int stackingOrderInSubgraph = 162
+                }
+            }
+        )
+        float inputs:Opacity = 0 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-704.7515, 252.3688)
+                    int stackingOrderInSubgraph = 143
+                }
+            }
+        )
+        float4 outputs:Out (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-408, 130.5)
+                    int stackingOrderInSubgraph = 149
+                }
+            }
+        )
+        float4 outputs:Out.connect = </Root/Overwrite/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (-388, 150.5)
+        int ui:nodegraph:node:stackingOrder = 1
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector4"
+            float4 inputs:bg.connect = </Root/Overwrite.inputs:Base>
+            float4 inputs:fg.connect = </Root/Overwrite.inputs:Blend>
+            float inputs:mix.connect = </Root/Overwrite.inputs:Opacity>
+            float4 outputs:out
+            float2 ui:nodegraph:node:pos = (-270.56067, 117.01239)
+            int ui:nodegraph:node:stackingOrder = 157
+        }
+    }
+}
+
