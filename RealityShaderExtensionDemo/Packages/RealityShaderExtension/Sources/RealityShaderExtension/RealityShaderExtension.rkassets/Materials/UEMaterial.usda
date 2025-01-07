@@ -1942,6 +1942,7 @@ def Xform "Root"
             token outputs:mtlx:surface.connect = </Root/Cube_CylindricalUVs/CylindricalUVsMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 894
 
             def Shader "PreviewSurface"
             {
@@ -1965,7 +1966,7 @@ def Xform "Root"
                 float3 inputs:Normal.connect = None
                 asset inputs:TextureObject.connect = </Root/Cube_CylindricalUVs/CylindricalUVsMaterial/ConstantImageFile.outputs:out>
                 float2 ui:nodegraph:node:pos = (-389.99487, 66.69126)
-                int ui:nodegraph:node:stackingOrder = 891
+                int ui:nodegraph:node:stackingOrder = 892
             }
 
             def Shader "Convert"

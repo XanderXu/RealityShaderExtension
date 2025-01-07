@@ -2864,7 +2864,7 @@ def Xform "Root"
             string inputs:space = "world"
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (-1401.7319, -1.6616759)
-            int ui:nodegraph:node:stackingOrder = 478
+            int ui:nodegraph:node:stackingOrder = 593
         }
     }
 
@@ -5352,14 +5352,14 @@ def Xform "Root"
         def Shader "NormalMap"
         {
             uniform token info:id = "ND_normalmap"
-            float3 inputs:in.connect = </Root/CylindricalUVs/Add.outputs:out>
+            float3 inputs:in.connect = None
             float3 inputs:normal
             float inputs:scale
             string inputs:space
             float3 inputs:tangent
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (-715.09686, 254.52675)
-            int ui:nodegraph:node:stackingOrder = 369
+            int ui:nodegraph:node:stackingOrder = 396
         }
 
         def Shader "Multiply"
@@ -5368,8 +5368,8 @@ def Xform "Root"
             prepend float3 inputs:in1.connect = </Root/CylindricalUVs.inputs:Normal>
             float inputs:in2 = 0.5
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (-951.01874, 227.48769)
-            int ui:nodegraph:node:stackingOrder = 176
+            float2 ui:nodegraph:node:pos = (-978.08203, 257.18076)
+            int ui:nodegraph:node:stackingOrder = 410
         }
 
         def Shader "Add"
@@ -5378,8 +5378,8 @@ def Xform "Root"
             prepend float3 inputs:in1.connect = </Root/CylindricalUVs/Multiply.outputs:out>
             float inputs:in2 = 0.5
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (-865.03046, 230.19081)
-            int ui:nodegraph:node:stackingOrder = 176
+            float2 ui:nodegraph:node:pos = (-908.62054, 210.5508)
+            int ui:nodegraph:node:stackingOrder = 412
         }
 
         def Shader "Separate3"
@@ -5389,8 +5389,8 @@ def Xform "Root"
             float outputs:outx
             float outputs:outy
             float outputs:outz
-            float2 ui:nodegraph:node:pos = (-525.425, 325.19473)
-            int ui:nodegraph:node:stackingOrder = 176
+            float2 ui:nodegraph:node:pos = (-511.23447, 327.5138)
+            int ui:nodegraph:node:stackingOrder = 393
         }
 
         def Shader "Abs"
@@ -5447,8 +5447,8 @@ def Xform "Root"
             float2 inputs:texcoord.connect = </Root/CylindricalUVs/Combine2_1.outputs:out>
             string inputs:uaddressmode
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (-49.10162, -169.9355)
-            int ui:nodegraph:node:stackingOrder = 365
+            float2 ui:nodegraph:node:pos = (-43.312622, -141.05382)
+            int ui:nodegraph:node:stackingOrder = 372
         }
 
         def Shader "Position"
@@ -5457,7 +5457,7 @@ def Xform "Root"
             string inputs:space = "world"
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (-1366.5275, -175.72473)
-            int ui:nodegraph:node:stackingOrder = 355
+            int ui:nodegraph:node:stackingOrder = 423
         }
 
         def Shader "Divide"
@@ -5487,8 +5487,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/CylindricalUVs/Separate3_1.outputs:outx>
             float inputs:in2.connect = </Root/CylindricalUVs/Separate3_1.outputs:outy>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-657.38684, -73.85909)
-            int ui:nodegraph:node:stackingOrder = 266
+            float2 ui:nodegraph:node:pos = (-557.96686, -89.09118)
+            int ui:nodegraph:node:stackingOrder = 429
         }
 
         def Shader "Combine2_1"
@@ -5507,10 +5507,10 @@ def Xform "Root"
             references = </Root/VectorToRadialValue>
         )
         {
-            bool inputs:SwizzleCoordinateOutput
+            bool inputs:SwizzleCoordinateOutput = 1
             float2 inputs:VectorOrUVs.connect = </Root/CylindricalUVs/Combine2_2.outputs:out>
             float2 ui:nodegraph:node:pos = (-497.36716, -300.83475)
-            int ui:nodegraph:node:stackingOrder = 306
+            int ui:nodegraph:node:stackingOrder = 418
         }
 
         def Shader "Combine2_2"
@@ -5534,25 +5534,43 @@ def Xform "Root"
             int ui:nodegraph:node:stackingOrder = 351
         }
 
-        def Shader "TransformVector"
-        {
-            uniform token info:id = "ND_transformvector_vector3"
-            string inputs:fromspace = "object"
-            float3 inputs:in.connect = None
-            string inputs:tospace = "world"
-            float3 outputs:out
-            float2 ui:nodegraph:node:pos = (-1341.6278, -288.88065)
-            int ui:nodegraph:node:stackingOrder = 370
-        }
-
         def Shader "Subtract"
         {
             uniform token info:id = "ND_subtract_vector3"
             float3 inputs:in1.connect = </Root/CylindricalUVs/Position.outputs:out>
-            float3 inputs:in2.connect = </Root/CylindricalUVs/TransformVector.outputs:out>
+            float3 inputs:in2.connect = </Root/CylindricalUVs/TransformPoint.outputs:out>
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (-1070.2009, -304.41193)
             int ui:nodegraph:node:stackingOrder = 362
+        }
+
+        def Shader "TransformNormal"
+        {
+            uniform token info:id = "ND_transformnormal_vector3"
+            string inputs:tospace = "world"
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-741.6668, 410.52347)
+            int ui:nodegraph:node:stackingOrder = 402
+        }
+
+        def Shader "TransformVector_1"
+        {
+            uniform token info:id = "ND_transformvector_vector3"
+            float3 inputs:in = (0, 0, 1)
+            string inputs:tospace = "world"
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-750.22943, 494.82645)
+            int ui:nodegraph:node:stackingOrder = 408
+        }
+
+        def Shader "TransformPoint"
+        {
+            uniform token info:id = "ND_transformpoint_vector3"
+            string inputs:fromspace = "object"
+            string inputs:tospace = "world"
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-1332.1445, -311.32306)
+            int ui:nodegraph:node:stackingOrder = 424
         }
     }
 }
