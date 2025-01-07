@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["InputTextureCoordinate", "Panner", "Desaturation", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "SmoothCurve", "ValueStep", "FuzzyShading", "FuzzyShadingGrass", "BlackBody_WIP_", "_3ColorBlend", "CheapContrast", "CheapContrast_RGB", "SCurve", "_3PointLevels", "HueShift", "SmoothThreshold", "SoftOpacity", "VectorToRadialValue", "LinearSine", "ViewAlignedReflection", "Cube"]
+    reorder nameChildren = ["InputTextureCoordinate", "Panner", "Desaturation", "SphereMask", "Fresnel", "CameraDepthFade", "GeneratedBand", "GeneratedOffsetBands", "NormalFromHeightmap", "NormalFromHeightmapChaos", "RadialGradientExponential", "ExponentialDensity", "DiamondGradient", "SmoothCurve", "ValueStep", "FuzzyShading", "FuzzyShadingGrass", "BlackBody_WIP_", "_3ColorBlend", "CheapContrast", "CheapContrast_RGB", "SCurve", "_3PointLevels", "HueShift", "SmoothThreshold", "SoftOpacity", "VectorToRadialValue", "LinearSine", "ViewAlignedReflection", "CylindricalUVs", "Cube"]
     def NodeGraph "SphereMask"
     {
         reorder nameChildren = ["Multiply", "Subtract", "Magnitude", "Group", "Group2", "Divide", "Abs", "MTLCospi", "Multiply_3", "Clamp_1", "Range_1", "Clamp", "Fractional", "UV", "InputTextureCoordinate_1"]
@@ -5296,6 +5296,263 @@ def Xform "Root"
             float outputs:out
             float2 ui:nodegraph:node:pos = (-758.03906, 30.386719)
             int ui:nodegraph:node:stackingOrder = 38
+        }
+    }
+
+    def NodeGraph "CylindricalUVs" (
+        active = true
+    )
+    {
+        reorder nameChildren = ["NormalMap", "Multiply", "Add", "Separate3", "Abs", "CheapContrast_1", "Mix", "Image", "Image_1", "Position", "Divide", "Separate3_1", "Combine2", "Combine2_1", "VectorToRadialValue_1"]
+        float inputs:In = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1220.3309, -82.03018)
+                    int stackingOrderInSubgraph = 261
+                }
+            }
+        )
+        float3 inputs:Normal = (0, 0, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1107.2219, 228.8041)
+                    int stackingOrderInSubgraph = 176
+                }
+            }
+        )
+        asset inputs:TextureObject (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1038.9178, 85.33751)
+                    int stackingOrderInSubgraph = 268
+                }
+            }
+        )
+        float3 outputs:CylinderProjection (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-16, 71.5)
+                    int stackingOrderInSubgraph = 6
+                }
+            }
+        )
+        float3 outputs:CylinderProjection.connect = </Root/CylindricalUVs/Image_1.outputs:out>
+        float3 outputs:CylinderProjectionWTop (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-16, 71.5)
+                    int stackingOrderInSubgraph = 5
+                }
+            }
+        )
+        float3 outputs:CylinderProjectionWTop.connect = </Root/CylindricalUVs/Mix.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (428.66983, 25.656017)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 204
+
+        def Shader "NormalMap"
+        {
+            uniform token info:id = "ND_normalmap"
+            float3 inputs:in.connect = </Root/CylindricalUVs/Add.outputs:out>
+            float3 inputs:normal
+            float inputs:scale
+            string inputs:space
+            float3 inputs:tangent
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-715.09686, 254.52675)
+            int ui:nodegraph:node:stackingOrder = 369
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/CylindricalUVs.inputs:Normal>
+            float inputs:in2 = 0.5
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-951.01874, 227.48769)
+            int ui:nodegraph:node:stackingOrder = 176
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/CylindricalUVs/Multiply.outputs:out>
+            float inputs:in2 = 0.5
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-865.03046, 230.19081)
+            int ui:nodegraph:node:stackingOrder = 176
+        }
+
+        def Shader "Separate3"
+        {
+            uniform token info:id = "ND_separate3_vector3"
+            float3 inputs:in.connect = </Root/CylindricalUVs/NormalMap.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float outputs:outz
+            float2 ui:nodegraph:node:pos = (-525.425, 325.19473)
+            int ui:nodegraph:node:stackingOrder = 176
+        }
+
+        def Shader "Abs"
+        {
+            uniform token info:id = "ND_absval_float"
+            float inputs:in.connect = </Root/CylindricalUVs/Separate3.outputs:outz>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-357.32733, 345.8549)
+            int ui:nodegraph:node:stackingOrder = 176
+        }
+
+        def "CheapContrast_1" (
+            active = true
+            instanceable = true
+            references = </Root/CheapContrast>
+        )
+        {
+            float inputs:Contrast = 1
+            float inputs:In.connect = </Root/CylindricalUVs/Abs.outputs:out>
+            float2 ui:nodegraph:node:pos = (-186.4819, 316.1826)
+            int ui:nodegraph:node:stackingOrder = 182
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/CylindricalUVs/Image_1.outputs:out>
+            float3 inputs:fg.connect = </Root/CylindricalUVs/Image.outputs:out>
+            prepend float inputs:mix.connect = </Root/CylindricalUVs/CheapContrast_1.outputs:Out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (155.0811, 157.01602)
+            int ui:nodegraph:node:stackingOrder = 200
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            float3 inputs:default
+            prepend asset inputs:file.connect = </Root/CylindricalUVs.inputs:TextureObject>
+            string inputs:filtertype
+            float2 inputs:texcoord.connect = </Root/CylindricalUVs/Combine2.outputs:out>
+            string inputs:uaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-169.82205, 79.25585)
+            int ui:nodegraph:node:stackingOrder = 367
+        }
+
+        def Shader "Image_1"
+        {
+            uniform token info:id = "ND_image_vector3"
+            float3 inputs:default
+            asset inputs:file.connect = </Root/CylindricalUVs.inputs:TextureObject>
+            string inputs:filtertype
+            float2 inputs:texcoord.connect = </Root/CylindricalUVs/Combine2_1.outputs:out>
+            string inputs:uaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-49.10162, -169.9355)
+            int ui:nodegraph:node:stackingOrder = 365
+        }
+
+        def Shader "Position"
+        {
+            uniform token info:id = "ND_position_vector3"
+            string inputs:space = "world"
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-1366.5275, -175.72473)
+            int ui:nodegraph:node:stackingOrder = 355
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/CylindricalUVs/Position.outputs:out>
+            float inputs:in2.connect = </Root/CylindricalUVs.inputs:In>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-1014.0028, -96.57774)
+            int ui:nodegraph:node:stackingOrder = 261
+        }
+
+        def Shader "Separate3_1"
+        {
+            uniform token info:id = "ND_separate3_vector3"
+            float3 inputs:in.connect = </Root/CylindricalUVs/Divide.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float outputs:outz
+            float2 ui:nodegraph:node:pos = (-870.2389, -94.58094)
+            int ui:nodegraph:node:stackingOrder = 265
+        }
+
+        def Shader "Combine2"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/CylindricalUVs/Separate3_1.outputs:outx>
+            float inputs:in2.connect = </Root/CylindricalUVs/Separate3_1.outputs:outy>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-657.38684, -73.85909)
+            int ui:nodegraph:node:stackingOrder = 266
+        }
+
+        def Shader "Combine2_1"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/CylindricalUVs/VectorToRadialValue_1.outputs:VectorConvertedToAngle>
+            float inputs:in2.connect = </Root/CylindricalUVs/Separate3_1.outputs:outz>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-274.047, -210.19402)
+            int ui:nodegraph:node:stackingOrder = 304
+        }
+
+        def "VectorToRadialValue_1" (
+            active = true
+            instanceable = true
+            references = </Root/VectorToRadialValue>
+        )
+        {
+            bool inputs:SwizzleCoordinateOutput
+            float2 inputs:VectorOrUVs.connect = </Root/CylindricalUVs/Combine2_2.outputs:out>
+            float2 ui:nodegraph:node:pos = (-497.36716, -300.83475)
+            int ui:nodegraph:node:stackingOrder = 306
+        }
+
+        def Shader "Combine2_2"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/CylindricalUVs/Separate3_2.outputs:outx>
+            float inputs:in2.connect = </Root/CylindricalUVs/Separate3_2.outputs:outy>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-700.3209, -300.1594)
+            int ui:nodegraph:node:stackingOrder = 351
+        }
+
+        def Shader "Separate3_2"
+        {
+            uniform token info:id = "ND_separate3_vector3"
+            float3 inputs:in.connect = </Root/CylindricalUVs/Subtract.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float outputs:outz
+            float2 ui:nodegraph:node:pos = (-905.5081, -301.23547)
+            int ui:nodegraph:node:stackingOrder = 351
+        }
+
+        def Shader "TransformVector"
+        {
+            uniform token info:id = "ND_transformvector_vector3"
+            string inputs:fromspace = "object"
+            float3 inputs:in.connect = None
+            string inputs:tospace = "world"
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-1341.6278, -288.88065)
+            int ui:nodegraph:node:stackingOrder = 370
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector3"
+            float3 inputs:in1.connect = </Root/CylindricalUVs/Position.outputs:out>
+            float3 inputs:in2.connect = </Root/CylindricalUVs/TransformVector.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-1070.2009, -304.41193)
+            int ui:nodegraph:node:stackingOrder = 362
         }
     }
 }
