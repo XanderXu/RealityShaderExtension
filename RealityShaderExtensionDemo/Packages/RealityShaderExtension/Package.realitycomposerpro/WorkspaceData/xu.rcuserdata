@@ -1,10 +1,9 @@
 {
-  "advancedEditorSelectedIdentifier" : "ShaderGraphEditorPluginID",
+  "advancedEditorSelectedIdentifier" : "ProjectBrowser",
   "openSceneRelativePaths" : [
     "Immersive.usda",
     "Materials\/Nodes\/UENode.usda",
-    "Materials\/Nodes\/XNode.usda",
-    "Materials\/Nodes\/ColorspaceNode.usda"
+    "Materials\/UEMaterial.usda"
   ],
   "recentIdentifiers" : {
     "06736923-D089-4A07-BFAC-C76EE035BD38" : [
@@ -251,6 +250,28 @@
     ],
     "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232" : [
       {
+        "date" : 757845442.061137,
+        "title" : "Untitled",
+        "transform" : [
+          0.98173285,
+          1.4901161e-08,
+          -0.19026433,
+          0,
+          0.037362855,
+          0.9805291,
+          0.19278629,
+          0,
+          0.18655972,
+          -0.19637348,
+          0.9626177,
+          0,
+          0.5208374,
+          0.30715525,
+          1.4338393,
+          1
+        ]
+      },
+      {
         "date" : 756283424.199583,
         "title" : "Untitled",
         "transform" : [
@@ -299,5 +320,5 @@
   "sceneViewportBackgroundColors" : {
 
   },
-  "selectedSceneRelativePath" : "Materials\/Nodes\/XNode.usda"
+  "selectedSceneRelativePath" : "Materials\/UEMaterial.usda"
 }
