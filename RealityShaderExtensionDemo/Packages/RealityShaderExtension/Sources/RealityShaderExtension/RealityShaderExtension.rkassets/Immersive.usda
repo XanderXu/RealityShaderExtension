@@ -37,14 +37,5 @@ def Xform "Root"
         float3 xformOp:translate = (-0.5, 1.5, -1.5)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
-
-    def "GridMaterial" (
-        active = true
-        prepend references = @Materials/GridMaterial.usda@
-    )
-    {
-        float3 xformOp:scale = (1, 1, 1)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
 }
 
