@@ -64,24 +64,6 @@
       [
         "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
         "Root",
-        "NormalStrength"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
-        "Root",
-        "SquareWave"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
-        "Root",
         "FresnelEffect"
       ],
       {
@@ -100,7 +82,7 @@
       [
         "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
         "Root",
-        "Hue"
+        "WhiteBalance"
       ],
       {
         "isExpanded" : true,
@@ -109,7 +91,24 @@
       [
         "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
         "Root",
-        "NoiseSinWave"
+        "Saturation"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
+        "Root",
+        "TriangleWave"
       ],
       {
         "isExpanded" : true,
@@ -128,6 +127,33 @@
       [
         "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
         "Root",
+        "SquareWave"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
+        "Root",
+        "ReplaceColor"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
+        "Root",
+        "Hue"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
+        "Root",
         "NormalReconstructZ"
       ],
       {
@@ -137,24 +163,7 @@
       [
         "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
         "Root",
-        "Contrast"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
-        "Root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
-        "Root",
-        "WhiteBalance"
+        "NormalStrength"
       ],
       {
         "isExpanded" : true,
@@ -164,42 +173,6 @@
         "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
         "Root",
         "Cube"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
-        "Root",
-        "ChannelMixer"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
-        "Root",
-        "Saturation"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
-        "Root",
-        "TriangleWave"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
-        "Root",
-        "SawtoothWave"
       ],
       {
         "isExpanded" : true,
@@ -218,7 +191,34 @@
       [
         "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
         "Root",
-        "ReplaceColor"
+        "NoiseSinWave"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
+        "Root",
+        "Contrast"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
+        "Root",
+        "ChannelMixer"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "69F48840-7E19-4AE3-B581-9AC6CF6B9217",
+        "Root",
+        "SawtoothWave"
       ],
       {
         "isExpanded" : true,
@@ -230,8 +230,16 @@
     "objectMetadataList" : [
       [
         "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
         "Root",
-        "SphereMaskMaterial"
+        "Cube_1"
       ],
       {
         "isExpanded" : true,
@@ -250,15 +258,7 @@
       [
         "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
         "Root",
-        "Cube_1"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
-        "Root"
+        "RandomNoise"
       ],
       {
         "isExpanded" : true,
@@ -267,7 +267,7 @@
       [
         "6B3CFE20-BE03-4412-91D9-2DEA5CE4F5BE",
         "Root",
-        "RandomNoise"
+        "SphereMaskMaterial"
       ],
       {
         "isExpanded" : true,
@@ -279,55 +279,7 @@
     "objectMetadataList" : [
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "GeneratedOffsetBands",
-        "GeneratedBand_1"
-      ],
-      {
-        "disallowsFraming" : true,
-        "isExpanded" : false,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "CameraDepthFade"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "Desaturation"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "CheapContrast_RGB"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "ExponentialDensity"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "CylindricalUVs"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -345,7 +297,7 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
-        "Cube"
+        "Desaturation"
       ],
       {
         "isExpanded" : true,
@@ -353,7 +305,100 @@
       },
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root"
+        "Root",
+        "CameraDepthFade"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "GeneratedOffsetBands",
+        "GeneratedBand_1"
+      ],
+      {
+        "disallowsFraming" : true,
+        "isExpanded" : false,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "CheapContrast"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "HueShift"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "SmoothCurve"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "SmoothThreshold"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "_3ColorBlend"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "LinearSine"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "BlackBody_WIP_"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "FuzzyShading"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "DiamondGradient"
       ],
       {
         "isExpanded" : true,
@@ -372,25 +417,52 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
+        "CylindricalUVs"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "_3PointLevels"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "InputTextureCoordinate"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "ValueStep"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
+        "CheapContrast_RGB"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
+        "Root",
         "SCurve"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "CheapContrast"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "_3ColorBlend"
       ],
       {
         "isExpanded" : true,
@@ -411,52 +483,7 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
-        "InputTextureCoordinate"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "SmoothCurve"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "DiamondGradient"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "FuzzyShading"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "ValueStep"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "HueShift"
+        "Cube"
       ],
       {
         "isExpanded" : true,
@@ -474,34 +501,7 @@
       [
         "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
         "Root",
-        "_3PointLevels"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "BlackBody_WIP_"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "SmoothThreshold"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "7FF16649-B3D7-4A5B-9193-076A64EB06E6",
-        "Root",
-        "LinearSine"
+        "ExponentialDensity"
       ],
       {
         "isExpanded" : true,
@@ -546,8 +546,16 @@
     "objectMetadataList" : [
       [
         "A6689D6A-EE6C-4FF8-B798-751326675DF0",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A6689D6A-EE6C-4FF8-B798-751326675DF0",
         "Root",
-        "Cube"
+        "SphereMask"
       ],
       {
         "isExpanded" : true,
@@ -566,15 +574,7 @@
       [
         "A6689D6A-EE6C-4FF8-B798-751326675DF0",
         "Root",
-        "SphereMask"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A6689D6A-EE6C-4FF8-B798-751326675DF0",
-        "Root"
+        "Cube"
       ],
       {
         "isExpanded" : true,
@@ -587,177 +587,16 @@
       [
         "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
         "Root",
-        "Divide"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "Darken"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "Difference"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "HardMix"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "VividLight"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "RGB2Linear"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "PinLight"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "Exclusion"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "HardLight"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "LinearLightAddSub"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "Dodge"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "Overwrite"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "Linear2RGB"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "LinearBurn"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "Multiply"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "Negation"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "SoftLight"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
-        "Linear2HSV"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
-        "Root",
         "LinearLight"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "Lighten"
       ],
       {
         "isExpanded" : true,
@@ -775,6 +614,33 @@
       [
         "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
         "Root",
+        "LinearBurn"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "LinearLightAddSub"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "Negation"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
         "HSV2Linear"
       ],
       {
@@ -784,7 +650,7 @@
       [
         "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
         "Root",
-        "Burn"
+        "SoftLight"
       ],
       {
         "isExpanded" : true,
@@ -793,7 +659,7 @@
       [
         "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
         "Root",
-        "LinearDodge"
+        "Linear2RGB"
       ],
       {
         "isExpanded" : true,
@@ -802,7 +668,16 @@
       [
         "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
         "Root",
-        "Subtract"
+        "Exclusion"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "Linear2HSV"
       ],
       {
         "isExpanded" : true,
@@ -820,6 +695,51 @@
       [
         "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
         "Root",
+        "Difference"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "Subtract"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "Overwrite"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "Burn"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "VividLight"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
         "RGB2HSV"
       ],
       {
@@ -829,7 +749,87 @@
       [
         "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
         "Root",
-        "Lighten"
+        "HardLight"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "HardMix"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "PinLight"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "Dodge"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "Divide"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "RGB2Linear"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "LinearDodge"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "Darken"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "A7518375-FB43-4E8E-85ED-EEBF68DC0A95",
+        "Root",
+        "Multiply"
       ],
       {
         "isExpanded" : true,
@@ -839,6 +839,14 @@
   },
   "AF09ED6F-1707-48FD-8720-65B998362C09" : {
     "objectMetadataList" : [
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
@@ -856,19 +864,20 @@
       {
         "isExpanded" : true,
         "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
       }
     ]
   },
   "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232" : {
     "objectMetadataList" : [
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
@@ -881,9 +890,17 @@
       },
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube_7",
-        "DiamondGradientMaterial"
+        "Cube",
+        "DefaultMaterial"
       ],
       {
         "isExpanded" : true,
@@ -911,34 +928,17 @@
       [
         "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
         "Root",
-        "Cube",
-        "DefaultMaterial"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
-        "Root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
-        "Root",
-        "Cube"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
-        "Root",
         "Cube_FuzzyShading_1"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232",
+        "Root",
+        "Cube_7",
+        "DiamondGradientMaterial"
       ],
       {
         "isExpanded" : true,
@@ -950,7 +950,71 @@
     "objectMetadataList" : [
       [
         "C9BFB86D-CD6D-47AE-9427-F0BB21BCBEAC",
+        "Root",
+        "Linear2RGB"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "C9BFB86D-CD6D-47AE-9427-F0BB21BCBEAC",
+        "Root",
+        "RGB2Linear"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "C9BFB86D-CD6D-47AE-9427-F0BB21BCBEAC",
         "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "C9BFB86D-CD6D-47AE-9427-F0BB21BCBEAC",
+        "Root",
+        "HSV2RGB"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "C9BFB86D-CD6D-47AE-9427-F0BB21BCBEAC",
+        "Root",
+        "Cube"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "C9BFB86D-CD6D-47AE-9427-F0BB21BCBEAC",
+        "Root",
+        "Cube",
+        "DefaultMaterial"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "C9BFB86D-CD6D-47AE-9427-F0BB21BCBEAC",
+        "Root",
+        "YUV2RGB"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "C9BFB86D-CD6D-47AE-9427-F0BB21BCBEAC",
+        "Root",
+        "RGB2HSV"
       ],
       {
         "isExpanded" : true,
@@ -988,9 +1052,7 @@
     "objectMetadataList" : [
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root",
-        "GridMaterial",
-        "GridMaterial"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -998,7 +1060,9 @@
       },
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root"
+        "Root",
+        "GridMaterial",
+        "GridMaterial"
       ],
       {
         "isExpanded" : true,

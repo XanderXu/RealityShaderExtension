@@ -34,7 +34,7 @@ def Xform "Root"
         int ui:nodegraph:node:stackingOrder = 5712
         string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:yuv"]
         float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (720.7588, 72.84122)
-        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 4673
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 4670
 
         def Shader "DotProduct_1"
         {
@@ -80,26 +80,33 @@ def Xform "Root"
 
     def NodeGraph "YUV2RGB"
     {
-        color3f inputs:yuv (
+        float3 inputs:yuv = (0, 0, 0) (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (81.75, 206)
-                    int stackingOrderInSubgraph = 4913
+                    float2 positionInSubgraph = (96.62634, 204.24084)
+                    int stackingOrderInSubgraph = 4948
                 }
             }
         )
-        color3f inputs:yuv.connect = None
-        color3f outputs:rgb.connect = </Root/YUV2RGB/Combine3_1.outputs:out>
+        float3 outputs:rgb (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (707.20056, 189.6549)
+                    int stackingOrderInSubgraph = 4949
+                }
+            }
+        )
+        float3 outputs:rgb.connect = </Root/YUV2RGB/Combine3_1.outputs:out>
         float2 ui:nodegraph:node:pos = (3321.198, -730.2112)
         int ui:nodegraph:node:stackingOrder = 5586
         string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:Combine3_1_out"]
         float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1361.9011, 173.24278)
-        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 4949
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 4948
 
         def Shader "Add_6"
         {
             uniform token info:id = "ND_add_float"
-            float inputs:in1.connect = </Root/YUV2RGB/Separate3_1.outputs:outr>
+            float inputs:in1.connect = </Root/YUV2RGB/Separate3.outputs:outx>
             float inputs:in2.connect = </Root/YUV2RGB/DotProduct.outputs:out>
             float outputs:out
             float2 ui:nodegraph:node:pos = (981.94916, 179.4975)
@@ -109,7 +116,7 @@ def Xform "Root"
         def Shader "Multiply_15"
         {
             uniform token info:id = "ND_multiply_float"
-            float inputs:in1.connect = </Root/YUV2RGB/Separate3_1.outputs:outb>
+            float inputs:in1.connect = </Root/YUV2RGB/Separate3.outputs:outz>
             float inputs:in2 = 1.13983
             float outputs:out
             float2 ui:nodegraph:node:pos = (779.1804, 92.0035)
@@ -119,43 +126,21 @@ def Xform "Root"
         def Shader "Add_5"
         {
             uniform token info:id = "ND_add_float"
-            float inputs:in1.connect = </Root/YUV2RGB/Separate3_1.outputs:outr>
+            float inputs:in1.connect = </Root/YUV2RGB/Separate3.outputs:outx>
             float inputs:in2.connect = </Root/YUV2RGB/Multiply_15.outputs:out>
             float outputs:out
             float2 ui:nodegraph:node:pos = (881.8341, 46.649982)
-            int ui:nodegraph:node:stackingOrder = 4919
-        }
-
-        def Shader "Combine3_1"
-        {
-            uniform token info:id = "ND_combine3_color3"
-            float inputs:in1.connect = </Root/YUV2RGB/Add_5.outputs:out>
-            float inputs:in2.connect = </Root/YUV2RGB/Add_6.outputs:out>
-            float inputs:in3.connect = </Root/YUV2RGB/Add_7.outputs:out>
-            color3f outputs:out
-            float2 ui:nodegraph:node:pos = (1145.5, 205.5)
-            int ui:nodegraph:node:stackingOrder = 4911
+            int ui:nodegraph:node:stackingOrder = 4948
         }
 
         def Shader "Multiply_16"
         {
             uniform token info:id = "ND_multiply_float"
-            float inputs:in1.connect = </Root/YUV2RGB/Separate3_1.outputs:outg>
+            float inputs:in1.connect = </Root/YUV2RGB/Separate3.outputs:outy>
             float inputs:in2 = 2.03211
             float outputs:out
             float2 ui:nodegraph:node:pos = (656.19147, 364.65982)
             int ui:nodegraph:node:stackingOrder = 4942
-        }
-
-        def Shader "Separate3_1"
-        {
-            uniform token info:id = "ND_separate3_color3"
-            color3f inputs:in.connect = </Root/YUV2RGB.inputs:yuv>
-            float outputs:outb
-            float outputs:outg
-            float outputs:outr
-            float2 ui:nodegraph:node:pos = (304.25, 206)
-            int ui:nodegraph:node:stackingOrder = 4911
         }
 
         def Shader "DotProduct"
@@ -171,7 +156,7 @@ def Xform "Root"
         def Shader "Add_7"
         {
             uniform token info:id = "ND_add_float"
-            float inputs:in1.connect = </Root/YUV2RGB/Separate3_1.outputs:outr>
+            float inputs:in1.connect = </Root/YUV2RGB/Separate3.outputs:outx>
             float inputs:in2.connect = </Root/YUV2RGB/Multiply_16.outputs:out>
             float outputs:out
             float2 ui:nodegraph:node:pos = (804.0692, 356.11627)
@@ -181,11 +166,33 @@ def Xform "Root"
         def Shader "Combine2_3"
         {
             uniform token info:id = "ND_combine2_vector2"
-            float inputs:in1.connect = </Root/YUV2RGB/Separate3_1.outputs:outg>
-            float inputs:in2.connect = </Root/YUV2RGB/Separate3_1.outputs:outb>
+            float inputs:in1.connect = </Root/YUV2RGB/Separate3.outputs:outy>
+            float inputs:in2.connect = </Root/YUV2RGB/Separate3.outputs:outz>
             float2 outputs:out
             float2 ui:nodegraph:node:pos = (640.1415, 224.12553)
-            int ui:nodegraph:node:stackingOrder = 4934
+            int ui:nodegraph:node:stackingOrder = 4953
+        }
+
+        def Shader "Combine3_1"
+        {
+            uniform token info:id = "ND_combine3_vector3"
+            prepend float inputs:in1.connect = </Root/YUV2RGB/Add_5.outputs:out>
+            prepend float inputs:in2.connect = </Root/YUV2RGB/Add_6.outputs:out>
+            prepend float inputs:in3.connect = </Root/YUV2RGB/Add_7.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (1145.5, 205.5)
+            int ui:nodegraph:node:stackingOrder = 4947
+        }
+
+        def Shader "Separate3"
+        {
+            uniform token info:id = "ND_separate3_vector3"
+            float3 inputs:in.connect = </Root/YUV2RGB.inputs:yuv>
+            float outputs:outx
+            float outputs:outy
+            float outputs:outz
+            float2 ui:nodegraph:node:pos = (314.3164, 203.05078)
+            int ui:nodegraph:node:stackingOrder = 4961
         }
     }
 
@@ -197,79 +204,79 @@ def Xform "Root"
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (-852.23553, 97.391785)
-                    int stackingOrderInSubgraph = 43
+                    int stackingOrderInSubgraph = 120
                 }
             }
         )
         float3 outputs:Out (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-283, 83.5)
-                    int stackingOrderInSubgraph = 1
+                    float2 positionInSubgraph = (-64.679085, 196.16809)
+                    int stackingOrderInSubgraph = 119
                 }
             }
         )
         float3 outputs:Out.connect = </Root/RGB2Linear/Combine3.outputs:out>
         float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (651.60815, 112.27258)
-        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 60
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 121
 
         def Shader "Divide"
         {
             uniform token info:id = "ND_divide_vector3FA"
-            prepend float3 inputs:in1.connect = </Root/RGB2Linear.inputs:In>
+            float3 inputs:in1.connect = </Root/RGB2Linear.inputs:In>
             float inputs:in2 = 12.92
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (-417.65308, 138.72778)
-            int ui:nodegraph:node:stackingOrder = 40
+            float2 ui:nodegraph:node:pos = (-465.73895, 138.72778)
+            int ui:nodegraph:node:stackingOrder = 81
         }
 
         def Shader "Add"
         {
             uniform token info:id = "ND_add_vector3FA"
-            prepend float3 inputs:in1.connect = </Root/RGB2Linear.inputs:In>
+            float3 inputs:in1.connect = </Root/RGB2Linear.inputs:In>
             float inputs:in2 = 0.055
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (-675.399, 38.776)
-            int ui:nodegraph:node:stackingOrder = 13
+            int ui:nodegraph:node:stackingOrder = 94
         }
 
         def Shader "Abs"
         {
             uniform token info:id = "ND_absval_vector3"
-            float3 inputs:in.connect = </Root/RGB2Linear/Add.outputs:out>
+            float3 inputs:in.connect = </Root/RGB2Linear/Divide_1.outputs:out>
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (-554.46344, 36.945923)
-            int ui:nodegraph:node:stackingOrder = 14
+            float2 ui:nodegraph:node:pos = (-466.08612, 35.811726)
+            int ui:nodegraph:node:stackingOrder = 104
         }
 
         def Shader "Divide_1"
         {
             uniform token info:id = "ND_divide_vector3FA"
-            prepend float3 inputs:in1.connect = </Root/RGB2Linear/Abs.outputs:out>
+            float3 inputs:in1.connect = </Root/RGB2Linear/Add.outputs:out>
             float inputs:in2 = 1.055
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (-419.91223, 44.472595)
-            int ui:nodegraph:node:stackingOrder = 22
+            float2 ui:nodegraph:node:pos = (-578.12, 40.280567)
+            int ui:nodegraph:node:stackingOrder = 102
         }
 
         def Shader "Max"
         {
             uniform token info:id = "ND_max_vector3FA"
-            prepend float3 inputs:in1.connect = </Root/RGB2Linear/Divide_1.outputs:out>
+            float3 inputs:in1.connect = </Root/RGB2Linear/Abs.outputs:out>
             float inputs:in2 = 1.1920929e-7
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (-296.9408, 54.789)
-            int ui:nodegraph:node:stackingOrder = 34
+            float2 ui:nodegraph:node:pos = (-302.74167, 26.574024)
+            int ui:nodegraph:node:stackingOrder = 116
         }
 
         def Shader "Power"
         {
             uniform token info:id = "ND_power_vector3FA"
-            prepend float3 inputs:in1.connect = </Root/RGB2Linear/Max.outputs:out>
+            float3 inputs:in1.connect = </Root/RGB2Linear/Max.outputs:out>
             float inputs:in2 = 2.4
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (-136.70575, 65.18091)
-            int ui:nodegraph:node:stackingOrder = 36
+            float2 ui:nodegraph:node:pos = (-138.81425, 20.822386)
+            int ui:nodegraph:node:stackingOrder = 112
         }
 
         def Shader "Separate3"
@@ -301,8 +308,8 @@ def Xform "Root"
             float outputs:outx
             float outputs:outy
             float outputs:outz
-            float2 ui:nodegraph:node:pos = (30.410706, 24.752808)
-            int ui:nodegraph:node:stackingOrder = 72
+            float2 ui:nodegraph:node:pos = (29.451385, -11.521452)
+            int ui:nodegraph:node:stackingOrder = 117
         }
 
         def Shader "IfGreater"
@@ -315,7 +322,7 @@ def Xform "Root"
             float inputs:value2.connect = </Root/RGB2Linear/Separate3.outputs:outx>
             float outputs:out
             float2 ui:nodegraph:node:pos = (254.92188, 28.616882)
-            int ui:nodegraph:node:stackingOrder = 68
+            int ui:nodegraph:node:stackingOrder = 118
         }
 
         def Shader "Combine3"
@@ -492,7 +499,7 @@ def Xform "Root"
             float inputs:value2.connect = </Root/Linear2RGB/Separate3_2.outputs:outx>
             float outputs:out
             float2 ui:nodegraph:node:pos = (-32.09253, -53.36615)
-            int ui:nodegraph:node:stackingOrder = 88
+            int ui:nodegraph:node:stackingOrder = 107
         }
 
         def Shader "IfGreater_1"
@@ -528,8 +535,8 @@ def Xform "Root"
             prepend float inputs:in2.connect = </Root/Linear2RGB/IfGreater_1.outputs:out>
             prepend float inputs:in3.connect = </Root/Linear2RGB/IfGreater_2.outputs:out>
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (180.12634, 167.85889)
-            int ui:nodegraph:node:stackingOrder = 103
+            float2 ui:nodegraph:node:pos = (271.0932, 148.65416)
+            int ui:nodegraph:node:stackingOrder = 105
         }
     }
 
@@ -574,7 +581,7 @@ def Xform "Root"
             float4 inputs:value = (1, 0.6666667, 0.33333334, 3)
             float4 outputs:out
             float2 ui:nodegraph:node:pos = (-806.20825, -143.42242)
-            int ui:nodegraph:node:stackingOrder = 55
+            int ui:nodegraph:node:stackingOrder = 86
         }
 
         def Shader "Add"
@@ -652,7 +659,7 @@ def Xform "Root"
             prepend float4 inputs:in.connect = </Root/HSV2RGB/K.outputs:out>
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (-520.4026, -205.41718)
-            int ui:nodegraph:node:stackingOrder = 59
+            int ui:nodegraph:node:stackingOrder = 87
         }
 
         def Shader "K_www"
@@ -662,7 +669,7 @@ def Xform "Root"
             prepend float4 inputs:in.connect = </Root/HSV2RGB/K.outputs:out>
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (-552.37866, -129.25262)
-            int ui:nodegraph:node:stackingOrder = 60
+            int ui:nodegraph:node:stackingOrder = 88
         }
 
         def Shader "K_xyz"
@@ -672,7 +679,7 @@ def Xform "Root"
             prepend float4 inputs:in.connect = </Root/HSV2RGB/K.outputs:out>
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (-607.24664, -66.09155)
-            int ui:nodegraph:node:stackingOrder = 62
+            int ui:nodegraph:node:stackingOrder = 89
         }
 
         def Shader "Clamp"
@@ -727,16 +734,16 @@ def Xform "Root"
             }
         )
         float3 outputs:Out.connect = </Root/RGB2HSV/Combine3.outputs:out>
-        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (2048.0894, 295.82095)
-        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 251
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (2184.0593, 297.16983)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 331
 
         def Shader "K"
         {
             uniform token info:id = "ND_constant_vector4"
             float4 inputs:value = (0, -0.33333334, 0.6666667, -1)
             float4 outputs:out
-            float2 ui:nodegraph:node:pos = (-954.03156, -45.152832)
-            int ui:nodegraph:node:stackingOrder = 6
+            float2 ui:nodegraph:node:pos = (-983.7623, -44.916843)
+            int ui:nodegraph:node:stackingOrder = 352
         }
 
         def Shader "K_xy"
@@ -746,17 +753,7 @@ def Xform "Root"
             prepend float4 inputs:in.connect = </Root/RGB2HSV/K.outputs:out>
             float2 outputs:out
             float2 ui:nodegraph:node:pos = (-756.46857, -112.33917)
-            int ui:nodegraph:node:stackingOrder = 13
-        }
-
-        def Shader "K_zw"
-        {
-            uniform token info:id = "ND_swizzle_vector4_vector2"
-            string inputs:channels = "zw"
-            prepend float4 inputs:in.connect = </Root/RGB2HSV/K.outputs:out>
-            float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-780.9107, -10.895813)
-            int ui:nodegraph:node:stackingOrder = 60
+            int ui:nodegraph:node:stackingOrder = 295
         }
 
         def Shader "Separate3"
@@ -776,8 +773,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RGB2HSV/Separate3.outputs:outy>
             float inputs:in2.connect = </Root/RGB2HSV/Separate3.outputs:outz>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-678.2908, 171.00555)
-            int ui:nodegraph:node:stackingOrder = 45
+            float2 ui:nodegraph:node:pos = (-706.5623, 178.2347)
+            int ui:nodegraph:node:stackingOrder = 294
         }
 
         def Shader "In_bg"
@@ -786,25 +783,25 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RGB2HSV/Separate3.outputs:outz>
             float inputs:in2.connect = </Root/RGB2HSV/Separate3.outputs:outy>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-750.89075, 86.91815)
-            int ui:nodegraph:node:stackingOrder = 57
+            float2 ui:nodegraph:node:pos = (-759.0717, 82.95353)
+            int ui:nodegraph:node:stackingOrder = 292
         }
 
         def Shader "Combine2"
         {
             uniform token info:id = "ND_combine2_vector4VV"
             float2 inputs:in1.connect = </Root/RGB2HSV/In_bg.outputs:out>
-            float2 inputs:in2.connect = </Root/RGB2HSV/K_zw.outputs:out>
+            float2 inputs:in2.connect = </Root/RGB2HSV/K_wz.outputs:out>
             float4 outputs:out
-            float2 ui:nodegraph:node:pos = (-580.34973, 54.871277)
-            int ui:nodegraph:node:stackingOrder = 62
+            float2 ui:nodegraph:node:pos = (-590.85516, 23.827587)
+            int ui:nodegraph:node:stackingOrder = 354
         }
 
         def Shader "Combine2_1"
         {
             uniform token info:id = "ND_combine2_vector4VV"
-            float2 inputs:in1.connect = </Root/RGB2HSV/K_xy.outputs:out>
-            float2 inputs:in2.connect = </Root/RGB2HSV/In_gb.outputs:out>
+            float2 inputs:in1.connect = </Root/RGB2HSV/In_gb.outputs:out>
+            float2 inputs:in2.connect = </Root/RGB2HSV/K_xy.outputs:out>
             float4 outputs:out
             float2 ui:nodegraph:node:pos = (-337.1878, 10.744812)
             int ui:nodegraph:node:stackingOrder = 80
@@ -918,7 +915,7 @@ def Xform "Root"
             float inputs:in2.connect = </Root/RGB2HSV/Min.outputs:out>
             float outputs:out
             float2 ui:nodegraph:node:pos = (1320.8463, 382.6974)
-            int ui:nodegraph:node:stackingOrder = 278
+            int ui:nodegraph:node:stackingOrder = 360
         }
 
         def Shader "Min"
@@ -937,8 +934,8 @@ def Xform "Root"
             uniform token info:id = "ND_constant_float"
             float inputs:value = 1e-10
             float outputs:out
-            float2 ui:nodegraph:node:pos = (943.98315, 100.9304)
-            int ui:nodegraph:node:stackingOrder = 204
+            float2 ui:nodegraph:node:pos = (1185.9772, 175.90096)
+            int ui:nodegraph:node:stackingOrder = 362
         }
 
         def Shader "Add"
@@ -947,8 +944,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RGB2HSV/E.outputs:out>
             float inputs:in2.connect = </Root/RGB2HSV/Separate4_1.outputs:outr>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (1227.0605, 290.12775)
-            int ui:nodegraph:node:stackingOrder = 280
+            float2 ui:nodegraph:node:pos = (1293.0026, 286.84912)
+            int ui:nodegraph:node:stackingOrder = 347
         }
 
         def Scope "Group" (
@@ -973,12 +970,12 @@ def Xform "Root"
         def Shader "Combine3"
         {
             uniform token info:id = "ND_combine3_vector3"
-            float inputs:in1.connect = </Root/RGB2HSV/Add_2.outputs:out>
+            float inputs:in1.connect = </Root/RGB2HSV/Abs.outputs:out>
             float inputs:in2.connect = </Root/RGB2HSV/Divide.outputs:out>
             float inputs:in3.connect = </Root/RGB2HSV/Separate4_1.outputs:outr>
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (1871.4049, 309.86948)
-            int ui:nodegraph:node:stackingOrder = 251
+            float2 ui:nodegraph:node:pos = (2007.3749, 311.21835)
+            int ui:nodegraph:node:stackingOrder = 331
         }
 
         def Shader "Subtract_1"
@@ -987,8 +984,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RGB2HSV/Separate4_1.outputs:outa>
             float inputs:in2.connect = </Root/RGB2HSV/Separate4_1.outputs:outg>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (1272.0115, 37.412716)
-            int ui:nodegraph:node:stackingOrder = 269
+            float2 ui:nodegraph:node:pos = (1147.8219, 103.06426)
+            int ui:nodegraph:node:stackingOrder = 349
         }
 
         def Shader "Multiply"
@@ -997,8 +994,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RGB2HSV/Subtract.outputs:out>
             float inputs:in2 = 6
             float outputs:out
-            float2 ui:nodegraph:node:pos = (1311.6744, 180.01955)
-            int ui:nodegraph:node:stackingOrder = 274
+            float2 ui:nodegraph:node:pos = (1389.003, 199.55354)
+            int ui:nodegraph:node:stackingOrder = 359
         }
 
         def Shader "Add_1"
@@ -1007,8 +1004,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RGB2HSV/E.outputs:out>
             float inputs:in2.connect = </Root/RGB2HSV/Multiply.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (1406.3969, 149.51022)
-            int ui:nodegraph:node:stackingOrder = 272
+            float2 ui:nodegraph:node:pos = (1465.7618, 169.31006)
+            int ui:nodegraph:node:stackingOrder = 358
         }
 
         def Shader "Divide_1"
@@ -1017,8 +1014,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/RGB2HSV/Subtract_1.outputs:out>
             float inputs:in2.connect = </Root/RGB2HSV/Add_1.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (1539.1959, 157.16078)
-            int ui:nodegraph:node:stackingOrder = 256
+            float2 ui:nodegraph:node:pos = (1562.1562, 158.82472)
+            int ui:nodegraph:node:stackingOrder = 357
             string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
         }
 
@@ -1029,7 +1026,26 @@ def Xform "Root"
             float inputs:in2.connect = </Root/RGB2HSV/Separate4_1.outputs:outb>
             float outputs:out
             float2 ui:nodegraph:node:pos = (1671.2786, 198.12048)
-            int ui:nodegraph:node:stackingOrder = 254
+            int ui:nodegraph:node:stackingOrder = 355
+        }
+
+        def Shader "K_wz"
+        {
+            uniform token info:id = "ND_swizzle_vector4_vector2"
+            string inputs:channels = "wz"
+            prepend float4 inputs:in.connect = </Root/RGB2HSV/K.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-780.9107, -10.895813)
+            int ui:nodegraph:node:stackingOrder = 351
+        }
+
+        def Shader "Abs"
+        {
+            uniform token info:id = "ND_absval_float"
+            float inputs:in.connect = </Root/RGB2HSV/Add_2.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (1816.043, 219.86719)
+            int ui:nodegraph:node:stackingOrder = 363
         }
     }
 
@@ -1125,6 +1141,617 @@ def Xform "Root"
             float3 inputs:In.connect = </Root/HSV2Linear/HSV2RGB_1.outputs:Out>
             float2 ui:nodegraph:node:pos = (-18.305786, 67.59454)
             int ui:nodegraph:node:stackingOrder = 7
+        }
+    }
+
+    def Cube "Cube" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube/DefaultMaterial>
+        double size = 0.2
+
+        def Material "DefaultMaterial"
+        {
+            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "HSV2Linear_1", "Image", "Convert", "Linear2HSV_1", "Linear2RGB_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (258.25156, 126.27709)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 5795
+
+            def Shader "DefaultSurfaceShader" (
+                active = false
+            )
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 1, 1)
+                float inputs:roughness = 0.75
+                token outputs:surface
+            }
+
+            def Shader "Image"
+            {
+                uniform token info:id = "ND_image_vector3"
+                asset inputs:file = @../Texture/number.jpeg@
+                string inputs:filtertype
+                string inputs:uaddressmode
+                string inputs:vaddressmode
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (-985.3655, 88.52421)
+                int ui:nodegraph:node:stackingOrder = 5992
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/HSV2RGB.outputs:Out>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-353.16403, 129.14684)
+                int ui:nodegraph:node:stackingOrder = 6065
+            }
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                float inputs:clearcoat
+                float inputs:clearcoatRoughness
+                color3f inputs:diffuseColor.connect = </Root/Cube/DefaultMaterial/Abs.outputs:out>
+                color3f inputs:emissiveColor
+                float inputs:ior
+                float inputs:metallic
+                float3 inputs:normal
+                float inputs:opacity
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (37.490932, 126.89018)
+                int ui:nodegraph:node:stackingOrder = 5892
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced"]
+            }
+
+            def Shader "Convert_1"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/Image.outputs:out>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-583.68604, 277.9844)
+                int ui:nodegraph:node:stackingOrder = 6067
+            }
+
+            def Shader "Subtract"
+            {
+                uniform token info:id = "ND_subtract_color3"
+                color3f inputs:in1.connect = </Root/Cube/DefaultMaterial/Convert.outputs:out>
+                color3f inputs:in2.connect = </Root/Cube/DefaultMaterial/Convert_1.outputs:out>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-251.90996, 248.75829)
+                int ui:nodegraph:node:stackingOrder = 5980
+            }
+
+            def Shader "Abs"
+            {
+                uniform token info:id = "ND_absval_color3"
+                color3f inputs:in.connect = </Root/Cube/DefaultMaterial/Subtract.outputs:out>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-150.36803, 244.9695)
+                int ui:nodegraph:node:stackingOrder = 6063
+            }
+
+            def NodeGraph "HSV2RGB" (
+                active = true
+            )
+            {
+                float3 inputs:In = (0, 0, 0) (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (-1035.2126, 65.99658)
+                            int stackingOrderInSubgraph = 2
+                        }
+                    }
+                )
+                float3 inputs:In.connect = </Root/Cube/DefaultMaterial/RGB2HSV.outputs:Out>
+                float3 outputs:Out (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (-618, 68.5)
+                            int stackingOrderInSubgraph = 1
+                        }
+                    }
+                )
+                float3 outputs:Out.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Multiply_1.outputs:out>
+                float2 ui:nodegraph:node:pos = (-537.59454, 94.85673)
+                int ui:nodegraph:node:stackingOrder = 6061
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1178.4265, 128.8133)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 72
+
+                def Shader "Separate3"
+                {
+                    uniform token info:id = "ND_separate3_vector3"
+                    float3 inputs:in.connect = </Root/Cube/DefaultMaterial/HSV2RGB.inputs:In>
+                    float outputs:outx
+                    float outputs:outy
+                    float outputs:outz
+                    float2 ui:nodegraph:node:pos = (-848.6362, 60.54077)
+                    int ui:nodegraph:node:stackingOrder = 5
+                }
+
+                def Shader "K"
+                {
+                    uniform token info:id = "ND_constant_vector4"
+                    float4 inputs:value = (1, 0.6666667, 0.33333334, 3)
+                    float4 outputs:out
+                    float2 ui:nodegraph:node:pos = (-806.20825, -143.42242)
+                    int ui:nodegraph:node:stackingOrder = 86
+                }
+
+                def Shader "Add"
+                {
+                    uniform token info:id = "ND_add_vector3"
+                    float3 inputs:in1.connect = </Root/Cube/DefaultMaterial/HSV2RGB/K_xyz.outputs:out>
+                    float3 inputs:in2.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Combine3.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-482.63635, -2.2875366)
+                    int ui:nodegraph:node:stackingOrder = 26
+                }
+
+                def Shader "Combine3"
+                {
+                    uniform token info:id = "ND_combine3_vector3"
+                    prepend float inputs:in1.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Separate3.outputs:outx>
+                    prepend float inputs:in2.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Separate3.outputs:outx>
+                    prepend float inputs:in3.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Separate3.outputs:outx>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-638.3979, 13.991211)
+                    int ui:nodegraph:node:stackingOrder = 18
+                }
+
+                def Shader "Fractional"
+                {
+                    uniform token info:id = "ND_realitykit_fractional_vector3"
+                    float3 inputs:in.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Add.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-318.7876, -2.7696533)
+                    int ui:nodegraph:node:stackingOrder = 31
+                }
+
+                def Shader "Multiply"
+                {
+                    uniform token info:id = "ND_multiply_vector3FA"
+                    prepend float3 inputs:in1.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Fractional.outputs:out>
+                    float inputs:in2 = 6
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-147.76611, 6.355774)
+                    int ui:nodegraph:node:stackingOrder = 35
+                }
+
+                def Shader "Subtract"
+                {
+                    uniform token info:id = "ND_subtract_vector3"
+                    float3 inputs:in1.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Multiply.outputs:out>
+                    float3 inputs:in2.connect = </Root/Cube/DefaultMaterial/HSV2RGB/K_www.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (9.754639, 6.140503)
+                    int ui:nodegraph:node:stackingOrder = 43
+                }
+
+                def Shader "Abs"
+                {
+                    uniform token info:id = "ND_absval_vector3"
+                    float3 inputs:in.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Subtract.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (133.55762, 6.260803)
+                    int ui:nodegraph:node:stackingOrder = 47
+                }
+
+                def Shader "Subtract_1"
+                {
+                    uniform token info:id = "ND_subtract_vector3"
+                    float3 inputs:in1.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Abs.outputs:out>
+                    float3 inputs:in2.connect = </Root/Cube/DefaultMaterial/HSV2RGB/K_xxx.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (294.62256, -17.853394)
+                    int ui:nodegraph:node:stackingOrder = 65
+                }
+
+                def Shader "K_xxx"
+                {
+                    uniform token info:id = "ND_swizzle_vector4_vector3"
+                    prepend float4 inputs:in.connect = </Root/Cube/DefaultMaterial/HSV2RGB/K.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-520.4026, -205.41718)
+                    int ui:nodegraph:node:stackingOrder = 87
+                }
+
+                def Shader "K_www"
+                {
+                    uniform token info:id = "ND_swizzle_vector4_vector3"
+                    string inputs:channels = "www"
+                    prepend float4 inputs:in.connect = </Root/Cube/DefaultMaterial/HSV2RGB/K.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-552.37866, -129.25262)
+                    int ui:nodegraph:node:stackingOrder = 88
+                }
+
+                def Shader "K_xyz"
+                {
+                    uniform token info:id = "ND_swizzle_vector4_vector3"
+                    string inputs:channels = "xyz"
+                    prepend float4 inputs:in.connect = </Root/Cube/DefaultMaterial/HSV2RGB/K.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-607.24664, -66.09155)
+                    int ui:nodegraph:node:stackingOrder = 89
+                }
+
+                def Shader "Clamp"
+                {
+                    uniform token info:id = "ND_clamp_vector3"
+                    float3 inputs:in.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Subtract_1.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (464.1637, -15.412048)
+                    int ui:nodegraph:node:stackingOrder = 70
+                }
+
+                def Shader "Mix"
+                {
+                    uniform token info:id = "ND_mix_vector3"
+                    float3 inputs:bg.connect = </Root/Cube/DefaultMaterial/HSV2RGB/K_xxx.outputs:out>
+                    float3 inputs:fg.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Clamp.outputs:out>
+                    prepend float inputs:mix.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Separate3.outputs:outy>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (707.7579, 171.0077)
+                    int ui:nodegraph:node:stackingOrder = 79
+                }
+
+                def Shader "Multiply_1"
+                {
+                    uniform token info:id = "ND_multiply_vector3FA"
+                    prepend float3 inputs:in1.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Mix.outputs:out>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/HSV2RGB/Separate3.outputs:outz>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (893.6944, 300.39572)
+                    int ui:nodegraph:node:stackingOrder = 85
+                }
+            }
+
+            def NodeGraph "RGB2HSV" (
+                active = true
+            )
+            {
+                float3 inputs:In = (0, 0, 0) (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (-1185.2527, 316.9946)
+                            int stackingOrderInSubgraph = 79
+                        }
+                    }
+                )
+                float3 inputs:In.connect = </Root/Cube/DefaultMaterial/Image.outputs:out>
+                float3 outputs:Out (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (-354, 35.5)
+                            int stackingOrderInSubgraph = 1
+                        }
+                    }
+                )
+                float3 outputs:Out.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Combine3.outputs:out>
+                float2 ui:nodegraph:node:pos = (-759.93994, 108.97417)
+                int ui:nodegraph:node:stackingOrder = 6059
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (2184.0593, 297.16983)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 331
+
+                def Shader "K"
+                {
+                    uniform token info:id = "ND_constant_vector4"
+                    float4 inputs:value = (0, -0.33333334, 0.6666667, -1)
+                    float4 outputs:out
+                    float2 ui:nodegraph:node:pos = (-983.7623, -44.916843)
+                    int ui:nodegraph:node:stackingOrder = 352
+                }
+
+                def Shader "K_xy"
+                {
+                    uniform token info:id = "ND_swizzle_vector4_vector2"
+                    string inputs:channels = "xy"
+                    prepend float4 inputs:in.connect = </Root/Cube/DefaultMaterial/RGB2HSV/K.outputs:out>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (-756.46857, -112.33917)
+                    int ui:nodegraph:node:stackingOrder = 295
+                }
+
+                def Shader "Separate3"
+                {
+                    uniform token info:id = "ND_separate3_vector3"
+                    float3 inputs:in.connect = </Root/Cube/DefaultMaterial/RGB2HSV.inputs:In>
+                    float outputs:outx
+                    float outputs:outy
+                    float outputs:outz
+                    float2 ui:nodegraph:node:pos = (-986.6905, 315.40997)
+                    int ui:nodegraph:node:stackingOrder = 77
+                }
+
+                def Shader "In_gb"
+                {
+                    uniform token info:id = "ND_combine2_vector2"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate3.outputs:outy>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate3.outputs:outz>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (-706.5623, 178.2347)
+                    int ui:nodegraph:node:stackingOrder = 294
+                }
+
+                def Shader "In_bg"
+                {
+                    uniform token info:id = "ND_combine2_vector2"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate3.outputs:outz>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate3.outputs:outy>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (-759.0717, 82.95353)
+                    int ui:nodegraph:node:stackingOrder = 292
+                }
+
+                def Shader "Combine2"
+                {
+                    uniform token info:id = "ND_combine2_vector4VV"
+                    float2 inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/In_bg.outputs:out>
+                    float2 inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/K_wz.outputs:out>
+                    float4 outputs:out
+                    float2 ui:nodegraph:node:pos = (-590.85516, 23.827587)
+                    int ui:nodegraph:node:stackingOrder = 354
+                }
+
+                def Shader "Combine2_1"
+                {
+                    uniform token info:id = "ND_combine2_vector4VV"
+                    float2 inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/In_gb.outputs:out>
+                    float2 inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/K_xy.outputs:out>
+                    float4 outputs:out
+                    float2 ui:nodegraph:node:pos = (-337.1878, 10.744812)
+                    int ui:nodegraph:node:stackingOrder = 80
+                }
+
+                def Shader "Step"
+                {
+                    uniform token info:id = "ND_realitykit_step_float"
+                    float inputs:edge.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate3.outputs:outz>
+                    float inputs:in.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate3.outputs:outy>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-429.5206, 200.59644)
+                    int ui:nodegraph:node:stackingOrder = 98
+                }
+
+                def Shader "P"
+                {
+                    uniform token info:id = "ND_mix_vector4"
+                    float4 inputs:bg.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Combine2.outputs:out>
+                    float4 inputs:fg.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Combine2_1.outputs:out>
+                    prepend float inputs:mix.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Step.outputs:out>
+                    float4 outputs:out
+                    float2 ui:nodegraph:node:pos = (-127.03845, 169.29181)
+                    int ui:nodegraph:node:stackingOrder = 74
+                }
+
+                def Shader "Step_1"
+                {
+                    uniform token info:id = "ND_realitykit_step_float"
+                    float inputs:edge.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4.outputs:outx>
+                    float inputs:in.connect = </Root/Cube/DefaultMaterial/RGB2HSV/In_r.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (420.00372, 364.45206)
+                    int ui:nodegraph:node:stackingOrder = 106
+                }
+
+                def Shader "In_r"
+                {
+                    uniform token info:id = "ND_constant_float"
+                    float inputs:value = 0
+                    float inputs:value.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate3.outputs:outx>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (10.327231, 410.65475)
+                    int ui:nodegraph:node:stackingOrder = 104
+                }
+
+                def Shader "Separate4"
+                {
+                    uniform token info:id = "ND_separate4_vector4"
+                    float4 inputs:in.connect = </Root/Cube/DefaultMaterial/RGB2HSV/P.outputs:out>
+                    float outputs:outw
+                    float outputs:outx
+                    float outputs:outy
+                    float outputs:outz
+                    float2 ui:nodegraph:node:pos = (97.83062, 175.97902)
+                    int ui:nodegraph:node:stackingOrder = 145
+                }
+
+                def Shader "Combine4"
+                {
+                    uniform token info:id = "ND_combine4_color4"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4.outputs:outx>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4.outputs:outy>
+                    float inputs:in3.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4.outputs:outw>
+                    float inputs:in4.connect = </Root/Cube/DefaultMaterial/RGB2HSV/In_r.outputs:out>
+                    color4f outputs:out
+                    float2 ui:nodegraph:node:pos = (432.46698, 75.11339)
+                    int ui:nodegraph:node:stackingOrder = 149
+                }
+
+                def Shader "Combine4_1"
+                {
+                    uniform token info:id = "ND_combine4_color4"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/In_r.outputs:out>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4.outputs:outy>
+                    float inputs:in3.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4.outputs:outz>
+                    float inputs:in4.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4.outputs:outx>
+                    color4f outputs:out
+                    float2 ui:nodegraph:node:pos = (438.64536, 194.95746)
+                    int ui:nodegraph:node:stackingOrder = 147
+                }
+
+                def Shader "Q"
+                {
+                    uniform token info:id = "ND_mix_color4"
+                    color4f inputs:bg.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Combine4.outputs:out>
+                    color4f inputs:fg.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Combine4_1.outputs:out>
+                    prepend float inputs:mix.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Step_1.outputs:out>
+                    color4f outputs:out
+                    float2 ui:nodegraph:node:pos = (665.1059, 196.39433)
+                    int ui:nodegraph:node:stackingOrder = 153
+                }
+
+                def Shader "Separate4_1"
+                {
+                    uniform token info:id = "ND_separate4_color4"
+                    color4f inputs:in.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Q.outputs:out>
+                    float outputs:outa
+                    float outputs:outb
+                    float outputs:outg
+                    float outputs:outr
+                    float2 ui:nodegraph:node:pos = (836.86725, 247.57286)
+                    int ui:nodegraph:node:stackingOrder = 184
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:outa"]
+                }
+
+                def Shader "Subtract"
+                {
+                    uniform token info:id = "ND_subtract_float"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4_1.outputs:outr>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Min.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1320.8463, 382.6974)
+                    int ui:nodegraph:node:stackingOrder = 360
+                }
+
+                def Shader "Min"
+                {
+                    uniform token info:id = "ND_min_float"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4_1.outputs:outg>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4_1.outputs:outa>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1102.4307, 363.6153)
+                    int ui:nodegraph:node:stackingOrder = 216
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+                }
+
+                def Shader "E"
+                {
+                    uniform token info:id = "ND_constant_float"
+                    float inputs:value = 1e-10
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1185.9772, 175.90096)
+                    int ui:nodegraph:node:stackingOrder = 362
+                }
+
+                def Shader "Add"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/E.outputs:out>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4_1.outputs:outr>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1293.0026, 286.84912)
+                    int ui:nodegraph:node:stackingOrder = 347
+                }
+
+                def Scope "Group" (
+                    kind = "group"
+                )
+                {
+                    string ui:group:annotation = "D"
+                    string ui:group:annotationDescription = ""
+                    string[] ui:group:members = ["p:Subtract"]
+                }
+
+                def Shader "Divide"
+                {
+                    uniform token info:id = "ND_divide_float"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Subtract.outputs:out>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Add.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1522.6395, 348.36597)
+                    int ui:nodegraph:node:stackingOrder = 276
+                }
+
+                def Shader "Combine3"
+                {
+                    uniform token info:id = "ND_combine3_vector3"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Abs.outputs:out>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Divide.outputs:out>
+                    float inputs:in3.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4_1.outputs:outr>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (2007.3749, 311.21835)
+                    int ui:nodegraph:node:stackingOrder = 331
+                }
+
+                def Shader "Subtract_1"
+                {
+                    uniform token info:id = "ND_subtract_float"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4_1.outputs:outa>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4_1.outputs:outg>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1147.8219, 103.06426)
+                    int ui:nodegraph:node:stackingOrder = 349
+                }
+
+                def Shader "Multiply"
+                {
+                    uniform token info:id = "ND_multiply_float"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Subtract.outputs:out>
+                    float inputs:in2 = 6
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1389.003, 199.55354)
+                    int ui:nodegraph:node:stackingOrder = 359
+                }
+
+                def Shader "Add_1"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/E.outputs:out>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Multiply.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1465.7618, 169.31006)
+                    int ui:nodegraph:node:stackingOrder = 358
+                }
+
+                def Shader "Divide_1"
+                {
+                    uniform token info:id = "ND_divide_float"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Subtract_1.outputs:out>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Add_1.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1562.1562, 158.82472)
+                    int ui:nodegraph:node:stackingOrder = 357
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+                }
+
+                def Shader "Add_2"
+                {
+                    uniform token info:id = "ND_add_float"
+                    float inputs:in1.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Divide_1.outputs:out>
+                    float inputs:in2.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Separate4_1.outputs:outb>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1671.2786, 198.12048)
+                    int ui:nodegraph:node:stackingOrder = 355
+                }
+
+                def Shader "K_wz"
+                {
+                    uniform token info:id = "ND_swizzle_vector4_vector2"
+                    string inputs:channels = "wz"
+                    prepend float4 inputs:in.connect = </Root/Cube/DefaultMaterial/RGB2HSV/K.outputs:out>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (-780.9107, -10.895813)
+                    int ui:nodegraph:node:stackingOrder = 351
+                }
+
+                def Shader "Abs"
+                {
+                    uniform token info:id = "ND_absval_float"
+                    float inputs:in.connect = </Root/Cube/DefaultMaterial/RGB2HSV/Add_2.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1816.043, 219.86719)
+                    int ui:nodegraph:node:stackingOrder = 363
+                }
+            }
         }
     }
 }

@@ -2,7 +2,8 @@
   "advancedEditorSelectedIdentifier" : "ShaderGraphEditorPluginID",
   "openSceneRelativePaths" : [
     "Materials\/Nodes\/UENode.usda",
-    "Materials\/UEMaterial.usda"
+    "Materials\/UEMaterial.usda",
+    "Materials\/Nodes\/ColorspaceNode.usda"
   ],
   "recentIdentifiers" : {
     "69F48840-7E19-4AE3-B581-9AC6CF6B9217" : [
@@ -21,6 +22,9 @@
 
     ],
     "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232" : [
+
+    ],
+    "C9BFB86D-CD6D-47AE-9427-F0BB21BCBEAC" : [
 
     ]
   },
