@@ -3,8 +3,7 @@
   "openSceneRelativePaths" : [
     "Immersive.usda",
     "Materials\/Nodes\/UENode.usda",
-    "Materials\/UEMaterial.usda",
-    "Materials\/Nodes\/Untitled Scene.usda"
+    "Materials\/UEMaterial.usda"
   ],
   "recentIdentifiers" : {
     "06736923-D089-4A07-BFAC-C76EE035BD38" : [
@@ -249,6 +248,30 @@
         ]
       }
     ],
+    "7FF16649-B3D7-4A5B-9193-076A64EB06E6" : [
+      {
+        "date" : 758096066.031207,
+        "title" : "Untitled",
+        "transform" : [
+          0.99999994,
+          0,
+          0,
+          0,
+          0,
+          0.7071068,
+          -0.7071067,
+          0,
+          0,
+          0.7071067,
+          0.7071068,
+          0,
+          0,
+          0.29696417,
+          0.2969642,
+          1
+        ]
+      }
+    ],
     "AFFFB4F2-1C93-4D85-B6B0-5EF91C29D232" : [
       {
         "date" : 757845442.061137,
@@ -321,5 +344,5 @@
   "sceneViewportBackgroundColors" : {
 
   },
-  "selectedSceneRelativePath" : "Materials\/Nodes\/Untitled Scene.usda"
+  "selectedSceneRelativePath" : "Materials\/Nodes\/UENode.usda"
 }

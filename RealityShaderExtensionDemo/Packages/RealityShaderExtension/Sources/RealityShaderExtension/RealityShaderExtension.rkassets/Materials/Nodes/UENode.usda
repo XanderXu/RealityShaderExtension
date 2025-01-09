@@ -756,142 +756,6 @@ def Xform "Root"
         }
     }
 
-    def Cube "Cube" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/Cube/DefaultMaterial>
-        double size = 0.2
-
-        def Material "DefaultMaterial" (
-            references = None
-        )
-        {
-            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Convert", "ConstantFloat", "Image", "ConstantFloat3", "SoftOpacity_1", "TextureCoordinates", "FlipBook_1"]
-            token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
-            token outputs:realitykit:vertex
-            token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
-            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 110.5)
-
-            def Shader "DefaultSurfaceShader" (
-                active = false
-            )
-            {
-                uniform token info:id = "UsdPreviewSurface"
-                color3f inputs:diffuseColor = (1, 1, 1)
-                float inputs:roughness = 0.75
-                token outputs:surface
-            }
-
-            def Shader "ConstantFloat"
-            {
-                uniform token info:id = "ND_constant_float"
-                float inputs:value = 18
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-1040.0413, 232.47963)
-                int ui:nodegraph:node:stackingOrder = 2959
-            }
-
-            def Shader "Image"
-            {
-                uniform token info:id = "ND_image_vector3"
-                asset inputs:file = @../Texture/T_Base_Tile_DetailNormal.png@
-                string inputs:filtertype
-                string inputs:vaddressmode
-                float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-1359.2389, -45.954205)
-                int ui:nodegraph:node:stackingOrder = 3021
-            }
-
-            def Shader "ConstantFloat3"
-            {
-                uniform token info:id = "ND_constant_vector3"
-                float3 inputs:value = (0.04, 0.75, 0.13)
-                float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-1082.3016, 104.440636)
-                int ui:nodegraph:node:stackingOrder = 2959
-            }
-
-            def "SoftOpacity_1" (
-                active = true
-                instanceable = true
-                references = </Root/SoftOpacity>
-            )
-            {
-                float inputs:DepthFadeDistance = 1
-                float inputs:FadeDistance = 2
-                float inputs:OpacityIn = 1
-                float2 ui:nodegraph:node:pos = (-765.31, 215.73776)
-                int ui:nodegraph:node:stackingOrder = 3014
-            }
-
-            def Shader "TextureCoordinates"
-            {
-                uniform token info:id = "ND_texcoord_vector2"
-                float2 outputs:out
-                float2 ui:nodegraph:node:pos = (-1104.3766, -14.410315)
-                int ui:nodegraph:node:stackingOrder = 3033
-            }
-
-            def Shader "PreviewSurface"
-            {
-                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-                color3f inputs:diffuseColor.connect = </Root/Cube/DefaultMaterial/Convert.outputs:out>
-                float inputs:metallic
-                float3 inputs:normal
-                float inputs:opacity.connect = None
-                float inputs:roughness
-                token outputs:out
-                float2 ui:nodegraph:node:pos = (-257.3626, 17.204277)
-                int ui:nodegraph:node:stackingOrder = 3034
-            }
-
-            def Shader "Convert"
-            {
-                uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/FlipBook_1.outputs:Result>
-                color3f outputs:out
-                float2 ui:nodegraph:node:pos = (-490.87204, 53.524834)
-                int ui:nodegraph:node:stackingOrder = 3003
-            }
-
-            def "FlipBook_1" (
-                active = true
-                instanceable = true
-                references = </Root/FlipBook>
-            )
-            {
-                float inputs:AnimationPhase.connect = </Root/Cube/DefaultMaterial/Time.outputs:out>
-                bool inputs:ClampAnim
-                float inputs:MipBias
-                float inputs:NumberOfColumns = 4
-                float inputs:NumberOfRows = 4
-                asset inputs:Texture = @../Texture/number.jpeg@
-                float2 inputs:UVs
-                float2 ui:nodegraph:node:pos = (-793.6162, -34.79058)
-                int ui:nodegraph:node:stackingOrder = 3058
-            }
-
-            def Shader "Convert_1"
-            {
-                uniform token info:id = "ND_convert_vector2_vector3"
-                float2 inputs:in.connect = None
-                float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-564.36395, 144.66647)
-                int ui:nodegraph:node:stackingOrder = 3037
-            }
-
-            def Shader "Time"
-            {
-                uniform token info:id = "ND_time_float"
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-994.359, -101.016396)
-                int ui:nodegraph:node:stackingOrder = 3041
-            }
-        }
-    }
-
     def NodeGraph "NormalFromHeightmap" (
         active = true
     )
@@ -5602,24 +5466,32 @@ def Xform "Root"
         float inputs:AnimationPhase = 0 (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-1653.9636, 82.225716)
-                    int stackingOrderInSubgraph = 2207
+                    float2 positionInSubgraph = (-1697.5831, 257.47098)
+                    int stackingOrderInSubgraph = 2640
                 }
             }
         )
         bool inputs:ClampAnim = 0 (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-1532.2917, 169.28822)
-                    int stackingOrderInSubgraph = 2207
+                    float2 positionInSubgraph = (-1575.9113, 344.53348)
+                    int stackingOrderInSubgraph = 2640
+                }
+            }
+        )
+        bool inputs:InvertY = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-981.4584, 231.98639)
+                    int stackingOrderInSubgraph = 2699
                 }
             }
         )
         float inputs:MipBias = 0 (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-161.18707, -452.12497)
-                    int stackingOrderInSubgraph = 2369
+                    float2 positionInSubgraph = (-145.73639, -302.58206)
+                    int stackingOrderInSubgraph = 2591
                 }
             }
         )
@@ -5642,8 +5514,8 @@ def Xform "Root"
         asset inputs:Texture (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-116.25491, -390.49557)
-                    int stackingOrderInSubgraph = 2365
+                    float2 positionInSubgraph = (-88.16174, -528.77893)
+                    int stackingOrderInSubgraph = 2587
                 }
             }
         )
@@ -5651,19 +5523,19 @@ def Xform "Root"
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (-1572.5613, -445.92572)
-                    int stackingOrderInSubgraph = 2340
+                    int stackingOrderInSubgraph = 2594
                 }
             }
         )
         float outputs:Alpha (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-280, 88.5)
-                    int stackingOrderInSubgraph = 3
+                    float2 positionInSubgraph = (-98.6582, -285.86258)
+                    int stackingOrderInSubgraph = 2595
                 }
             }
         )
-        float outputs:Alpha.connect = </Root/FlipBook/UVTexture.outputs:a>
+        float outputs:Alpha.connect = </Root/FlipBook/Separate4.outputs:outw>
         float3 outputs:Result (
             customData = {
                 dictionary realitykit = {
@@ -5672,12 +5544,12 @@ def Xform "Root"
                 }
             }
         )
-        float3 outputs:Result.connect = </Root/FlipBook/Convert_1.outputs:out>
+        float3 outputs:Result.connect = </Root/FlipBook/Combine3.outputs:out>
         float2 outputs:UVCenter (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-280, 88.5)
-                    int stackingOrderInSubgraph = 4
+                    float2 positionInSubgraph = (221.34601, -115.23462)
+                    int stackingOrderInSubgraph = 2597
                 }
             }
         )
@@ -5685,14 +5557,14 @@ def Xform "Root"
         float2 outputs:UVs (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-280, 88.5)
-                    int stackingOrderInSubgraph = 2
+                    float2 positionInSubgraph = (187.3712, -188.26117)
+                    int stackingOrderInSubgraph = 2596
                 }
             }
         )
         float2 outputs:UVs.connect = </Root/FlipBook/Add_1.outputs:out>
-        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (675.47266, -76.2083)
-        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 2375
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (912.39014, -104.85212)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 2597
 
         def "InputTextureCoordinate_1" (
             active = true
@@ -5701,9 +5573,8 @@ def Xform "Root"
         )
         {
             float2 inputs:TextureCoordinate.connect = </Root/FlipBook.inputs:UVs>
-            float2 outputs:Add_out.connect = None
             float2 ui:nodegraph:node:pos = (-1332.0183, -448.13275)
-            int ui:nodegraph:node:stackingOrder = 2340
+            int ui:nodegraph:node:stackingOrder = 2594
         }
 
         def Shader "Combine2"
@@ -5712,8 +5583,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/FlipBook.inputs:NumberOfColumns>
             float inputs:in2.connect = </Root/FlipBook.inputs:NumberOfRows>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-1379.5261, -162.07896)
-            int ui:nodegraph:node:stackingOrder = 2207
+            float2 ui:nodegraph:node:pos = (-1379.2617, -190.9724)
+            int ui:nodegraph:node:stackingOrder = 2445
         }
 
         def Shader "Multiply"
@@ -5722,18 +5593,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/FlipBook.inputs:NumberOfColumns>
             float inputs:in2.connect = </Root/FlipBook.inputs:NumberOfRows>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1419.2019, -103.493034)
-            int ui:nodegraph:node:stackingOrder = 2207
-        }
-
-        def Shader "Combine2_1"
-        {
-            uniform token info:id = "ND_combine2_vector2"
-            float inputs:in1.connect = </Root/FlipBook/Multiply.outputs:out>
-            float inputs:in2.connect = </Root/FlipBook.inputs:NumberOfRows>
-            float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-1276.4675, -63.73913)
-            int ui:nodegraph:node:stackingOrder = 2207
+            float2 ui:nodegraph:node:pos = (-1417.93, -67.66369)
+            int ui:nodegraph:node:stackingOrder = 2439
         }
 
         def Shader "Clamp"
@@ -5742,8 +5603,8 @@ def Xform "Root"
             float inputs:high = 0.999999
             float inputs:in.connect = </Root/FlipBook.inputs:AnimationPhase>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1481.0613, 35.631966)
-            int ui:nodegraph:node:stackingOrder = 2207
+            float2 ui:nodegraph:node:pos = (-1524.6808, 210.87723)
+            int ui:nodegraph:node:stackingOrder = 2640
         }
 
         def Shader "IfEqual"
@@ -5754,8 +5615,8 @@ def Xform "Root"
             bool inputs:value1.connect = </Root/FlipBook.inputs:ClampAnim>
             bool inputs:value2 = 1
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1315.4597, 89.83509)
-            int ui:nodegraph:node:stackingOrder = 2207
+            float2 ui:nodegraph:node:pos = (-1359.0792, 265.08035)
+            int ui:nodegraph:node:stackingOrder = 2640
         }
 
         def Shader "Fractional"
@@ -5763,47 +5624,18 @@ def Xform "Root"
             uniform token info:id = "ND_realitykit_fractional_float"
             float inputs:in.connect = </Root/FlipBook/IfEqual.outputs:out>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-1102.1917, 102.88332)
-            int ui:nodegraph:node:stackingOrder = 2210
-        }
-
-        def Shader "Combine2_2"
-        {
-            uniform token info:id = "ND_combine2_vector2"
-            float inputs:in1.connect = </Root/FlipBook/Fractional.outputs:out>
-            float inputs:in2.connect = </Root/FlipBook/Fractional.outputs:out>
-            float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-883.8813, 100.15458)
-            int ui:nodegraph:node:stackingOrder = 2211
-        }
-
-        def Shader "Multiply_1"
-        {
-            uniform token info:id = "ND_multiply_vector2"
-            float2 inputs:in1.connect = </Root/FlipBook/Combine2_1.outputs:out>
-            float2 inputs:in2.connect = </Root/FlipBook/Combine2_2.outputs:out>
-            float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-1094.7832, -40.739735)
-            int ui:nodegraph:node:stackingOrder = 2258
-        }
-
-        def Shader "Floor"
-        {
-            uniform token info:id = "ND_floor_vector2"
-            float2 inputs:in.connect = </Root/FlipBook/Multiply_1.outputs:out>
-            float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-973.90967, -31.470692)
-            int ui:nodegraph:node:stackingOrder = 2383
+            float2 ui:nodegraph:node:pos = (-1170.8033, 325.7515)
+            int ui:nodegraph:node:stackingOrder = 2640
         }
 
         def Shader "Add"
         {
             uniform token info:id = "ND_add_vector2FA"
-            prepend float2 inputs:in1.connect = </Root/FlipBook/Floor.outputs:out>
+            float2 inputs:in1.connect = </Root/FlipBook/Combine2_1.outputs:out>
             float inputs:in2 = 0.5
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-801.0463, 8.207491)
-            int ui:nodegraph:node:stackingOrder = 2262
+            float2 ui:nodegraph:node:pos = (-423.00964, 11.308565)
+            int ui:nodegraph:node:stackingOrder = 2514
         }
 
         def Shader "Divide"
@@ -5812,8 +5644,8 @@ def Xform "Root"
             float2 inputs:in1.connect = </Root/FlipBook/Add.outputs:out>
             float2 inputs:in2.connect = </Root/FlipBook/Combine2.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-685.371, -21.330551)
-            int ui:nodegraph:node:stackingOrder = 2266
+            float2 ui:nodegraph:node:pos = (-307.3343, -18.229477)
+            int ui:nodegraph:node:stackingOrder = 2514
         }
 
         def Shader "Fractional_1"
@@ -5821,8 +5653,8 @@ def Xform "Root"
             uniform token info:id = "ND_realitykit_fractional_vector2"
             float2 inputs:in.connect = </Root/FlipBook/Divide.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-525.7937, -16.873854)
-            int ui:nodegraph:node:stackingOrder = 2269
+            float2 ui:nodegraph:node:pos = (-147.75702, -13.772779)
+            int ui:nodegraph:node:stackingOrder = 2514
         }
 
         def Shader "Divide_1"
@@ -5831,9 +5663,9 @@ def Xform "Root"
             float2 inputs:in1.connect = </Root/FlipBook/InputTextureCoordinate_1.outputs:Add_out>
             float2 inputs:in2.connect = </Root/FlipBook/Combine2.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-1109.3993, -415.0717)
-            int ui:nodegraph:node:stackingOrder = 2343
-            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+            float2 ui:nodegraph:node:pos = (-893.12177, -454.6274)
+            int ui:nodegraph:node:stackingOrder = 2553
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out", "outputs:out"]
         }
 
         def Shader "Add_1"
@@ -5842,81 +5674,110 @@ def Xform "Root"
             float2 inputs:in1.connect = </Root/FlipBook/Divide_1.outputs:out>
             float2 inputs:in2.connect = </Root/FlipBook/Divide_2.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-836.1473, -488.9115)
-            int ui:nodegraph:node:stackingOrder = 2402
+            float2 ui:nodegraph:node:pos = (-542.9324, -362.42496)
+            int ui:nodegraph:node:stackingOrder = 2596
         }
 
         def Shader "Divide_2"
         {
             uniform token info:id = "ND_divide_vector2"
-            float2 inputs:in1.connect = </Root/FlipBook/Floor.outputs:out>
+            float2 inputs:in1.connect = </Root/FlipBook/Combine2_1.outputs:out>
             float2 inputs:in2.connect = </Root/FlipBook/Combine2.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-921.7135, -231.5674)
-            int ui:nodegraph:node:stackingOrder = 2347
+            float2 ui:nodegraph:node:pos = (-636.2816, -336.19812)
+            int ui:nodegraph:node:stackingOrder = 2526
         }
 
-        def Shader "UVTexture"
+        def Shader "Multiply_1"
         {
-            uniform token info:id = "ND_UsdUVTexture"
-            color4f inputs:bias.connect = None
-            color4f inputs:fallback
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/FlipBook/Multiply.outputs:out>
+            prepend float inputs:in2.connect = </Root/FlipBook/Fractional.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1308.4094, -51.531723)
+            int ui:nodegraph:node:stackingOrder = 2643
+        }
+
+        def Shader "Floor"
+        {
+            uniform token info:id = "ND_floor_float"
+            float inputs:in.connect = </Root/FlipBook/Multiply_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1190.3407, -33.58086)
+            int ui:nodegraph:node:stackingOrder = 2645
+        }
+
+        def Shader "Modulo"
+        {
+            uniform token info:id = "ND_modulo_float"
+            float inputs:in1.connect = </Root/FlipBook/Floor.outputs:out>
+            float inputs:in2.connect = </Root/FlipBook.inputs:NumberOfColumns>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-992.06824, -112.75806)
+            int ui:nodegraph:node:stackingOrder = 2448
+        }
+
+        def Shader "Divide_3"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/FlipBook/Floor.outputs:out>
+            float inputs:in2.connect = </Root/FlipBook.inputs:NumberOfColumns>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-989.99194, -57.85783)
+            int ui:nodegraph:node:stackingOrder = 2563
+        }
+
+        def Shader "Combine2_1"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/FlipBook/Modulo.outputs:out>
+            float inputs:in2.connect = </Root/FlipBook/IfEqual_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-575.5276, 7.427147)
+            int ui:nodegraph:node:stackingOrder = 2695
+        }
+
+        def Shader "Floor_1"
+        {
+            uniform token info:id = "ND_floor_float"
+            float inputs:in.connect = </Root/FlipBook/Divide_3.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-878.1707, -3.4576921)
+            int ui:nodegraph:node:stackingOrder = 2598
+        }
+
+        def Shader "Image2D"
+        {
+            uniform token info:id = "ND_RealityKitTexture2D_vector4"
+            float inputs:bias.connect = </Root/FlipBook.inputs:MipBias>
+            string inputs:border_color
+            float4 inputs:default
+            float inputs:dynamic_min_lod_clamp
             asset inputs:file.connect = </Root/FlipBook.inputs:Texture>
-            color4f inputs:scale
-            float2 inputs:st.connect = </Root/FlipBook/Add_1.outputs:out>
-            string inputs:wrapS
-            float outputs:a
-            float outputs:b
-            float outputs:g
-            float outputs:r
-            color3f outputs:rgb
-            color4f outputs:rgba
-            float2 ui:nodegraph:node:pos = (176.66255, -353.73785)
-            int ui:nodegraph:node:stackingOrder = 2399
-            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:rgba", "outputs:rgba"]
-        }
-
-        def Shader "Convert"
-        {
-            uniform token info:id = "ND_convert_float_color4"
-            float inputs:in.connect = </Root/FlipBook.inputs:MipBias>
-            color4f outputs:out
-            float2 ui:nodegraph:node:pos = (5.0561213, -449.7944)
-            int ui:nodegraph:node:stackingOrder = 2378
-        }
-
-        def Shader "Convert_1"
-        {
-            uniform token info:id = "ND_convert_color3_vector3"
-            color3f inputs:in.connect = </Root/FlipBook/UVTexture.outputs:rgb>
-            float3 outputs:out
-            float2 ui:nodegraph:node:pos = (296.52615, -144.39429)
-            int ui:nodegraph:node:stackingOrder = 2380
-        }
-
-        def Shader "Image"
-        {
-            uniform token info:id = "ND_image_vector4"
-            prepend asset inputs:file.connect = </Root/FlipBook.inputs:Texture>
-            string inputs:filtertype
-            prepend float2 inputs:texcoord.connect = </Root/FlipBook/Add_1.outputs:out>
-            string inputs:uaddressmode
-            string inputs:vaddressmode
+            int inputs:max_anisotropy
+            float inputs:max_lod_clamp
+            float inputs:min_lod_clamp
+            bool inputs:no_flip_v = 1
+            int2 inputs:offset
+            float2 inputs:texcoord.connect = </Root/FlipBook/Add_1.outputs:out>
+            string inputs:u_wrap_mode
+            string inputs:v_wrap_mode
             float4 outputs:out
-            float2 ui:nodegraph:node:pos = (321.4063, -652.0083)
-            int ui:nodegraph:node:stackingOrder = 2397
+            float2 ui:nodegraph:node:pos = (215.95316, -412.92517)
+            int ui:nodegraph:node:stackingOrder = 2581
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
         }
 
         def Shader "Separate4"
         {
             uniform token info:id = "ND_separate4_vector4"
-            float4 inputs:in.connect = </Root/FlipBook/Image.outputs:out>
+            float4 inputs:in.connect = </Root/FlipBook/Image2D.outputs:out>
             float outputs:outw
             float outputs:outx
             float outputs:outy
             float outputs:outz
-            float2 ui:nodegraph:node:pos = (456.7533, -403.92413)
-            int ui:nodegraph:node:stackingOrder = 2391
+            float2 ui:nodegraph:node:pos = (440.91016, -256.25488)
+            int ui:nodegraph:node:stackingOrder = 2582
         }
 
         def Shader "Combine3"
@@ -5926,8 +5787,130 @@ def Xform "Root"
             prepend float inputs:in2.connect = </Root/FlipBook/Separate4.outputs:outy>
             prepend float inputs:in3.connect = </Root/FlipBook/Separate4.outputs:outz>
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (666.6192, -373.13458)
-            int ui:nodegraph:node:stackingOrder = 2395
+            float2 ui:nodegraph:node:pos = (640.71265, -302.10297)
+            int ui:nodegraph:node:stackingOrder = 2583
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/FlipBook.inputs:NumberOfRows>
+            float inputs:in2.connect = </Root/FlipBook/Floor_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-963.7849, 115.06531)
+            int ui:nodegraph:node:stackingOrder = 2693
+        }
+
+        def Shader "Add_2"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/FlipBook/Subtract.outputs:out>
+            float inputs:in2 = -1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-874.084, 120.72577)
+            int ui:nodegraph:node:stackingOrder = 2693
+        }
+
+        def Shader "IfEqual_1"
+        {
+            uniform token info:id = "ND_ifequal_floatB"
+            float inputs:in1.connect = </Root/FlipBook/Add_2.outputs:out>
+            float inputs:in2.connect = </Root/FlipBook/Floor_1.outputs:out>
+            bool inputs:value1.connect = </Root/FlipBook.inputs:InvertY>
+            bool inputs:value2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-725.60004, 177.53159)
+            int ui:nodegraph:node:stackingOrder = 2704
+        }
+    }
+
+    def Cube "Cube" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube/DefaultMaterial>
+        double size = 0.2
+
+        def Material "DefaultMaterial"
+        {
+            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Convert", "Time", "FlipBook_1"]
+            token cullMode = "unspecified" (
+                allowedTokens = ["unspecified", "none", "front", "back"]
+            )
+            token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 110.5)
+
+            def Shader "DefaultSurfaceShader" (
+                active = false
+            )
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 1, 1)
+                float inputs:roughness = 0.75
+                token outputs:surface
+            }
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube/DefaultMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float3 inputs:normal
+                float inputs:opacity.connect = </Root/Cube/DefaultMaterial/FlipBook_1.outputs:Alpha>
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (-255, 105)
+                int ui:nodegraph:node:stackingOrder = 5
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:opacity"]
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/FlipBook_1.outputs:Result>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-447.01648, 76.78343)
+                int ui:nodegraph:node:stackingOrder = 109
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1130.1082, -31.496792)
+                int ui:nodegraph:node:stackingOrder = 109
+            }
+
+            def "FlipBook_1" (
+                active = true
+                instanceable = true
+                references = </Root/FlipBook>
+            )
+            {
+                float inputs:AnimationPhase.connect = </Root/Cube/DefaultMaterial/Multiply.outputs:out>
+                bool inputs:ClampAnim = 0
+                bool inputs:InvertY = 1
+                float inputs:MipBias
+                float inputs:NumberOfColumns = 7
+                float inputs:NumberOfRows = 7
+                asset inputs:Texture = @../Texture/Fireball_T_A.png@
+                float2 inputs:UVs
+                float2 ui:nodegraph:node:pos = (-775.83386, 91.11562)
+                int ui:nodegraph:node:stackingOrder = 109
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube/DefaultMaterial/Time.outputs:out>
+                float inputs:in2 = 0.1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-935.87067, 41.937996)
+                int ui:nodegraph:node:stackingOrder = 109
+            }
         }
     }
 }

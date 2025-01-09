@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cube_SphereMask", "Sphere_Fresnel", "Cube_Panner", "Cube_GeneratedBand", "Cube_GenaratedOffsetBands", "Cube_NormalFromHeightmap", "Cube_NormalFromHeightmapChaos", "Cube_RadialGradientExponential", "Cube_DiamondGradient", "Cube_SmoothCurve", "Cube_ValueStep", "Cube_Desaturation", "Cube_FuzzyShading", "Cube_FuzzyShadingGrass", "Cube__3ColorBlend", "Cube_CheapContrast", "Cube_CheapContrast_RGB", "Cube_SCurve", "Cube__3PointLevels", "Cube_HueShift", "Cube_SmoothThreshold", "Cube_SoftOpacity", "Cube_VectorToRadialValue", "Cube_LinearSine", "Cube_ViewAlignedReflection", "Cube_CylindricalUVs", "Cube_HueShift_1", "Cube_SmoothThreshold_1"]
+    reorder nameChildren = ["Cube_SphereMask", "Sphere_Fresnel", "Cube_Panner", "Cube_GeneratedBand", "Cube_GenaratedOffsetBands", "Cube_NormalFromHeightmap", "Cube_NormalFromHeightmapChaos", "Cube_RadialGradientExponential", "Cube_DiamondGradient", "Cube_SmoothCurve", "Cube_ValueStep", "Cube_Desaturation", "Cube_FuzzyShading", "Cube_FuzzyShadingGrass", "Cube__3ColorBlend", "Cube_CheapContrast", "Cube_CheapContrast_RGB", "Cube_SCurve", "Cube__3PointLevels", "Cube_HueShift", "Cube_SmoothThreshold", "Cube_SoftOpacity", "Cube_VectorToRadialValue", "Cube_LinearSine", "Cube_ViewAlignedReflection", "Cube_CylindricalUVs", "Cube_FlipBook", "Cube_SmoothThreshold_1"]
     def Cube "Cube_GeneratedBand" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -1994,13 +1994,13 @@ def Xform "Root"
         }
     }
 
-    def Cube "Cube_HueShift_1" (
+    def Cube "Cube_FlipBook" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
-        reorder nameChildren = ["HueShiftMaterial", "GeneratedOffsetBandsMaterial"]
-        rel material:binding = </Root/Cube_HueShift_1/HueShiftMaterial> (
+        reorder nameChildren = ["FlipBookMaterial", "GeneratedOffsetBandsMaterial"]
+        rel material:binding = </Root/Cube_FlipBook/FlipBookMaterial> (
             bindMaterialAs = "weakerThanDescendants"
         )
         double size = 0.2
@@ -2011,10 +2011,10 @@ def Xform "Root"
         float3 xformOp:translate = (0.6, 0.9, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
-        def Material "HueShiftMaterial"
+        def Material "FlipBookMaterial"
         {
             reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Image", "Convert", "ConstantFloat3", "ConstantFloat", "FuzzyShading_1"]
-            token outputs:mtlx:surface.connect = </Root/Cube_HueShift_1/HueShiftMaterial/PreviewSurface.outputs:out>
+            token outputs:mtlx:surface.connect = </Root/Cube_FlipBook/FlipBookMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             token outputs:surface.connect = None
             float2 ui:nodegraph:node:pos = (20, 20)
@@ -2034,54 +2034,63 @@ def Xform "Root"
             def Shader "PreviewSurface"
             {
                 uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-                color3f inputs:diffuseColor.connect = </Root/Cube_HueShift_1/HueShiftMaterial/Convert.outputs:out>
+                float inputs:clearcoat
+                float inputs:clearcoatRoughness
+                color3f inputs:diffuseColor.connect = </Root/Cube_FlipBook/FlipBookMaterial/Convert_1.outputs:out>
+                color3f inputs:emissiveColor
+                float inputs:ior
                 float inputs:metallic
                 float3 inputs:normal.connect = None
-                float inputs:opacity
+                float inputs:opacity.connect = </Root/Cube_FlipBook/FlipBookMaterial/FlipBook_1.outputs:Alpha>
                 float inputs:roughness
                 token outputs:out
                 float2 ui:nodegraph:node:pos = (-255, 105)
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced"]
             }
 
-            def Shader "Image"
+            def Shader "Time"
             {
-                uniform token info:id = "ND_image_vector3"
-                asset inputs:file = @Texture/DefaultTexture1.png@
-                string inputs:filtertype
-                string inputs:vaddressmode
-                float3 outputs:out
-                float2 ui:nodegraph:node:pos = (-1120.8373, 121.451866)
-                int ui:nodegraph:node:stackingOrder = 3539
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1074.886, -7.97826)
+                int ui:nodegraph:node:stackingOrder = 110
             }
 
-            def Shader "Convert"
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_FlipBook/FlipBookMaterial/Time.outputs:out>
+                float inputs:in2 = 0.1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-880.64844, 65.45653)
+                int ui:nodegraph:node:stackingOrder = 110
+            }
+
+            def Shader "Convert_1"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube_HueShift_1/HueShiftMaterial/HueShift_1.outputs:Out>
+                float3 inputs:in.connect = </Root/Cube_FlipBook/FlipBookMaterial/FlipBook_1.outputs:Result>
                 color3f outputs:out
-                float2 ui:nodegraph:node:pos = (-442.0578, 64.154816)
-                int ui:nodegraph:node:stackingOrder = 3509
+                float2 ui:nodegraph:node:pos = (-475.78894, -0.44303894)
+                int ui:nodegraph:node:stackingOrder = 116
             }
 
-            def Shader "ConstantFloat"
-            {
-                uniform token info:id = "ND_constant_float"
-                float inputs:value = 0
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-966.15643, -36.61507)
-                int ui:nodegraph:node:stackingOrder = 3520
-            }
-
-            def "HueShift_1" (
+            def "FlipBook_1" (
                 active = true
                 instanceable = true
-                references = @Nodes/UENode.usda@</Root/HueShift>
+                references = @Nodes/UENode.usda@</Root/FlipBook>
             )
             {
-                float inputs:HueShiftPercentage = 0.5
-                float3 inputs:Texture.connect = </Root/Cube_HueShift_1/HueShiftMaterial/Image.outputs:out>
-                float2 ui:nodegraph:node:pos = (-726.5622, 41.36231)
-                int ui:nodegraph:node:stackingOrder = 3555
+                float inputs:AnimationPhase.connect = </Root/Cube_FlipBook/FlipBookMaterial/Multiply.outputs:out>
+                bool inputs:ClampAnim = 0
+                bool inputs:InvertY = 1
+                float inputs:MipBias
+                float inputs:NumberOfColumns = 7
+                float inputs:NumberOfRows = 7
+                asset inputs:Texture = @Texture/Fireball_T_A.png@
+                float2 inputs:UVs
+                float2 ui:nodegraph:node:pos = (-720.6116, 114.634155)
+                int ui:nodegraph:node:stackingOrder = 119
             }
         }
     }
