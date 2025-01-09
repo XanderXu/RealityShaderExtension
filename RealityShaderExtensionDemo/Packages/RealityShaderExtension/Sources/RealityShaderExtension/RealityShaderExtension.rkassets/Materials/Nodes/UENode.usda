@@ -5455,7 +5455,7 @@ def Xform "Root"
             string inputs:tospace = "world"
             float3 outputs:out
             float2 ui:nodegraph:node:pos = (-1332.1445, -311.32306)
-            int ui:nodegraph:node:stackingOrder = 424
+            int ui:nodegraph:node:stackingOrder = 433
         }
     }
 
@@ -5834,7 +5834,7 @@ def Xform "Root"
 
         def Material "DefaultMaterial"
         {
-            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Convert", "Time", "FlipBook_1"]
+            reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Convert", "Time", "FlipBook_1", "Multiply", "CylindricalUVs_1"]
             token cullMode = "unspecified" (
                 allowedTokens = ["unspecified", "none", "front", "back"]
             )
@@ -5859,7 +5859,7 @@ def Xform "Root"
                 color3f inputs:diffuseColor.connect = </Root/Cube/DefaultMaterial/Convert.outputs:out>
                 float inputs:metallic
                 float3 inputs:normal
-                float inputs:opacity.connect = </Root/Cube/DefaultMaterial/FlipBook_1.outputs:Alpha>
+                float inputs:opacity
                 float inputs:roughness
                 token outputs:out
                 float2 ui:nodegraph:node:pos = (-255, 105)
@@ -5870,7 +5870,7 @@ def Xform "Root"
             def Shader "Convert"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/FlipBook_1.outputs:Result>
+                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/CylindricalUVs_1.outputs:CylinderProjection>
                 color3f outputs:out
                 float2 ui:nodegraph:node:pos = (-447.01648, 76.78343)
                 int ui:nodegraph:node:stackingOrder = 109
@@ -5881,35 +5881,40 @@ def Xform "Root"
                 uniform token info:id = "ND_time_float"
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-1130.1082, -31.496792)
-                int ui:nodegraph:node:stackingOrder = 109
-            }
-
-            def "FlipBook_1" (
-                active = true
-                instanceable = true
-                references = </Root/FlipBook>
-            )
-            {
-                float inputs:AnimationPhase.connect = </Root/Cube/DefaultMaterial/Multiply.outputs:out>
-                bool inputs:ClampAnim = 0
-                bool inputs:InvertY = 1
-                float inputs:MipBias
-                float inputs:NumberOfColumns = 7
-                float inputs:NumberOfRows = 7
-                asset inputs:Texture = @../Texture/Fireball_T_A.png@
-                float2 inputs:UVs
-                float2 ui:nodegraph:node:pos = (-775.83386, 91.11562)
-                int ui:nodegraph:node:stackingOrder = 109
+                int ui:nodegraph:node:stackingOrder = 165
             }
 
             def Shader "Multiply"
             {
                 uniform token info:id = "ND_multiply_float"
-                float inputs:in1.connect = </Root/Cube/DefaultMaterial/Time.outputs:out>
+                float inputs:in1.connect = </Root/Cube/DefaultMaterial/Sin.outputs:out>
                 float inputs:in2 = 0.1
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-935.87067, 41.937996)
-                int ui:nodegraph:node:stackingOrder = 109
+                int ui:nodegraph:node:stackingOrder = 165
+            }
+
+            def "CylindricalUVs_1" (
+                active = true
+                instanceable = true
+                references = </Root/CylindricalUVs>
+            )
+            {
+                float inputs:In = 1
+                float inputs:In.connect = </Root/Cube/DefaultMaterial/Multiply.outputs:out>
+                float3 inputs:Normal
+                asset inputs:TextureObject = @../Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-738.3469, 73.77697)
+                int ui:nodegraph:node:stackingOrder = 165
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube/DefaultMaterial/Time.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-965.4664, -49.410954)
+                int ui:nodegraph:node:stackingOrder = 165
             }
         }
     }

@@ -1956,19 +1956,6 @@ def Xform "Root"
                 float2 ui:nodegraph:node:pos = (93.5, 100.5)
             }
 
-            def "CylindricalUVs_1" (
-                active = true
-                instanceable = true
-                references = @Nodes/UENode.usda@</Root/CylindricalUVs>
-            )
-            {
-                float inputs:In = 512
-                float3 inputs:Normal.connect = None
-                asset inputs:TextureObject.connect = </Root/Cube_CylindricalUVs/CylindricalUVsMaterial/ConstantImageFile.outputs:out>
-                float2 ui:nodegraph:node:pos = (-389.99487, 66.69126)
-                int ui:nodegraph:node:stackingOrder = 892
-            }
-
             def Shader "Convert"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
@@ -1978,18 +1965,45 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 31
             }
 
-            def Shader "ConstantImageFile"
+            def Shader "Time"
             {
-                uniform token info:id = "ND_constant_filename"
-                asset inputs:value = @Texture/DefaultTexture1.png@ (
-                    customData = {
-                        dictionary RealityKit = {
-                        }
-                    }
-                )
-                asset outputs:out
-                float2 ui:nodegraph:node:pos = (-728.38605, 136.63121)
-                int ui:nodegraph:node:stackingOrder = 876
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-917.24304, 83.72332)
+                int ui:nodegraph:node:stackingOrder = 186
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_CylindricalUVs/CylindricalUVsMaterial/Time.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-752.6012, 65.809166)
+                int ui:nodegraph:node:stackingOrder = 186
+            }
+
+            def "CylindricalUVs_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/UENode.usda@</Root/CylindricalUVs>
+            )
+            {
+                float inputs:In = 1
+                float inputs:In.connect = </Root/Cube_CylindricalUVs/CylindricalUVsMaterial/Multiply.outputs:out>
+                float3 inputs:Normal
+                asset inputs:TextureObject = @Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-380.22968, 168.8573)
+                int ui:nodegraph:node:stackingOrder = 168
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_CylindricalUVs/CylindricalUVsMaterial/Sin.outputs:out>
+                float inputs:in2 = 0.1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-577.75336, 137.01834)
+                int ui:nodegraph:node:stackingOrder = 166
             }
         }
     }
