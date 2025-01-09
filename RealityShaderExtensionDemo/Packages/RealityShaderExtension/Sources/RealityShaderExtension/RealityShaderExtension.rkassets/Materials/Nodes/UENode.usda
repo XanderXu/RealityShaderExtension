@@ -5237,7 +5237,7 @@ def Xform "Root"
         def Shader "NormalMap"
         {
             uniform token info:id = "ND_normalmap"
-            float3 inputs:in.connect = None
+            float3 inputs:in.connect = </Root/CylindricalUVs/Add.outputs:out>
             float3 inputs:normal
             float inputs:scale
             string inputs:space
@@ -5905,7 +5905,7 @@ def Xform "Root"
                 float3 inputs:Normal
                 asset inputs:TextureObject = @../Texture/number.jpeg@
                 float2 ui:nodegraph:node:pos = (-738.3469, 73.77697)
-                int ui:nodegraph:node:stackingOrder = 165
+                int ui:nodegraph:node:stackingOrder = 168
             }
 
             def Shader "Sin"
