@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cube_SphereMask", "Sphere_Fresnel", "Cube_Panner", "Cube_GeneratedBand", "Cube_GenaratedOffsetBands", "Cube_NormalFromHeightmap", "Cube_NormalFromHeightmapChaos", "Cube_RadialGradientExponential", "Cube_DiamondGradient", "Cube_SmoothCurve", "Cube_ValueStep", "Cube_Desaturation", "Cube_FuzzyShading", "Cube_FuzzyShadingGrass", "Cube__3ColorBlend", "Cube_CheapContrast", "Cube_CheapContrast_RGB", "Cube_SCurve", "Cube__3PointLevels", "Cube_HueShift", "Cube_SmoothThreshold", "Cube_SoftOpacity", "Cube_VectorToRadialValue", "Cube_LinearSine", "Cube_ViewAlignedReflection", "Cube_CylindricalUVs", "Cube_FlipBook", "Cube_SmoothThreshold_1"]
+    reorder nameChildren = ["Cube_SphereMask", "Sphere_Fresnel", "Cube_Panner", "Cube_GeneratedBand", "Cube_GenaratedOffsetBands", "Cube_NormalFromHeightmap", "Cube_NormalFromHeightmapChaos", "Cube_RadialGradientExponential", "Cube_DiamondGradient", "Cube_SmoothCurve", "Cube_ValueStep", "Cube_Desaturation", "Cube_FuzzyShading", "Cube_FuzzyShadingGrass", "Cube__3ColorBlend", "Cube_CheapContrast", "Cube_CheapContrast_RGB", "Cube_SCurve", "Cube__3PointLevels", "Cube_HueShift", "Cube_SmoothThreshold", "Cube_SoftOpacity", "Cube_VectorToRadialValue", "Cube_LinearSine", "Cube_ViewAlignedReflection", "Cube_FlipBook", "Cube_CylindricalUVs", "Cube_ZWorldSpaceFlow"]
     def Cube "Cube_GeneratedBand" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -1933,7 +1933,7 @@ def Xform "Root"
         int ui:nodegraph:node:stackingOrder = 8
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.3, 0.9, 0)
+        float3 xformOp:translate = (0.6, 0.9, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Material "CylindricalUVsMaterial"
@@ -2022,7 +2022,7 @@ def Xform "Root"
         int ui:nodegraph:node:stackingOrder = 4
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.6, 0.9, 0)
+        float3 xformOp:translate = (0.3, 0.9, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Material "FlipBookMaterial"
@@ -2074,10 +2074,10 @@ def Xform "Root"
             {
                 uniform token info:id = "ND_multiply_float"
                 float inputs:in1.connect = </Root/Cube_FlipBook/FlipBookMaterial/Time.outputs:out>
-                float inputs:in2 = 0.1
+                float inputs:in2 = 0.2
                 float outputs:out
-                float2 ui:nodegraph:node:pos = (-880.64844, 65.45653)
-                int ui:nodegraph:node:stackingOrder = 110
+                float2 ui:nodegraph:node:pos = (-876.6758, 5.0971527)
+                int ui:nodegraph:node:stackingOrder = 138
             }
 
             def Shader "Convert_1"
@@ -2097,25 +2097,23 @@ def Xform "Root"
             {
                 float inputs:AnimationPhase.connect = </Root/Cube_FlipBook/FlipBookMaterial/Multiply.outputs:out>
                 bool inputs:ClampAnim = 0
-                bool inputs:InvertY = 1
-                float inputs:MipBias
                 float inputs:NumberOfColumns = 7
                 float inputs:NumberOfRows = 7
                 asset inputs:Texture = @Texture/Fireball_T_A.png@
-                float2 inputs:UVs
-                float2 ui:nodegraph:node:pos = (-720.6116, 114.634155)
-                int ui:nodegraph:node:stackingOrder = 119
+                float2 ui:nodegraph:node:pos = (-709.0641, 72.29755)
+                int ui:nodegraph:node:stackingOrder = 135
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:UVs"]
             }
         }
     }
 
-    def Cube "Cube_SmoothThreshold_1" (
+    def Cube "Cube_ZWorldSpaceFlow" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
-        reorder nameChildren = ["SmoothThresholdMaterial", "GeneratedOffsetBandsMaterial"]
-        rel material:binding = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial> (
+        reorder nameChildren = ["ZWorldSpaceFlowMaterial", "GeneratedOffsetBandsMaterial"]
+        rel material:binding = </Root/Cube_ZWorldSpaceFlow/ZWorldSpaceFlowMaterial> (
             bindMaterialAs = "weakerThanDescendants"
         )
         double size = 0.2
@@ -2126,10 +2124,10 @@ def Xform "Root"
         float3 xformOp:translate = (0.9, 0.9, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
-        def Material "SmoothThresholdMaterial"
+        def Material "ZWorldSpaceFlowMaterial"
         {
             reorder nameChildren = ["DefaultSurfaceShader", "PreviewSurface", "Image", "Convert", "ConstantFloat3", "ConstantFloat", "FuzzyShading_1"]
-            token outputs:mtlx:surface.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/PreviewSurface.outputs:out>
+            token outputs:mtlx:surface.connect = </Root/Cube_ZWorldSpaceFlow/ZWorldSpaceFlowMaterial/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             token outputs:surface.connect = None
             float2 ui:nodegraph:node:pos = (20, 20)
@@ -2149,7 +2147,7 @@ def Xform "Root"
             def Shader "PreviewSurface"
             {
                 uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-                color3f inputs:diffuseColor.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/Convert.outputs:out>
+                color3f inputs:diffuseColor.connect = </Root/Cube_ZWorldSpaceFlow/ZWorldSpaceFlowMaterial/Convert.outputs:out>
                 float inputs:metallic
                 float3 inputs:normal.connect = None
                 float inputs:opacity
@@ -2161,55 +2159,50 @@ def Xform "Root"
             def Shader "ConstantFloat"
             {
                 uniform token info:id = "ND_constant_float"
-                float inputs:value = 0.5
+                float inputs:value = 0.1
                 float outputs:out
-                float2 ui:nodegraph:node:pos = (-1120.0715, 185.00719)
-                int ui:nodegraph:node:stackingOrder = 3556
-            }
-
-            def "SmoothThreshold_1" (
-                active = true
-                instanceable = true
-                references = @Nodes/UENode.usda@</Root/SmoothThreshold>
-            )
-            {
-                float inputs:CutoffValue = 1
-                float inputs:CutoffValue.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/ConstantFloat_1.outputs:out>
-                float inputs:Gradient.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/Image.outputs:out>
-                float inputs:LerpValue.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/ConstantFloat.outputs:out>
-                float2 ui:nodegraph:node:pos = (-641.6714, -84.630936)
-                int ui:nodegraph:node:stackingOrder = 3542
-            }
-
-            def Shader "Convert"
-            {
-                uniform token info:id = "ND_convert_float_color3"
-                float inputs:in.connect = </Root/Cube_SmoothThreshold_1/SmoothThresholdMaterial/SmoothThreshold_1.outputs:Out>
-                color3f outputs:out
-                float2 ui:nodegraph:node:pos = (-442.0578, 64.154816)
-                int ui:nodegraph:node:stackingOrder = 3509
-            }
-
-            def Shader "Image"
-            {
-                uniform token info:id = "ND_image_float"
-                asset inputs:file = @Texture/DefaultTexture1.png@
-                string inputs:filtertype
-                float2 inputs:texcoord
-                string inputs:uaddressmode
-                string inputs:vaddressmode
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-1162.6527, -225.1401)
-                int ui:nodegraph:node:stackingOrder = 3532
+                float2 ui:nodegraph:node:pos = (-1170.5654, 10.451777)
+                int ui:nodegraph:node:stackingOrder = 3573
             }
 
             def Shader "ConstantFloat_1"
             {
                 uniform token info:id = "ND_constant_float"
-                float inputs:value = 0.5
+                float inputs:value = 1
                 float outputs:out
-                float2 ui:nodegraph:node:pos = (-1117.2229, 81.473366)
-                int ui:nodegraph:node:stackingOrder = 3557
+                float2 ui:nodegraph:node:pos = (-1043.3391, -121.31475)
+                int ui:nodegraph:node:stackingOrder = 3571
+            }
+
+            def "ZWorldSpaceFlow_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/UENode.usda@</Root/ZWorldSpaceFlow>
+            )
+            {
+                float inputs:FlowStrength.connect = </Root/Cube_ZWorldSpaceFlow/ZWorldSpaceFlowMaterial/ConstantFloat_1.outputs:out>
+                asset inputs:FlowTexture = @Texture/number.jpeg@
+                float3 inputs:TextureSize.connect = </Root/Cube_ZWorldSpaceFlow/ZWorldSpaceFlowMaterial/Convert_1.outputs:out>
+                float2 ui:nodegraph:node:pos = (-714.45074, -81.510284)
+                int ui:nodegraph:node:stackingOrder = 3562
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_ZWorldSpaceFlow/ZWorldSpaceFlowMaterial/ZWorldSpaceFlow_1.outputs:Out>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-442.0578, 64.154816)
+                int ui:nodegraph:node:stackingOrder = 3509
+            }
+
+            def Shader "Convert_1"
+            {
+                uniform token info:id = "ND_convert_float_vector3"
+                prepend float inputs:in.connect = </Root/Cube_ZWorldSpaceFlow/ZWorldSpaceFlowMaterial/ConstantFloat.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (-958.0304, -13.608711)
+                int ui:nodegraph:node:stackingOrder = 3572
             }
         }
     }
