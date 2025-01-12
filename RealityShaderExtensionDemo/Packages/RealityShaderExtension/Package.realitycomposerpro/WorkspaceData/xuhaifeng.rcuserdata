@@ -1,5 +1,5 @@
 {
-  "advancedEditorSelectedIdentifier" : "ShaderGraphEditorPluginID",
+  "advancedEditorSelectedIdentifier" : "ProjectBrowser",
   "openSceneRelativePaths" : [
     "Materials\/Nodes\/UENode.usda",
     "Materials\/UEMaterial.usda",
@@ -1245,5 +1245,5 @@
   "sceneViewportBackgroundColors" : {
 
   },
-  "selectedSceneRelativePath" : "Materials\/ColorBlendmaterial.usda"
+  "selectedSceneRelativePath" : "Immersive.usda"
 }

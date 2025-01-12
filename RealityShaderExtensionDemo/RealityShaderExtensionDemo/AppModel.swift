@@ -17,5 +17,30 @@ class AppModel {
         case inTransition
         case open
     }
+    
     var immersiveSpaceState = ImmersiveSpaceState.closed
+    var selectedModule: Module = .Unity
+}
+
+enum Module: String, Identifiable, CaseIterable, Equatable {
+    case Unity
+    case Unreal
+    case ColorBlend
+    
+    var id: Self { self }
+    var name: String {
+        rawValue + "Material"
+    }
+
+    var immersiveId: String {
+        self.rawValue + "ID"
+    }
+    
+    var usdFileName: String {
+        switch self {
+        case .Unity: return "Materials/UnityMaterial"
+        case .Unreal: return "Materials/UEMaterial"
+        case .ColorBlend: return "Materials/ColorBlendMaterial"
+        }
+    }
 }

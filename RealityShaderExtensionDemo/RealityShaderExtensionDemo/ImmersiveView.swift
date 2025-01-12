@@ -10,15 +10,14 @@ import RealityKit
 import RealityShaderExtension
 
 struct ImmersiveView: View {
-
+    @Environment(AppModel.self) private var model
     var body: some View {
         RealityView { content in
             // Add the initial RealityKit content
-            if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityShaderExtensionBundle) {
+            if let immersiveContentEntity = try? await Entity(named: model.selectedModule.usdFileName, in: realityShaderExtensionBundle) {
                 content.add(immersiveContentEntity)
-
-                // Put skybox here.  See example in World project available at
-                // https://developer.apple.com/
+                immersiveContentEntity.position = [0, 0, -1]
+                
             }
         }
     }
