@@ -24,3 +24,31 @@ RealityShaderExtension also contains 20+ color blend mode, and 8 colorspace conv
 [Unreal Blend Functions](https://dev.epicgames.com/documentation/en-us/unreal-engine/blend-material-functions-in-unreal-engine)
 
 ![](./README.assets/ColorBlendMaterial.png)
+
+
+## How to use
+I build the node graph in project using **Instancing**, There are 3 ways to use the node in RealityShaderExtension.
+### 1. Copy and Paste immediately
+Suitable for **non-nested** Node Graphs. if you copy&paste the **nested** one, it will lost the **nested** Node Graphs.
+
+Of course, you can copy&paste the nested Node Graphs again, and re-connect the nested Node Graph lines for input and output.
+![](./README.assets/Nested.png)
+### 2. Create Instancing, then copy and paste the Instancing nodes
+Suitable for both nested and non-nested Node Graphs.
+
+**Instancing** behaves similarly to a singleton, it can save CPU cost and memory cost, because it only load one instance in memory and reuse it. But you need to put the **original Node Graphs** in your RealityComposerPro project to reference.
+
+
+![](./README.assets/CreateInstancing.png)
+![](./README.assets/PasteInstancing.png)
+You have to put the original Node Graphs in your RealityComposerPro project to reference. You need to keep the relative path fixed, if you move the path of original Node Graphs, the Instancing will not work any more.
+![](./README.assets/YourScene.png)
+
+### 3. Create Instancing, then disable Instancing
+Suitable for both nested and non-nested Node Graphs.
+
+You can **disable Instancing** to modify the original Node Graphs. You can also disable Instancing in all the nested Node Graphs. 
+
+You **don't** need to put the original Node Graphs into your RealityComposerPro project to reference, because all Instancing are disabled.
+![](./README.assets/DisableInstancing.png)
+![](./README.assets/DisableNestedInstancing.png)
