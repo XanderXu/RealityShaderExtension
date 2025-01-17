@@ -36,11 +36,13 @@ Of course, you can copy&paste the nested Node Graphs again, and re-connect the n
 ### 2. Create Instancing, then copy and paste the Instancing nodes
 Suitable for both nested and non-nested Node Graphs.
 
-**Instancing** behaves similarly to a singleton, it can save CPU cost and memory cost, because it only load one instance in memory and reuse it. But you need to put the **original Node Graphs** in your RealityComposerPro project to reference.
+**Instancing** behaves similarly to a singleton, it can save CPU cost and memory cost, because it only load one instance in memory and reuse it. But you need to put the **original source Node Graphs** in your RealityComposerPro project to reference.
 
+> If you modify the original Node Graphs, all of the Instancing will be changed imdirectly.
 
 ![](./README.assets/CreateInstancing.png)
 ![](./README.assets/PasteInstancing.png)
+
 You have to put the original Node Graphs in your RealityComposerPro project to reference. You need to keep the relative path fixed, if you move the path of original Node Graphs, the Instancing will not work any more.
 ![](./README.assets/YourScene.png)
 
@@ -48,7 +50,11 @@ You have to put the original Node Graphs in your RealityComposerPro project to r
 Suitable for both nested and non-nested Node Graphs.
 
 You can **disable Instancing** to modify the original Node Graphs. You can also disable Instancing in all the nested Node Graphs. 
+> If you modify the original Node Graphs, it will not change the disabled Instancing. because they are different nodes.
 
 You **don't** need to put the original Node Graphs into your RealityComposerPro project to reference, because all Instancing are disabled.
+
+
+
 ![](./README.assets/DisableInstancing.png)
 ![](./README.assets/DisableNestedInstancing.png)
