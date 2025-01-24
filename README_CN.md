@@ -4,7 +4,7 @@
 
 
 
-RealityShaderExtension 是一个为 visionOS、iOS 和 macOS 提供一组 Shader Graph 扩展节点的工具包。
+RealityShaderExtension 是一个为 visionOS、iOS 和 macOS 提供大量 Shader Graph 扩展节点的工具包。
 
 RealityShaderExtension 复刻了来自 Unity 的 28 个 Shader Graph 节点和来自 Unreal 的 28 个 Blueprint 节点。如果您需要将 Unity 或 Unreal 中的 Shader 效果转换到 RealityKit，这将非常有用。
 
@@ -35,10 +35,6 @@ RealityShaderExtension 还包含 20 多种颜色混合模式和 8 种颜色空�
 我在创建项目中的 Node Graph 时使用了 **Instancing**，所以一般有 3 种方式来使用它。
 
 ### 1. 直接复制粘贴
-Suitable for **non-nested** Node Graphs. if you copy&paste the **nested** one, it will lost the **nested** Node Graphs.
-
-Of course, you can copy&paste the nested Node Graphs again, and re-connect the nested Node Graph lines for input and output.
-
 适用于 **非嵌套** 的 Node Graph。如果复制并粘贴的 Node Graph 中包含了 **嵌套** 的 Node Graph，将会丢失 **嵌套** 的内容。
 
 当然，您可以再次复制并粘贴嵌套的 Node Graph，并重新连接嵌套 Node Graph 的输入和输出。
@@ -51,8 +47,6 @@ Of course, you can copy&paste the nested Node Graphs again, and re-connect the n
 **Instancing **类似于单例，它可以节省 CPU 和内存成本，因为它只在内存中加载一个实例并重复使用它。但您需要将 **原始源 Node Graph** 放入您的 RealityComposerPro 项目中以进行引用。
 
 > 如果您修改原始 Node Graph，所有 Instancing 的内容将会同步发生变化。
-
-
 
 ![](./README.assets/CreateInstancing.png)
 ![](./README.assets/PasteInstancing.png)
@@ -67,9 +61,7 @@ Of course, you can copy&paste the nested Node Graphs again, and re-connect the n
 
 > 如果您修改原始节点图，禁用的实例化将不会发生变化，因为它们是不同的节点。
 
-您 **不** 需要将原始节点图放入您的 RealityComposerPro 项目中进行引用，因为所有实例化都已禁用，它们实际是完整的复制品 Node Graph。
-
-
+您 **不** 需要将原始节点图放入您的 RealityComposerPro 项目中进行引用，因为所有实例化都已禁用，它们实际是完整的复制品。
 
 ![](./README.assets/DisableInstancing.png)
 ![](./README.assets/DisableNestedInstancing.png)
