@@ -1,4 +1,9 @@
 # RealityShaderExtension
+
+[中文版本README](./README_CN.md)
+
+
+
 RealityShaderExtension is a package that provides a set of shader graph nodes for RealityKit in visionOS, iOS and macOS. 
 
 RealityShaderExtension reproduce 28 Shader Graph nodes from Unity, and 28 Blueprint nodes from Unreal. It will be very useful if you convert shader effects from Unity or Unreal.
@@ -52,7 +57,7 @@ Suitable for both nested and non-nested Node Graphs.
 You can **disable Instancing** to modify the original Node Graphs. You can also disable Instancing in all the nested Node Graphs. 
 > If you modify the original Node Graphs, it will not change the disabled Instancing. because they are different nodes.
 
-You **don't** need to put the original Node Graphs into your RealityComposerPro project to reference, because all Instancing are disabled.
+You **don't** need to put the original Node Graphs into your RealityComposerPro project to reference, because all Instancing are disabled, they are actually different full copies of the original Node Graph.
 
 
 
