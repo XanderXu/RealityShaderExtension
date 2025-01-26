@@ -5358,7 +5358,7 @@ def Xform "Root"
         def Shader "NormalMap"
         {
             uniform token info:id = "ND_normalmap"
-            float3 inputs:in.connect = None
+            float3 inputs:in.connect = </Root/CylindricalUVs/Add.outputs:out>
             float3 inputs:normal
             float inputs:scale
             string inputs:space
