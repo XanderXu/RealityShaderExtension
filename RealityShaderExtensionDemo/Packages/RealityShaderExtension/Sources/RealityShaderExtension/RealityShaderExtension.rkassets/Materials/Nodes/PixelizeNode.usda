@@ -23,6 +23,7 @@ def Xform "Root"
 
         def Material "Material"
         {
+            reorder nameChildren = ["PreviewSurface", "PixelizeDiamond_1", "PixelizeCircle_1", "Convert", "Time", "Sin", "Remap"]
             token outputs:mtlx:surface.connect = </Root/Cube/Material/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
@@ -43,20 +44,20 @@ def Xform "Root"
             def "PixelizeCircle_1" (
                 active = true
                 instanceable = true
-                prepend references = </Root/PixelizeCircle>
+                references = </Root/PixelizeCircle>
             )
             {
                 float3 inputs:BackgroundColor = (0, 0, 0)
                 asset inputs:Image = @../Texture/number.jpeg@
                 float inputs:PixelCount.connect = None
-                float2 ui:nodegraph:node:pos = (-394.1797, 64.07422)
-                int ui:nodegraph:node:stackingOrder = 25
+                float2 ui:nodegraph:node:pos = (-414.5078, -79.39844)
+                int ui:nodegraph:node:stackingOrder = 39
             }
 
             def Shader "Convert"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube/Material/PixelizeCircle_1.outputs:Output>
+                float3 inputs:in.connect = </Root/Cube/Material/PixelizeDiamond_1.outputs:Output>
                 color3f outputs:out
                 float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
                 int ui:nodegraph:node:stackingOrder = 5
@@ -89,6 +90,18 @@ def Xform "Root"
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
                 int ui:nodegraph:node:stackingOrder = 34
+            }
+
+            def "PixelizeDiamond_1" (
+                active = true
+                instanceable = true
+                references = </Root/PixelizeDiamond>
+            )
+            {
+                asset inputs:Image = @../Texture/number.jpeg@
+                float inputs:PixelCount = 5
+                float2 ui:nodegraph:node:pos = (-427.38672, 137.02734)
+                int ui:nodegraph:node:stackingOrder = 64
             }
         }
     }
@@ -364,7 +377,234 @@ def Xform "Root"
         active = true
     )
     {
-        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+        asset inputs:Image (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-84.80078, -139.77344)
+                    int stackingOrderInSubgraph = 100
+                }
+            }
+        )
+        float inputs:PixelCount = 10 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1435.8506, 404.66702)
+                    int stackingOrderInSubgraph = 667
+                }
+            }
+        )
+        float3 outputs:Output (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-248, 112.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Output.connect = </Root/PixelizeDiamond/Image.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (391.2461, 16.066406)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 97
+
+        def Shader "TextureCoordinates"
+        {
+            uniform token info:id = "ND_texcoord_vector2"
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1453.6289, -116.484375)
+            int ui:nodegraph:node:stackingOrder = 154
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector2FA"
+            float2 inputs:in1.connect = </Root/PixelizeDiamond/TextureCoordinates.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeDiamond.inputs:PixelCount>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1293.8047, -68.31641)
+            int ui:nodegraph:node:stackingOrder = 154
+        }
+
+        def Shader "Floor"
+        {
+            uniform token info:id = "ND_floor_vector2"
+            float2 inputs:in.connect = </Root/PixelizeDiamond/Multiply.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1144.4349, -190.43498)
+            int ui:nodegraph:node:stackingOrder = 561
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+        }
+
+        def Shader "Divide_1"
+        {
+            uniform token info:id = "ND_divide_vector2FA"
+            float2 inputs:in1.connect = </Root/PixelizeDiamond/Switch.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeDiamond.inputs:PixelCount>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-116.85222, 58.174717)
+            int ui:nodegraph:node:stackingOrder = 665
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            prepend asset inputs:file.connect = </Root/PixelizeDiamond.inputs:Image>
+            string inputs:filtertype
+            prepend float2 inputs:texcoord.connect = </Root/PixelizeDiamond/Divide_1.outputs:out>
+            string inputs:uaddressmode
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (136.95312, -68.12891)
+            int ui:nodegraph:node:stackingOrder = 98
+        }
+
+        def Shader "Fractional"
+        {
+            uniform token info:id = "ND_realitykit_fractional_vector2"
+            float2 inputs:in.connect = </Root/PixelizeDiamond/Multiply.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1088.1628, 68.772415)
+            int ui:nodegraph:node:stackingOrder = 659
+        }
+
+        def Shader "DotProduct"
+        {
+            uniform token info:id = "ND_dotproduct_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeDiamond/ConstantFloat2.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeDiamond/Fractional.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-845.0926, -10.497116)
+            int ui:nodegraph:node:stackingOrder = 659
+        }
+
+        def Shader "ConstantFloat2"
+        {
+            uniform token info:id = "ND_constant_vector2"
+            float2 inputs:value = (1, 1)
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1097.3113, -0.977585)
+            int ui:nodegraph:node:stackingOrder = 659
+        }
+
+        def Shader "IfGreater"
+        {
+            uniform token info:id = "ND_ifgreater_float"
+            float inputs:in1 = 1
+            float inputs:in2
+            float inputs:value1.connect = </Root/PixelizeDiamond/DotProduct.outputs:out>
+            float inputs:value2 = 1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-678.7762, -11.872116)
+            int ui:nodegraph:node:stackingOrder = 659
+        }
+
+        def Shader "DotProduct_1"
+        {
+            uniform token info:id = "ND_dotproduct_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeDiamond/Fractional.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeDiamond/ConstantFloat2_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-854.2098, 145.37398)
+            int ui:nodegraph:node:stackingOrder = 659
+        }
+
+        def Shader "ConstantFloat2_1"
+        {
+            uniform token info:id = "ND_constant_vector2"
+            float2 inputs:value = (1, -1)
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1066.6707, 167.8896)
+            int ui:nodegraph:node:stackingOrder = 659
+        }
+
+        def Shader "IfGreater_1"
+        {
+            uniform token info:id = "ND_ifgreater_float"
+            float inputs:in1 = 1
+            float inputs:in2
+            float inputs:value1.connect = </Root/PixelizeDiamond/DotProduct_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-681.9129, 162.21773)
+            int ui:nodegraph:node:stackingOrder = 659
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/PixelizeDiamond/IfGreater_1.outputs:out>
+            float inputs:in2 = 2
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-553.81134, 222.9482)
+            int ui:nodegraph:node:stackingOrder = 659
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_float"
+            float inputs:in1.connect = </Root/PixelizeDiamond/IfGreater.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeDiamond/Multiply_1.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-474.01053, 114.69429)
+            int ui:nodegraph:node:stackingOrder = 659
+        }
+
+        def Shader "Add_1"
+        {
+            uniform token info:id = "ND_add_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeDiamond/Floor.outputs:out>
+            float2 inputs:in2 = (0, 0.5)
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-939.831, -281.00912)
+            int ui:nodegraph:node:stackingOrder = 598
+        }
+
+        def Shader "Add_2"
+        {
+            uniform token info:id = "ND_add_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeDiamond/Floor.outputs:out>
+            float2 inputs:in2 = (0.5, 1)
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-940.54974, -235.8724)
+            int ui:nodegraph:node:stackingOrder = 598
+        }
+
+        def Shader "Add_3"
+        {
+            uniform token info:id = "ND_add_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeDiamond/Floor.outputs:out>
+            float2 inputs:in2 = (0.5, 0)
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-944.79193, -191.06381)
+            int ui:nodegraph:node:stackingOrder = 598
+        }
+
+        def Shader "Add_4"
+        {
+            uniform token info:id = "ND_add_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeDiamond/Floor.outputs:out>
+            float2 inputs:in2 = (1, 0.5)
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-942.91693, -146.46616)
+            int ui:nodegraph:node:stackingOrder = 598
+        }
+
+        def Shader "Switch"
+        {
+            uniform token info:id = "ND_switch_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeDiamond/Add_1.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeDiamond/Add_2.outputs:out>
+            float2 inputs:in3.connect = </Root/PixelizeDiamond/Add_3.outputs:out>
+            float2 inputs:in4.connect = </Root/PixelizeDiamond/Add_4.outputs:out>
+            float2 inputs:in5
+            float2 inputs:in6
+            float2 inputs:in7
+            float2 inputs:in8
+            float2 inputs:in9
+            float2 inputs:in10
+            float inputs:which = 0
+            float inputs:which.connect = </Root/PixelizeDiamond/Add.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-311.7614, -196.18736)
+            int ui:nodegraph:node:stackingOrder = 662
+        }
     }
 
     def NodeGraph "PixelizeHexagon" (
