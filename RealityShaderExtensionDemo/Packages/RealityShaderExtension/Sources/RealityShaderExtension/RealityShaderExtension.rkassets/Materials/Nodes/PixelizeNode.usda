@@ -23,7 +23,7 @@ def Xform "Root"
 
         def Material "Material"
         {
-            reorder nameChildren = ["PixelizeLed_1", "PixelizeLeaf_1", "PreviewSurface", "PixelizeDiamond_1", "PixelizeCircle_1", "Convert", "Time", "Sin", "Remap"]
+            reorder nameChildren = ["PixelizeLed_1", "PixelizeLeaf_1", "PreviewSurface", "PixelizeDiamond_1", "PixelizeCircle_1", "PixelizeSector_1", "PixelizeTriangle_1", "Convert", "Time", "Sin", "Remap", "PixelizeQuad_1"]
             token outputs:mtlx:surface.connect = </Root/Cube/Material/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
@@ -57,7 +57,7 @@ def Xform "Root"
             def Shader "Convert"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube/Material/PixelizeLed_1.outputs:Output>
+                float3 inputs:in.connect = </Root/Cube/Material/PixelizeTriangle_1.outputs:Output>
                 color3f outputs:out
                 float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
                 int ui:nodegraph:node:stackingOrder = 5
@@ -129,8 +129,52 @@ def Xform "Root"
                 float inputs:LedRadius
                 float inputs:PixelCount
                 float inputs:PixelRatio
-                float2 ui:nodegraph:node:pos = (-384.90186, 88.1849)
-                int ui:nodegraph:node:stackingOrder = 87
+                float2 ui:nodegraph:node:pos = (144.18701, -280.32996)
+                int ui:nodegraph:node:stackingOrder = 89
+            }
+
+            def "PixelizeQuad_1" (
+                active = true
+                instanceable = true
+                references = </Root/PixelizeQuad>
+            )
+            {
+                asset inputs:Image = @../Texture/number.jpeg@
+                float inputs:PixelCount.connect = None
+                float inputs:PixelRatio
+                float2 inputs:PixelScale
+                float2 ui:nodegraph:node:pos = (392.0463, -240.84514)
+                int ui:nodegraph:node:stackingOrder = 96
+            }
+
+            def "PixelizeSector_1" (
+                active = true
+                instanceable = true
+                references = </Root/PixelizeSector>
+            )
+            {
+                float3 inputs:BackgroundColor
+                asset inputs:Image = @../Texture/number.jpeg@
+                float inputs:PixelCount.connect = None
+                float2 inputs:PixelInterval = (1, 1)
+                float inputs:PixelRadius = 0.8
+                float inputs:PixelRatio.connect = None
+                float2 ui:nodegraph:node:pos = (-843.787, -271.6611)
+                int ui:nodegraph:node:stackingOrder = 110
+            }
+
+            def "PixelizeTriangle_1" (
+                active = true
+                instanceable = true
+                references = </Root/PixelizeTriangle>
+            )
+            {
+                asset inputs:Image = @../Texture/number.jpeg@
+                float inputs:PixelCount
+                float inputs:PixelRatio
+                float2 inputs:PixelScale
+                float2 ui:nodegraph:node:pos = (-359.98538, 106.7254)
+                int ui:nodegraph:node:stackingOrder = 116
             }
         }
     }
@@ -1236,27 +1280,671 @@ def Xform "Root"
         active = true
     )
     {
+        asset inputs:Image (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-403.0122, -100.95342)
+                    int stackingOrderInSubgraph = 151
+                }
+            }
+        )
+        float inputs:PixelCount = 10 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1208.582, 137.43242)
+                    int stackingOrderInSubgraph = 298
+                }
+            }
+        )
+        float inputs:PixelRatio = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1557.0399, 138.32213)
+                    int stackingOrderInSubgraph = 298
+                }
+            }
+        )
+        float2 inputs:PixelScale = (1, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1542.4117, 15.474088)
+                    int stackingOrderInSubgraph = 298
+                }
+            }
+        )
+        float3 outputs:Output (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-16, 71.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Output.connect = </Root/PixelizeQuad/Image.outputs:out>
         float2 ui:nodegraph:node:pos = (84, 171.5)
         int ui:nodegraph:node:stackingOrder = 5
-        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (94.04297, 28.9375)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 13
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            float3 inputs:default
+            prepend asset inputs:file.connect = </Root/PixelizeQuad.inputs:Image>
+            string inputs:filtertype
+            float2 inputs:texcoord.connect = </Root/PixelizeQuad/Multiply_2.outputs:out>
+            string inputs:uaddressmode
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-197.83594, -24.996094)
+            int ui:nodegraph:node:stackingOrder = 11
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1 = 1
+            float inputs:in1.connect = None
+            float inputs:in2.connect = </Root/PixelizeQuad.inputs:PixelCount>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1057.3281, 127.5496)
+            int ui:nodegraph:node:stackingOrder = 298
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector2FA"
+            float2 inputs:in1.connect = </Root/PixelizeQuad/Combine2.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeQuad/Divide.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-938.4375, 78.60429)
+            int ui:nodegraph:node:stackingOrder = 298
+        }
+
+        def Shader "Separate2"
+        {
+            uniform token info:id = "ND_separate2_vector2"
+            float2 inputs:in.connect = </Root/PixelizeQuad.inputs:PixelScale>
+            float outputs:outx
+            float outputs:outy
+            float2 ui:nodegraph:node:pos = (-1335.2263, 22.53138)
+            int ui:nodegraph:node:stackingOrder = 298
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/PixelizeQuad/Separate2.outputs:outy>
+            float inputs:in2.connect = </Root/PixelizeQuad.inputs:PixelRatio>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1186.0422, 44.773872)
+            int ui:nodegraph:node:stackingOrder = 298
+        }
+
+        def Shader "Combine2"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/PixelizeQuad/Separate2.outputs:outx>
+            float inputs:in2.connect = </Root/PixelizeQuad/Multiply_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1065.6007, 22.840584)
+            int ui:nodegraph:node:stackingOrder = 298
+        }
+
+        def Shader "TextureCoordinates"
+        {
+            uniform token info:id = "ND_texcoord_vector2"
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1117.7688, -113.89463)
+            int ui:nodegraph:node:stackingOrder = 298
+        }
+
+        def Shader "Divide_1"
+        {
+            uniform token info:id = "ND_divide_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeQuad/TextureCoordinates.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeQuad/Multiply.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-864.18146, -29.253517)
+            int ui:nodegraph:node:stackingOrder = 298
+        }
+
+        def Shader "Floor"
+        {
+            uniform token info:id = "ND_floor_vector2"
+            float2 inputs:in.connect = </Root/PixelizeQuad/Divide_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-733.1463, -19.190954)
+            int ui:nodegraph:node:stackingOrder = 298
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeQuad/Floor.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeQuad/Multiply.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-597.5874, -0.44379866)
+            int ui:nodegraph:node:stackingOrder = 298
+        }
     }
 
     def NodeGraph "PixelizeSector" (
         active = true
     )
     {
+        float3 inputs:BackgroundColor = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (655.0577, 160.80794)
+                    int stackingOrderInSubgraph = 294
+                }
+            }
+        )
+        asset inputs:Image (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (852.17255, -219.9219)
+                    int stackingOrderInSubgraph = 282
+                }
+            }
+        )
+        float inputs:PixelCount = 10 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-251.84314, 72.49574)
+                    int stackingOrderInSubgraph = 246
+                }
+            }
+        )
+        float2 inputs:PixelInterval = (1, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-83.36689, -41.455418)
+                    int stackingOrderInSubgraph = 388
+                }
+            }
+        )
+        float inputs:PixelRadius = 0.8 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (616.53796, 75.77443)
+                    int stackingOrderInSubgraph = 294
+                }
+            }
+        )
+        float inputs:PixelRatio = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-312.32425, -59.500732)
+                    int stackingOrderInSubgraph = 388
+                }
+            }
+        )
+        float3 outputs:Output (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-16, 71.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Output.connect = </Root/PixelizeSector/IfGreater.outputs:out>
         float2 ui:nodegraph:node:pos = (104, 191.5)
         int ui:nodegraph:node:stackingOrder = 6
-        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1563.8105, 74.02476)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 159
+
+        def Shader "TextureCoordinates"
+        {
+            uniform token info:id = "ND_texcoord_vector2"
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-566.40625, -158.70703)
+            int ui:nodegraph:node:stackingOrder = 388
+        }
+
+        def Shader "Separate2"
+        {
+            uniform token info:id = "ND_separate2_vector2"
+            float2 inputs:in.connect = </Root/PixelizeSector/TextureCoordinates.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float2 ui:nodegraph:node:pos = (-287.32812, -159.39844)
+            int ui:nodegraph:node:stackingOrder = 388
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/PixelizeSector/Separate2.outputs:outy>
+            float inputs:in2.connect = </Root/PixelizeSector.inputs:PixelRatio>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-155.0625, -133.47266)
+            int ui:nodegraph:node:stackingOrder = 388
+        }
+
+        def Shader "Combine2"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/PixelizeSector/Separate2.outputs:outx>
+            float inputs:in2.connect = </Root/PixelizeSector/Multiply.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-22.597656, -173.5664)
+            int ui:nodegraph:node:stackingOrder = 388
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1 = 1
+            float inputs:in1.connect = None
+            float inputs:in2.connect = </Root/PixelizeSector.inputs:PixelCount>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-56.864933, 27.017424)
+            int ui:nodegraph:node:stackingOrder = 232
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_vector2FA"
+            float2 inputs:in1.connect = </Root/PixelizeSector.inputs:PixelInterval>
+            prepend float inputs:in2.connect = </Root/PixelizeSector/Divide.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (107.5974, -70.82184)
+            int ui:nodegraph:node:stackingOrder = 388
+        }
+
+        def Shader "Divide_1"
+        {
+            uniform token info:id = "ND_divide_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeSector/Combine2.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeSector/Multiply_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (161.9927, -191.47923)
+            int ui:nodegraph:node:stackingOrder = 388
+        }
+
+        def Shader "Floor"
+        {
+            uniform token info:id = "ND_floor_vector2"
+            float2 inputs:in.connect = </Root/PixelizeSector/Divide_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (274.60715, -187.393)
+            int ui:nodegraph:node:stackingOrder = 388
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeSector/Floor.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeSector/Multiply_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (388.72775, -173.83527)
+            int ui:nodegraph:node:stackingOrder = 388
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeSector/Combine2.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeSector/Multiply_2.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (395.55084, -11.816192)
+            int ui:nodegraph:node:stackingOrder = 246
+        }
+
+        def Shader "Magnitude"
+        {
+            uniform token info:id = "ND_magnitude_vector2"
+            float2 inputs:in.connect = </Root/PixelizeSector/Subtract.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (536.5529, -11.448449)
+            int ui:nodegraph:node:stackingOrder = 248
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/PixelizeSector/Magnitude.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeSector.inputs:PixelCount>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (664.8735, 10.871515)
+            int ui:nodegraph:node:stackingOrder = 250
+        }
+
+        def Shader "Separate2_1"
+        {
+            uniform token info:id = "ND_separate2_vector2"
+            float2 inputs:in.connect = </Root/PixelizeSector/Multiply_2.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float2 ui:nodegraph:node:pos = (543.9731, -191.12343)
+            int ui:nodegraph:node:stackingOrder = 388
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/PixelizeSector/Separate2_1.outputs:outx>
+            float inputs:in2.connect = </Root/PixelizeSector.inputs:PixelRatio>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (700.5036, -160.05458)
+            int ui:nodegraph:node:stackingOrder = 278
+        }
+
+        def Shader "Combine2_1"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/PixelizeSector/Multiply_4.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeSector/Separate2_1.outputs:outy>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (811.7121, -91.81344)
+            int ui:nodegraph:node:stackingOrder = 276
+        }
+
+        def Shader "IfGreater"
+        {
+            uniform token info:id = "ND_ifgreater_vector3"
+            float3 inputs:in1.connect = </Root/PixelizeSector.inputs:BackgroundColor>
+            float3 inputs:in2.connect = </Root/PixelizeSector/Image.outputs:out>
+            prepend float inputs:value1.connect = </Root/PixelizeSector/Multiply_3.outputs:out>
+            prepend float inputs:value2.connect = </Root/PixelizeSector.inputs:PixelRadius>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (1284.1031, 10.094502)
+            int ui:nodegraph:node:stackingOrder = 296
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            prepend asset inputs:file.connect = </Root/PixelizeSector.inputs:Image>
+            string inputs:filtertype
+            prepend float2 inputs:texcoord.connect = </Root/PixelizeSector/Combine2_1.outputs:out>
+            string inputs:uaddressmode
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (1039.8607, -123.182045)
+            int ui:nodegraph:node:stackingOrder = 284
+        }
     }
 
     def NodeGraph "PixelizeTriangle" (
         active = true
     )
     {
+        asset inputs:Image (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (813.178, -187.06364)
+                    int stackingOrderInSubgraph = 1044
+                }
+            }
+        )
+        float inputs:PixelCount = 20 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-884.34564, 103.08034)
+                    int stackingOrderInSubgraph = 408
+                }
+            }
+        )
+        float inputs:PixelRatio = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1094.9308, 47.243546)
+                    int stackingOrderInSubgraph = 389
+                }
+            }
+        )
+        float2 inputs:PixelScale = (1, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-1306.9186, -48.498505)
+                    int stackingOrderInSubgraph = 414
+                }
+            }
+        )
+        float3 outputs:Output (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-249, 111.5)
+                    int stackingOrderInSubgraph = 1
+                }
+            }
+        )
+        float3 outputs:Output.connect = </Root/PixelizeTriangle/Image.outputs:out>
         float2 ui:nodegraph:node:pos = (124, 211.5)
         int ui:nodegraph:node:stackingOrder = 7
-        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 87.5)
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1313.8053, -61.697353)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 857
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_vector2FA"
+            float2 inputs:in1.connect = </Root/PixelizeTriangle/Combine2.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeTriangle.inputs:PixelCount>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-662.2015, -22.962133)
+            int ui:nodegraph:node:stackingOrder = 435
+        }
+
+        def Shader "Separate2"
+        {
+            uniform token info:id = "ND_separate2_vector2"
+            float2 inputs:in.connect = </Root/PixelizeTriangle.inputs:PixelScale>
+            float outputs:outx
+            float outputs:outy
+            float2 ui:nodegraph:node:pos = (-1069.9347, -52.65416)
+            int ui:nodegraph:node:stackingOrder = 389
+        }
+
+        def Shader "Combine2"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/PixelizeTriangle/Separate2.outputs:outx>
+            float inputs:in2.connect = </Root/PixelizeTriangle/Divide.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-805.20416, -66.82213)
+            int ui:nodegraph:node:stackingOrder = 389
+        }
+
+        def Shader "Floor"
+        {
+            uniform token info:id = "ND_floor_vector2"
+            float2 inputs:in.connect = </Root/PixelizeTriangle/Multiply.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-510.80362, -100.542755)
+            int ui:nodegraph:node:stackingOrder = 500
+        }
+
+        def Shader "TextureCoordinates"
+        {
+            uniform token info:id = "ND_texcoord_vector2"
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1158.4636, -177.39044)
+            int ui:nodegraph:node:stackingOrder = 425
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/PixelizeTriangle/Separate2.outputs:outy>
+            float inputs:in2.connect = </Root/PixelizeTriangle.inputs:PixelRatio>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-933.49396, -21.303349)
+            int ui:nodegraph:node:stackingOrder = 418
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeTriangle/TextureCoordinates.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeTriangle/Multiply_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-624.1267, -123.95478)
+            int ui:nodegraph:node:stackingOrder = 439
+        }
+
+        def Shader "Divide_1"
+        {
+            uniform token info:id = "ND_divide_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeTriangle/Floor.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeTriangle/Multiply_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-398.65527, -80.48429)
+            int ui:nodegraph:node:stackingOrder = 984
+        }
+
+        def Scope "Group" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "pixelScale"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Multiply_1"]
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeTriangle/TextureCoordinates.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeTriangle/Divide_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-282.1819, -131.14053)
+            int ui:nodegraph:node:stackingOrder = 987
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeTriangle/Subtract.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeTriangle/Multiply_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-178.53693, -43.80536)
+            int ui:nodegraph:node:stackingOrder = 1032
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            float3 inputs:default
+            prepend asset inputs:file.connect = </Root/PixelizeTriangle.inputs:Image>
+            string inputs:filtertype
+            float2 inputs:texcoord.connect = </Root/PixelizeTriangle/Add.outputs:out>
+            string inputs:uaddressmode
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (1045.4359, -85.62443)
+            int ui:nodegraph:node:stackingOrder = 1041
+        }
+
+        def Shader "Add"
+        {
+            uniform token info:id = "ND_add_vector2"
+            float2 inputs:in1.connect = </Root/PixelizeTriangle/Combine2_1.outputs:out>
+            float2 inputs:in2.connect = </Root/PixelizeTriangle/Divide_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (756.6198, -55.950512)
+            int ui:nodegraph:node:stackingOrder = 862
+        }
+
+        def Shader "Combine2_1"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/PixelizeTriangle/Divide_2.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeTriangle/Divide_3.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (591.7476, -147.30052)
+            int ui:nodegraph:node:stackingOrder = 860
+        }
+
+        def Shader "Separate2_1"
+        {
+            uniform token info:id = "ND_separate2_vector2"
+            float2 inputs:in.connect = </Root/PixelizeTriangle/Multiply_2.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float2 ui:nodegraph:node:pos = (-33.4763, -29.700405)
+            int ui:nodegraph:node:stackingOrder = 1034
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/PixelizeTriangle/Separate2_1.outputs:outy>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (145.1346, -41.48683)
+            int ui:nodegraph:node:stackingOrder = 1030
+        }
+
+        def Shader "Step"
+        {
+            uniform token info:id = "ND_realitykit_step_float"
+            float inputs:edge.connect = </Root/PixelizeTriangle/Oneminus.outputs:out>
+            float inputs:in.connect = </Root/PixelizeTriangle/Separate2_1.outputs:outx>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (254.57448, -201.33336)
+            int ui:nodegraph:node:stackingOrder = 982
+        }
+
+        def Shader "Step_1"
+        {
+            uniform token info:id = "ND_realitykit_step_float"
+            float inputs:edge.connect = </Root/PixelizeTriangle/Separate2_1.outputs:outx>
+            float inputs:in.connect = </Root/PixelizeTriangle/Separate2_1.outputs:outy>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (283.05365, 17.31702)
+            int ui:nodegraph:node:stackingOrder = 1036
+        }
+
+        def Shader "Divide_2"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/PixelizeTriangle/Step.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeTriangle/Separate2_2.outputs:outx>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (384.948, -115.08681)
+            int ui:nodegraph:node:stackingOrder = 968
+        }
+
+        def Shader "Divide_3"
+        {
+            uniform token info:id = "ND_divide_float"
+            float inputs:in1.connect = </Root/PixelizeTriangle/Step_1.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeTriangle/Separate2_2.outputs:outy>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (412.27515, 98.625824)
+            int ui:nodegraph:node:stackingOrder = 1038
+        }
+
+        def Scope "Group2" (
+            kind = "group"
+        )
+        {
+            string ui:group:annotation = "Coord"
+            string ui:group:annotationDescription = ""
+            string[] ui:group:members = ["p:Divide_1"]
+        }
+
+        def Shader "Multiply_5"
+        {
+            uniform token info:id = "ND_multiply_vector2FA"
+            prepend float2 inputs:in1.connect = </Root/PixelizeTriangle/Multiply_1.outputs:out>
+            float inputs:in2 = 2
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-343.56464, 125.587395)
+            int ui:nodegraph:node:stackingOrder = 1028
+        }
+
+        def Shader "Separate2_2"
+        {
+            uniform token info:id = "ND_separate2_vector2"
+            float2 inputs:in.connect = </Root/PixelizeTriangle/Multiply_5.outputs:out>
+            float outputs:outx
+            float outputs:outy
+            float2 ui:nodegraph:node:pos = (-184.77429, 124.25991)
+            int ui:nodegraph:node:stackingOrder = 1028
+        }
     }
 }
 

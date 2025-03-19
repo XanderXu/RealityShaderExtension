@@ -1,0 +1,649 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 2.0 (448.60.4)"
+    }
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    reorder nameChildren = ["Cube_PixelizeCircle", "Cube_PixelizeDiamond", "Cube_PixelizeLeaf", "Cube_PixelizeLed", "Cube_PixelizeQuad", "Cube_PixelizeSector", "Cube_PixelizeTriangle"]
+    def Cube "Cube_PixelizeCircle" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (20, 20)
+        int ui:nodegraph:node:stackingOrder = 1
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.9, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "PixelizeCircleMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/PixelizeCircle_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
+                int ui:nodegraph:node:stackingOrder = 26
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/Time.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/Sin.outputs:out>
+                float inputs:inlow = -1
+                float inputs:outhigh = 30
+                float inputs:outlow = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 34
+            }
+
+            def "PixelizeCircle_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/PixelizeNode.usda@</Root/PixelizeCircle>
+            )
+            {
+                float3 inputs:BackgroundColor = (0, 0, 0)
+                float inputs:CircleRadius = 0.4
+                asset inputs:Image = @Texture/number.jpeg@
+                float inputs:PixelCount.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/Remap.outputs:out>
+                float2 inputs:PixelInterval
+                float inputs:Ratio
+                float2 ui:nodegraph:node:pos = (-416.6393, 78.35863)
+                int ui:nodegraph:node:stackingOrder = 79
+            }
+        }
+    }
+
+    def Cube "Cube_PixelizeDiamond" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_PixelizeDiamond/PixelizeDiamondMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (40, 40)
+        int ui:nodegraph:node:stackingOrder = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.6, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "PixelizeDiamondMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeDiamond_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_PixelizeDiamond/PixelizeDiamondMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_PixelizeDiamond/PixelizeDiamondMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_PixelizeDiamond/PixelizeDiamondMaterial/PixelizeDiamond_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
+                int ui:nodegraph:node:stackingOrder = 26
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_PixelizeDiamond/PixelizeDiamondMaterial/Time.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_PixelizeDiamond/PixelizeDiamondMaterial/Sin.outputs:out>
+                float inputs:inlow = -1
+                float inputs:outhigh = 30
+                float inputs:outlow = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 34
+            }
+
+            def "PixelizeDiamond_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/PixelizeNode.usda@</Root/PixelizeDiamond>
+            )
+            {
+                asset inputs:Image = @Texture/number.jpeg@
+                float inputs:PixelCount = 5
+                float inputs:PixelCount.connect = </Root/Cube_PixelizeDiamond/PixelizeDiamondMaterial/Remap.outputs:out>
+                float2 ui:nodegraph:node:pos = (-386.14783, 87.66099)
+                int ui:nodegraph:node:stackingOrder = 80
+            }
+        }
+    }
+
+    def Cube "Cube_PixelizeLeaf" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (60, 60)
+        int ui:nodegraph:node:stackingOrder = 3
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.3, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "PixelizeLeafMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeLeaf_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial/PixelizeLeaf_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
+                int ui:nodegraph:node:stackingOrder = 26
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial/Time.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial/Sin.outputs:out>
+                float inputs:inlow = -1
+                float inputs:outhigh = 30
+                float inputs:outlow = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 34
+            }
+
+            def "PixelizeLeaf_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/PixelizeNode.usda@</Root/PixelizeLeaf>
+            )
+            {
+                asset inputs:Image = @Texture/number.jpeg@
+                float inputs:PixelCount = 5
+                float inputs:PixelCount.connect = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial/Remap.outputs:out>
+                float inputs:PixelRatio
+                float2 inputs:PixelScale
+                float2 ui:nodegraph:node:pos = (-405.87994, 61.145405)
+                int ui:nodegraph:node:stackingOrder = 88
+            }
+        }
+    }
+
+    def Cube "Cube_PixelizeLed" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_PixelizeLed/PixelizeLedMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (80, 80)
+        int ui:nodegraph:node:stackingOrder = 4
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "PixelizeLedMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeLed_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_PixelizeLed/PixelizeLedMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_PixelizeLed/PixelizeLedMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_PixelizeLed/PixelizeLedMaterial/PixelizeLed_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
+                int ui:nodegraph:node:stackingOrder = 26
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_PixelizeLed/PixelizeLedMaterial/Time.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_PixelizeLed/PixelizeLedMaterial/Sin.outputs:out>
+                float inputs:inlow = -1
+                float inputs:outhigh = 30
+                float inputs:outlow = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 34
+            }
+
+            def "PixelizeLed_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/PixelizeNode.usda@</Root/PixelizeLed>
+            )
+            {
+                float3 inputs:BackgroundColor
+                asset inputs:Image = @Texture/number.jpeg@
+                float inputs:LedRadius
+                float inputs:PixelCount.connect = </Root/Cube_PixelizeLed/PixelizeLedMaterial/Remap.outputs:out>
+                float inputs:PixelRatio
+                float2 ui:nodegraph:node:pos = (-364.90186, 108.1849)
+                int ui:nodegraph:node:stackingOrder = 89
+            }
+        }
+    }
+
+    def Cube "Cube_PixelizeQuad" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (100, 100)
+        int ui:nodegraph:node:stackingOrder = 5
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0.3, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "PixelizeQuadMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeQuad_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial/PixelizeQuad_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
+                int ui:nodegraph:node:stackingOrder = 26
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial/Time.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial/Sin.outputs:out>
+                float inputs:inlow = -1
+                float inputs:outhigh = 30
+                float inputs:outlow = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 34
+            }
+
+            def "PixelizeQuad_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/PixelizeNode.usda@</Root/PixelizeQuad>
+            )
+            {
+                asset inputs:Image = @Texture/number.jpeg@
+                float inputs:PixelCount.connect = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial/Remap.outputs:out>
+                float inputs:PixelRatio
+                float2 inputs:PixelScale
+                float2 ui:nodegraph:node:pos = (-384.98856, 93.74841)
+                int ui:nodegraph:node:stackingOrder = 96
+            }
+        }
+    }
+
+    def Cube "Cube_PixelizeSector" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_PixelizeSector/PixelizeSectorMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (40, 40)
+        int ui:nodegraph:node:stackingOrder = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.9, 0.3, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "PixelizeSectorMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_PixelizeSector/PixelizeSectorMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_PixelizeSector/PixelizeSectorMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_PixelizeSector/PixelizeSectorMaterial/PixelizeSector_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
+                int ui:nodegraph:node:stackingOrder = 26
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_PixelizeSector/PixelizeSectorMaterial/Time.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_PixelizeSector/PixelizeSectorMaterial/Sin.outputs:out>
+                float inputs:inlow = -1
+                float inputs:outhigh = 30
+                float inputs:outlow = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 34
+            }
+
+            def "PixelizeSector_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/PixelizeNode.usda@</Root/PixelizeSector>
+            )
+            {
+                float3 inputs:BackgroundColor
+                asset inputs:Image = @Texture/number.jpeg@
+                float inputs:PixelCount.connect = </Root/Cube_PixelizeSector/PixelizeSectorMaterial/Remap.outputs:out>
+                float2 inputs:PixelInterval = (1, 1)
+                float inputs:PixelRadius = 0.8
+                float inputs:PixelRatio.connect = None
+                float2 ui:nodegraph:node:pos = (-412.34818, 81.995285)
+                int ui:nodegraph:node:stackingOrder = 112
+            }
+        }
+    }
+
+    def Cube "Cube_PixelizeTriangle" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_PixelizeTriangle/PixelizeTriangleMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (60, 60)
+        int ui:nodegraph:node:stackingOrder = 3
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.6, 0.3, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "PixelizeTriangleMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_PixelizeTriangle/PixelizeTriangleMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_PixelizeTriangle/PixelizeTriangleMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_PixelizeTriangle/PixelizeTriangleMaterial/PixelizeTriangle_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
+                int ui:nodegraph:node:stackingOrder = 26
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_PixelizeTriangle/PixelizeTriangleMaterial/Time.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_PixelizeTriangle/PixelizeTriangleMaterial/Sin.outputs:out>
+                float inputs:inlow = -1
+                float inputs:outhigh = 30
+                float inputs:outlow = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 34
+            }
+
+            def "PixelizeTriangle_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/PixelizeNode.usda@</Root/PixelizeTriangle>
+            )
+            {
+                asset inputs:Image = @Texture/number.jpeg@
+                float inputs:PixelCount.connect = </Root/Cube_PixelizeTriangle/PixelizeTriangleMaterial/Remap.outputs:out>
+                float inputs:PixelRatio
+                float2 inputs:PixelScale
+                float2 ui:nodegraph:node:pos = (-393.77188, 81.799355)
+                int ui:nodegraph:node:stackingOrder = 120
+            }
+        }
+    }
+}
+
