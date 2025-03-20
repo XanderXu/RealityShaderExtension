@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cube_PixelizeCircle", "Cube_PixelizeDiamond", "Cube_PixelizeLeaf", "Cube_PixelizeLed", "Cube_PixelizeQuad", "Cube_PixelizeSector", "Cube_PixelizeTriangle"]
+    reorder nameChildren = ["Cube_PixelizeCircle", "Cube_PixelizeDiamond", "Cube_PixelizeLeaf", "Cube_PixelizeLed", "Cube_PixelizeQuad", "Cube_PixelizeSector", "Cube_PixelizeTriangle", "Cube_PixelizeHexagon"]
     def Cube "Cube_PixelizeCircle" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -56,18 +56,10 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 5
             }
 
-            def Shader "Time"
-            {
-                uniform token info:id = "ND_time_float"
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
-                int ui:nodegraph:node:stackingOrder = 26
-            }
-
             def Shader "Sin"
             {
                 uniform token info:id = "ND_sin_float"
-                float inputs:in.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/Time.outputs:out>
+                float inputs:in.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/Multiply.outputs:out>
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
                 int ui:nodegraph:node:stackingOrder = 30
@@ -99,6 +91,24 @@ def Xform "Root"
                 float inputs:Ratio
                 float2 ui:nodegraph:node:pos = (-416.6393, 78.35863)
                 int ui:nodegraph:node:stackingOrder = 79
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1061.0352, 117.933044)
+                int ui:nodegraph:node:stackingOrder = 83
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/Time.outputs:out>
+                float inputs:in2 = 0.2
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-912.3092, 114.674225)
+                int ui:nodegraph:node:stackingOrder = 83
             }
         }
     }
@@ -148,18 +158,10 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 5
             }
 
-            def Shader "Time"
-            {
-                uniform token info:id = "ND_time_float"
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
-                int ui:nodegraph:node:stackingOrder = 26
-            }
-
             def Shader "Sin"
             {
                 uniform token info:id = "ND_sin_float"
-                float inputs:in.connect = </Root/Cube_PixelizeDiamond/PixelizeDiamondMaterial/Time.outputs:out>
+                float inputs:in.connect = </Root/Cube_PixelizeDiamond/PixelizeDiamondMaterial/Multiply.outputs:out>
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
                 int ui:nodegraph:node:stackingOrder = 30
@@ -188,6 +190,24 @@ def Xform "Root"
                 float inputs:PixelCount.connect = </Root/Cube_PixelizeDiamond/PixelizeDiamondMaterial/Remap.outputs:out>
                 float2 ui:nodegraph:node:pos = (-386.14783, 87.66099)
                 int ui:nodegraph:node:stackingOrder = 80
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_PixelizeDiamond/PixelizeDiamondMaterial/Time.outputs:out>
+                float inputs:in2 = 0.2
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-929.3281, 106.971886)
+                int ui:nodegraph:node:stackingOrder = 85
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1078.054, 110.23069)
+                int ui:nodegraph:node:stackingOrder = 85
             }
         }
     }
@@ -237,18 +257,10 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 5
             }
 
-            def Shader "Time"
-            {
-                uniform token info:id = "ND_time_float"
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
-                int ui:nodegraph:node:stackingOrder = 26
-            }
-
             def Shader "Sin"
             {
                 uniform token info:id = "ND_sin_float"
-                float inputs:in.connect = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial/Time.outputs:out>
+                float inputs:in.connect = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial/Multiply.outputs:out>
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
                 int ui:nodegraph:node:stackingOrder = 30
@@ -278,7 +290,25 @@ def Xform "Root"
                 float inputs:PixelRatio
                 float2 inputs:PixelScale
                 float2 ui:nodegraph:node:pos = (-405.87994, 61.145405)
-                int ui:nodegraph:node:stackingOrder = 88
+                int ui:nodegraph:node:stackingOrder = 89
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1069.1702, 100.51048)
+                int ui:nodegraph:node:stackingOrder = 92
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial/Time.outputs:out>
+                float inputs:in2 = 0.2
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-920.4445, 97.25166)
+                int ui:nodegraph:node:stackingOrder = 92
             }
         }
     }
@@ -328,18 +358,10 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 5
             }
 
-            def Shader "Time"
-            {
-                uniform token info:id = "ND_time_float"
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
-                int ui:nodegraph:node:stackingOrder = 26
-            }
-
             def Shader "Sin"
             {
                 uniform token info:id = "ND_sin_float"
-                float inputs:in.connect = </Root/Cube_PixelizeLed/PixelizeLedMaterial/Time.outputs:out>
+                float inputs:in.connect = </Root/Cube_PixelizeLed/PixelizeLedMaterial/Multiply.outputs:out>
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
                 int ui:nodegraph:node:stackingOrder = 30
@@ -370,6 +392,24 @@ def Xform "Root"
                 float inputs:PixelRatio
                 float2 ui:nodegraph:node:pos = (-364.90186, 108.1849)
                 int ui:nodegraph:node:stackingOrder = 89
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_PixelizeLed/PixelizeLedMaterial/Time.outputs:out>
+                float inputs:in2 = 0.2
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-919.97894, 88.16069)
+                int ui:nodegraph:node:stackingOrder = 93
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1045.3953, 90.30145)
+                int ui:nodegraph:node:stackingOrder = 83
             }
         }
     }
@@ -419,18 +459,10 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 5
             }
 
-            def Shader "Time"
-            {
-                uniform token info:id = "ND_time_float"
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
-                int ui:nodegraph:node:stackingOrder = 26
-            }
-
             def Shader "Sin"
             {
                 uniform token info:id = "ND_sin_float"
-                float inputs:in.connect = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial/Time.outputs:out>
+                float inputs:in.connect = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial/Multiply.outputs:out>
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
                 int ui:nodegraph:node:stackingOrder = 30
@@ -460,6 +492,24 @@ def Xform "Root"
                 float2 inputs:PixelScale
                 float2 ui:nodegraph:node:pos = (-384.98856, 93.74841)
                 int ui:nodegraph:node:stackingOrder = 96
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1107.3931, 108.08594)
+                int ui:nodegraph:node:stackingOrder = 83
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial/Time.outputs:out>
+                float inputs:in2 = 0.2
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-958.66724, 104.82712)
+                int ui:nodegraph:node:stackingOrder = 83
             }
         }
     }
@@ -509,18 +559,10 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 5
             }
 
-            def Shader "Time"
-            {
-                uniform token info:id = "ND_time_float"
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
-                int ui:nodegraph:node:stackingOrder = 26
-            }
-
             def Shader "Sin"
             {
                 uniform token info:id = "ND_sin_float"
-                float inputs:in.connect = </Root/Cube_PixelizeSector/PixelizeSectorMaterial/Time.outputs:out>
+                float inputs:in.connect = </Root/Cube_PixelizeSector/PixelizeSectorMaterial/Multiply.outputs:out>
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
                 int ui:nodegraph:node:stackingOrder = 30
@@ -552,6 +594,24 @@ def Xform "Root"
                 float inputs:PixelRatio.connect = None
                 float2 ui:nodegraph:node:pos = (-412.34818, 81.995285)
                 int ui:nodegraph:node:stackingOrder = 112
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1084.697, 100.40408)
+                int ui:nodegraph:node:stackingOrder = 83
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_PixelizeSector/PixelizeSectorMaterial/Time.outputs:out>
+                float inputs:in2 = 0.2
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-935.9712, 97.14526)
+                int ui:nodegraph:node:stackingOrder = 83
             }
         }
     }
@@ -601,18 +661,10 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 5
             }
 
-            def Shader "Time"
-            {
-                uniform token info:id = "ND_time_float"
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (-939.79297, 98.48828)
-                int ui:nodegraph:node:stackingOrder = 26
-            }
-
             def Shader "Sin"
             {
                 uniform token info:id = "ND_sin_float"
-                float inputs:in.connect = </Root/Cube_PixelizeTriangle/PixelizeTriangleMaterial/Time.outputs:out>
+                float inputs:in.connect = </Root/Cube_PixelizeTriangle/PixelizeTriangleMaterial/Multiply.outputs:out>
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
                 int ui:nodegraph:node:stackingOrder = 30
@@ -642,6 +694,122 @@ def Xform "Root"
                 float2 inputs:PixelScale
                 float2 ui:nodegraph:node:pos = (-393.77188, 81.799355)
                 int ui:nodegraph:node:stackingOrder = 120
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_PixelizeTriangle/PixelizeTriangleMaterial/Time.outputs:out>
+                float inputs:in2 = 0.2
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-931.95996, 91.48648)
+                int ui:nodegraph:node:stackingOrder = 83
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1080.6858, 94.745285)
+                int ui:nodegraph:node:stackingOrder = 83
+            }
+        }
+    }
+
+    def Cube "Cube_PixelizeHexagon" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_PixelizeHexagon/PixelizeHexagonMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (80, 80)
+        int ui:nodegraph:node:stackingOrder = 4
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.3, 0.3, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "PixelizeHexagonMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_PixelizeHexagon/PixelizeHexagonMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_PixelizeHexagon/PixelizeHexagonMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_PixelizeHexagon/PixelizeHexagonMaterial/PixelizeHexagon_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1115.232, 108.341965)
+                int ui:nodegraph:node:stackingOrder = 82
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_PixelizeHexagon/PixelizeHexagonMaterial/Multiply.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-844.7752, 87.10201)
+                int ui:nodegraph:node:stackingOrder = 41
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_PixelizeHexagon/PixelizeHexagonMaterial/Sin.outputs:out>
+                float inputs:inlow = -1
+                float inputs:outhigh = 30
+                float inputs:outlow = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 34
+            }
+
+            def "PixelizeHexagon_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/PixelizeNode.usda@</Root/PixelizeHexagon>
+            )
+            {
+                asset inputs:Image = @Texture/number.jpeg@
+                float inputs:PixelCount.connect = </Root/Cube_PixelizeHexagon/PixelizeHexagonMaterial/Remap.outputs:out>
+                float2 ui:nodegraph:node:pos = (-409.38553, 106.38463)
+                int ui:nodegraph:node:stackingOrder = 36
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_PixelizeHexagon/PixelizeHexagonMaterial/Time.outputs:out>
+                float inputs:in2 = 0.2
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-966.5062, 105.08315)
+                int ui:nodegraph:node:stackingOrder = 82
             }
         }
     }
