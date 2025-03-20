@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cube_PixelizeCircle", "Cube_PixelizeDiamond", "Cube_PixelizeLeaf", "Cube_PixelizeLed", "Cube_PixelizeQuad", "Cube_PixelizeSector", "Cube_PixelizeTriangle", "Cube_PixelizeHexagon"]
+    reorder nameChildren = ["Cube_PixelizeCircle", "Cube_PixelizeDiamond", "Cube_PixelizeLeaf", "Cube_PixelizeLed", "Cube_PixelizeQuad", "Cube_PixelizeSector", "Cube_PixelizeTriangle", "Cube_PixelizeHexagon", "Cube_PixelizeHexagonGrid"]
     def Cube "Cube_PixelizeCircle" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -810,6 +810,104 @@ def Xform "Root"
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-966.5062, 105.08315)
                 int ui:nodegraph:node:stackingOrder = 82
+            }
+        }
+    }
+
+    def Cube "Cube_PixelizeHexagonGrid" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_PixelizeHexagonGrid/PixelizeHexagonGridMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (100, 100)
+        int ui:nodegraph:node:stackingOrder = 5
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0.3, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "PixelizeHexagonGridMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_PixelizeHexagonGrid/PixelizeHexagonGridMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_PixelizeHexagonGrid/PixelizeHexagonGridMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_PixelizeHexagonGrid/PixelizeHexagonGridMaterial/PixelizeHexagonGrid_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1115.232, 108.341965)
+                int ui:nodegraph:node:stackingOrder = 82
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_PixelizeHexagonGrid/PixelizeHexagonGridMaterial/Multiply.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-844.7752, 87.10201)
+                int ui:nodegraph:node:stackingOrder = 41
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_PixelizeHexagonGrid/PixelizeHexagonGridMaterial/Sin.outputs:out>
+                float inputs:inlow = -1
+                float inputs:outhigh = 30
+                float inputs:outlow = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 34
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_PixelizeHexagonGrid/PixelizeHexagonGridMaterial/Time.outputs:out>
+                float inputs:in2 = 0.2
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-966.5062, 105.08315)
+                int ui:nodegraph:node:stackingOrder = 82
+            }
+
+            def "PixelizeHexagonGrid_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/PixelizeNode.usda@</Root/PixelizeHexagonGrid>
+            )
+            {
+                asset inputs:Image = @Texture/number.jpeg@
+                float inputs:PixelCount.connect = </Root/Cube_PixelizeHexagonGrid/PixelizeHexagonGridMaterial/Remap.outputs:out>
+                float2 ui:nodegraph:node:pos = (-383.30328, 89.17926)
+                int ui:nodegraph:node:stackingOrder = 83
             }
         }
     }

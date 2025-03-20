@@ -126,6 +126,15 @@
       [
         "028C61D4-4E9B-433B-83E1-F50846CD048E",
         "Root",
+        "Cube_PixelizeHexagonGrid"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "028C61D4-4E9B-433B-83E1-F50846CD048E",
+        "Root",
         "Cube_PixelizeSector",
         "PixelizeSectorMaterial"
       ],
@@ -156,6 +165,16 @@
         "028C61D4-4E9B-433B-83E1-F50846CD048E",
         "Root",
         "Cube_PixelizeDiamond"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "028C61D4-4E9B-433B-83E1-F50846CD048E",
+        "Root",
+        "Cube_PixelizeHexagonGrid",
+        "PixelizeHexagonGridMaterial"
       ],
       {
         "isExpanded" : true,
@@ -202,6 +221,15 @@
         "0D159C62-0E93-409F-A2F4-B60E998051BE",
         "Root",
         "PixelizeLed"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "0D159C62-0E93-409F-A2F4-B60E998051BE",
+        "Root",
+        "PixelizeHexagonGrid"
       ],
       {
         "isExpanded" : true,
@@ -274,6 +302,16 @@
         "0D159C62-0E93-409F-A2F4-B60E998051BE",
         "Root",
         "PixelizeLeaf"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "0D159C62-0E93-409F-A2F4-B60E998051BE",
+        "Root",
+        "PixelizeHexagonGrid",
+        "HexDist"
       ],
       {
         "isExpanded" : true,

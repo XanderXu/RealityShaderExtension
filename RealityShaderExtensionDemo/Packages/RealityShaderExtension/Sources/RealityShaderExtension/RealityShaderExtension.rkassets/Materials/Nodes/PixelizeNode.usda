@@ -23,7 +23,7 @@ def Xform "Root"
 
         def Material "Material"
         {
-            reorder nameChildren = ["PixelizeLed_1", "PixelizeLeaf_1", "PreviewSurface", "PixelizeDiamond_1", "PixelizeCircle_1", "PixelizeSector_1", "PixelizeTriangle_1", "PixelizeHexagon_1", "Convert", "Time", "Sin", "Remap", "PixelizeQuad_1"]
+            reorder nameChildren = ["PixelizeLed_1", "PixelizeLeaf_1", "PreviewSurface", "PixelizeDiamond_1", "PixelizeCircle_1", "PixelizeSector_1", "PixelizeTriangle_1", "PixelizeHexagon_1", "PixelizeHexagonGrid_1", "Convert", "Time", "Sin", "Remap", "PixelizeQuad_1"]
             token outputs:mtlx:surface.connect = </Root/Cube/Material/PreviewSurface.outputs:out>
             token outputs:realitykit:vertex
             float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
@@ -57,7 +57,7 @@ def Xform "Root"
             def Shader "Convert"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
-                float3 inputs:in.connect = </Root/Cube/Material/PixelizeHexagon_1.outputs:Output>
+                float3 inputs:in.connect = </Root/Cube/Material/PixelizeHexagonGrid_1.outputs:Output>
                 color3f outputs:out
                 float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
                 int ui:nodegraph:node:stackingOrder = 5
@@ -195,8 +195,23 @@ def Xform "Root"
                         }
                     }
                 )
-                float2 ui:nodegraph:node:pos = (-383.20486, 65.07872)
-                int ui:nodegraph:node:stackingOrder = 133
+                float2 ui:nodegraph:node:pos = (-1272.3773, -183.77138)
+                int ui:nodegraph:node:stackingOrder = 135
+            }
+
+            def "PixelizeHexagonGrid_1" (
+                active = true
+                instanceable = true
+                references = </Root/PixelizeHexagonGrid>
+            )
+            {
+                float inputs:GirdWidth
+                asset inputs:Image = @../Texture/number.jpeg@
+                float inputs:PixelCount
+                float inputs:PixelRatio
+                float2 inputs:PixelScale
+                float2 ui:nodegraph:node:pos = (-418.80447, 77.79624)
+                int ui:nodegraph:node:stackingOrder = 139
             }
         }
     }
@@ -2656,16 +2671,16 @@ def Xform "Root"
         float inputs:GirdWidth = 1 (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-962.5908, 226.87187)
-                    int stackingOrderInSubgraph = 2268
+                    float2 positionInSubgraph = (-1337.4525, 524.1008)
+                    int stackingOrderInSubgraph = 2375
                 }
             }
         )
         asset inputs:Image (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-1628.507, 360.19757)
-                    int stackingOrderInSubgraph = 2266
+                    float2 positionInSubgraph = (-1160.2993, 299.506)
+                    int stackingOrderInSubgraph = 2307
                 }
             }
         )
@@ -2701,7 +2716,7 @@ def Xform "Root"
                 }
             }
         )
-        float3 outputs:Output.connect = </Root/PixelizeHexagonGrid/Image.outputs:out>
+        float3 outputs:Output.connect = </Root/PixelizeHexagonGrid/Multiply_2.outputs:out>
         float2 ui:nodegraph:node:pos = (24, 111.5)
         int ui:nodegraph:node:stackingOrder = 2
         float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (-549.6102, 455.25473)
@@ -2717,8 +2732,8 @@ def Xform "Root"
             string inputs:uaddressmode
             string inputs:vaddressmode
             float3 outputs:out
-            float2 ui:nodegraph:node:pos = (-1343.43, 420.5257)
-            int ui:nodegraph:node:stackingOrder = 2266
+            float2 ui:nodegraph:node:pos = (-962.4763, 343.89258)
+            int ui:nodegraph:node:stackingOrder = 2305
         }
 
         def Shader "Divide"
@@ -2768,16 +2783,16 @@ def Xform "Root"
             float inputs:in1.connect = </Root/PixelizeHexagonGrid/Divide_1.outputs:out>
             float inputs:in2 = 0.2
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-2366.236, 321.5092)
-            int ui:nodegraph:node:stackingOrder = 1541
+            float2 ui:nodegraph:node:pos = (-2288.124, 408.0373)
+            int ui:nodegraph:node:stackingOrder = 2295
         }
 
         def Shader "TextureCoordinates"
         {
             uniform token info:id = "ND_texcoord_vector2"
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-2209.6401, 517.5005)
-            int ui:nodegraph:node:stackingOrder = 2123
+            float2 ui:nodegraph:node:pos = (-2315.424, 502.47653)
+            int ui:nodegraph:node:stackingOrder = 2337
         }
 
         def Shader "Multiply_1"
@@ -2786,8 +2801,8 @@ def Xform "Root"
             float2 inputs:in1.connect = </Root/PixelizeHexagonGrid/TextureCoordinates.outputs:out>
             float2 inputs:in2.connect = </Root/PixelizeHexagonGrid/Combine2.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-1985.8937, 477.59354)
-            int ui:nodegraph:node:stackingOrder = 2127
+            float2 ui:nodegraph:node:pos = (-1977.0054, 425.2357)
+            int ui:nodegraph:node:stackingOrder = 2340
         }
 
         def Shader "Divide_2"
@@ -2796,8 +2811,8 @@ def Xform "Root"
             float2 inputs:in1.connect = </Root/PixelizeHexagonGrid/NearestHex.outputs:Add_out>
             float2 inputs:in2.connect = </Root/PixelizeHexagonGrid/Combine2.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-1682.663, 449.293)
-            int ui:nodegraph:node:stackingOrder = 2266
+            float2 ui:nodegraph:node:pos = (-1184.3937, 369.70166)
+            int ui:nodegraph:node:stackingOrder = 2309
         }
 
         def NodeGraph "NearestHex"
@@ -3359,6 +3374,180 @@ def Xform "Root"
                     float2 ui:nodegraph:node:pos = (1061.7566, 460.2253)
                     int ui:nodegraph:node:stackingOrder = 2286
                 }
+            }
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            prepend float3 inputs:in1.connect = </Root/PixelizeHexagonGrid/Image.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeHexagonGrid/Oneminus.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-706.5033, 523.37085)
+            int ui:nodegraph:node:stackingOrder = 2271
+        }
+
+        def Shader "Oneminus"
+        {
+            uniform token info:id = "ND_realitykit_oneminus_float"
+            float inputs:in.connect = </Root/PixelizeHexagonGrid/SmoothStep.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-863.3893, 548.6841)
+            int ui:nodegraph:node:stackingOrder = 2352
+        }
+
+        def Shader "SmoothStep"
+        {
+            uniform token info:id = "ND_smoothstep_float"
+            float inputs:high.connect = </Root/PixelizeHexagonGrid/Multiply.outputs:out>
+            float inputs:in.connect = </Root/PixelizeHexagonGrid/Multiply_3.outputs:out>
+            float inputs:low = 0.003
+            float inputs:low.connect = None
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1068.4337, 765.39813)
+            int ui:nodegraph:node:stackingOrder = 2392
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/PixelizeHexagonGrid.inputs:GirdWidth>
+            float inputs:in2 = 0.1
+            float inputs:in2.connect = </Root/PixelizeHexagonGrid/HexDist.outputs:Output>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1253.5802, 632.1606)
+            int ui:nodegraph:node:stackingOrder = 2388
+        }
+
+        def Shader "Subtract"
+        {
+            uniform token info:id = "ND_subtract_float"
+            float inputs:in1.connect = </Root/PixelizeHexagonGrid/Multiply.outputs:out>
+            float inputs:in2 = 0.8
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1300.901, 691.9625)
+            int ui:nodegraph:node:stackingOrder = 2394
+        }
+
+        def NodeGraph "HexDist"
+        {
+            float2 inputs:a = (0, 0) (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (77.5, 96.233055)
+                    }
+                }
+            )
+            float2 inputs:a.connect = </Root/PixelizeHexagonGrid/Multiply_1.outputs:out>
+            float2 inputs:b = (0, 0) (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (76.29612, -9.711812)
+                    }
+                }
+            )
+            float2 inputs:b.connect = </Root/PixelizeHexagonGrid/NearestHex.outputs:Add_out>
+            float outputs:Output (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (1236.946, 246.0957)
+                        int stackingOrderInSubgraph = 2430
+                    }
+                }
+            )
+            float outputs:Output.connect = </Root/PixelizeHexagonGrid/HexDist/Divide_3.outputs:out>
+            float2 ui:nodegraph:node:pos = (-1464.2073, 538.4888)
+            int ui:nodegraph:node:stackingOrder = 2357
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1309.4365, 161.97766)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 2431
+
+            def Shader "Multiply_4"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/PixelizeHexagonGrid/HexDist/Separate2_1.outputs:outx>
+                float inputs:in2 = 0.5
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (758, 18)
+                int ui:nodegraph:node:stackingOrder = 2429
+            }
+
+            def Shader "Add"
+            {
+                uniform token info:id = "ND_add_float"
+                float inputs:in1.connect = </Root/PixelizeHexagonGrid/HexDist/Multiply_4.outputs:out>
+                float inputs:in2.connect = </Root/PixelizeHexagonGrid/HexDist/Multiply_5.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (874.75, 48)
+                int ui:nodegraph:node:stackingOrder = 2429
+            }
+
+            def Shader "Multiply_5"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/PixelizeHexagonGrid/HexDist/Separate2_1.outputs:outy>
+                float inputs:in2 = 0.8660254
+                float inputs:in2.connect = </Root/PixelizeHexagonGrid/HexDist/c.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (758, 114)
+                int ui:nodegraph:node:stackingOrder = 2429
+            }
+
+            def Shader "Max"
+            {
+                uniform token info:id = "ND_max_float"
+                float inputs:in1.connect = </Root/PixelizeHexagonGrid/HexDist/Add.outputs:out>
+                float inputs:in2.connect = </Root/PixelizeHexagonGrid/HexDist/Separate2_1.outputs:outx>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1020, 106)
+                int ui:nodegraph:node:stackingOrder = 2429
+            }
+
+            def Shader "Subtract_1"
+            {
+                uniform token info:id = "ND_subtract_vector2"
+                float2 inputs:in1.connect = </Root/PixelizeHexagonGrid/HexDist.inputs:b>
+                float2 inputs:in2.connect = </Root/PixelizeHexagonGrid/HexDist.inputs:a>
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (243.75, 45.5)
+                int ui:nodegraph:node:stackingOrder = 2429
+            }
+
+            def Shader "c"
+            {
+                uniform token info:id = "ND_constant_float"
+                float inputs:value = 0.8660254
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (589.25, 236)
+                int ui:nodegraph:node:stackingOrder = 2429
+            }
+
+            def Shader "Abs"
+            {
+                uniform token info:id = "ND_absval_vector2"
+                float2 inputs:in.connect = </Root/PixelizeHexagonGrid/HexDist/Subtract_1.outputs:out>
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (390.5, 45.5)
+                int ui:nodegraph:node:stackingOrder = 2429
+            }
+
+            def Shader "Divide_3"
+            {
+                uniform token info:id = "ND_divide_float"
+                float inputs:in1.connect = </Root/PixelizeHexagonGrid/HexDist/Max.outputs:out>
+                float inputs:in2.connect = </Root/PixelizeHexagonGrid/HexDist/c.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1165.25, 168.5)
+                int ui:nodegraph:node:stackingOrder = 2429
+            }
+
+            def Shader "Separate2_1"
+            {
+                uniform token info:id = "ND_separate2_vector2"
+                float2 inputs:in.connect = </Root/PixelizeHexagonGrid/HexDist/Abs.outputs:out>
+                float outputs:outx
+                float outputs:outy
+                float2 ui:nodegraph:node:pos = (589.25, 45.5)
+                int ui:nodegraph:node:stackingOrder = 2429
             }
         }
     }
