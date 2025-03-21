@@ -210,8 +210,8 @@ def Xform "Root"
                 float inputs:PixelCount
                 float inputs:PixelRatio
                 float2 inputs:PixelScale
-                float2 ui:nodegraph:node:pos = (-418.80447, 77.79624)
-                int ui:nodegraph:node:stackingOrder = 139
+                float2 ui:nodegraph:node:pos = (-212.12654, -74.34736)
+                int ui:nodegraph:node:stackingOrder = 141
             }
         }
     }
@@ -2695,16 +2695,16 @@ def Xform "Root"
         float inputs:PixelRatio = 1 (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-2429.2568, 662.65436)
-                    int stackingOrderInSubgraph = 2123
+                    float2 positionInSubgraph = (-2541.7852, 748.93756)
+                    int stackingOrderInSubgraph = 2442
                 }
             }
         )
         float2 inputs:PixelScale = (1, 1) (
             customData = {
                 dictionary realitykit = {
-                    float2 positionInSubgraph = (-2588.495, 582.4122)
-                    int stackingOrderInSubgraph = 2123
+                    float2 positionInSubgraph = (-2701.0234, 668.6954)
+                    int stackingOrderInSubgraph = 2442
                 }
             }
         )
@@ -2742,8 +2742,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/PixelizeHexagonGrid/Separate2.outputs:outy>
             float inputs:in2.connect = </Root/PixelizeHexagonGrid.inputs:PixelRatio>
             float outputs:out
-            float2 ui:nodegraph:node:pos = (-2243.8884, 616.5335)
-            int ui:nodegraph:node:stackingOrder = 2123
+            float2 ui:nodegraph:node:pos = (-2356.4167, 702.8167)
+            int ui:nodegraph:node:stackingOrder = 2442
         }
 
         def Shader "Separate2"
@@ -2752,8 +2752,8 @@ def Xform "Root"
             float2 inputs:in.connect = </Root/PixelizeHexagonGrid.inputs:PixelScale>
             float outputs:outx
             float outputs:outy
-            float2 ui:nodegraph:node:pos = (-2413.2864, 584.84247)
-            int ui:nodegraph:node:stackingOrder = 2123
+            float2 ui:nodegraph:node:pos = (-2525.8147, 671.1257)
+            int ui:nodegraph:node:stackingOrder = 2442
         }
 
         def Shader "Combine2"
@@ -2762,8 +2762,8 @@ def Xform "Root"
             float inputs:in1.connect = </Root/PixelizeHexagonGrid/Separate2.outputs:outx>
             float inputs:in2.connect = </Root/PixelizeHexagonGrid/Divide.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-2112.8704, 593.86127)
-            int ui:nodegraph:node:stackingOrder = 2123
+            float2 ui:nodegraph:node:pos = (-2225.3987, 680.1445)
+            int ui:nodegraph:node:stackingOrder = 2442
         }
 
         def Shader "Divide_1"
@@ -2780,7 +2780,7 @@ def Xform "Root"
         def Shader "Multiply"
         {
             uniform token info:id = "ND_multiply_float"
-            float inputs:in1.connect = </Root/PixelizeHexagonGrid/Divide_1.outputs:out>
+            float inputs:in1.connect = </Root/PixelizeHexagonGrid/Multiply_4.outputs:out>
             float inputs:in2 = 0.2
             float outputs:out
             float2 ui:nodegraph:node:pos = (-2288.124, 408.0373)
@@ -2791,28 +2791,18 @@ def Xform "Root"
         {
             uniform token info:id = "ND_texcoord_vector2"
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-2315.424, 502.47653)
-            int ui:nodegraph:node:stackingOrder = 2337
+            float2 ui:nodegraph:node:pos = (-2629.4248, 507.46106)
+            int ui:nodegraph:node:stackingOrder = 2405
         }
 
         def Shader "Multiply_1"
         {
             uniform token info:id = "ND_multiply_vector2"
-            float2 inputs:in1.connect = </Root/PixelizeHexagonGrid/TextureCoordinates.outputs:out>
+            float2 inputs:in1.connect = </Root/PixelizeHexagonGrid/Multiply_5.outputs:out>
             float2 inputs:in2.connect = </Root/PixelizeHexagonGrid/Combine2.outputs:out>
             float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-1977.0054, 425.2357)
-            int ui:nodegraph:node:stackingOrder = 2340
-        }
-
-        def Shader "Divide_2"
-        {
-            uniform token info:id = "ND_divide_vector2"
-            float2 inputs:in1.connect = </Root/PixelizeHexagonGrid/NearestHex.outputs:Add_out>
-            float2 inputs:in2.connect = </Root/PixelizeHexagonGrid/Combine2.outputs:out>
-            float2 outputs:out
-            float2 ui:nodegraph:node:pos = (-1184.3937, 369.70166)
-            int ui:nodegraph:node:stackingOrder = 2309
+            float2 ui:nodegraph:node:pos = (-2078.419, 646.6191)
+            int ui:nodegraph:node:stackingOrder = 2444
         }
 
         def NodeGraph "NearestHex"
@@ -3402,7 +3392,7 @@ def Xform "Root"
             float inputs:high.connect = </Root/PixelizeHexagonGrid/Multiply.outputs:out>
             float inputs:in.connect = </Root/PixelizeHexagonGrid/Multiply_3.outputs:out>
             float inputs:low = 0.003
-            float inputs:low.connect = None
+            float inputs:low.connect = </Root/PixelizeHexagonGrid/Subtract.outputs:out>
             float outputs:out
             float2 ui:nodegraph:node:pos = (-1068.4337, 765.39813)
             int ui:nodegraph:node:stackingOrder = 2392
@@ -3549,6 +3539,45 @@ def Xform "Root"
                 float2 ui:nodegraph:node:pos = (589.25, 45.5)
                 int ui:nodegraph:node:stackingOrder = 2429
             }
+        }
+
+        def Shader "ScreenParams"
+        {
+            uniform token info:id = "ND_constant_float"
+            float inputs:value = 1000
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-2634.0723, 599.2595)
+            int ui:nodegraph:node:stackingOrder = 2446
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1.connect = </Root/PixelizeHexagonGrid/Divide_1.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeHexagonGrid/ScreenParams.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-2402.2192, 400.2407)
+            int ui:nodegraph:node:stackingOrder = 2402
+        }
+
+        def Shader "Multiply_5"
+        {
+            uniform token info:id = "ND_multiply_vector2FA"
+            prepend float2 inputs:in1.connect = </Root/PixelizeHexagonGrid/TextureCoordinates.outputs:out>
+            float inputs:in2.connect = </Root/PixelizeHexagonGrid/ScreenParams.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-2358.4812, 504.7137)
+            int ui:nodegraph:node:stackingOrder = 2406
+        }
+
+        def Shader "Divide_2"
+        {
+            uniform token info:id = "ND_divide_vector2FA"
+            prepend float2 inputs:in1.connect = </Root/PixelizeHexagonGrid/NearestHex.outputs:Add_out>
+            float inputs:in2.connect = </Root/PixelizeHexagonGrid/ScreenParams.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-1184.3937, 369.70166)
+            int ui:nodegraph:node:stackingOrder = 2309
         }
     }
 }

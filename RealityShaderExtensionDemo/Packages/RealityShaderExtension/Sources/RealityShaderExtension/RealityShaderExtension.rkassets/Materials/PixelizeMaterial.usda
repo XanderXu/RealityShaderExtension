@@ -69,28 +69,13 @@ def Xform "Root"
             {
                 uniform token info:id = "ND_remap_float"
                 float inputs:in.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/Sin.outputs:out>
+                float inputs:inhigh
                 float inputs:inlow = -1
                 float inputs:outhigh = 30
                 float inputs:outlow = 1
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
                 int ui:nodegraph:node:stackingOrder = 34
-            }
-
-            def "PixelizeCircle_1" (
-                active = true
-                instanceable = true
-                references = @Nodes/PixelizeNode.usda@</Root/PixelizeCircle>
-            )
-            {
-                float3 inputs:BackgroundColor = (0, 0, 0)
-                float inputs:CircleRadius = 0.4
-                asset inputs:Image = @Texture/number.jpeg@
-                float inputs:PixelCount.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/Remap.outputs:out>
-                float2 inputs:PixelInterval
-                float inputs:Ratio
-                float2 ui:nodegraph:node:pos = (-416.6393, 78.35863)
-                int ui:nodegraph:node:stackingOrder = 79
             }
 
             def Shader "Time"
@@ -109,6 +94,18 @@ def Xform "Root"
                 float outputs:out
                 float2 ui:nodegraph:node:pos = (-912.3092, 114.674225)
                 int ui:nodegraph:node:stackingOrder = 83
+            }
+
+            def "PixelizeCircle_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/PixelizeNode.usda@</Root/PixelizeCircle>
+            )
+            {
+                asset inputs:Image = @Texture/number.jpeg@
+                float inputs:PixelCount.connect = </Root/Cube_PixelizeCircle/PixelizeCircleMaterial/Remap.outputs:out>
+                float2 ui:nodegraph:node:pos = (-363.86215, 47.071465)
+                int ui:nodegraph:node:stackingOrder = 84
             }
         }
     }
@@ -287,10 +284,17 @@ def Xform "Root"
                 asset inputs:Image = @Texture/number.jpeg@
                 float inputs:PixelCount = 5
                 float inputs:PixelCount.connect = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial/Remap.outputs:out>
-                float inputs:PixelRatio
-                float2 inputs:PixelScale
+                float inputs:PixelRatio = 1
+                float2 inputs:PixelScale = (1, 1) (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (-1126.2802, -171.29576)
+                            int stackingOrderInSubgraph = 972
+                        }
+                    }
+                )
                 float2 ui:nodegraph:node:pos = (-405.87994, 61.145405)
-                int ui:nodegraph:node:stackingOrder = 89
+                int ui:nodegraph:node:stackingOrder = 101
             }
 
             def Shader "Time"
@@ -488,10 +492,10 @@ def Xform "Root"
             {
                 asset inputs:Image = @Texture/number.jpeg@
                 float inputs:PixelCount.connect = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial/Remap.outputs:out>
-                float inputs:PixelRatio
-                float2 inputs:PixelScale
+                float inputs:PixelRatio = 1
+                float2 inputs:PixelScale = (1, 1)
                 float2 ui:nodegraph:node:pos = (-384.98856, 93.74841)
-                int ui:nodegraph:node:stackingOrder = 96
+                int ui:nodegraph:node:stackingOrder = 98
             }
 
             def Shader "Time"
@@ -798,8 +802,17 @@ def Xform "Root"
             {
                 asset inputs:Image = @Texture/number.jpeg@
                 float inputs:PixelCount.connect = </Root/Cube_PixelizeHexagon/PixelizeHexagonMaterial/Remap.outputs:out>
+                float inputs:PixelRatio = 1
+                float2 inputs:PixelScale (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (-2588.495, 582.4122)
+                            int stackingOrderInSubgraph = 2123
+                        }
+                    }
+                )
                 float2 ui:nodegraph:node:pos = (-409.38553, 106.38463)
-                int ui:nodegraph:node:stackingOrder = 36
+                int ui:nodegraph:node:stackingOrder = 83
             }
 
             def Shader "Multiply"
