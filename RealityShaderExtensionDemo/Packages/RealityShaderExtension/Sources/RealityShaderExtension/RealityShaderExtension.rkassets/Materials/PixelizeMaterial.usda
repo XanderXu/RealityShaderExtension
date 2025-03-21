@@ -285,16 +285,8 @@ def Xform "Root"
                 float inputs:PixelCount = 5
                 float inputs:PixelCount.connect = </Root/Cube_PixelizeLeaf/PixelizeLeafMaterial/Remap.outputs:out>
                 float inputs:PixelRatio = 1
-                float2 inputs:PixelScale = (1, 1) (
-                    customData = {
-                        dictionary realitykit = {
-                            float2 positionInSubgraph = (-1126.2802, -171.29576)
-                            int stackingOrderInSubgraph = 972
-                        }
-                    }
-                )
                 float2 ui:nodegraph:node:pos = (-405.87994, 61.145405)
-                int ui:nodegraph:node:stackingOrder = 101
+                int ui:nodegraph:node:stackingOrder = 102
             }
 
             def Shader "Time"
@@ -395,7 +387,7 @@ def Xform "Root"
                 float inputs:PixelCount.connect = </Root/Cube_PixelizeLed/PixelizeLedMaterial/Remap.outputs:out>
                 float inputs:PixelRatio
                 float2 ui:nodegraph:node:pos = (-364.90186, 108.1849)
-                int ui:nodegraph:node:stackingOrder = 89
+                int ui:nodegraph:node:stackingOrder = 94
             }
 
             def Shader "Multiply"
@@ -493,9 +485,8 @@ def Xform "Root"
                 asset inputs:Image = @Texture/number.jpeg@
                 float inputs:PixelCount.connect = </Root/Cube_PixelizeQuad/PixelizeQuadMaterial/Remap.outputs:out>
                 float inputs:PixelRatio = 1
-                float2 inputs:PixelScale = (1, 1)
                 float2 ui:nodegraph:node:pos = (-384.98856, 93.74841)
-                int ui:nodegraph:node:stackingOrder = 98
+                int ui:nodegraph:node:stackingOrder = 100
             }
 
             def Shader "Time"
@@ -695,9 +686,8 @@ def Xform "Root"
                 asset inputs:Image = @Texture/number.jpeg@
                 float inputs:PixelCount.connect = </Root/Cube_PixelizeTriangle/PixelizeTriangleMaterial/Remap.outputs:out>
                 float inputs:PixelRatio
-                float2 inputs:PixelScale
                 float2 ui:nodegraph:node:pos = (-393.77188, 81.799355)
-                int ui:nodegraph:node:stackingOrder = 120
+                int ui:nodegraph:node:stackingOrder = 121
             }
 
             def Shader "Multiply"
@@ -803,16 +793,8 @@ def Xform "Root"
                 asset inputs:Image = @Texture/number.jpeg@
                 float inputs:PixelCount.connect = </Root/Cube_PixelizeHexagon/PixelizeHexagonMaterial/Remap.outputs:out>
                 float inputs:PixelRatio = 1
-                float2 inputs:PixelScale (
-                    customData = {
-                        dictionary realitykit = {
-                            float2 positionInSubgraph = (-2588.495, 582.4122)
-                            int stackingOrderInSubgraph = 2123
-                        }
-                    }
-                )
                 float2 ui:nodegraph:node:pos = (-409.38553, 106.38463)
-                int ui:nodegraph:node:stackingOrder = 83
+                int ui:nodegraph:node:stackingOrder = 84
             }
 
             def Shader "Multiply"
