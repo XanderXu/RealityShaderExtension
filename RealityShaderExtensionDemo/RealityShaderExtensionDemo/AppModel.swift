@@ -26,6 +26,7 @@ enum Module: String, Identifiable, CaseIterable, Equatable {
     case Unity
     case Unreal
     case ColorBlend
+    case Pixelize
     
     var id: Self { self }
     var name: String {
@@ -41,6 +42,7 @@ enum Module: String, Identifiable, CaseIterable, Equatable {
         case .Unity: return "Materials/UnityMaterial"
         case .Unreal: return "Materials/UEMaterial"
         case .ColorBlend: return "Materials/ColorBlendMaterial"
+        case .Pixelize: return "Materials/PixelizeMaterial"
         }
     }
 }
