@@ -8,7 +8,7 @@ RealityShaderExtension is a package that provides a set of shader graph nodes fo
 
 RealityShaderExtension reproduce 28 Shader Graph nodes from Unity, and 28 Blueprint nodes from Unreal. It will be very useful if you convert shader effects from Unity or Unreal.
 
-RealityShaderExtension also contains 20+ color blend mode, and 8 colorspace conversion node. 
+RealityShaderExtension also contains 20+ color blend mode,  8 colorspace conversion nodes, and 9 pixelize art nodes.
 
 ## Examples of nodes from Unreal
 
@@ -29,6 +29,14 @@ RealityShaderExtension also contains 20+ color blend mode, and 8 colorspace conv
 [Unreal Blend Functions](https://dev.epicgames.com/documentation/en-us/unreal-engine/blend-material-functions-in-unreal-engine)
 
 ![](./README.assets/ColorBlendMaterial.png)
+
+## Examples of PixelizeArt node
+
+[Unity X-PostProcessing Library-PixelizeArt](https://github.com/QianMo/X-PostProcessing-Library/tree/master/Assets/X-PostProcessing/Effects/PixelizeQuad)
+
+![PixelizeArt](./README.assets/PixelizeArt.gif)
+
+
 
 
 ## How to use

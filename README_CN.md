@@ -8,7 +8,7 @@ RealityShaderExtension 是一个为 visionOS、iOS 和 macOS 提供大量 Shader
 
 RealityShaderExtension 复刻了来自 Unity 的 28 个 Shader Graph 节点和来自 Unreal 的 28 个 Blueprint 节点。如果您需要将 Unity 或 Unreal 中的 Shader 效果转换到 RealityKit，这将非常有用。
 
-RealityShaderExtension 还包含 20 多种颜色混合模式和 8 种颜色空间转换节点。
+RealityShaderExtension 还包含 20 多种颜色混合模式， 8 种颜色空间转换节点，以及 9 个像素化艺术效果节点。
 
 ## Unreal 节点示例
 
@@ -30,8 +30,14 @@ RealityShaderExtension 还包含 20 多种颜色混合模式和 8 种颜色空�
 
 ![](./README.assets/ColorBlendMaterial.png)
 
+## 像素化艺术节点示例
+
+[Unity X-PostProcessing Library-PixelizeArt](https://github.com/QianMo/X-PostProcessing-Library/tree/master/Assets/X-PostProcessing/Effects/PixelizeQuad)
+
+![PixelizeArt](./README.assets/PixelizeArt.gif)
 
 ## 如何使用
+
 我在创建项目中的 Node Graph 时使用了 **Instancing**，所以一般有 3 种方式来使用它。
 
 ### 1. 直接复制粘贴
