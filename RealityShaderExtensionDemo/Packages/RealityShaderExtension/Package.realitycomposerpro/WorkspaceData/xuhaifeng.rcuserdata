@@ -1,11 +1,8 @@
 {
   "advancedEditorSelectedIdentifier" : "ShaderGraphEditorPluginID",
   "openSceneRelativePaths" : [
-    "Materials\/Nodes\/UENode.usda",
-    "Materials\/UEMaterial.usda",
-    "Materials\/UnityMaterial.usda",
-    "Materials\/Nodes\/PixelizeNode.usda",
-    "Materials\/PixelizeMaterial.usda"
+    "Materials\/Nodes\/EdgeDetectionNode.usda",
+    "Materials\/Nodes\/PixelizeNode.usda"
   ],
   "recentIdentifiers" : {
     "028C61D4-4E9B-433B-83E1-F50846CD048E" : [
@@ -42,6 +39,9 @@
 
     ],
     "C9BFB86D-CD6D-47AE-9427-F0BB21BCBEAC" : [
+
+    ],
+    "EE4EBAB2-7FC3-4BC8-9181-54159F73C83C" : [
 
     ]
   },
@@ -1474,6 +1474,138 @@
     ],
     "A7518375-FB43-4E8E-85ED-EEBF68DC0A95" : [
       {
+        "date" : 765989358.744893,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          -0.010033224,
+          0.13474189,
+          0.4039812,
+          1
+        ]
+      },
+      {
+        "date" : 765989355.829053,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          7.1525574e-07,
+          2.3841858e-07,
+          0.4039812,
+          1
+        ]
+      },
+      {
+        "date" : 765989220.481377,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          -0.58277225,
+          2.161445,
+          7.1321936,
+          1
+        ]
+      },
+      {
+        "date" : 765989215.401737,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0.12714303,
+          3.773148,
+          7.1321936,
+          1
+        ]
+      },
+      {
+        "date" : 765989210.71104,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0.7071069,
+          -0.70710677,
+          0,
+          0,
+          0.70710677,
+          0.7071069,
+          0,
+          -0.11203847,
+          0.702652,
+          0.5245461,
+          1
+        ]
+      },
+      {
+        "date" : 765988945.382607,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0.7071069,
+          -0.70710677,
+          0,
+          0,
+          0.70710677,
+          0.7071069,
+          0,
+          -0.006847918,
+          0.65233576,
+          0.5748624,
+          1
+        ]
+      },
+      {
         "date" : 763894382.434072,
         "title" : "Untitled",
         "transform" : [
@@ -1717,10 +1849,122 @@
           1
         ]
       }
+    ],
+    "EE4EBAB2-7FC3-4BC8-9181-54159F73C83C" : [
+      {
+        "date" : 765990696.474305,
+        "title" : "Untitled",
+        "transform" : [
+          0.9997178,
+          0,
+          0.023755698,
+          0,
+          0.016797815,
+          0.7071069,
+          -0.7069072,
+          0,
+          -0.016797818,
+          0.70710677,
+          0.70690733,
+          0,
+          -0.0037285816,
+          0.15695527,
+          0.156911,
+          1
+        ]
+      },
+      {
+        "date" : 765990670.024941,
+        "title" : "Untitled",
+        "transform" : [
+          0.9997178,
+          0,
+          0.023755698,
+          0,
+          0.016797815,
+          0.7071069,
+          -0.7069072,
+          0,
+          -0.016797818,
+          0.70710677,
+          0.70690733,
+          0,
+          -0.01118417,
+          0.4707995,
+          0.4706667,
+          1
+        ]
+      },
+      {
+        "date" : 765990666.557502,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0.7071069,
+          -0.70710677,
+          0,
+          0,
+          0.70710677,
+          0.7071069,
+          0,
+          0,
+          0.17646936,
+          0.17646942,
+          1
+        ]
+      },
+      {
+        "date" : 765990656.351025,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0.7071069,
+          -0.70710677,
+          0,
+          0,
+          0.70710677,
+          0.7071069,
+          0,
+          0,
+          0.3031491,
+          0.30314916,
+          1
+        ]
+      },
+      {
+        "date" : 765989658.39066,
+        "title" : "Untitled",
+        "transform" : [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0.7071069,
+          -0.70710677,
+          0,
+          0,
+          0.70710677,
+          0.7071069,
+          0,
+          0,
+          0.87476826,
+          0.8747685,
+          1
+        ]
+      }
     ]
   },
   "sceneViewportBackgroundColors" : {
 
   },
-  "selectedSceneRelativePath" : "Materials\/PixelizeMaterial.usda"
+  "selectedSceneRelativePath" : "Materials\/Nodes\/EdgeDetectionNode.usda"
 }

@@ -1,0 +1,405 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 2.0 (448.100.13)"
+    }
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    reorder nameChildren = ["Cube", "EdgeDetectionRoberts"]
+    def Cube "Cube" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube/DefaultMaterial>
+        double size = 0.2
+
+        def Material "DefaultMaterial"
+        {
+            token cullMode = "unspecified" (
+                allowedTokens = ["unspecified", "none", "front", "back"]
+            )
+            token outputs:mtlx:surface.connect = </Root/Cube/DefaultMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            token outputs:surface.connect = </Root/Cube/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 110.5)
+
+            def Shader "DefaultSurfaceShader" (
+                active = false
+            )
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (1, 1, 1)
+                float inputs:roughness = 0.75
+                token outputs:surface
+            }
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                float inputs:clearcoat
+                float inputs:clearcoatRoughness
+                color3f inputs:diffuseColor.connect = </Root/Cube/DefaultMaterial/Convert.outputs:out>
+                color3f inputs:emissiveColor = (0, 0, 0) (
+                    colorSpace = "srgb_texture"
+                )
+                color3f inputs:emissiveColor.connect = None
+                float inputs:ior
+                float inputs:metallic
+                float3 inputs:normal
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (-255, 105)
+                int ui:nodegraph:node:stackingOrder = 39
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced"]
+            }
+
+            def "EdgeDetectionRoberts_1" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionRoberts>
+            )
+            {
+                float inputs:BackgroundFade (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (158.82861, 394.21304)
+                            int stackingOrderInSubgraph = 989
+                        }
+                    }
+                )
+                float inputs:EdgeWidth (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (-738.21747, -198.08813)
+                            int stackingOrderInSubgraph = 482
+                        }
+                    }
+                )
+                asset inputs:Image = @../Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-801.41266, 50.705315)
+                int ui:nodegraph:node:stackingOrder = 49
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in = (1, 0, 0)
+                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/EdgeDetectionRoberts_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-515.2008, 65.53299)
+                int ui:nodegraph:node:stackingOrder = 43
+            }
+        }
+    }
+
+    def NodeGraph "EdgeDetectionRoberts" (
+        active = true
+    )
+    {
+        float3 inputs:BackgroundColor = (1, 1, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (116.48253, 101.248505)
+                    int stackingOrderInSubgraph = 1046
+                }
+            }
+        )
+        float inputs:BackgroundFade = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (158.82861, 394.21304)
+                    int stackingOrderInSubgraph = 989
+                }
+            }
+        )
+        float3 inputs:EdgeColor = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (628.4298, 62.176147)
+                    int stackingOrderInSubgraph = 1064
+                }
+            }
+        )
+        float inputs:EdgeWidth = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-786.1139, -351.54102)
+                    int stackingOrderInSubgraph = 1058
+                }
+            }
+        )
+        asset inputs:Image (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-730.2441, -28.597319)
+                    int stackingOrderInSubgraph = 764
+                }
+            }
+        )
+        float3 outputs:Output = (1, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (683.65204, 267.81705)
+                    int stackingOrderInSubgraph = 1071
+                }
+            }
+        )
+        float3 outputs:Output.connect = </Root/EdgeDetectionRoberts/Mix.outputs:out>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1390.2241, 137.09186)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1072
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionRoberts/Mix_1.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionRoberts.inputs:EdgeColor>
+            float inputs:mix.connect = </Root/EdgeDetectionRoberts/Magnitude.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (1124.3491, 123.82623)
+            int ui:nodegraph:node:stackingOrder = 1042
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            prepend asset inputs:file.connect = </Root/EdgeDetectionRoberts.inputs:Image>
+            string inputs:filtertype
+            string inputs:uaddressmode
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (138.21924, 242.78728)
+            int ui:nodegraph:node:stackingOrder = 989
+        }
+
+        def Shader "Mix_1"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionRoberts/Image.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionRoberts.inputs:BackgroundColor>
+            float inputs:mix.connect = </Root/EdgeDetectionRoberts.inputs:BackgroundFade>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (441.8833, 226.72478)
+            int ui:nodegraph:node:stackingOrder = 989
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector2"
+            prepend float inputs:in.connect = </Root/EdgeDetectionRoberts.inputs:EdgeWidth>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-617.5332, -348.93982)
+            int ui:nodegraph:node:stackingOrder = 1056
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector2"
+            float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/Convert.outputs:out>
+            float2 inputs:in2 = (256, 256)
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-477.15057, -299.9121)
+            int ui:nodegraph:node:stackingOrder = 1062
+        }
+
+        def Shader "Combine2"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/EdgeDetectionRoberts/AroundPixel.outputs:Output>
+            float inputs:in2.connect = </Root/EdgeDetectionRoberts/AroundPixel_3.outputs:Output>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (257.6084, -366.395)
+            int ui:nodegraph:node:stackingOrder = 807
+        }
+
+        def Shader "Combine2_1"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/EdgeDetectionRoberts/AroundPixel_2.outputs:Output>
+            float inputs:in2.connect = </Root/EdgeDetectionRoberts/AroundPixel_1.outputs:Output>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (257.6554, -269.86893)
+            int ui:nodegraph:node:stackingOrder = 1223
+        }
+
+        def Shader "DotProduct"
+        {
+            uniform token info:id = "ND_dotproduct_vector2"
+            float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/Combine2.outputs:out>
+            float2 inputs:in2 = (-1, 1)
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (471.47345, -359.94516)
+            int ui:nodegraph:node:stackingOrder = 811
+        }
+
+        def Shader "DotProduct_1"
+        {
+            uniform token info:id = "ND_dotproduct_vector2"
+            float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/Combine2_1.outputs:out>
+            float2 inputs:in2 = (-1, 1)
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (464.07532, -263.16293)
+            int ui:nodegraph:node:stackingOrder = 1223
+        }
+
+        def Shader "Combine2_2"
+        {
+            uniform token info:id = "ND_combine2_vector2"
+            float inputs:in1.connect = </Root/EdgeDetectionRoberts/DotProduct.outputs:out>
+            float inputs:in2.connect = </Root/EdgeDetectionRoberts/DotProduct_1.outputs:out>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (660.9586, -288.1645)
+            int ui:nodegraph:node:stackingOrder = 813
+        }
+
+        def Shader "Magnitude"
+        {
+            uniform token info:id = "ND_magnitude_vector2"
+            float2 inputs:in.connect = </Root/EdgeDetectionRoberts/Combine2_2.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (875.5577, -288.3118)
+            int ui:nodegraph:node:stackingOrder = 814
+        }
+
+        def NodeGraph "AroundPixel"
+        {
+            float2 inputs:Direction = (-1, 1) (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (87.78516, 105.48828)
+                        int stackingOrderInSubgraph = 444
+                    }
+                }
+            )
+            asset inputs:Image_1_file (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (543, 176)
+                    }
+                }
+            )
+            prepend asset inputs:Image_1_file.connect = </Root/EdgeDetectionRoberts.inputs:Image>
+            float2 inputs:Step (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (71.75, 34.5)
+                        int stackingOrderInSubgraph = 445
+                    }
+                }
+            )
+            prepend float2 inputs:Step.connect = </Root/EdgeDetectionRoberts/Divide.outputs:out>
+            float outputs:Output (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (400.75, 181.25)
+                        int stackingOrderInSubgraph = 446
+                    }
+                }
+            )
+            float outputs:Output.connect = </Root/EdgeDetectionRoberts/AroundPixel/Magnitude.outputs:out>
+            float2 ui:nodegraph:node:pos = (63.26652, -530.10547)
+            int ui:nodegraph:node:stackingOrder = 1226
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1238.5273, 134.38281)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 445
+
+            def Shader "Add"
+            {
+                uniform token info:id = "ND_add_vector2"
+                float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/AroundPixel/TextureCoordinates.outputs:out>
+                float2 inputs:in2.connect = </Root/EdgeDetectionRoberts/AroundPixel/Multiply.outputs:out>
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (543, 70.5)
+                int ui:nodegraph:node:stackingOrder = 443
+            }
+
+            def Shader "TextureCoordinates"
+            {
+                uniform token info:id = "ND_texcoord_vector2"
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (330.4414, -12.417969)
+                int ui:nodegraph:node:stackingOrder = 445
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_vector2"
+                float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/AroundPixel.inputs:Step>
+                float2 inputs:in2 = (-1, 1)
+                float2 inputs:in2.connect = </Root/EdgeDetectionRoberts/AroundPixel.inputs:Direction>
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (307, 52.5)
+                int ui:nodegraph:node:stackingOrder = 443
+            }
+
+            def Shader "Image_1"
+            {
+                uniform token info:id = "ND_image_vector3"
+                float3 inputs:default
+                asset inputs:file.connect = </Root/EdgeDetectionRoberts/AroundPixel.inputs:Image_1_file>
+                string inputs:filtertype
+                float2 inputs:texcoord.connect = </Root/EdgeDetectionRoberts/AroundPixel/Add.outputs:out>
+                string inputs:uaddressmode
+                string inputs:vaddressmode
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (783.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 443
+            }
+
+            def Shader "Magnitude"
+            {
+                uniform token info:id = "ND_magnitude_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionRoberts/AroundPixel/Image_1.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1028.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 443
+            }
+        }
+
+        def "AroundPixel_1" (
+            active = true
+            instanceable = true
+            prepend references = </Root/EdgeDetectionRoberts/AroundPixel>
+        )
+        {
+            float2 inputs:Direction = (-1, -1)
+            float2 ui:nodegraph:node:pos = (-104.31212, -395.2036)
+            int ui:nodegraph:node:stackingOrder = 1152
+        }
+
+        def "AroundPixel_2" (
+            active = true
+            instanceable = true
+            delete references = </Root/EdgeDetectionRoberts/AroundPixel>
+            prepend references = </Root/EdgeDetectionRoberts/AroundPixel>
+        )
+        {
+            float2 inputs:Direction = (1, 1)
+            asset inputs:Image_1_file.connect = </Root/EdgeDetectionRoberts.inputs:Image>
+            float2 inputs:Step.connect = </Root/EdgeDetectionRoberts/Divide.outputs:out>
+            float2 ui:nodegraph:node:pos = (-103.49742, -233.1927)
+            int ui:nodegraph:node:stackingOrder = 1154
+        }
+
+        def "AroundPixel_3" (
+            active = true
+            instanceable = true
+            delete references = </Root/EdgeDetectionRoberts/AroundPixel>
+            prepend references = </Root/EdgeDetectionRoberts/AroundPixel>
+        )
+        {
+            float2 inputs:Direction = (1, 1)
+            asset inputs:Image_1_file.connect = </Root/EdgeDetectionRoberts.inputs:Image>
+            float2 inputs:Step.connect = </Root/EdgeDetectionRoberts/Divide.outputs:out>
+            float2 ui:nodegraph:node:pos = (58.894753, -107.88365)
+            int ui:nodegraph:node:stackingOrder = 1159
+        }
+    }
+}
+
