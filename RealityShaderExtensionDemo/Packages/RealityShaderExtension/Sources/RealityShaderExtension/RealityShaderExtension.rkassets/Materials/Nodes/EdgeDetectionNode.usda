@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cube", "EdgeDetectionRoberts", "EdgeDetectionRobertsNeon", "EdgeDetectionRobertsNeonV2"]
+    reorder nameChildren = ["Cube", "EdgeDetectionRoberts", "EdgeDetectionRobertsNeon", "EdgeDetectionRobertsNeonV2", "EdgeDetectionSobel", "EdgeDetectionSobelNeon", "EdgeDetectionSobelNeonV2", "EdgeDetectionScharr", "EdgeDetectionScharrNeon", "EdgeDetectionScharrNeonV2"]
     def Cube "Cube" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -92,10 +92,10 @@ def Xform "Root"
             {
                 uniform token info:id = "ND_convert_vector3_color3"
                 float3 inputs:in = (1, 0, 0)
-                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/EdgeDetectionRobertsNeonV2_1.outputs:Output>
+                float3 inputs:in.connect = </Root/Cube/DefaultMaterial/EdgeDetectionScharrNeonV2_1.outputs:Output>
                 color3f outputs:out
-                float2 ui:nodegraph:node:pos = (-515.2008, 65.53299)
-                int ui:nodegraph:node:stackingOrder = 43
+                float2 ui:nodegraph:node:pos = (-511.76462, 238.59203)
+                int ui:nodegraph:node:stackingOrder = 162
             }
 
             def "EdgeDetectionRobertsNeon_1" (
@@ -113,9 +113,10 @@ def Xform "Root"
             def "EdgeDetectionRobertsNeonV2_1" (
                 active = true
                 instanceable = true
-                prepend references = </Root/EdgeDetectionRobertsNeonV2>
+                references = </Root/EdgeDetectionRobertsNeonV2>
             )
             {
+                float inputs:BackgroundFade = 1
                 float inputs:EdgeNeonFade = 1 (
                     customData = {
                         dictionary realitykit = {
@@ -124,8 +125,88 @@ def Xform "Root"
                     }
                 )
                 asset inputs:Image = @../Texture/number.jpeg@
-                float2 ui:nodegraph:node:pos = (-877.03546, 106.47984)
-                int ui:nodegraph:node:stackingOrder = 78
+                float2 ui:nodegraph:node:pos = (-816.5587, -178.02264)
+                int ui:nodegraph:node:stackingOrder = 160
+            }
+
+            def "EdgeDetectionSobel_1" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobel>
+            )
+            {
+                float3 inputs:BackgroundColor = (1, 1, 1)
+                float inputs:BackgroundFade = 1
+                float inputs:EdgeWidth = 1
+                asset inputs:Image = @../Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-1421.889, 66.6448)
+                int ui:nodegraph:node:stackingOrder = 120
+            }
+
+            def "EdgeDetectionSobelNeon_1" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeon>
+            )
+            {
+                float inputs:BackgroundFade = 1
+                float inputs:Brightness = 1
+                asset inputs:Image = @../Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-1089.4633, 79.81354)
+                int ui:nodegraph:node:stackingOrder = 136
+            }
+
+            def "EdgeDetectionSobelNeonV2_1" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeonV2>
+            )
+            {
+                float inputs:BackgroundFade = 1
+                asset inputs:Image = @../Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-802.2315, 87.504036)
+                int ui:nodegraph:node:stackingOrder = 147
+            }
+
+            def "EdgeDetectionScharr_1" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharr>
+            )
+            {
+                asset inputs:Image = @../Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-1411.2664, 370.71713)
+                int ui:nodegraph:node:stackingOrder = 168
+            }
+
+            def "EdgeDetectionScharrNeon_1" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeon>
+            )
+            {
+                float inputs:BackgroundFade (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (156.49106, 199.36636)
+                            int stackingOrderInSubgraph = 1324
+                        }
+                    }
+                )
+                asset inputs:Image = @../Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-1097.9261, 367.26132)
+                int ui:nodegraph:node:stackingOrder = 181
+            }
+
+            def "EdgeDetectionScharrNeonV2_1" (
+                active = true
+                instanceable = true
+                prepend references = </Root/EdgeDetectionScharrNeonV2>
+            )
+            {
+                asset inputs:Image = @../Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-792.2371, 361.69144)
+                int ui:nodegraph:node:stackingOrder = 186
             }
         }
     }
@@ -270,8 +351,9 @@ def Xform "Root"
             prepend float2 inputs:Step.connect = </Root/EdgeDetectionRoberts/Divide.outputs:out>
             prepend float outputs:Magnitude_out.connect = </Root/EdgeDetectionRoberts/sobel/Magnitude.outputs:out>
             float2 ui:nodegraph:node:pos = (-106.9069, 251.9135)
-            int ui:nodegraph:node:stackingOrder = 1313
-            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1731.5, 255.5)
+            int ui:nodegraph:node:stackingOrder = 1363
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (2189.2488, 252.16983)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1680
 
             def Shader "DotProduct"
             {
@@ -279,44 +361,18 @@ def Xform "Root"
                 float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/Combine2.outputs:out>
                 float2 inputs:in2 = (-1, 1)
                 float outputs:out
-                float2 ui:nodegraph:node:pos = (1072.5, 103.5)
-                int ui:nodegraph:node:stackingOrder = 1505
-            }
-
-            def "AroundPixel_2" (
-                active = true
-                instanceable = true
-                references = </Root/EdgeDetectionRoberts/sobel/AroundPixel>
-            )
-            {
-                float2 inputs:Direction = (1, 1)
-                asset inputs:Image_file.connect = </Root/EdgeDetectionRoberts/sobel.inputs:ImageFile>
-                float2 inputs:Step.connect = </Root/EdgeDetectionRoberts/sobel.inputs:Step>
-                float2 ui:nodegraph:node:pos = (626.5, 487.5)
-                int ui:nodegraph:node:stackingOrder = 1505
+                float2 ui:nodegraph:node:pos = (1313.8743, 183.94238)
+                int ui:nodegraph:node:stackingOrder = 1688
             }
 
             def Shader "Combine2_1"
             {
                 uniform token info:id = "ND_combine2_vector2"
-                float inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel_2.outputs:Output>
-                float inputs:in2.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel_1.outputs:Output>
+                float inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/TopRight.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionRoberts/sobel/BottomLeft.outputs:Output>
                 float2 outputs:out
-                float2 ui:nodegraph:node:pos = (845.5, 517.5)
-                int ui:nodegraph:node:stackingOrder = 1505
-            }
-
-            def "AroundPixel_1" (
-                active = true
-                instanceable = true
-                references = </Root/EdgeDetectionRoberts/sobel/AroundPixel>
-            )
-            {
-                float2 inputs:Direction = (-1, -1)
-                asset inputs:Image_file.connect = </Root/EdgeDetectionRoberts/sobel.inputs:ImageFile>
-                float2 inputs:Step.connect = </Root/EdgeDetectionRoberts/sobel.inputs:Step>
-                float2 ui:nodegraph:node:pos = (626.5, 694.5)
-                int ui:nodegraph:node:stackingOrder = 1505
+                float2 ui:nodegraph:node:pos = (1086.348, 360.38522)
+                int ui:nodegraph:node:stackingOrder = 1690
             }
 
             def Shader "Combine2_2"
@@ -325,11 +381,51 @@ def Xform "Root"
                 float inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/DotProduct.outputs:out>
                 float inputs:in2.connect = </Root/EdgeDetectionRoberts/sobel/DotProduct_1.outputs:out>
                 float2 outputs:out
-                float2 ui:nodegraph:node:pos = (1301, 255.5)
-                int ui:nodegraph:node:stackingOrder = 1505
+                float2 ui:nodegraph:node:pos = (1758.7488, 252.16983)
+                int ui:nodegraph:node:stackingOrder = 1680
             }
 
-            def NodeGraph "AroundPixel"
+            def Shader "Combine2"
+            {
+                uniform token info:id = "ND_combine2_vector2"
+                float inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/TopLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionRoberts/sobel/BottomRight.outputs:Output>
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (1083.5363, 180.24307)
+                int ui:nodegraph:node:stackingOrder = 1686
+            }
+
+            def Shader "Magnitude"
+            {
+                uniform token info:id = "ND_magnitude_vector2"
+                float2 inputs:in.connect = </Root/EdgeDetectionRoberts/sobel/Combine2_2.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1975.7488, 252.16983)
+                int ui:nodegraph:node:stackingOrder = 1680
+            }
+
+            def Shader "DotProduct_1"
+            {
+                uniform token info:id = "ND_dotproduct_vector2"
+                float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/Combine2_1.outputs:out>
+                float2 inputs:in2 = (-1, 1)
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1321.0059, 358.2646)
+                int ui:nodegraph:node:stackingOrder = 1692
+            }
+
+            def Scope "Group" (
+                kind = "group"
+            )
+            {
+                string ui:group:annotation = "Roberts"
+                string ui:group:annotationDescription = """// Roberts Operator
+//X = -1   0      Y = 0  -1
+//        0   1             1   0"""
+                string[] ui:group:members = ["p:BottomRight", "p:Combine2_1", "p:TopLeft", "p:TopRight", "p:BottomLeft", "p:DotProduct", "p:DotProduct_1", "p:Combine2"]
+            }
+
+            def NodeGraph "TopLeft"
             {
                 float2 inputs:Direction = (-1, 1) (
                     customData = {
@@ -365,9 +461,9 @@ def Xform "Root"
                         }
                     }
                 )
-                float outputs:Output.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel/Magnitude.outputs:out>
-                float2 ui:nodegraph:node:pos = (624.58673, -9.414958)
-                int ui:nodegraph:node:stackingOrder = 1508
+                float outputs:Output.connect = </Root/EdgeDetectionRoberts/sobel/TopLeft/Magnitude.outputs:out>
+                float2 ui:nodegraph:node:pos = (576.1579, 142.52393)
+                int ui:nodegraph:node:stackingOrder = 1577
                 string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
                 float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1238.5273, 134.38281)
                 int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 445
@@ -375,8 +471,8 @@ def Xform "Root"
                 def Shader "Add"
                 {
                     uniform token info:id = "ND_add_vector2"
-                    float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel/TextureCoordinates.outputs:out>
-                    float2 inputs:in2.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel/Multiply.outputs:out>
+                    float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/TopLeft/TextureCoordinates.outputs:out>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionRoberts/sobel/TopLeft/Multiply.outputs:out>
                     float2 outputs:out
                     float2 ui:nodegraph:node:pos = (543, 70.5)
                     int ui:nodegraph:node:stackingOrder = 443
@@ -393,9 +489,9 @@ def Xform "Root"
                 def Shader "Multiply"
                 {
                     uniform token info:id = "ND_multiply_vector2"
-                    float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel.inputs:Step>
+                    float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/TopLeft.inputs:Step>
                     float2 inputs:in2 = (-1, 1)
-                    float2 inputs:in2.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel.inputs:Direction>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionRoberts/sobel/TopLeft.inputs:Direction>
                     float2 outputs:out
                     float2 ui:nodegraph:node:pos = (307, 52.5)
                     int ui:nodegraph:node:stackingOrder = 443
@@ -405,9 +501,9 @@ def Xform "Root"
                 {
                     uniform token info:id = "ND_image_vector3"
                     float3 inputs:default
-                    asset inputs:file.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel.inputs:Image_file>
+                    asset inputs:file.connect = </Root/EdgeDetectionRoberts/sobel/TopLeft.inputs:Image_file>
                     string inputs:filtertype
-                    float2 inputs:texcoord.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel/Add.outputs:out>
+                    float2 inputs:texcoord.connect = </Root/EdgeDetectionRoberts/sobel/TopLeft/Add.outputs:out>
                     string inputs:uaddressmode
                     string inputs:vaddressmode
                     float3 outputs:out
@@ -418,53 +514,50 @@ def Xform "Root"
                 def Shader "Magnitude"
                 {
                     uniform token info:id = "ND_magnitude_vector3"
-                    float3 inputs:in.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel/Image_1.outputs:out>
+                    float3 inputs:in.connect = </Root/EdgeDetectionRoberts/sobel/TopLeft/Image_1.outputs:out>
                     float outputs:out
                     float2 ui:nodegraph:node:pos = (1028.5, 100.5)
                     int ui:nodegraph:node:stackingOrder = 443
                 }
             }
 
-            def Shader "Combine2"
-            {
-                uniform token info:id = "ND_combine2_vector2"
-                float inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel.outputs:Output>
-                float inputs:in2.connect = </Root/EdgeDetectionRoberts/sobel/AroundPixel_3.outputs:Output>
-                float2 outputs:out
-                float2 ui:nodegraph:node:pos = (845.5, 103.5)
-                int ui:nodegraph:node:stackingOrder = 1505
-            }
-
-            def "AroundPixel_3" (
+            def "TopRight" (
                 active = true
                 instanceable = true
-                references = </Root/EdgeDetectionRoberts/sobel/AroundPixel>
+                references = </Root/EdgeDetectionRoberts/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionRoberts/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionRoberts/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (832.9939, 143.52138)
+                int ui:nodegraph:node:stackingOrder = 1603
+            }
+
+            def "BottomRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionRoberts/sobel/TopLeft>
             )
             {
                 float2 inputs:Direction = (1, -1)
                 asset inputs:Image_file.connect = </Root/EdgeDetectionRoberts/sobel.inputs:ImageFile>
                 float2 inputs:Step.connect = </Root/EdgeDetectionRoberts/sobel.inputs:Step>
-                float2 ui:nodegraph:node:pos = (625.72296, 197.07855)
-                int ui:nodegraph:node:stackingOrder = 1512
+                float2 ui:nodegraph:node:pos = (837.11786, 390.45602)
+                int ui:nodegraph:node:stackingOrder = 1601
             }
 
-            def Shader "Magnitude"
+            def "BottomLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionRoberts/sobel/TopLeft>
+            )
             {
-                uniform token info:id = "ND_magnitude_vector2"
-                float2 inputs:in.connect = </Root/EdgeDetectionRoberts/sobel/Combine2_2.outputs:out>
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (1518, 255.5)
-                int ui:nodegraph:node:stackingOrder = 1505
-            }
-
-            def Shader "DotProduct_1"
-            {
-                uniform token info:id = "ND_dotproduct_vector2"
-                float2 inputs:in1.connect = </Root/EdgeDetectionRoberts/sobel/Combine2_1.outputs:out>
-                float2 inputs:in2 = (-1, 1)
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (1072.5, 517.5)
-                int ui:nodegraph:node:stackingOrder = 1505
+                float2 inputs:Direction = (-1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionRoberts/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionRoberts/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (578.40186, 386.38208)
+                int ui:nodegraph:node:stackingOrder = 1605
             }
         }
     }
@@ -481,7 +574,7 @@ def Xform "Root"
                 }
             }
         )
-        float inputs:BackgroundFade = 0 (
+        float inputs:BackgroundFade = 1 (
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (156.49106, 199.36636)
@@ -623,8 +716,9 @@ def Xform "Root"
             float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeon/Divide.outputs:out>
             float outputs:Magnitude_out.connect = </Root/EdgeDetectionRobertsNeon/sobel/Magnitude.outputs:out>
             float2 ui:nodegraph:node:pos = (-83.12462, 306.18546)
-            int ui:nodegraph:node:stackingOrder = 1319
-            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1731.5, 255.5)
+            int ui:nodegraph:node:stackingOrder = 1332
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1950.032, 321.16757)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1760
 
             def Shader "DotProduct"
             {
@@ -632,44 +726,18 @@ def Xform "Root"
                 float2 inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/Combine2.outputs:out>
                 float2 inputs:in2 = (-1, 1)
                 float outputs:out
-                float2 ui:nodegraph:node:pos = (1072.5, 103.5)
-                int ui:nodegraph:node:stackingOrder = 1505
-            }
-
-            def "AroundPixel_2" (
-                active = true
-                instanceable = true
-                references = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel>
-            )
-            {
-                float2 inputs:Direction = (1, 1)
-                asset inputs:Image_file.connect = </Root/EdgeDetectionRobertsNeon/sobel.inputs:ImageFile>
-                float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeon/sobel.inputs:Step>
-                float2 ui:nodegraph:node:pos = (626.5, 487.5)
-                int ui:nodegraph:node:stackingOrder = 1505
+                float2 ui:nodegraph:node:pos = (1243.2013, 261.57095)
+                int ui:nodegraph:node:stackingOrder = 1721
             }
 
             def Shader "Combine2_1"
             {
                 uniform token info:id = "ND_combine2_vector2"
-                float inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel_2.outputs:Output>
-                float inputs:in2.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel_1.outputs:Output>
+                float inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/TopRight.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionRobertsNeon/sobel/BottomLeft.outputs:Output>
                 float2 outputs:out
-                float2 ui:nodegraph:node:pos = (845.5, 517.5)
-                int ui:nodegraph:node:stackingOrder = 1505
-            }
-
-            def "AroundPixel_1" (
-                active = true
-                instanceable = true
-                references = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel>
-            )
-            {
-                float2 inputs:Direction = (-1, -1)
-                asset inputs:Image_file.connect = </Root/EdgeDetectionRobertsNeon/sobel.inputs:ImageFile>
-                float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeon/sobel.inputs:Step>
-                float2 ui:nodegraph:node:pos = (626.5, 694.5)
-                int ui:nodegraph:node:stackingOrder = 1505
+                float2 ui:nodegraph:node:pos = (1057.3489, 408.56754)
+                int ui:nodegraph:node:stackingOrder = 1624
             }
 
             def Shader "Combine2_2"
@@ -678,11 +746,51 @@ def Xform "Root"
                 float inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/DotProduct.outputs:out>
                 float inputs:in2.connect = </Root/EdgeDetectionRobertsNeon/sobel/DotProduct_1.outputs:out>
                 float2 outputs:out
-                float2 ui:nodegraph:node:pos = (1301, 255.5)
-                int ui:nodegraph:node:stackingOrder = 1505
+                float2 ui:nodegraph:node:pos = (1519.532, 321.16757)
+                int ui:nodegraph:node:stackingOrder = 1760
             }
 
-            def NodeGraph "AroundPixel"
+            def Shader "Combine2"
+            {
+                uniform token info:id = "ND_combine2_vector2"
+                float inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionRobertsNeon/sobel/BottomRight.outputs:Output>
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (1050.3448, 260.14893)
+                int ui:nodegraph:node:stackingOrder = 1616
+            }
+
+            def Shader "Magnitude"
+            {
+                uniform token info:id = "ND_magnitude_vector2"
+                float2 inputs:in.connect = </Root/EdgeDetectionRobertsNeon/sobel/Combine2_2.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1736.532, 321.16757)
+                int ui:nodegraph:node:stackingOrder = 1760
+            }
+
+            def Shader "DotProduct_1"
+            {
+                uniform token info:id = "ND_dotproduct_vector2"
+                float2 inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/Combine2_1.outputs:out>
+                float2 inputs:in2 = (-1, 1)
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1240.3805, 410.72656)
+                int ui:nodegraph:node:stackingOrder = 1719
+            }
+
+            def Scope "Group" (
+                kind = "group"
+            )
+            {
+                string ui:group:annotation = "Roberts"
+                string ui:group:annotationDescription = """// Roberts Operator
+//X = -1   0      Y = 0  -1
+//        0   1             1   0"""
+                string[] ui:group:members = ["p:DotProduct", "p:Combine2", "p:DotProduct_1", "p:TopRight", "p:Combine2_1", "p:TopLeft", "p:BottomRight", "p:BottomLeft"]
+            }
+
+            def NodeGraph "TopLeft"
             {
                 float2 inputs:Direction = (-1, 1) (
                     customData = {
@@ -718,9 +826,9 @@ def Xform "Root"
                         }
                     }
                 )
-                float outputs:Output.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel/Magnitude.outputs:out>
-                float2 ui:nodegraph:node:pos = (628.3061, 15.379031)
-                int ui:nodegraph:node:stackingOrder = 1509
+                float outputs:Output.connect = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft/Magnitude.outputs:out>
+                float2 ui:nodegraph:node:pos = (613.01117, 187.97774)
+                int ui:nodegraph:node:stackingOrder = 1598
                 string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
                 float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1238.5273, 134.38281)
                 int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 445
@@ -728,8 +836,8 @@ def Xform "Root"
                 def Shader "Add"
                 {
                     uniform token info:id = "ND_add_vector2"
-                    float2 inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel/TextureCoordinates.outputs:out>
-                    float2 inputs:in2.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel/Multiply.outputs:out>
+                    float2 inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft/TextureCoordinates.outputs:out>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft/Multiply.outputs:out>
                     float2 outputs:out
                     float2 ui:nodegraph:node:pos = (543, 70.5)
                     int ui:nodegraph:node:stackingOrder = 443
@@ -746,9 +854,9 @@ def Xform "Root"
                 def Shader "Multiply"
                 {
                     uniform token info:id = "ND_multiply_vector2"
-                    float2 inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel.inputs:Step>
+                    float2 inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft.inputs:Step>
                     float2 inputs:in2 = (-1, 1)
-                    float2 inputs:in2.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel.inputs:Direction>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft.inputs:Direction>
                     float2 outputs:out
                     float2 ui:nodegraph:node:pos = (307, 52.5)
                     int ui:nodegraph:node:stackingOrder = 443
@@ -758,9 +866,9 @@ def Xform "Root"
                 {
                     uniform token info:id = "ND_image_vector3"
                     float3 inputs:default
-                    asset inputs:file.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel.inputs:Image_file>
+                    asset inputs:file.connect = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft.inputs:Image_file>
                     string inputs:filtertype
-                    float2 inputs:texcoord.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel/Add.outputs:out>
+                    float2 inputs:texcoord.connect = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft/Add.outputs:out>
                     string inputs:uaddressmode
                     string inputs:vaddressmode
                     float3 outputs:out
@@ -771,53 +879,50 @@ def Xform "Root"
                 def Shader "Magnitude"
                 {
                     uniform token info:id = "ND_magnitude_vector3"
-                    float3 inputs:in.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel/Image_1.outputs:out>
+                    float3 inputs:in.connect = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft/Image_1.outputs:out>
                     float outputs:out
                     float2 ui:nodegraph:node:pos = (1028.5, 100.5)
                     int ui:nodegraph:node:stackingOrder = 443
                 }
             }
 
-            def Shader "Combine2"
-            {
-                uniform token info:id = "ND_combine2_vector2"
-                float inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel.outputs:Output>
-                float inputs:in2.connect = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel_3.outputs:Output>
-                float2 outputs:out
-                float2 ui:nodegraph:node:pos = (845.5, 103.5)
-                int ui:nodegraph:node:stackingOrder = 1505
-            }
-
-            def "AroundPixel_3" (
+            def "TopRight" (
                 active = true
                 instanceable = true
-                references = </Root/EdgeDetectionRobertsNeon/sobel/AroundPixel>
+                references = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionRobertsNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (850.52167, 187.84325)
+                int ui:nodegraph:node:stackingOrder = 1622
+            }
+
+            def "BottomRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft>
             )
             {
                 float2 inputs:Direction = (1, -1)
                 asset inputs:Image_file.connect = </Root/EdgeDetectionRobertsNeon/sobel.inputs:ImageFile>
                 float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeon/sobel.inputs:Step>
-                float2 ui:nodegraph:node:pos = (626.5, 221.79636)
-                int ui:nodegraph:node:stackingOrder = 1513
+                float2 ui:nodegraph:node:pos = (851.1521, 394.72336)
+                int ui:nodegraph:node:stackingOrder = 1608
             }
 
-            def Shader "Magnitude"
+            def "BottomLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionRobertsNeon/sobel/TopLeft>
+            )
             {
-                uniform token info:id = "ND_magnitude_vector2"
-                float2 inputs:in.connect = </Root/EdgeDetectionRobertsNeon/sobel/Combine2_2.outputs:out>
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (1518, 255.5)
-                int ui:nodegraph:node:stackingOrder = 1505
-            }
-
-            def Shader "DotProduct_1"
-            {
-                uniform token info:id = "ND_dotproduct_vector2"
-                float2 inputs:in1.connect = </Root/EdgeDetectionRobertsNeon/sobel/Combine2_1.outputs:out>
-                float2 inputs:in2 = (-1, 1)
-                float outputs:out
-                float2 ui:nodegraph:node:pos = (1072.5, 517.5)
-                int ui:nodegraph:node:stackingOrder = 1505
+                float2 inputs:Direction = (-1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionRobertsNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (617.4395, 398.20758)
+                int ui:nodegraph:node:stackingOrder = 1620
             }
         }
     }
@@ -834,11 +939,11 @@ def Xform "Root"
                 }
             }
         )
-        float inputs:BackgroundFade = 0 (
+        float inputs:BackgroundFade = 1 (
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (156.49106, 199.36636)
-                    int stackingOrderInSubgraph = 1324
+                    int stackingOrderInSubgraph = 1335
                 }
             }
         )
@@ -991,37 +1096,128 @@ def Xform "Root"
             )
             float3 outputs:Output.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Add_2.outputs:out>
             float2 ui:nodegraph:node:pos = (-83.12462, 306.18546)
-            int ui:nodegraph:node:stackingOrder = 1333
-            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1731.5, 255.5)
-            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1507
+            int ui:nodegraph:node:stackingOrder = 1334
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1594.1177, 300.11234)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1736
 
-            def "AroundPixel_2" (
-                active = true
-                instanceable = true
-                references = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel>
-            )
+            def Shader "Multiply"
             {
-                float2 inputs:Direction = (1, 1)
-                asset inputs:Image_file.connect = </Root/EdgeDetectionRobertsNeonV2/sobel.inputs:ImageFile>
-                float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeonV2/sobel.inputs:Step>
-                float2 ui:nodegraph:node:pos = (626.5, 487.5)
-                int ui:nodegraph:node:stackingOrder = 1546
+                uniform token info:id = "ND_multiply_vector3FA"
+                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/BottomRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (958.63904, 216.1076)
+                int ui:nodegraph:node:stackingOrder = 1695
             }
 
-            def "AroundPixel_1" (
-                active = true
-                instanceable = true
-                references = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel>
-            )
+            def Shader "Multiply_1"
             {
-                float2 inputs:Direction = (-1, -1)
-                asset inputs:Image_file.connect = </Root/EdgeDetectionRobertsNeonV2/sobel.inputs:ImageFile>
-                float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeonV2/sobel.inputs:Step>
-                float2 ui:nodegraph:node:pos = (626.5, 694.5)
-                int ui:nodegraph:node:stackingOrder = 1548
+                uniform token info:id = "ND_multiply_vector3FA"
+                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/TopLeft.outputs:Output>
+                float inputs:in2 = -1
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (959.35736, 287.21823)
+                int ui:nodegraph:node:stackingOrder = 1697
             }
 
-            def NodeGraph "AroundPixel"
+            def Shader "Add"
+            {
+                uniform token info:id = "ND_add_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply_1.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1060.763, 256.07877)
+                int ui:nodegraph:node:stackingOrder = 1699
+            }
+
+            def Shader "Multiply_2"
+            {
+                uniform token info:id = "ND_multiply_vector3FA"
+                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/BottomLeft.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (950.3499, 372.7973)
+                int ui:nodegraph:node:stackingOrder = 1721
+            }
+
+            def Shader "Multiply_3"
+            {
+                uniform token info:id = "ND_multiply_vector3FA"
+                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/TopRight.outputs:Output>
+                float inputs:in2 = -1
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (948.9607, 451.82245)
+                int ui:nodegraph:node:stackingOrder = 1723
+            }
+
+            def Shader "Add_1"
+            {
+                uniform token info:id = "ND_add_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply_2.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply_3.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1051.5382, 411.48898)
+                int ui:nodegraph:node:stackingOrder = 1725
+            }
+
+            def Shader "SquareRoot"
+            {
+                uniform token info:id = "ND_sqrt_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply_4.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1242.9657, 255.80106)
+                int ui:nodegraph:node:stackingOrder = 1703
+            }
+
+            def Shader "Multiply_4"
+            {
+                uniform token info:id = "ND_multiply_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Add.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Add.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1154.0626, 257.68695)
+                int ui:nodegraph:node:stackingOrder = 1701
+            }
+
+            def Shader "Multiply_5"
+            {
+                uniform token info:id = "ND_multiply_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Add_1.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Add_1.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1141.0087, 409.55066)
+                int ui:nodegraph:node:stackingOrder = 1727
+            }
+
+            def Shader "SquareRoot_1"
+            {
+                uniform token info:id = "ND_sqrt_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply_5.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1241.2751, 411.1196)
+                int ui:nodegraph:node:stackingOrder = 1729
+            }
+
+            def Shader "Add_2"
+            {
+                uniform token info:id = "ND_add_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/SquareRoot.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/SquareRoot_1.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1371.8755, 323.98837)
+                int ui:nodegraph:node:stackingOrder = 1732
+            }
+
+            def Scope "Group" (
+                kind = "group"
+            )
+            {
+                string ui:group:annotation = "Roberts"
+                string ui:group:annotationDescription = """// Roberts Operator
+//X = -1   0      Y = 0  -1
+//        0   1             1   0"""
+                string[] ui:group:members = ["p:BottomRight", "p:SquareRoot", "p:Multiply_3", "p:Multiply_4", "p:Multiply_1", "p:TopLeft", "p:Add_1", "p:BottomLeft", "p:TopRight", "p:Multiply", "p:Multiply_5", "p:Add", "p:SquareRoot_1", "p:Multiply_2"]
+            }
+
+            def NodeGraph "TopLeft"
             {
                 float2 inputs:Direction = (-1, 1) (
                     customData = {
@@ -1049,9 +1245,9 @@ def Xform "Root"
                     }
                 )
                 float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeonV2/sobel.inputs:Step>
-                float3 outputs:Output.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel/Image_1.outputs:out>
-                float2 ui:nodegraph:node:pos = (626.5, 280.5)
-                int ui:nodegraph:node:stackingOrder = 1526
+                float3 outputs:Output.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/TopLeft/Image_1.outputs:out>
+                float2 ui:nodegraph:node:pos = (534.99005, 207.09813)
+                int ui:nodegraph:node:stackingOrder = 1670
                 string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
                 float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1238.5273, 134.38281)
                 int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 447
@@ -1059,8 +1255,8 @@ def Xform "Root"
                 def Shader "Add"
                 {
                     uniform token info:id = "ND_add_vector2"
-                    float2 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel/TextureCoordinates.outputs:out>
-                    float2 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel/Multiply.outputs:out>
+                    float2 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/TopLeft/TextureCoordinates.outputs:out>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/TopLeft/Multiply.outputs:out>
                     float2 outputs:out
                     float2 ui:nodegraph:node:pos = (543, 70.5)
                     int ui:nodegraph:node:stackingOrder = 443
@@ -1077,9 +1273,9 @@ def Xform "Root"
                 def Shader "Multiply"
                 {
                     uniform token info:id = "ND_multiply_vector2"
-                    float2 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel.inputs:Step>
+                    float2 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/TopLeft.inputs:Step>
                     float2 inputs:in2 = (-1, 1)
-                    float2 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel.inputs:Direction>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/TopLeft.inputs:Direction>
                     float2 outputs:out
                     float2 ui:nodegraph:node:pos = (307, 52.5)
                     int ui:nodegraph:node:stackingOrder = 443
@@ -1089,9 +1285,9 @@ def Xform "Root"
                 {
                     uniform token info:id = "ND_image_vector3"
                     float3 inputs:default
-                    asset inputs:file.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel.inputs:Image_file>
+                    asset inputs:file.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/TopLeft.inputs:Image_file>
                     string inputs:filtertype
-                    float2 inputs:texcoord.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel/Add.outputs:out>
+                    float2 inputs:texcoord.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/TopLeft/Add.outputs:out>
                     string inputs:uaddressmode
                     string inputs:vaddressmode
                     float3 outputs:out
@@ -1100,10 +1296,10 @@ def Xform "Root"
                 }
             }
 
-            def "AroundPixel_3" (
+            def "BottomRight" (
                 active = true
                 instanceable = true
-                references = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel>
+                references = </Root/EdgeDetectionRobertsNeonV2/sobel/TopLeft>
             )
             {
                 float2 inputs:Direction = (1, -1) (
@@ -1116,115 +1312,3143 @@ def Xform "Root"
                 )
                 asset inputs:Image_file.connect = </Root/EdgeDetectionRobertsNeonV2/sobel.inputs:ImageFile>
                 float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeonV2/sobel.inputs:Step>
-                float2 ui:nodegraph:node:pos = (626.5, 73.5)
-                int ui:nodegraph:node:stackingOrder = 1530
+                float2 ui:nodegraph:node:pos = (727.5714, 420.102)
+                int ui:nodegraph:node:stackingOrder = 1672
             }
 
-            def Shader "Multiply"
+            def "TopRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionRobertsNeonV2/sobel/TopLeft>
+            )
             {
-                uniform token info:id = "ND_multiply_vector3FA"
-                prepend float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel_3.outputs:Output>
-                float3 outputs:out
-                float2 ui:nodegraph:node:pos = (824.799, 147.20412)
-                int ui:nodegraph:node:stackingOrder = 1534
+                float2 inputs:Direction = (1, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionRobertsNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (728.67346, 208.515)
+                int ui:nodegraph:node:stackingOrder = 1735
             }
 
-            def Shader "Multiply_1"
+            def "BottomLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionRobertsNeonV2/sobel/TopLeft>
+            )
             {
-                uniform token info:id = "ND_multiply_vector3FA"
-                prepend float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel.outputs:Output>
-                float inputs:in2 = -1
+                float2 inputs:Direction = (-1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionRobertsNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionRobertsNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (536.1108, 418.93558)
+                int ui:nodegraph:node:stackingOrder = 1738
+            }
+        }
+    }
+
+    def NodeGraph "EdgeDetectionSobel" (
+        active = true
+    )
+    {
+        float3 inputs:BackgroundColor = (1, 1, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (82.43362, -105.9129)
+                    int stackingOrderInSubgraph = 1310
+                }
+            }
+        )
+        float inputs:BackgroundFade = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (124.7797, 187.05164)
+                    int stackingOrderInSubgraph = 1393
+                }
+            }
+        )
+        float3 inputs:EdgeColor = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (807.51666, 61.511124)
+                    int stackingOrderInSubgraph = 1368
+                }
+            }
+        )
+        float inputs:EdgeWidth = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-716.8856, 217.47249)
+                    int stackingOrderInSubgraph = 1362
+                }
+            }
+        )
+        asset inputs:Image (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-594.9481, 40.499546)
+                    int stackingOrderInSubgraph = 1379
+                }
+            }
+        )
+        float2 inputs:ImageSize = (256, 256) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-651.0817, 319.64282)
+                    int stackingOrderInSubgraph = 1362
+                }
+            }
+        )
+        float3 outputs:Output = (1, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (683.65204, 267.81705)
+                    int stackingOrderInSubgraph = 1071
+                }
+            }
+        )
+        float3 outputs:Output.connect = </Root/EdgeDetectionSobel/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (345.61502, 110.86496)
+        int ui:nodegraph:node:stackingOrder = 1
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1390.2241, 137.09186)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1072
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionSobel/Mix_1.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionSobel.inputs:EdgeColor>
+            float inputs:mix = 1
+            float inputs:mix.connect = </Root/EdgeDetectionSobel/sobel.outputs:Magnitude_out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (1124.3491, 123.82623)
+            int ui:nodegraph:node:stackingOrder = 1382
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            asset inputs:file.connect = </Root/EdgeDetectionSobel.inputs:Image>
+            string inputs:filtertype
+            string inputs:uaddressmode
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (104.17033, 35.625874)
+            int ui:nodegraph:node:stackingOrder = 1384
+        }
+
+        def Shader "Mix_1"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionSobel/Image.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionSobel.inputs:BackgroundColor>
+            float inputs:mix = 0
+            float inputs:mix.connect = </Root/EdgeDetectionSobel.inputs:BackgroundFade>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (407.83438, 19.563374)
+            int ui:nodegraph:node:stackingOrder = 1389
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector2"
+            float inputs:in.connect = </Root/EdgeDetectionSobel.inputs:EdgeWidth>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-548.30493, 220.07368)
+            int ui:nodegraph:node:stackingOrder = 1362
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector2"
+            float2 inputs:in1.connect = </Root/EdgeDetectionSobel/Convert.outputs:out>
+            float2 inputs:in2 = (256, 256)
+            float2 inputs:in2.connect = </Root/EdgeDetectionSobel.inputs:ImageSize>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-407.92233, 269.1014)
+            int ui:nodegraph:node:stackingOrder = 1362
+        }
+
+        def NodeGraph "sobel"
+        {
+            asset inputs:ImageFile (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (-81.54895, 280.79117)
+                        int stackingOrderInSubgraph = 1982
+                    }
+                }
+            )
+            asset inputs:ImageFile.connect = </Root/EdgeDetectionSobel.inputs:Image>
+            float2 inputs:Step (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (-73.25247, 440.7437)
+                        int stackingOrderInSubgraph = 1984
+                    }
+                }
+            )
+            float2 inputs:Step.connect = </Root/EdgeDetectionSobel/Divide.outputs:out>
+            float outputs:Magnitude_out.connect = </Root/EdgeDetectionSobel/sobel/Magnitude.outputs:out>
+            float2 ui:nodegraph:node:pos = (-106.9069, 251.9135)
+            int ui:nodegraph:node:stackingOrder = 1386
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (2329.5386, 269.5657)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1947
+
+            def Shader "Combine2_2"
+            {
+                uniform token info:id = "ND_combine2_vector2"
+                float inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/Add.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/Add_1.outputs:out>
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (1936.4153, 280.2648)
+                int ui:nodegraph:node:stackingOrder = 2021
+            }
+
+            def Shader "Magnitude"
+            {
+                uniform token info:id = "ND_magnitude_vector2"
+                float2 inputs:in.connect = </Root/EdgeDetectionSobel/sobel/Combine2_2.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (2116.0386, 269.5657)
+                int ui:nodegraph:node:stackingOrder = 1947
+            }
+
+            def Scope "Group" (
+                kind = "group"
+            )
+            {
+                string ui:group:annotation = "Sobel"
+                string ui:group:annotationDescription = """// Sobel masks (see http://en.wikipedia.org/wiki/Sobel_operator)
+//           1 0 -1        -1 -2 -1
+//    X = 2 0 -2  Y = 0  0  0
+//           1 0 -1          1  2  1"""
+                string[] ui:group:members = ["p:MidTop", "p:TopRight", "p:Combine3", "p:Combine3_3", "p:DotProduct_3", "p:DotProduct_1", "p:Combine3_2", "p:ConstantFloat3", "p:DotProduct_2", "p:Add_1", "p:Add", "p:ConstantFloat3_1", "p:Combine3_1", "p:BottomLeft", "p:MidLeft", "p:MidRight", "p:MidBottom", "p:DotProduct", "p:TopLeft", "p:BottomRight"]
+            }
+
+            def NodeGraph "TopLeft"
+            {
+                float2 inputs:Direction = (-1, 1) (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (87.78516, 105.48828)
+                            int stackingOrderInSubgraph = 444
+                        }
+                    }
+                )
+                asset inputs:Image_file (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (543, 176)
+                            int stackingOrderInSubgraph = 447
+                        }
+                    }
+                )
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobel/sobel.inputs:ImageFile>
+                float2 inputs:Step (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (71.75, 34.5)
+                            int stackingOrderInSubgraph = 445
+                        }
+                    }
+                )
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobel/sobel.inputs:Step>
+                float outputs:Output (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (400.75, 181.25)
+                            int stackingOrderInSubgraph = 446
+                        }
+                    }
+                )
+                float outputs:Output.connect = </Root/EdgeDetectionSobel/sobel/TopLeft/Magnitude.outputs:out>
+                float2 ui:nodegraph:node:pos = (509.80414, 133.17213)
+                int ui:nodegraph:node:stackingOrder = 2066
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1238.5273, 134.38281)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 446
+
+                def Shader "Add"
+                {
+                    uniform token info:id = "ND_add_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/TopLeft/TextureCoordinates.outputs:out>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/TopLeft/Multiply.outputs:out>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (543, 70.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "TextureCoordinates"
+                {
+                    uniform token info:id = "ND_texcoord_vector2"
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (330.4414, -12.417969)
+                    int ui:nodegraph:node:stackingOrder = 445
+                }
+
+                def Shader "Multiply"
+                {
+                    uniform token info:id = "ND_multiply_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/TopLeft.inputs:Step>
+                    float2 inputs:in2 = (-1, 1)
+                    float2 inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/TopLeft.inputs:Direction>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (307, 52.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "Image_1"
+                {
+                    uniform token info:id = "ND_image_vector3"
+                    float3 inputs:default
+                    asset inputs:file.connect = </Root/EdgeDetectionSobel/sobel/TopLeft.inputs:Image_file>
+                    string inputs:filtertype
+                    float2 inputs:texcoord.connect = </Root/EdgeDetectionSobel/sobel/TopLeft/Add.outputs:out>
+                    string inputs:uaddressmode
+                    string inputs:vaddressmode
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (783.5, 100.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "Magnitude"
+                {
+                    uniform token info:id = "ND_magnitude_vector3"
+                    float3 inputs:in.connect = </Root/EdgeDetectionSobel/sobel/TopLeft/Image_1.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1028.5, 100.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+            }
+
+            def "TopRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobel/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobel/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobel/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (997.892, 132.71121)
+                int ui:nodegraph:node:stackingOrder = 2071
+            }
+
+            def "BottomRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobel/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobel/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobel/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (999.5147, 473.643)
+                int ui:nodegraph:node:stackingOrder = 2076
+            }
+
+            def "BottomLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobel/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobel/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobel/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (505.82535, 469.48914)
+                int ui:nodegraph:node:stackingOrder = 2074
+            }
+
+            def "MidLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobel/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobel/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobel/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (510.8563, 311.44415)
+                int ui:nodegraph:node:stackingOrder = 2073
+            }
+
+            def "MidRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobel/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobel/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobel/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (1002.146, 305.08118)
+                int ui:nodegraph:node:stackingOrder = 2072
+            }
+
+            def "MidTop" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobel/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobel/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobel/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (750.125, 136.8171)
+                int ui:nodegraph:node:stackingOrder = 2070
+            }
+
+            def "MidBottom" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobel/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobel/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobel/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (753.4434, 471.47647)
+                int ui:nodegraph:node:stackingOrder = 2075
+            }
+
+            def Shader "ConstantFloat3"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (1, 2, 1)
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (822.85803, 283.81995)
-                int ui:nodegraph:node:stackingOrder = 1537
+                float2 ui:nodegraph:node:pos = (1314.3619, 263.7624)
+                int ui:nodegraph:node:stackingOrder = 2031
+            }
+
+            def Shader "ConstantFloat3_1"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (-1, -2, -1)
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1312.5035, 334.83755)
+                int ui:nodegraph:node:stackingOrder = 2033
+            }
+
+            def Shader "DotProduct"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/Combine3.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/ConstantFloat3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1571.2354, 175.86711)
+                int ui:nodegraph:node:stackingOrder = 2044
+            }
+
+            def Shader "Combine3"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                prepend float inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/TopLeft.outputs:Output>
+                prepend float inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/MidLeft.outputs:Output>
+                prepend float inputs:in3.connect = </Root/EdgeDetectionSobel/sobel/BottomLeft.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1318.7142, 116.91801)
+                int ui:nodegraph:node:stackingOrder = 2034
+            }
+
+            def Shader "DotProduct_1"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/Combine3_1.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/ConstantFloat3_1.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1572.2229, 262.05875)
+                int ui:nodegraph:node:stackingOrder = 2016
+            }
+
+            def Shader "Combine3_1"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                prepend float inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/TopRight.outputs:Output>
+                prepend float inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/MidRight.outputs:Output>
+                prepend float inputs:in3.connect = </Root/EdgeDetectionSobel/sobel/BottomRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1319.7625, 193.10732)
+                int ui:nodegraph:node:stackingOrder = 2029
+            }
+
+            def Shader "Add"
+            {
+                uniform token info:id = "ND_add_float"
+                float inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/DotProduct.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/DotProduct_1.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1742.6981, 211.43436)
+                int ui:nodegraph:node:stackingOrder = 2019
+            }
+
+            def Shader "Combine3_2"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/TopLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/MidTop.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionSobel/sobel/TopRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1323.8232, 423.93774)
+                int ui:nodegraph:node:stackingOrder = 2060
+            }
+
+            def Shader "Combine3_3"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/BottomLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/MidBottom.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionSobel/sobel/BottomRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1325.4551, 509.43228)
+                int ui:nodegraph:node:stackingOrder = 2043
+            }
+
+            def Shader "DotProduct_2"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/ConstantFloat3_1.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/Combine3_2.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1575.1498, 353.0304)
+                int ui:nodegraph:node:stackingOrder = 2054
+            }
+
+            def Shader "DotProduct_3"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/ConstantFloat3.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/Combine3_3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1571.6791, 430.83463)
+                int ui:nodegraph:node:stackingOrder = 2056
+            }
+
+            def Shader "Add_1"
+            {
+                uniform token info:id = "ND_add_float"
+                float inputs:in1.connect = </Root/EdgeDetectionSobel/sobel/DotProduct_2.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionSobel/sobel/DotProduct_3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1751.593, 387.93378)
+                int ui:nodegraph:node:stackingOrder = 2059
+            }
+        }
+    }
+
+    def NodeGraph "EdgeDetectionSobelNeon" (
+        active = true
+    )
+    {
+        float3 inputs:BackgroundColor = (1, 1, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (114.14497, -93.598175)
+                    int stackingOrderInSubgraph = 1328
+                }
+            }
+        )
+        float inputs:BackgroundFade = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (156.49106, 199.36636)
+                    int stackingOrderInSubgraph = 1324
+                }
+            }
+        )
+        float inputs:Brightness = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (1017.42816, 266.42386)
+                    int stackingOrderInSubgraph = 1298
+                }
+            }
+        )
+        float inputs:EdgeWidth = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-742.2263, 210.50008)
+                    int stackingOrderInSubgraph = 1294
+                }
+            }
+        )
+        asset inputs:Image (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-730.2441, -28.597319)
+                    int stackingOrderInSubgraph = 1076
+                }
+            }
+        )
+        float2 inputs:ImageSize = (256, 256) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-676.4224, 312.6704)
+                    int stackingOrderInSubgraph = 1294
+                }
+            }
+        )
+        float3 outputs:Output = (1, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (683.65204, 267.81705)
+                    int stackingOrderInSubgraph = 1071
+                }
+            }
+        )
+        float3 outputs:Output.connect = </Root/EdgeDetectionSobelNeon/Multiply.outputs:out>
+        float2 ui:nodegraph:node:pos = (412.97763, 89.939)
+        int ui:nodegraph:node:stackingOrder = 2
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1390.2241, 137.09186)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1332
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionSobelNeon/Mix_1.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionSobelNeon/Image.outputs:out>
+            float inputs:mix = 0
+            float inputs:mix.connect = </Root/EdgeDetectionSobelNeon/sobel.outputs:Magnitude_out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (971.41144, 122.319405)
+            int ui:nodegraph:node:stackingOrder = 1331
+        }
+
+        def Shader "Mix_1"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionSobelNeon/Image.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionSobelNeon.inputs:BackgroundColor>
+            float inputs:mix.connect = </Root/EdgeDetectionSobelNeon.inputs:BackgroundFade>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (448.50275, -35.195045)
+            int ui:nodegraph:node:stackingOrder = 1329
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector2"
+            float inputs:in.connect = </Root/EdgeDetectionSobelNeon.inputs:EdgeWidth>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-573.6456, 213.10127)
+            int ui:nodegraph:node:stackingOrder = 1294
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector2"
+            float2 inputs:in1.connect = </Root/EdgeDetectionSobelNeon/Convert.outputs:out>
+            float2 inputs:in2 = (256, 256)
+            float2 inputs:in2.connect = </Root/EdgeDetectionSobelNeon.inputs:ImageSize>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-433.26303, 262.129)
+            int ui:nodegraph:node:stackingOrder = 1294
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeon/Mix.outputs:out>
+            float inputs:in2.connect = </Root/EdgeDetectionSobelNeon.inputs:Brightness>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (1206.5103, 222.16847)
+            int ui:nodegraph:node:stackingOrder = 1125
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            float3 inputs:default
+            asset inputs:file.connect = </Root/EdgeDetectionSobelNeon.inputs:Image>
+            string inputs:filtertype
+            float2 inputs:texcoord
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (106.97303, 55.410496)
+            int ui:nodegraph:node:stackingOrder = 1330
+        }
+
+        def NodeGraph "sobel"
+        {
+            asset inputs:ImageFile (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (-81.54895, 280.79117)
+                        int stackingOrderInSubgraph = 1982
+                    }
+                }
+            )
+            asset inputs:ImageFile.connect = </Root/EdgeDetectionSobelNeon.inputs:Image>
+            float2 inputs:Step (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (-73.25247, 440.7437)
+                        int stackingOrderInSubgraph = 1984
+                    }
+                }
+            )
+            float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeon/Divide.outputs:out>
+            float outputs:Magnitude_out.connect = </Root/EdgeDetectionSobelNeon/sobel/Magnitude.outputs:out>
+            float2 ui:nodegraph:node:pos = (-39.425316, 327.96783)
+            int ui:nodegraph:node:stackingOrder = 1388
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (2329.5386, 269.5657)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1947
+
+            def Shader "Combine2_2"
+            {
+                uniform token info:id = "ND_combine2_vector2"
+                float inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/Add.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/Add_1.outputs:out>
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (1936.4153, 280.2648)
+                int ui:nodegraph:node:stackingOrder = 2021
+            }
+
+            def Shader "Magnitude"
+            {
+                uniform token info:id = "ND_magnitude_vector2"
+                float2 inputs:in.connect = </Root/EdgeDetectionSobelNeon/sobel/Combine2_2.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (2116.0386, 269.5657)
+                int ui:nodegraph:node:stackingOrder = 1947
+            }
+
+            def Scope "Group" (
+                kind = "group"
+            )
+            {
+                string ui:group:annotation = "Sobel"
+                string ui:group:annotationDescription = """// Sobel masks (see http://en.wikipedia.org/wiki/Sobel_operator)
+//           1 0 -1        -1 -2 -1
+//    X = 2 0 -2  Y = 0  0  0
+//           1 0 -1          1  2  1"""
+                string[] ui:group:members = ["p:MidTop", "p:TopRight", "p:Combine3", "p:Combine3_3", "p:DotProduct_3", "p:DotProduct_1", "p:Combine3_2", "p:ConstantFloat3", "p:DotProduct_2", "p:Add_1", "p:Add", "p:ConstantFloat3_1", "p:Combine3_1", "p:BottomLeft", "p:MidLeft", "p:MidRight", "p:MidBottom", "p:DotProduct", "p:TopLeft", "p:BottomRight"]
+            }
+
+            def NodeGraph "TopLeft"
+            {
+                float2 inputs:Direction = (-1, 1) (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (87.78516, 105.48828)
+                            int stackingOrderInSubgraph = 444
+                        }
+                    }
+                )
+                asset inputs:Image_file (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (543, 176)
+                            int stackingOrderInSubgraph = 447
+                        }
+                    }
+                )
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (71.75, 34.5)
+                            int stackingOrderInSubgraph = 445
+                        }
+                    }
+                )
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:Step>
+                float outputs:Output (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (400.75, 181.25)
+                            int stackingOrderInSubgraph = 446
+                        }
+                    }
+                )
+                float outputs:Output.connect = </Root/EdgeDetectionSobelNeon/sobel/TopLeft/Magnitude.outputs:out>
+                float2 ui:nodegraph:node:pos = (509.80414, 133.17213)
+                int ui:nodegraph:node:stackingOrder = 2066
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1238.5273, 134.38281)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 446
+
+                def Shader "Add"
+                {
+                    uniform token info:id = "ND_add_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/TopLeft/TextureCoordinates.outputs:out>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/TopLeft/Multiply.outputs:out>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (543, 70.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "TextureCoordinates"
+                {
+                    uniform token info:id = "ND_texcoord_vector2"
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (330.4414, -12.417969)
+                    int ui:nodegraph:node:stackingOrder = 445
+                }
+
+                def Shader "Multiply"
+                {
+                    uniform token info:id = "ND_multiply_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/TopLeft.inputs:Step>
+                    float2 inputs:in2 = (-1, 1)
+                    float2 inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/TopLeft.inputs:Direction>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (307, 52.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "Image_1"
+                {
+                    uniform token info:id = "ND_image_vector3"
+                    float3 inputs:default
+                    asset inputs:file.connect = </Root/EdgeDetectionSobelNeon/sobel/TopLeft.inputs:Image_file>
+                    string inputs:filtertype
+                    float2 inputs:texcoord.connect = </Root/EdgeDetectionSobelNeon/sobel/TopLeft/Add.outputs:out>
+                    string inputs:uaddressmode
+                    string inputs:vaddressmode
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (783.5, 100.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "Magnitude"
+                {
+                    uniform token info:id = "ND_magnitude_vector3"
+                    float3 inputs:in.connect = </Root/EdgeDetectionSobelNeon/sobel/TopLeft/Image_1.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1028.5, 100.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+            }
+
+            def "TopRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (997.892, 132.71121)
+                int ui:nodegraph:node:stackingOrder = 2071
+            }
+
+            def "BottomRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (999.5147, 473.643)
+                int ui:nodegraph:node:stackingOrder = 2076
+            }
+
+            def "BottomLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (505.82535, 469.48914)
+                int ui:nodegraph:node:stackingOrder = 2074
+            }
+
+            def "MidLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (510.8563, 311.44415)
+                int ui:nodegraph:node:stackingOrder = 2073
+            }
+
+            def "MidRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (1002.146, 305.08118)
+                int ui:nodegraph:node:stackingOrder = 2072
+            }
+
+            def "MidTop" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (750.125, 136.8171)
+                int ui:nodegraph:node:stackingOrder = 2070
+            }
+
+            def "MidBottom" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (753.4434, 471.47647)
+                int ui:nodegraph:node:stackingOrder = 2075
+            }
+
+            def Shader "ConstantFloat3"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (1, 2, 1)
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1314.3619, 263.7624)
+                int ui:nodegraph:node:stackingOrder = 2031
+            }
+
+            def Shader "ConstantFloat3_1"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (-1, -2, -1)
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1312.5035, 334.83755)
+                int ui:nodegraph:node:stackingOrder = 2033
+            }
+
+            def Shader "DotProduct"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/Combine3.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/ConstantFloat3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1571.2354, 175.86711)
+                int ui:nodegraph:node:stackingOrder = 2044
+            }
+
+            def Shader "Combine3"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                prepend float inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/TopLeft.outputs:Output>
+                prepend float inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/MidLeft.outputs:Output>
+                prepend float inputs:in3.connect = </Root/EdgeDetectionSobelNeon/sobel/BottomLeft.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1318.7142, 116.91801)
+                int ui:nodegraph:node:stackingOrder = 2034
+            }
+
+            def Shader "DotProduct_1"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/Combine3_1.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/ConstantFloat3_1.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1572.2229, 262.05875)
+                int ui:nodegraph:node:stackingOrder = 2016
+            }
+
+            def Shader "Combine3_1"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                prepend float inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/TopRight.outputs:Output>
+                prepend float inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/MidRight.outputs:Output>
+                prepend float inputs:in3.connect = </Root/EdgeDetectionSobelNeon/sobel/BottomRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1319.7625, 193.10732)
+                int ui:nodegraph:node:stackingOrder = 2029
+            }
+
+            def Shader "Add"
+            {
+                uniform token info:id = "ND_add_float"
+                float inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/DotProduct.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/DotProduct_1.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1742.6981, 211.43436)
+                int ui:nodegraph:node:stackingOrder = 2019
+            }
+
+            def Shader "Combine3_2"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/TopLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/MidTop.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionSobelNeon/sobel/TopRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1323.8232, 423.93774)
+                int ui:nodegraph:node:stackingOrder = 2060
+            }
+
+            def Shader "Combine3_3"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/BottomLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/MidBottom.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionSobelNeon/sobel/BottomRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1325.4551, 509.43228)
+                int ui:nodegraph:node:stackingOrder = 2043
+            }
+
+            def Shader "DotProduct_2"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/ConstantFloat3_1.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/Combine3_2.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1575.1498, 353.0304)
+                int ui:nodegraph:node:stackingOrder = 2054
+            }
+
+            def Shader "DotProduct_3"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/ConstantFloat3.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/Combine3_3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1571.6791, 430.83463)
+                int ui:nodegraph:node:stackingOrder = 2056
+            }
+
+            def Shader "Add_1"
+            {
+                uniform token info:id = "ND_add_float"
+                float inputs:in1.connect = </Root/EdgeDetectionSobelNeon/sobel/DotProduct_2.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionSobelNeon/sobel/DotProduct_3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1751.593, 387.93378)
+                int ui:nodegraph:node:stackingOrder = 2059
+            }
+        }
+    }
+
+    def NodeGraph "EdgeDetectionSobelNeonV2" (
+        active = true
+    )
+    {
+        float3 inputs:BackgroundColor = (1, 1, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (114.14497, -93.598175)
+                    int stackingOrderInSubgraph = 1366
+                }
+            }
+        )
+        float inputs:BackgroundFade = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (156.49106, 199.36636)
+                    int stackingOrderInSubgraph = 1356
+                }
+            }
+        )
+        float inputs:Brightness = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (1017.42816, 266.42386)
+                    int stackingOrderInSubgraph = 1298
+                }
+            }
+        )
+        float inputs:EdgeNeonFade = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (530.9006, 267.00027)
+                    int stackingOrderInSubgraph = 1351
+                }
+            }
+        )
+        float inputs:EdgeWidth = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-742.2263, 210.50008)
+                    int stackingOrderInSubgraph = 1294
+                }
+            }
+        )
+        asset inputs:Image (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-730.2441, -28.597319)
+                    int stackingOrderInSubgraph = 1076
+                }
+            }
+        )
+        float2 inputs:ImageSize = (256, 256) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-676.4224, 312.6704)
+                    int stackingOrderInSubgraph = 1294
+                }
+            }
+        )
+        float3 outputs:Output = (1, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (683.65204, 267.81705)
+                    int stackingOrderInSubgraph = 1071
+                }
+            }
+        )
+        float3 outputs:Output.connect = </Root/EdgeDetectionSobelNeonV2/Multiply.outputs:out>
+        float2 ui:nodegraph:node:pos = (432.97763, 109.939)
+        int ui:nodegraph:node:stackingOrder = 3
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1390.2241, 137.09186)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1367
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg = (1, 0, 0)
+            float3 inputs:bg.connect = </Root/EdgeDetectionSobelNeonV2/Mix_2.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionSobelNeonV2/sobel.outputs:Output>
+            float inputs:mix = 0
+            float inputs:mix.connect = </Root/EdgeDetectionSobelNeonV2.inputs:EdgeNeonFade>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (971.41144, 122.319405)
+            int ui:nodegraph:node:stackingOrder = 1350
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector2"
+            float inputs:in.connect = </Root/EdgeDetectionSobelNeonV2.inputs:EdgeWidth>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-573.6456, 213.10127)
+            int ui:nodegraph:node:stackingOrder = 1294
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector2"
+            float2 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/Convert.outputs:out>
+            float2 inputs:in2 = (256, 256)
+            float2 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2.inputs:ImageSize>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-433.26303, 262.129)
+            int ui:nodegraph:node:stackingOrder = 1294
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/Mix.outputs:out>
+            float inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2.inputs:Brightness>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (1206.5103, 222.16847)
+            int ui:nodegraph:node:stackingOrder = 1125
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            asset inputs:file.connect = </Root/EdgeDetectionSobelNeonV2.inputs:Image>
+            string inputs:filtertype
+            float2 inputs:texcoord
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (106.97303, 55.410496)
+            int ui:nodegraph:node:stackingOrder = 1364
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+        }
+
+        def NodeGraph "sobel"
+        {
+            asset inputs:ImageFile (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (112.25, 275.5)
+                        int stackingOrderInSubgraph = 1507
+                    }
+                }
+            )
+            asset inputs:ImageFile.connect = </Root/EdgeDetectionSobelNeonV2.inputs:Image>
+            float2 inputs:Step (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (119.75966, 450.10397)
+                        int stackingOrderInSubgraph = 2442
+                    }
+                }
+            )
+            float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeonV2/Divide.outputs:out>
+            float3 outputs:Output (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (1346.2982, 331.55737)
+                        int stackingOrderInSubgraph = 1508
+                    }
+                }
+            )
+            float3 outputs:Output.connect = </Root/EdgeDetectionSobelNeonV2/sobel/SquareRoot.outputs:out>
+            float2 ui:nodegraph:node:pos = (-83.12462, 306.18546)
+            int ui:nodegraph:node:stackingOrder = 1355
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (2364.3606, 355.4572)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 2507
+
+            def Shader "Add_2"
+            {
+                uniform token info:id = "ND_add_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Multiply.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Multiply_1.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (2074.86, 382.42014)
+                int ui:nodegraph:node:stackingOrder = 2503
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+            }
+
+            def Scope "Group" (
+                kind = "group"
+            )
+            {
+                string ui:group:annotation = "Sobel"
+                string ui:group:annotationDescription = """// Sobel masks (see http://en.wikipedia.org/wiki/Sobel_operator)
+//           1 0 -1        -1 -2 -1
+//    X = 2 0 -2  Y = 0  0  0
+//           1 0 -1          1  2  1"""
+                string[] ui:group:members = ["p:Multiply_1", "p:Add", "p:MidRight", "p:ConstantFloat3_2", "p:Add_2", "p:BottomLeft", "p:Transpose", "p:Multiply", "p:Transpose_1", "p:ConstantFloat3_1", "p:Add_1", "p:MidTop", "p:SquareRoot", "p:TransformMatrix_3", "p:TransformMatrix_1", "p:Transpose_3", "p:MidLeft", "p:TransformMatrix_2", "p:Combine3_2", "p:BottomRight", "p:MidBottom", "p:TopRight", "p:Combine3_1", "p:TransformMatrix", "p:TopLeft", "p:Combine3_3", "p:Combine3", "p:Transpose_2"]
+            }
+
+            def NodeGraph "TopLeft"
+            {
+                float2 inputs:Direction = (-1, 1) (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (87.78516, 105.48828)
+                            int stackingOrderInSubgraph = 444
+                        }
+                    }
+                )
+                asset inputs:Image_file (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (543, 176)
+                            int stackingOrderInSubgraph = 447
+                        }
+                    }
+                )
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (71.75, 34.5)
+                            int stackingOrderInSubgraph = 445
+                        }
+                    }
+                )
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:Step>
+                float3 outputs:Output.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft/Image_1.outputs:out>
+                float2 ui:nodegraph:node:pos = (548.83154, 227.9013)
+                int ui:nodegraph:node:stackingOrder = 2516
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1238.5273, 134.38281)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 447
+
+                def Shader "Add"
+                {
+                    uniform token info:id = "ND_add_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft/TextureCoordinates.outputs:out>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft/Multiply.outputs:out>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (543, 70.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "TextureCoordinates"
+                {
+                    uniform token info:id = "ND_texcoord_vector2"
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (330.4414, -12.417969)
+                    int ui:nodegraph:node:stackingOrder = 445
+                }
+
+                def Shader "Multiply"
+                {
+                    uniform token info:id = "ND_multiply_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft.inputs:Step>
+                    float2 inputs:in2 = (-1, 1)
+                    float2 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft.inputs:Direction>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (307, 52.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "Image_1"
+                {
+                    uniform token info:id = "ND_image_vector3"
+                    float3 inputs:default
+                    asset inputs:file.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft.inputs:Image_file>
+                    string inputs:filtertype
+                    float2 inputs:texcoord.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft/Add.outputs:out>
+                    string inputs:uaddressmode
+                    string inputs:vaddressmode
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (783.5, 100.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+            }
+
+            def "BottomRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, -1) (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (87.78516, 105.48828)
+                            int stackingOrderInSubgraph = 444
+                        }
+                    }
+                )
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (1017.5962, 577.21655)
+                int ui:nodegraph:node:stackingOrder = 2511
+            }
+
+            def "TopRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (1019.3676, 230.60776)
+                int ui:nodegraph:node:stackingOrder = 2509
+            }
+
+            def "BottomLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (547.1147, 576.48254)
+                int ui:nodegraph:node:stackingOrder = 2518
+            }
+
+            def "MidBottom" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (782.3095, 576.2952)
+                int ui:nodegraph:node:stackingOrder = 2512
+            }
+
+            def "MidTop" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (787.47125, 230.09726)
+                int ui:nodegraph:node:stackingOrder = 2513
+            }
+
+            def "MidLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (551.9665, 399.1218)
+                int ui:nodegraph:node:stackingOrder = 2517
+            }
+
+            def "MidRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionSobelNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (1018.9087, 404.00647)
+                int ui:nodegraph:node:stackingOrder = 2510
+            }
+
+            def Shader "TransformMatrix"
+            {
+                uniform token info:id = "ND_transformmatrix_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionSobelNeonV2/sobel/ConstantFloat3_1.outputs:out>
+                matrix3d inputs:mat.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Combine3.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1725.1399, 183.98274)
+                int ui:nodegraph:node:stackingOrder = 2497
+            }
+
+            def Shader "Combine3"
+            {
+                uniform token info:id = "ND_realitykit_combine3_matrix33"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft.outputs:Output>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2/sobel/MidLeft.outputs:Output>
+                float3 inputs:in3.connect = </Root/EdgeDetectionSobelNeonV2/sobel/BottomLeft.outputs:Output>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1264.6361, 179.46536)
+                int ui:nodegraph:node:stackingOrder = 2471
+            }
+
+            def Shader "ConstantFloat3_1"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (1, 2, 1)
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1327.2349, 349.48163)
+                int ui:nodegraph:node:stackingOrder = 2423
+            }
+
+            def Shader "ConstantFloat3_2"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (-1, -2, -1)
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1327.9335, 424.45392)
+                int ui:nodegraph:node:stackingOrder = 2423
+            }
+
+            def Shader "TransformMatrix_1"
+            {
+                uniform token info:id = "ND_transformmatrix_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionSobelNeonV2/sobel/ConstantFloat3_2.outputs:out>
+                matrix3d inputs:mat.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Combine3_1.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1724.8707, 271.63785)
+                int ui:nodegraph:node:stackingOrder = 2423
+            }
+
+            def Shader "Combine3_1"
+            {
+                uniform token info:id = "ND_realitykit_combine3_matrix33"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TopRight.outputs:Output>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2/sobel/MidRight.outputs:Output>
+                float3 inputs:in3.connect = </Root/EdgeDetectionSobelNeonV2/sobel/BottomRight.outputs:Output>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1271.605, 274.8399)
+                int ui:nodegraph:node:stackingOrder = 2423
             }
 
             def Shader "Add"
             {
                 uniform token info:id = "ND_add_vector3"
-                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply.outputs:out>
-                float3 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply_1.outputs:out>
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TransformMatrix.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TransformMatrix_1.outputs:out>
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (935.71783, 230.35548)
-                int ui:nodegraph:node:stackingOrder = 1541
-            }
-
-            def Shader "Multiply_2"
-            {
-                uniform token info:id = "ND_multiply_vector3FA"
-                prepend float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel_2.outputs:Output>
-                float3 outputs:out
-                float2 ui:nodegraph:node:pos = (807.37836, 548.6782)
-                int ui:nodegraph:node:stackingOrder = 1552
-            }
-
-            def Shader "Multiply_3"
-            {
-                uniform token info:id = "ND_multiply_vector3FA"
-                prepend float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/AroundPixel_1.outputs:Output>
-                float inputs:in2 = -1
-                float3 outputs:out
-                float2 ui:nodegraph:node:pos = (819.9033, 693.5973)
-                int ui:nodegraph:node:stackingOrder = 1543
-            }
-
-            def Shader "Add_1"
-            {
-                uniform token info:id = "ND_add_vector3"
-                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply_2.outputs:out>
-                float3 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply_3.outputs:out>
-                float3 outputs:out
-                float2 ui:nodegraph:node:pos = (931.70636, 617.3851)
-                int ui:nodegraph:node:stackingOrder = 1553
+                float2 ui:nodegraph:node:pos = (1897.4221, 221.49628)
+                int ui:nodegraph:node:stackingOrder = 2423
             }
 
             def Shader "SquareRoot"
             {
                 uniform token info:id = "ND_sqrt_vector3"
-                float3 inputs:in.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply_4.outputs:out>
+                float3 inputs:in.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Add_2.outputs:out>
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (1164.2621, 226.17603)
-                int ui:nodegraph:node:stackingOrder = 1558
+                float2 ui:nodegraph:node:pos = (2156.7937, 380.99805)
+                int ui:nodegraph:node:stackingOrder = 2508
             }
 
-            def Shader "Multiply_4"
+            def Shader "TransformMatrix_2"
+            {
+                uniform token info:id = "ND_transformmatrix_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionSobelNeonV2/sobel/ConstantFloat3_1.outputs:out>
+                matrix3d inputs:mat.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Combine3_3.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1753.7595, 605.25214)
+                int ui:nodegraph:node:stackingOrder = 2423
+            }
+
+            def Shader "Combine3_2"
+            {
+                uniform token info:id = "ND_realitykit_combine3_matrix33"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TopLeft.outputs:Output>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2/sobel/MidTop.outputs:Output>
+                float3 inputs:in3.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TopRight.outputs:Output>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1293.5249, 513.07965)
+                int ui:nodegraph:node:stackingOrder = 2477
+            }
+
+            def Shader "TransformMatrix_3"
+            {
+                uniform token info:id = "ND_transformmatrix_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionSobelNeonV2/sobel/ConstantFloat3_2.outputs:out>
+                matrix3d inputs:mat.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Combine3_2.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1749.8606, 509.20706)
+                int ui:nodegraph:node:stackingOrder = 2495
+            }
+
+            def Shader "Add_1"
+            {
+                uniform token info:id = "ND_add_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TransformMatrix_3.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2/sobel/TransformMatrix_2.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1917.4911, 534.4578)
+                int ui:nodegraph:node:stackingOrder = 2499
+            }
+
+            def Shader "Combine3_3"
+            {
+                uniform token info:id = "ND_realitykit_combine3_matrix33"
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/sobel/BottomLeft.outputs:Output>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2/sobel/MidBottom.outputs:Output>
+                float3 inputs:in3.connect = </Root/EdgeDetectionSobelNeonV2/sobel/BottomRight.outputs:Output>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1300.4939, 608.4542)
+                int ui:nodegraph:node:stackingOrder = 2423
+            }
+
+            def Shader "Transpose"
+            {
+                uniform token info:id = "ND_transpose_matrix33"
+                matrix3d inputs:in.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Combine3.outputs:out>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1478.0511, 175.21854)
+                int ui:nodegraph:node:stackingOrder = 2487
+            }
+
+            def Shader "Transpose_1"
+            {
+                uniform token info:id = "ND_transpose_matrix33"
+                matrix3d inputs:in.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Combine3_1.outputs:out>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1482.5697, 266.1674)
+                int ui:nodegraph:node:stackingOrder = 2489
+            }
+
+            def Shader "Transpose_2"
+            {
+                uniform token info:id = "ND_transpose_matrix33"
+                matrix3d inputs:in.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Combine3_2.outputs:out>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1502.4501, 508.0608)
+                int ui:nodegraph:node:stackingOrder = 2490
+            }
+
+            def Shader "Transpose_3"
+            {
+                uniform token info:id = "ND_transpose_matrix33"
+                matrix3d inputs:in.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Combine3_3.outputs:out>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1504.7671, 610.6853)
+                int ui:nodegraph:node:stackingOrder = 2491
+            }
+
+            def Shader "Multiply"
             {
                 uniform token info:id = "ND_multiply_vector3"
-                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Add.outputs:out>
-                float3 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Add.outputs:out>
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Add.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Add.outputs:out>
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (1051.8174, 220.9655)
-                int ui:nodegraph:node:stackingOrder = 1597
+                float2 ui:nodegraph:node:pos = (1979.5864, 228.32025)
+                int ui:nodegraph:node:stackingOrder = 2468
             }
 
-            def Shader "Multiply_5"
+            def Shader "Multiply_1"
             {
                 uniform token info:id = "ND_multiply_vector3"
-                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Add_1.outputs:out>
-                float3 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Add_1.outputs:out>
+                float3 inputs:in1.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Add_1.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionSobelNeonV2/sobel/Add_1.outputs:out>
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (1094.9263, 576.03357)
-                int ui:nodegraph:node:stackingOrder = 1598
+                float2 ui:nodegraph:node:pos = (1998.5189, 527.7821)
+                int ui:nodegraph:node:stackingOrder = 2501
+            }
+        }
+
+        def Shader "Mix_2"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionSobelNeonV2.inputs:BackgroundColor>
+            float3 inputs:fg.connect = </Root/EdgeDetectionSobelNeonV2/Image.outputs:out>
+            float inputs:mix.connect = </Root/EdgeDetectionSobelNeonV2.inputs:BackgroundFade>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (433.22076, -16.0176)
+            int ui:nodegraph:node:stackingOrder = 1365
+        }
+    }
+
+    def NodeGraph "EdgeDetectionScharr" (
+        active = true
+    )
+    {
+        float3 inputs:BackgroundColor = (1, 1, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (82.43362, -105.9129)
+                    int stackingOrderInSubgraph = 1310
+                }
+            }
+        )
+        float inputs:BackgroundFade = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (124.7797, 187.05164)
+                    int stackingOrderInSubgraph = 1393
+                }
+            }
+        )
+        float3 inputs:EdgeColor = (0, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (807.51666, 61.511124)
+                    int stackingOrderInSubgraph = 1368
+                }
+            }
+        )
+        float inputs:EdgeWidth = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-716.8856, 217.47249)
+                    int stackingOrderInSubgraph = 1362
+                }
+            }
+        )
+        asset inputs:Image (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-594.9481, 40.499546)
+                    int stackingOrderInSubgraph = 1379
+                }
+            }
+        )
+        float2 inputs:ImageSize = (256, 256) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-651.0817, 319.64282)
+                    int stackingOrderInSubgraph = 1362
+                }
+            }
+        )
+        float3 outputs:Output = (1, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (683.65204, 267.81705)
+                    int stackingOrderInSubgraph = 1071
+                }
+            }
+        )
+        float3 outputs:Output.connect = </Root/EdgeDetectionScharr/Mix.outputs:out>
+        float2 ui:nodegraph:node:pos = (365.61502, 130.86496)
+        int ui:nodegraph:node:stackingOrder = 2
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1390.2241, 137.09186)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1072
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionScharr/Mix_1.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionScharr.inputs:EdgeColor>
+            float inputs:mix = 1
+            float inputs:mix.connect = </Root/EdgeDetectionScharr/sobel.outputs:Magnitude_out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (1124.3491, 123.82623)
+            int ui:nodegraph:node:stackingOrder = 1382
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            asset inputs:file.connect = </Root/EdgeDetectionScharr.inputs:Image>
+            string inputs:filtertype
+            string inputs:uaddressmode
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (104.17033, 35.625874)
+            int ui:nodegraph:node:stackingOrder = 1384
+        }
+
+        def Shader "Mix_1"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionScharr/Image.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionScharr.inputs:BackgroundColor>
+            float inputs:mix = 0
+            float inputs:mix.connect = </Root/EdgeDetectionScharr.inputs:BackgroundFade>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (407.83438, 19.563374)
+            int ui:nodegraph:node:stackingOrder = 1389
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector2"
+            float inputs:in.connect = </Root/EdgeDetectionScharr.inputs:EdgeWidth>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-548.30493, 220.07368)
+            int ui:nodegraph:node:stackingOrder = 1362
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector2"
+            float2 inputs:in1.connect = </Root/EdgeDetectionScharr/Convert.outputs:out>
+            float2 inputs:in2 = (256, 256)
+            float2 inputs:in2.connect = </Root/EdgeDetectionScharr.inputs:ImageSize>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-407.92233, 269.1014)
+            int ui:nodegraph:node:stackingOrder = 1362
+        }
+
+        def NodeGraph "sobel"
+        {
+            asset inputs:ImageFile (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (-81.54895, 280.79117)
+                        int stackingOrderInSubgraph = 1982
+                    }
+                }
+            )
+            asset inputs:ImageFile.connect = </Root/EdgeDetectionScharr.inputs:Image>
+            float2 inputs:Step (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (-73.25247, 440.7437)
+                        int stackingOrderInSubgraph = 1984
+                    }
+                }
+            )
+            float2 inputs:Step.connect = </Root/EdgeDetectionScharr/Divide.outputs:out>
+            float outputs:Magnitude_out.connect = </Root/EdgeDetectionScharr/sobel/Magnitude.outputs:out>
+            float2 ui:nodegraph:node:pos = (-106.9069, 251.9135)
+            int ui:nodegraph:node:stackingOrder = 1391
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (2329.5386, 269.5657)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1947
+
+            def Shader "Combine2_2"
+            {
+                uniform token info:id = "ND_combine2_vector2"
+                float inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/Add.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/Add_1.outputs:out>
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (1936.4153, 280.2648)
+                int ui:nodegraph:node:stackingOrder = 2021
             }
 
-            def Shader "SquareRoot_1"
+            def Shader "Magnitude"
             {
-                uniform token info:id = "ND_sqrt_vector3"
-                float3 inputs:in.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/Multiply_5.outputs:out>
-                float3 outputs:out
-                float2 ui:nodegraph:node:pos = (1219.4957, 574.2353)
-                int ui:nodegraph:node:stackingOrder = 1599
+                uniform token info:id = "ND_magnitude_vector2"
+                float2 inputs:in.connect = </Root/EdgeDetectionScharr/sobel/Combine2_2.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (2116.0386, 269.5657)
+                int ui:nodegraph:node:stackingOrder = 1947
             }
+
+            def Scope "Group" (
+                kind = "group"
+            )
+            {
+                string ui:group:annotation = "Scharr"
+                string ui:group:annotationDescription = """// scharr masks ( http://en.wikipedia.org/wiki/Sobel_operator#Alternative_operators)
+//            3 0 -3          3 10   3
+//    X = 10 0 -10  Y = 0  0   0
+//            3 0 -3        -3 -10 -3"""
+                string[] ui:group:members = ["p:MidTop", "p:TopRight", "p:Combine3", "p:Combine3_3", "p:DotProduct_3", "p:DotProduct_1", "p:Combine3_2", "p:ConstantFloat3", "p:DotProduct_2", "p:Add_1", "p:Add", "p:ConstantFloat3_1", "p:Combine3_1", "p:BottomLeft", "p:MidLeft", "p:MidRight", "p:MidBottom", "p:DotProduct", "p:TopLeft", "p:BottomRight"]
+            }
+
+            def NodeGraph "TopLeft"
+            {
+                float2 inputs:Direction = (-1, 1) (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (87.78516, 105.48828)
+                            int stackingOrderInSubgraph = 444
+                        }
+                    }
+                )
+                asset inputs:Image_file (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (543, 176)
+                            int stackingOrderInSubgraph = 447
+                        }
+                    }
+                )
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharr/sobel.inputs:ImageFile>
+                float2 inputs:Step (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (71.75, 34.5)
+                            int stackingOrderInSubgraph = 445
+                        }
+                    }
+                )
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharr/sobel.inputs:Step>
+                float outputs:Output (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (400.75, 181.25)
+                            int stackingOrderInSubgraph = 446
+                        }
+                    }
+                )
+                float outputs:Output.connect = </Root/EdgeDetectionScharr/sobel/TopLeft/Magnitude.outputs:out>
+                float2 ui:nodegraph:node:pos = (509.80414, 133.17213)
+                int ui:nodegraph:node:stackingOrder = 2093
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1238.5273, 134.38281)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 446
+
+                def Shader "Add"
+                {
+                    uniform token info:id = "ND_add_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/TopLeft/TextureCoordinates.outputs:out>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/TopLeft/Multiply.outputs:out>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (543, 70.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "TextureCoordinates"
+                {
+                    uniform token info:id = "ND_texcoord_vector2"
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (330.4414, -12.417969)
+                    int ui:nodegraph:node:stackingOrder = 445
+                }
+
+                def Shader "Multiply"
+                {
+                    uniform token info:id = "ND_multiply_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/TopLeft.inputs:Step>
+                    float2 inputs:in2 = (-1, 1)
+                    float2 inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/TopLeft.inputs:Direction>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (307, 52.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "Image_1"
+                {
+                    uniform token info:id = "ND_image_vector3"
+                    float3 inputs:default
+                    asset inputs:file.connect = </Root/EdgeDetectionScharr/sobel/TopLeft.inputs:Image_file>
+                    string inputs:filtertype
+                    float2 inputs:texcoord.connect = </Root/EdgeDetectionScharr/sobel/TopLeft/Add.outputs:out>
+                    string inputs:uaddressmode
+                    string inputs:vaddressmode
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (783.5, 100.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "Magnitude"
+                {
+                    uniform token info:id = "ND_magnitude_vector3"
+                    float3 inputs:in.connect = </Root/EdgeDetectionScharr/sobel/TopLeft/Image_1.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1028.5, 100.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+            }
+
+            def "TopRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharr/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharr/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharr/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (997.892, 132.71121)
+                int ui:nodegraph:node:stackingOrder = 2095
+            }
+
+            def "BottomRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharr/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharr/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharr/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (999.5147, 473.643)
+                int ui:nodegraph:node:stackingOrder = 2097
+            }
+
+            def "BottomLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharr/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharr/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharr/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (505.82535, 469.48914)
+                int ui:nodegraph:node:stackingOrder = 2099
+            }
+
+            def "MidLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharr/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharr/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharr/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (510.8563, 311.44415)
+                int ui:nodegraph:node:stackingOrder = 2100
+            }
+
+            def "MidRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharr/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharr/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharr/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (1002.146, 305.08118)
+                int ui:nodegraph:node:stackingOrder = 2096
+            }
+
+            def "MidTop" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharr/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharr/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharr/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (750.125, 136.8171)
+                int ui:nodegraph:node:stackingOrder = 2094
+            }
+
+            def "MidBottom" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharr/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharr/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharr/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (753.4434, 471.47647)
+                int ui:nodegraph:node:stackingOrder = 2098
+            }
+
+            def Shader "ConstantFloat3"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (3, 10, 3)
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1314.3619, 263.7624)
+                int ui:nodegraph:node:stackingOrder = 2081
+            }
+
+            def Shader "ConstantFloat3_1"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (-3, -10, -3)
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1312.5035, 334.83755)
+                int ui:nodegraph:node:stackingOrder = 2085
+            }
+
+            def Shader "DotProduct"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/Combine3.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/ConstantFloat3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1571.2354, 175.86711)
+                int ui:nodegraph:node:stackingOrder = 2044
+            }
+
+            def Shader "Combine3"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/TopLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/MidLeft.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionScharr/sobel/BottomLeft.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1318.7142, 116.91801)
+                int ui:nodegraph:node:stackingOrder = 2034
+            }
+
+            def Shader "DotProduct_1"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/Combine3_1.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/ConstantFloat3_1.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1572.2229, 262.05875)
+                int ui:nodegraph:node:stackingOrder = 2016
+            }
+
+            def Shader "Combine3_1"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/TopRight.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/MidRight.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionScharr/sobel/BottomRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1319.7625, 193.10732)
+                int ui:nodegraph:node:stackingOrder = 2029
+            }
+
+            def Shader "Add"
+            {
+                uniform token info:id = "ND_add_float"
+                float inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/DotProduct.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/DotProduct_1.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1742.6981, 211.43436)
+                int ui:nodegraph:node:stackingOrder = 2019
+            }
+
+            def Shader "Combine3_2"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/TopLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/MidTop.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionScharr/sobel/TopRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1323.8232, 423.93774)
+                int ui:nodegraph:node:stackingOrder = 2060
+            }
+
+            def Shader "Combine3_3"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/BottomLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/MidBottom.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionScharr/sobel/BottomRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1325.4551, 509.43228)
+                int ui:nodegraph:node:stackingOrder = 2043
+            }
+
+            def Shader "DotProduct_2"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/ConstantFloat3.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/Combine3_2.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1575.1498, 353.0304)
+                int ui:nodegraph:node:stackingOrder = 2054
+            }
+
+            def Shader "DotProduct_3"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/ConstantFloat3_1.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/Combine3_3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1571.6791, 430.83463)
+                int ui:nodegraph:node:stackingOrder = 2056
+            }
+
+            def Shader "Add_1"
+            {
+                uniform token info:id = "ND_add_float"
+                float inputs:in1.connect = </Root/EdgeDetectionScharr/sobel/DotProduct_2.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionScharr/sobel/DotProduct_3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1751.593, 387.93378)
+                int ui:nodegraph:node:stackingOrder = 2059
+            }
+        }
+    }
+
+    def NodeGraph "EdgeDetectionScharrNeon" (
+        active = true
+    )
+    {
+        float3 inputs:BackgroundColor = (1, 1, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (114.14497, -93.598175)
+                    int stackingOrderInSubgraph = 1328
+                }
+            }
+        )
+        float inputs:BackgroundFade = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (156.49106, 199.36636)
+                    int stackingOrderInSubgraph = 1324
+                }
+            }
+        )
+        float inputs:Brightness = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (1017.42816, 266.42386)
+                    int stackingOrderInSubgraph = 1298
+                }
+            }
+        )
+        float inputs:EdgeWidth = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-742.2263, 210.50008)
+                    int stackingOrderInSubgraph = 1294
+                }
+            }
+        )
+        asset inputs:Image (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-730.2441, -28.597319)
+                    int stackingOrderInSubgraph = 1076
+                }
+            }
+        )
+        float2 inputs:ImageSize = (256, 256) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-676.4224, 312.6704)
+                    int stackingOrderInSubgraph = 1294
+                }
+            }
+        )
+        float3 outputs:Output = (1, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (683.65204, 267.81705)
+                    int stackingOrderInSubgraph = 1071
+                }
+            }
+        )
+        float3 outputs:Output.connect = </Root/EdgeDetectionScharrNeon/Multiply.outputs:out>
+        float2 ui:nodegraph:node:pos = (432.97763, 109.939)
+        int ui:nodegraph:node:stackingOrder = 3
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1390.2241, 137.09186)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1332
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionScharrNeon/Mix_1.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionScharrNeon/Image.outputs:out>
+            float inputs:mix = 0
+            float inputs:mix.connect = </Root/EdgeDetectionScharrNeon/sobel.outputs:Magnitude_out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (971.41144, 122.319405)
+            int ui:nodegraph:node:stackingOrder = 1331
+        }
+
+        def Shader "Mix_1"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionScharrNeon/Image.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionScharrNeon.inputs:BackgroundColor>
+            float inputs:mix.connect = </Root/EdgeDetectionScharrNeon.inputs:BackgroundFade>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (448.50275, -35.195045)
+            int ui:nodegraph:node:stackingOrder = 1329
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector2"
+            float inputs:in.connect = </Root/EdgeDetectionScharrNeon.inputs:EdgeWidth>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-573.6456, 213.10127)
+            int ui:nodegraph:node:stackingOrder = 1294
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector2"
+            float2 inputs:in1.connect = </Root/EdgeDetectionScharrNeon/Convert.outputs:out>
+            float2 inputs:in2 = (256, 256)
+            float2 inputs:in2.connect = </Root/EdgeDetectionScharrNeon.inputs:ImageSize>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-433.26303, 262.129)
+            int ui:nodegraph:node:stackingOrder = 1294
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeon/Mix.outputs:out>
+            float inputs:in2.connect = </Root/EdgeDetectionScharrNeon.inputs:Brightness>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (1206.5103, 222.16847)
+            int ui:nodegraph:node:stackingOrder = 1125
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            float3 inputs:default
+            asset inputs:file.connect = </Root/EdgeDetectionScharrNeon.inputs:Image>
+            string inputs:filtertype
+            float2 inputs:texcoord
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (106.97303, 55.410496)
+            int ui:nodegraph:node:stackingOrder = 1330
+        }
+
+        def NodeGraph "sobel"
+        {
+            asset inputs:ImageFile (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (-81.54895, 280.79117)
+                        int stackingOrderInSubgraph = 1982
+                    }
+                }
+            )
+            asset inputs:ImageFile.connect = </Root/EdgeDetectionScharrNeon.inputs:Image>
+            float2 inputs:Step (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (-73.25247, 440.7437)
+                        int stackingOrderInSubgraph = 1984
+                    }
+                }
+            )
+            float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeon/Divide.outputs:out>
+            float outputs:Magnitude_out.connect = </Root/EdgeDetectionScharrNeon/sobel/Magnitude.outputs:out>
+            float2 ui:nodegraph:node:pos = (-39.425316, 327.96783)
+            int ui:nodegraph:node:stackingOrder = 1388
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (2329.5386, 269.5657)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1947
+
+            def Shader "Combine2_2"
+            {
+                uniform token info:id = "ND_combine2_vector2"
+                float inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/Add.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/Add_1.outputs:out>
+                float2 outputs:out
+                float2 ui:nodegraph:node:pos = (1936.4153, 280.2648)
+                int ui:nodegraph:node:stackingOrder = 2021
+            }
+
+            def Shader "Magnitude"
+            {
+                uniform token info:id = "ND_magnitude_vector2"
+                float2 inputs:in.connect = </Root/EdgeDetectionScharrNeon/sobel/Combine2_2.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (2116.0386, 269.5657)
+                int ui:nodegraph:node:stackingOrder = 1947
+            }
+
+            def Scope "Group" (
+                kind = "group"
+            )
+            {
+                string ui:group:annotation = "Scharr"
+                string ui:group:annotationDescription = """// scharr masks ( http://en.wikipedia.org/wiki/Sobel_operator#Alternative_operators)
+//            3 0 -3          3 10   3
+//    X = 10 0 -10  Y = 0  0   0
+//            3 0 -3        -3 -10 -3"""
+                string[] ui:group:members = ["p:MidTop", "p:TopRight", "p:Combine3", "p:Combine3_3", "p:DotProduct_3", "p:DotProduct_1", "p:Combine3_2", "p:ConstantFloat3", "p:DotProduct_2", "p:Add_1", "p:Add", "p:ConstantFloat3_1", "p:Combine3_1", "p:BottomLeft", "p:MidLeft", "p:MidRight", "p:MidBottom", "p:DotProduct", "p:TopLeft", "p:BottomRight"]
+            }
+
+            def NodeGraph "TopLeft"
+            {
+                float2 inputs:Direction = (-1, 1) (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (87.78516, 105.48828)
+                            int stackingOrderInSubgraph = 444
+                        }
+                    }
+                )
+                asset inputs:Image_file (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (543, 176)
+                            int stackingOrderInSubgraph = 447
+                        }
+                    }
+                )
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (71.75, 34.5)
+                            int stackingOrderInSubgraph = 445
+                        }
+                    }
+                )
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:Step>
+                float outputs:Output (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (400.75, 181.25)
+                            int stackingOrderInSubgraph = 446
+                        }
+                    }
+                )
+                float outputs:Output.connect = </Root/EdgeDetectionScharrNeon/sobel/TopLeft/Magnitude.outputs:out>
+                float2 ui:nodegraph:node:pos = (509.80414, 133.17213)
+                int ui:nodegraph:node:stackingOrder = 2066
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1238.5273, 134.38281)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 446
+
+                def Shader "Add"
+                {
+                    uniform token info:id = "ND_add_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/TopLeft/TextureCoordinates.outputs:out>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/TopLeft/Multiply.outputs:out>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (543, 70.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "TextureCoordinates"
+                {
+                    uniform token info:id = "ND_texcoord_vector2"
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (330.4414, -12.417969)
+                    int ui:nodegraph:node:stackingOrder = 445
+                }
+
+                def Shader "Multiply"
+                {
+                    uniform token info:id = "ND_multiply_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/TopLeft.inputs:Step>
+                    float2 inputs:in2 = (-1, 1)
+                    float2 inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/TopLeft.inputs:Direction>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (307, 52.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "Image_1"
+                {
+                    uniform token info:id = "ND_image_vector3"
+                    float3 inputs:default
+                    asset inputs:file.connect = </Root/EdgeDetectionScharrNeon/sobel/TopLeft.inputs:Image_file>
+                    string inputs:filtertype
+                    float2 inputs:texcoord.connect = </Root/EdgeDetectionScharrNeon/sobel/TopLeft/Add.outputs:out>
+                    string inputs:uaddressmode
+                    string inputs:vaddressmode
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (783.5, 100.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "Magnitude"
+                {
+                    uniform token info:id = "ND_magnitude_vector3"
+                    float3 inputs:in.connect = </Root/EdgeDetectionScharrNeon/sobel/TopLeft/Image_1.outputs:out>
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (1028.5, 100.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+            }
+
+            def "TopRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (997.892, 132.71121)
+                int ui:nodegraph:node:stackingOrder = 2077
+            }
+
+            def "BottomRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (999.5147, 473.643)
+                int ui:nodegraph:node:stackingOrder = 2079
+            }
+
+            def "BottomLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (505.82535, 469.48914)
+                int ui:nodegraph:node:stackingOrder = 2083
+            }
+
+            def "MidLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (510.8563, 311.44415)
+                int ui:nodegraph:node:stackingOrder = 2082
+            }
+
+            def "MidRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (1002.146, 305.08118)
+                int ui:nodegraph:node:stackingOrder = 2078
+            }
+
+            def "MidTop" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (750.125, 136.8171)
+                int ui:nodegraph:node:stackingOrder = 2080
+            }
+
+            def "MidBottom" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeon/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeon/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (753.4434, 471.47647)
+                int ui:nodegraph:node:stackingOrder = 2081
+            }
+
+            def Shader "ConstantFloat3"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (3, 10, 3)
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1314.3619, 263.7624)
+                int ui:nodegraph:node:stackingOrder = 2089
+            }
+
+            def Shader "ConstantFloat3_1"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (-3, -10, -3)
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1312.5035, 334.83755)
+                int ui:nodegraph:node:stackingOrder = 2093
+            }
+
+            def Shader "DotProduct"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/Combine3.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/ConstantFloat3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1571.2354, 175.86711)
+                int ui:nodegraph:node:stackingOrder = 2044
+            }
+
+            def Shader "Combine3"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/TopLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/MidLeft.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionScharrNeon/sobel/BottomLeft.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1318.7142, 116.91801)
+                int ui:nodegraph:node:stackingOrder = 2034
+            }
+
+            def Shader "DotProduct_1"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/Combine3_1.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/ConstantFloat3_1.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1572.2229, 262.05875)
+                int ui:nodegraph:node:stackingOrder = 2016
+            }
+
+            def Shader "Combine3_1"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/TopRight.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/MidRight.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionScharrNeon/sobel/BottomRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1319.7625, 193.10732)
+                int ui:nodegraph:node:stackingOrder = 2029
+            }
+
+            def Shader "Add"
+            {
+                uniform token info:id = "ND_add_float"
+                float inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/DotProduct.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/DotProduct_1.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1742.6981, 211.43436)
+                int ui:nodegraph:node:stackingOrder = 2019
+            }
+
+            def Shader "Combine3_2"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/TopLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/MidTop.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionScharrNeon/sobel/TopRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1323.8232, 423.93774)
+                int ui:nodegraph:node:stackingOrder = 2060
+            }
+
+            def Shader "Combine3_3"
+            {
+                uniform token info:id = "ND_combine3_vector3"
+                float inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/BottomLeft.outputs:Output>
+                float inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/MidBottom.outputs:Output>
+                float inputs:in3.connect = </Root/EdgeDetectionScharrNeon/sobel/BottomRight.outputs:Output>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1325.4551, 509.43228)
+                int ui:nodegraph:node:stackingOrder = 2043
+            }
+
+            def Shader "DotProduct_2"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/ConstantFloat3.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/Combine3_2.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1575.1498, 353.0304)
+                int ui:nodegraph:node:stackingOrder = 2054
+            }
+
+            def Shader "DotProduct_3"
+            {
+                uniform token info:id = "ND_dotproduct_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/ConstantFloat3_1.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/Combine3_3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1571.6791, 430.83463)
+                int ui:nodegraph:node:stackingOrder = 2056
+            }
+
+            def Shader "Add_1"
+            {
+                uniform token info:id = "ND_add_float"
+                float inputs:in1.connect = </Root/EdgeDetectionScharrNeon/sobel/DotProduct_2.outputs:out>
+                float inputs:in2.connect = </Root/EdgeDetectionScharrNeon/sobel/DotProduct_3.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (1751.593, 387.93378)
+                int ui:nodegraph:node:stackingOrder = 2059
+            }
+        }
+    }
+
+    def NodeGraph "EdgeDetectionScharrNeonV2" (
+        active = true
+    )
+    {
+        float3 inputs:BackgroundColor = (1, 1, 1) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (114.14497, -93.598175)
+                    int stackingOrderInSubgraph = 1366
+                }
+            }
+        )
+        float inputs:BackgroundFade = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (156.49106, 199.36636)
+                    int stackingOrderInSubgraph = 1356
+                }
+            }
+        )
+        float inputs:Brightness = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (1017.42816, 266.42386)
+                    int stackingOrderInSubgraph = 1298
+                }
+            }
+        )
+        float inputs:EdgeNeonFade = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (530.9006, 267.00027)
+                    int stackingOrderInSubgraph = 1351
+                }
+            }
+        )
+        float inputs:EdgeWidth = 1 (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-742.2263, 210.50008)
+                    int stackingOrderInSubgraph = 1294
+                }
+            }
+        )
+        asset inputs:Image (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-730.2441, -28.597319)
+                    int stackingOrderInSubgraph = 1076
+                }
+            }
+        )
+        float2 inputs:ImageSize = (256, 256) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-676.4224, 312.6704)
+                    int stackingOrderInSubgraph = 1294
+                }
+            }
+        )
+        float3 outputs:Output = (1, 0, 0) (
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (683.65204, 267.81705)
+                    int stackingOrderInSubgraph = 1071
+                }
+            }
+        )
+        float3 outputs:Output.connect = </Root/EdgeDetectionScharrNeonV2/Multiply.outputs:out>
+        float2 ui:nodegraph:node:pos = (452.97763, 129.939)
+        int ui:nodegraph:node:stackingOrder = 4
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1390.2241, 137.09186)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 1367
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg = (1, 0, 0)
+            float3 inputs:bg.connect = </Root/EdgeDetectionScharrNeonV2/Mix_2.outputs:out>
+            float3 inputs:fg.connect = </Root/EdgeDetectionScharrNeonV2/sobel.outputs:Output>
+            float inputs:mix = 0
+            float inputs:mix.connect = </Root/EdgeDetectionScharrNeonV2.inputs:EdgeNeonFade>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (971.41144, 122.319405)
+            int ui:nodegraph:node:stackingOrder = 1350
+        }
+
+        def Shader "Convert"
+        {
+            uniform token info:id = "ND_convert_float_vector2"
+            float inputs:in.connect = </Root/EdgeDetectionScharrNeonV2.inputs:EdgeWidth>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-573.6456, 213.10127)
+            int ui:nodegraph:node:stackingOrder = 1294
+        }
+
+        def Shader "Divide"
+        {
+            uniform token info:id = "ND_divide_vector2"
+            float2 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/Convert.outputs:out>
+            float2 inputs:in2 = (256, 256)
+            float2 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2.inputs:ImageSize>
+            float2 outputs:out
+            float2 ui:nodegraph:node:pos = (-433.26303, 262.129)
+            int ui:nodegraph:node:stackingOrder = 1294
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/Mix.outputs:out>
+            float inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2.inputs:Brightness>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (1206.5103, 222.16847)
+            int ui:nodegraph:node:stackingOrder = 1125
+        }
+
+        def Shader "Image"
+        {
+            uniform token info:id = "ND_image_vector3"
+            asset inputs:file.connect = </Root/EdgeDetectionScharrNeonV2.inputs:Image>
+            string inputs:filtertype
+            float2 inputs:texcoord
+            string inputs:vaddressmode
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (106.97303, 55.410496)
+            int ui:nodegraph:node:stackingOrder = 1367
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+        }
+
+        def NodeGraph "sobel"
+        {
+            asset inputs:ImageFile (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (112.25, 275.5)
+                        int stackingOrderInSubgraph = 1507
+                    }
+                }
+            )
+            asset inputs:ImageFile.connect = </Root/EdgeDetectionScharrNeonV2.inputs:Image>
+            float2 inputs:Step (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (119.75966, 450.10397)
+                        int stackingOrderInSubgraph = 2442
+                    }
+                }
+            )
+            float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeonV2/Divide.outputs:out>
+            float3 outputs:Output (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (1346.2982, 331.55737)
+                        int stackingOrderInSubgraph = 1508
+                    }
+                }
+            )
+            float3 outputs:Output.connect = </Root/EdgeDetectionScharrNeonV2/sobel/SquareRoot.outputs:out>
+            float2 ui:nodegraph:node:pos = (-83.12462, 306.18546)
+            int ui:nodegraph:node:stackingOrder = 1366
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (2364.3606, 355.4572)
+            int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 2507
 
             def Shader "Add_2"
             {
                 uniform token info:id = "ND_add_vector3"
-                float3 inputs:in1.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/SquareRoot.outputs:out>
-                float3 inputs:in2.connect = </Root/EdgeDetectionRobertsNeonV2/sobel/SquareRoot_1.outputs:out>
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Multiply.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Multiply_1.outputs:out>
                 float3 outputs:out
-                float2 ui:nodegraph:node:pos = (1383.7046, 360.4827)
-                int ui:nodegraph:node:stackingOrder = 1602
+                float2 ui:nodegraph:node:pos = (2074.86, 382.42014)
+                int ui:nodegraph:node:stackingOrder = 2503
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
             }
+
+            def Scope "Group" (
+                kind = "group"
+            )
+            {
+                string ui:group:annotation = "Scharr"
+                string ui:group:annotationDescription = """// scharr masks ( http://en.wikipedia.org/wiki/Sobel_operator#Alternative_operators)
+//            3 0 -3          3 10   3
+//    X = 10 0 -10  Y = 0  0   0
+//            3 0 -3        -3 -10 -3"""
+                string[] ui:group:members = ["p:Multiply_1", "p:Add", "p:MidRight", "p:ConstantFloat3_2", "p:Add_2", "p:BottomLeft", "p:Transpose", "p:Multiply", "p:Transpose_1", "p:ConstantFloat3_1", "p:Add_1", "p:MidTop", "p:SquareRoot", "p:TransformMatrix_3", "p:TransformMatrix_1", "p:Transpose_3", "p:MidLeft", "p:TransformMatrix_2", "p:Combine3_2", "p:BottomRight", "p:MidBottom", "p:TopRight", "p:Combine3_1", "p:TransformMatrix", "p:TopLeft", "p:Combine3_3", "p:Combine3", "p:Transpose_2"]
+            }
+
+            def NodeGraph "TopLeft"
+            {
+                float2 inputs:Direction = (-1, 1) (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (87.78516, 105.48828)
+                            int stackingOrderInSubgraph = 444
+                        }
+                    }
+                )
+                asset inputs:Image_file (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (543, 176)
+                            int stackingOrderInSubgraph = 447
+                        }
+                    }
+                )
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (71.75, 34.5)
+                            int stackingOrderInSubgraph = 445
+                        }
+                    }
+                )
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:Step>
+                float3 outputs:Output.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft/Image_1.outputs:out>
+                float2 ui:nodegraph:node:pos = (548.83154, 227.9013)
+                int ui:nodegraph:node:stackingOrder = 2516
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (1238.5273, 134.38281)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 447
+
+                def Shader "Add"
+                {
+                    uniform token info:id = "ND_add_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft/TextureCoordinates.outputs:out>
+                    float2 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft/Multiply.outputs:out>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (543, 70.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "TextureCoordinates"
+                {
+                    uniform token info:id = "ND_texcoord_vector2"
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (330.4414, -12.417969)
+                    int ui:nodegraph:node:stackingOrder = 445
+                }
+
+                def Shader "Multiply"
+                {
+                    uniform token info:id = "ND_multiply_vector2"
+                    float2 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft.inputs:Step>
+                    float2 inputs:in2 = (-1, 1)
+                    float2 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft.inputs:Direction>
+                    float2 outputs:out
+                    float2 ui:nodegraph:node:pos = (307, 52.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+
+                def Shader "Image_1"
+                {
+                    uniform token info:id = "ND_image_vector3"
+                    float3 inputs:default
+                    asset inputs:file.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft.inputs:Image_file>
+                    string inputs:filtertype
+                    float2 inputs:texcoord.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft/Add.outputs:out>
+                    string inputs:uaddressmode
+                    string inputs:vaddressmode
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (783.5, 100.5)
+                    int ui:nodegraph:node:stackingOrder = 443
+                }
+            }
+
+            def "BottomRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, -1) (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (87.78516, 105.48828)
+                            int stackingOrderInSubgraph = 444
+                        }
+                    }
+                )
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (1017.5962, 577.21655)
+                int ui:nodegraph:node:stackingOrder = 2540
+            }
+
+            def "TopRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (1019.3676, 230.60776)
+                int ui:nodegraph:node:stackingOrder = 2538
+            }
+
+            def "BottomLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (547.1147, 576.48254)
+                int ui:nodegraph:node:stackingOrder = 2544
+            }
+
+            def "MidBottom" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (782.3095, 576.2952)
+                int ui:nodegraph:node:stackingOrder = 2542
+            }
+
+            def "MidTop" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (0, -1)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (787.47125, 230.09726)
+                int ui:nodegraph:node:stackingOrder = 2541
+            }
+
+            def "MidLeft" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (-1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (551.9665, 399.1218)
+                int ui:nodegraph:node:stackingOrder = 2543
+            }
+
+            def "MidRight" (
+                active = true
+                instanceable = true
+                references = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft>
+            )
+            {
+                float2 inputs:Direction = (1, 0)
+                asset inputs:Image_file.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:ImageFile>
+                float2 inputs:Step.connect = </Root/EdgeDetectionScharrNeonV2/sobel.inputs:Step>
+                float2 ui:nodegraph:node:pos = (1018.9087, 404.00647)
+                int ui:nodegraph:node:stackingOrder = 2539
+            }
+
+            def Shader "TransformMatrix"
+            {
+                uniform token info:id = "ND_transformmatrix_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionScharrNeonV2/sobel/ConstantFloat3_1.outputs:out>
+                matrix3d inputs:mat.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Combine3.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1725.1399, 183.98274)
+                int ui:nodegraph:node:stackingOrder = 2497
+            }
+
+            def Shader "Combine3"
+            {
+                uniform token info:id = "ND_realitykit_combine3_matrix33"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft.outputs:Output>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2/sobel/MidLeft.outputs:Output>
+                float3 inputs:in3.connect = </Root/EdgeDetectionScharrNeonV2/sobel/BottomLeft.outputs:Output>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1264.6361, 179.46536)
+                int ui:nodegraph:node:stackingOrder = 2471
+            }
+
+            def Shader "ConstantFloat3_1"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (3, 10, 3)
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1327.2349, 349.48163)
+                int ui:nodegraph:node:stackingOrder = 2533
+            }
+
+            def Shader "ConstantFloat3_2"
+            {
+                uniform token info:id = "ND_constant_vector3"
+                float3 inputs:value = (-3, -10, -3)
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1327.9335, 424.45392)
+                int ui:nodegraph:node:stackingOrder = 2537
+            }
+
+            def Shader "TransformMatrix_1"
+            {
+                uniform token info:id = "ND_transformmatrix_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionScharrNeonV2/sobel/ConstantFloat3_2.outputs:out>
+                matrix3d inputs:mat.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Combine3_1.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1724.8707, 271.63785)
+                int ui:nodegraph:node:stackingOrder = 2423
+            }
+
+            def Shader "Combine3_1"
+            {
+                uniform token info:id = "ND_realitykit_combine3_matrix33"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TopRight.outputs:Output>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2/sobel/MidRight.outputs:Output>
+                float3 inputs:in3.connect = </Root/EdgeDetectionScharrNeonV2/sobel/BottomRight.outputs:Output>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1271.605, 274.8399)
+                int ui:nodegraph:node:stackingOrder = 2423
+            }
+
+            def Shader "Add"
+            {
+                uniform token info:id = "ND_add_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TransformMatrix.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TransformMatrix_1.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1897.4221, 221.49628)
+                int ui:nodegraph:node:stackingOrder = 2423
+            }
+
+            def Shader "SquareRoot"
+            {
+                uniform token info:id = "ND_sqrt_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Add_2.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (2156.7937, 380.99805)
+                int ui:nodegraph:node:stackingOrder = 2508
+            }
+
+            def Shader "TransformMatrix_2"
+            {
+                uniform token info:id = "ND_transformmatrix_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionScharrNeonV2/sobel/ConstantFloat3_2.outputs:out>
+                matrix3d inputs:mat.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Combine3_3.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1753.7595, 605.25214)
+                int ui:nodegraph:node:stackingOrder = 2423
+            }
+
+            def Shader "Combine3_2"
+            {
+                uniform token info:id = "ND_realitykit_combine3_matrix33"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TopLeft.outputs:Output>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2/sobel/MidTop.outputs:Output>
+                float3 inputs:in3.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TopRight.outputs:Output>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1293.5249, 513.07965)
+                int ui:nodegraph:node:stackingOrder = 2477
+            }
+
+            def Shader "TransformMatrix_3"
+            {
+                uniform token info:id = "ND_transformmatrix_vector3"
+                float3 inputs:in.connect = </Root/EdgeDetectionScharrNeonV2/sobel/ConstantFloat3_1.outputs:out>
+                matrix3d inputs:mat.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Combine3_2.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1749.8606, 509.20706)
+                int ui:nodegraph:node:stackingOrder = 2495
+            }
+
+            def Shader "Add_1"
+            {
+                uniform token info:id = "ND_add_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TransformMatrix_3.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2/sobel/TransformMatrix_2.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1917.4911, 534.4578)
+                int ui:nodegraph:node:stackingOrder = 2499
+            }
+
+            def Shader "Combine3_3"
+            {
+                uniform token info:id = "ND_realitykit_combine3_matrix33"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/sobel/BottomLeft.outputs:Output>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2/sobel/MidBottom.outputs:Output>
+                float3 inputs:in3.connect = </Root/EdgeDetectionScharrNeonV2/sobel/BottomRight.outputs:Output>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1300.4939, 608.4542)
+                int ui:nodegraph:node:stackingOrder = 2423
+            }
+
+            def Shader "Transpose"
+            {
+                uniform token info:id = "ND_transpose_matrix33"
+                matrix3d inputs:in.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Combine3.outputs:out>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1478.0511, 175.21854)
+                int ui:nodegraph:node:stackingOrder = 2487
+            }
+
+            def Shader "Transpose_1"
+            {
+                uniform token info:id = "ND_transpose_matrix33"
+                matrix3d inputs:in.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Combine3_1.outputs:out>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1482.5697, 266.1674)
+                int ui:nodegraph:node:stackingOrder = 2489
+            }
+
+            def Shader "Transpose_2"
+            {
+                uniform token info:id = "ND_transpose_matrix33"
+                matrix3d inputs:in.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Combine3_2.outputs:out>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1502.4501, 508.0608)
+                int ui:nodegraph:node:stackingOrder = 2490
+            }
+
+            def Shader "Transpose_3"
+            {
+                uniform token info:id = "ND_transpose_matrix33"
+                matrix3d inputs:in.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Combine3_3.outputs:out>
+                matrix3d outputs:out
+                float2 ui:nodegraph:node:pos = (1504.7671, 610.6853)
+                int ui:nodegraph:node:stackingOrder = 2491
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Add.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Add.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1979.5864, 228.32025)
+                int ui:nodegraph:node:stackingOrder = 2468
+            }
+
+            def Shader "Multiply_1"
+            {
+                uniform token info:id = "ND_multiply_vector3"
+                float3 inputs:in1.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Add_1.outputs:out>
+                float3 inputs:in2.connect = </Root/EdgeDetectionScharrNeonV2/sobel/Add_1.outputs:out>
+                float3 outputs:out
+                float2 ui:nodegraph:node:pos = (1998.5189, 527.7821)
+                int ui:nodegraph:node:stackingOrder = 2501
+            }
+        }
+
+        def Shader "Mix_2"
+        {
+            uniform token info:id = "ND_mix_vector3"
+            float3 inputs:bg.connect = </Root/EdgeDetectionScharrNeonV2.inputs:BackgroundColor>
+            float3 inputs:fg.connect = </Root/EdgeDetectionScharrNeonV2/Image.outputs:out>
+            float inputs:mix.connect = </Root/EdgeDetectionScharrNeonV2.inputs:BackgroundFade>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (433.22076, -16.0176)
+            int ui:nodegraph:node:stackingOrder = 1365
         }
     }
 }

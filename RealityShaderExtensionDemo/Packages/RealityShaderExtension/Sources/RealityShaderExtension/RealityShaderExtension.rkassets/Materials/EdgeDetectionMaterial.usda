@@ -10,7 +10,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Cube_EdgeDetectionRoberts", "Cube_EdgeDetectionRobertsNeon", "Cube_EdgeDetectionRobertsNeonV2"]
+    reorder nameChildren = ["Cube_EdgeDetectionRoberts", "Cube_EdgeDetectionRobertsNeon", "Cube_EdgeDetectionRobertsNeonV2", "Cube_EdgeDetectionSobel", "Cube_EdgeDetectionSobelNeon", "Cube_EdgeDetectionSobelNeonV2", "Cube_EdgeDetectionScharr", "Cube_EdgeDetectionScharrNeon", "Cube_EdgeDetectionScharrNeonV2"]
     def Cube "Cube_EdgeDetectionRoberts" (
         active = true
         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -24,7 +24,7 @@ def Xform "Root"
         int ui:nodegraph:node:stackingOrder = 2
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (-0.9, 0, 0)
+        float3 xformOp:translate = (-0.3, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Material "EdgeDetectionRobertsMaterial"
@@ -124,7 +124,7 @@ def Xform "Root"
         int ui:nodegraph:node:stackingOrder = 3
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (-0.6, 0, 0)
+        float3 xformOp:translate = (0, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Material "EdgeDetectionRobertsNeonMaterial"
@@ -225,7 +225,7 @@ def Xform "Root"
         int ui:nodegraph:node:stackingOrder = 4
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (-0.3, 0, 0)
+        float3 xformOp:translate = (0.3, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Material "EdgeDetectionRobertsNeonV2Material"
@@ -297,107 +297,6 @@ def Xform "Root"
                 int ui:nodegraph:node:stackingOrder = 94
             }
 
-            def Cube "Cube_EdgeDetectionRobertsNeon" (
-                active = true
-                prepend apiSchemas = ["MaterialBindingAPI"]
-            )
-            {
-                rel material:binding = </Root/Cube_EdgeDetectionRobertsNeonV2/EdgeDetectionRobertsNeonV2Material/Cube_EdgeDetectionRobertsNeon/EdgeDetectionRobertsNeonMaterial> (
-                    bindMaterialAs = "weakerThanDescendants"
-                )
-                double size = 0.2
-                float2 ui:nodegraph:node:pos = (-363.73038, 37.978256)
-                int ui:nodegraph:node:stackingOrder = 4
-                quatf xformOp:orient = (1, 0, 0, 0)
-                float3 xformOp:scale = (1, 1, 1)
-                float3 xformOp:translate = (-0.6, 0, 0)
-                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-                def Material "EdgeDetectionRobertsNeonMaterial"
-                {
-                    reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
-                    token outputs:mtlx:surface.connect = </Root/Cube_EdgeDetectionRobertsNeonV2/EdgeDetectionRobertsNeonV2Material/Cube_EdgeDetectionRobertsNeon/EdgeDetectionRobertsNeonMaterial/PreviewSurface.outputs:out>
-                    token outputs:realitykit:vertex
-                    float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
-
-                    def Shader "PreviewSurface"
-                    {
-                        uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
-                        color3f inputs:diffuseColor.connect = </Root/Cube_EdgeDetectionRobertsNeonV2/EdgeDetectionRobertsNeonV2Material/Cube_EdgeDetectionRobertsNeon/EdgeDetectionRobertsNeonMaterial/Convert.outputs:out>
-                        float inputs:metallic
-                        float inputs:opacity = 1
-                        float inputs:roughness
-                        token outputs:out
-                        float2 ui:nodegraph:node:pos = (93.5, 100.5)
-                        int ui:nodegraph:node:stackingOrder = 20
-                        string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
-                    }
-
-                    def Shader "Convert"
-                    {
-                        uniform token info:id = "ND_convert_vector3_color3"
-                        float3 inputs:in.connect = </Root/Cube_EdgeDetectionRobertsNeonV2/EdgeDetectionRobertsNeonV2Material/Cube_EdgeDetectionRobertsNeon/EdgeDetectionRobertsNeonMaterial/EdgeDetectionRobertsNeon_1.outputs:Output>
-                        color3f outputs:out
-                        float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
-                        int ui:nodegraph:node:stackingOrder = 5
-                    }
-
-                    def Shader "Sin"
-                    {
-                        uniform token info:id = "ND_sin_float"
-                        float inputs:in.connect = </Root/Cube_EdgeDetectionRobertsNeonV2/EdgeDetectionRobertsNeonV2Material/Cube_EdgeDetectionRobertsNeon/EdgeDetectionRobertsNeonMaterial/Multiply.outputs:out>
-                        float outputs:out
-                        float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
-                        int ui:nodegraph:node:stackingOrder = 30
-                    }
-
-                    def Shader "Remap"
-                    {
-                        uniform token info:id = "ND_remap_float"
-                        float inputs:in.connect = </Root/Cube_EdgeDetectionRobertsNeonV2/EdgeDetectionRobertsNeonV2Material/Cube_EdgeDetectionRobertsNeon/EdgeDetectionRobertsNeonMaterial/Sin.outputs:out>
-                        float inputs:inhigh
-                        float inputs:inlow = -1
-                        float inputs:outhigh = 1
-                        float inputs:outlow = 0.1
-                        float outputs:out
-                        float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
-                        int ui:nodegraph:node:stackingOrder = 103
-                    }
-
-                    def Shader "Time"
-                    {
-                        uniform token info:id = "ND_time_float"
-                        float outputs:out
-                        float2 ui:nodegraph:node:pos = (-1061.0352, 117.933044)
-                        int ui:nodegraph:node:stackingOrder = 83
-                    }
-
-                    def Shader "Multiply"
-                    {
-                        uniform token info:id = "ND_multiply_float"
-                        float inputs:in1.connect = </Root/Cube_EdgeDetectionRobertsNeonV2/EdgeDetectionRobertsNeonV2Material/Cube_EdgeDetectionRobertsNeon/EdgeDetectionRobertsNeonMaterial/Time.outputs:out>
-                        float inputs:in2 = 1
-                        float outputs:out
-                        float2 ui:nodegraph:node:pos = (-912.3092, 114.674225)
-                        int ui:nodegraph:node:stackingOrder = 94
-                    }
-
-                    def "EdgeDetectionRobertsNeon_1" (
-                        active = true
-                        instanceable = true
-                        references = @Nodes/EdgeDetectionNode.usda@</Root/EdgeDetectionRobertsNeon>
-                    )
-                    {
-                        float inputs:BackgroundFade.connect = </Root/Cube_EdgeDetectionRobertsNeonV2/EdgeDetectionRobertsNeonV2Material/Cube_EdgeDetectionRobertsNeon/EdgeDetectionRobertsNeonMaterial/Remap.outputs:out>
-                        float inputs:Brightness = 1
-                        float inputs:Brightness.connect = None
-                        asset inputs:Image = @Texture/number.jpeg@
-                        float2 ui:nodegraph:node:pos = (-399.3892, 77.09934)
-                        int ui:nodegraph:node:stackingOrder = 109
-                    }
-                }
-            }
-
             def "EdgeDetectionRobertsNeonV2_1" (
                 active = true
                 instanceable = true
@@ -408,6 +307,604 @@ def Xform "Root"
                 asset inputs:Image = @Texture/number.jpeg@
                 float2 ui:nodegraph:node:pos = (-416.21225, 92.42973)
                 int ui:nodegraph:node:stackingOrder = 106
+            }
+        }
+    }
+
+    def Cube "Cube_EdgeDetectionSobel" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_EdgeDetectionSobel/EdgeDetectionSobelMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (60, 60)
+        int ui:nodegraph:node:stackingOrder = 3
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.3, 0.3, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "EdgeDetectionSobelMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_EdgeDetectionSobel/EdgeDetectionSobelMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_EdgeDetectionSobel/EdgeDetectionSobelMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_EdgeDetectionSobel/EdgeDetectionSobelMaterial/EdgeDetectionSobel_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionSobel/EdgeDetectionSobelMaterial/Multiply.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionSobel/EdgeDetectionSobelMaterial/Sin.outputs:out>
+                float inputs:inhigh
+                float inputs:inlow = -1
+                float inputs:outhigh = 1
+                float inputs:outlow = 0.1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 101
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1061.0352, 117.933044)
+                int ui:nodegraph:node:stackingOrder = 83
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_EdgeDetectionSobel/EdgeDetectionSobelMaterial/Time.outputs:out>
+                float inputs:in2 = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-912.3092, 114.674225)
+                int ui:nodegraph:node:stackingOrder = 94
+            }
+
+            def "EdgeDetectionSobel_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/EdgeDetectionNode.usda@</Root/EdgeDetectionSobel>
+            )
+            {
+                float inputs:BackgroundFade.connect = </Root/Cube_EdgeDetectionSobel/EdgeDetectionSobelMaterial/Remap.outputs:out>
+                asset inputs:Image = @Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-397.18283, 57.84729)
+                int ui:nodegraph:node:stackingOrder = 102
+            }
+        }
+    }
+
+    def Cube "Cube_EdgeDetectionSobelNeon" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_EdgeDetectionSobelNeon/EdgeDetectionSobelNeonMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (80, 80)
+        int ui:nodegraph:node:stackingOrder = 4
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0.3, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "EdgeDetectionSobelNeonMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_EdgeDetectionSobelNeon/EdgeDetectionSobelNeonMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_EdgeDetectionSobelNeon/EdgeDetectionSobelNeonMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_EdgeDetectionSobelNeon/EdgeDetectionSobelNeonMaterial/EdgeDetectionSobelNeon_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionSobelNeon/EdgeDetectionSobelNeonMaterial/Multiply.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionSobelNeon/EdgeDetectionSobelNeonMaterial/Sin.outputs:out>
+                float inputs:inhigh
+                float inputs:inlow = -1
+                float inputs:outhigh = 1
+                float inputs:outlow = 0.1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 101
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1061.0352, 117.933044)
+                int ui:nodegraph:node:stackingOrder = 83
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_EdgeDetectionSobelNeon/EdgeDetectionSobelNeonMaterial/Time.outputs:out>
+                float inputs:in2 = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-912.3092, 114.674225)
+                int ui:nodegraph:node:stackingOrder = 94
+            }
+
+            def "EdgeDetectionSobelNeon_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/EdgeDetectionNode.usda@</Root/EdgeDetectionSobelNeon>
+            )
+            {
+                float inputs:BackgroundFade = 1
+                float inputs:BackgroundFade.connect = </Root/Cube_EdgeDetectionSobelNeon/EdgeDetectionSobelNeonMaterial/Remap.outputs:out>
+                float inputs:Brightness = 1
+                asset inputs:Image = @Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-384.90735, 121.72818)
+                int ui:nodegraph:node:stackingOrder = 138
+            }
+        }
+    }
+
+    def Cube "Cube_EdgeDetectionSobelNeonV2" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_EdgeDetectionSobelNeonV2/EdgeDetectionSobelNeonV2Material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (100, 100)
+        int ui:nodegraph:node:stackingOrder = 5
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0.3, 0.3, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "EdgeDetectionSobelNeonV2Material"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_EdgeDetectionSobelNeonV2/EdgeDetectionSobelNeonV2Material/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_EdgeDetectionSobelNeonV2/EdgeDetectionSobelNeonV2Material/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_EdgeDetectionSobelNeonV2/EdgeDetectionSobelNeonV2Material/EdgeDetectionSobelNeonV2_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionSobelNeonV2/EdgeDetectionSobelNeonV2Material/Multiply.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionSobelNeonV2/EdgeDetectionSobelNeonV2Material/Sin.outputs:out>
+                float inputs:inhigh
+                float inputs:inlow = -1
+                float inputs:outhigh = 1
+                float inputs:outlow = 0.1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 107
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1061.0352, 117.933044)
+                int ui:nodegraph:node:stackingOrder = 83
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_EdgeDetectionSobelNeonV2/EdgeDetectionSobelNeonV2Material/Time.outputs:out>
+                float inputs:in2 = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-912.3092, 114.674225)
+                int ui:nodegraph:node:stackingOrder = 94
+            }
+
+            def "EdgeDetectionSobelNeonV2_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/EdgeDetectionNode.usda@</Root/EdgeDetectionSobelNeonV2>
+            )
+            {
+                float inputs:BackgroundFade = 1
+                float inputs:BackgroundFade.connect = None
+                float inputs:EdgeNeonFade.connect = </Root/Cube_EdgeDetectionSobelNeonV2/EdgeDetectionSobelNeonV2Material/Remap.outputs:out>
+                asset inputs:Image = @Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-375.67365, 93.47214)
+                int ui:nodegraph:node:stackingOrder = 113
+            }
+        }
+    }
+
+    def Cube "Cube_EdgeDetectionScharr" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_EdgeDetectionScharr/EdgeDetectionScharrMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (80, 80)
+        int ui:nodegraph:node:stackingOrder = 4
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.3, 0.6, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "EdgeDetectionScharrMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_EdgeDetectionScharr/EdgeDetectionScharrMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_EdgeDetectionScharr/EdgeDetectionScharrMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_EdgeDetectionScharr/EdgeDetectionScharrMaterial/EdgeDetectionScharr_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionScharr/EdgeDetectionScharrMaterial/Multiply.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionScharr/EdgeDetectionScharrMaterial/Sin.outputs:out>
+                float inputs:inhigh
+                float inputs:inlow = -1
+                float inputs:outhigh = 1
+                float inputs:outlow = 0.1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 101
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1061.0352, 117.933044)
+                int ui:nodegraph:node:stackingOrder = 83
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_EdgeDetectionScharr/EdgeDetectionScharrMaterial/Time.outputs:out>
+                float inputs:in2 = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-912.3092, 114.674225)
+                int ui:nodegraph:node:stackingOrder = 94
+            }
+
+            def "EdgeDetectionScharr_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/EdgeDetectionNode.usda@</Root/EdgeDetectionScharr>
+            )
+            {
+                float inputs:BackgroundFade.connect = </Root/Cube_EdgeDetectionScharr/EdgeDetectionScharrMaterial/Remap.outputs:out>
+                asset inputs:Image = @Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-404.45377, 67.62585)
+                int ui:nodegraph:node:stackingOrder = 104
+            }
+        }
+    }
+
+    def Cube "Cube_EdgeDetectionScharrNeon" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_EdgeDetectionScharrNeon/EdgeDetectionScharrNeonMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (100, 100)
+        int ui:nodegraph:node:stackingOrder = 5
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0.6, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "EdgeDetectionScharrNeonMaterial"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_EdgeDetectionScharrNeon/EdgeDetectionScharrNeonMaterial/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_EdgeDetectionScharrNeon/EdgeDetectionScharrNeonMaterial/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_EdgeDetectionScharrNeon/EdgeDetectionScharrNeonMaterial/EdgeDetectionScharrNeon_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionScharrNeon/EdgeDetectionScharrNeonMaterial/Multiply.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionScharrNeon/EdgeDetectionScharrNeonMaterial/Sin.outputs:out>
+                float inputs:inhigh
+                float inputs:inlow = -1
+                float inputs:outhigh = 1
+                float inputs:outlow = 0.1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 101
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1061.0352, 117.933044)
+                int ui:nodegraph:node:stackingOrder = 83
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_EdgeDetectionScharrNeon/EdgeDetectionScharrNeonMaterial/Time.outputs:out>
+                float inputs:in2 = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-912.3092, 114.674225)
+                int ui:nodegraph:node:stackingOrder = 94
+            }
+
+            def "EdgeDetectionScharrNeon_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/EdgeDetectionNode.usda@</Root/EdgeDetectionScharrNeon>
+            )
+            {
+                float inputs:BackgroundFade.connect = </Root/Cube_EdgeDetectionScharrNeon/EdgeDetectionScharrNeonMaterial/Remap.outputs:out>
+                asset inputs:Image = @Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-419.72437, 93.29892)
+                int ui:nodegraph:node:stackingOrder = 104
+            }
+        }
+    }
+
+    def Cube "Cube_EdgeDetectionScharrNeonV2" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/Cube_EdgeDetectionScharrNeonV2/EdgeDetectionScharrNeonV2Material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 0.2
+        float2 ui:nodegraph:node:pos = (120, 120)
+        int ui:nodegraph:node:stackingOrder = 6
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0.3, 0.6, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Material "EdgeDetectionScharrNeonV2Material"
+        {
+            reorder nameChildren = ["PreviewSurface", "Convert", "Time", "Sin", "Remap", "PixelizeCircle_1"]
+            token outputs:mtlx:surface.connect = </Root/Cube_EdgeDetectionScharrNeonV2/EdgeDetectionScharrNeonV2Material/PreviewSurface.outputs:out>
+            token outputs:realitykit:vertex
+            float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (335.25, 100.5)
+
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                color3f inputs:diffuseColor.connect = </Root/Cube_EdgeDetectionScharrNeonV2/EdgeDetectionScharrNeonV2Material/Convert.outputs:out>
+                float inputs:metallic
+                float inputs:opacity = 1
+                float inputs:roughness
+                token outputs:out
+                float2 ui:nodegraph:node:pos = (93.5, 100.5)
+                int ui:nodegraph:node:stackingOrder = 20
+                string[] ui:nodegraph:realitykit:node:attributesShowingChildren = []
+            }
+
+            def Shader "Convert"
+            {
+                uniform token info:id = "ND_convert_vector3_color3"
+                float3 inputs:in.connect = </Root/Cube_EdgeDetectionScharrNeonV2/EdgeDetectionScharrNeonV2Material/EdgeDetectionScharrNeonV2_1.outputs:Output>
+                color3f outputs:out
+                float2 ui:nodegraph:node:pos = (-138.28125, 132.6914)
+                int ui:nodegraph:node:stackingOrder = 5
+            }
+
+            def Shader "Sin"
+            {
+                uniform token info:id = "ND_sin_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionScharrNeonV2/EdgeDetectionScharrNeonV2Material/Multiply.outputs:out>
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-800.22266, 96.96875)
+                int ui:nodegraph:node:stackingOrder = 30
+            }
+
+            def Shader "Remap"
+            {
+                uniform token info:id = "ND_remap_float"
+                float inputs:in.connect = </Root/Cube_EdgeDetectionScharrNeonV2/EdgeDetectionScharrNeonV2Material/Sin.outputs:out>
+                float inputs:inhigh
+                float inputs:inlow = -1
+                float inputs:outhigh = 1
+                float inputs:outlow = 0.1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-662.9844, 97.80078)
+                int ui:nodegraph:node:stackingOrder = 107
+            }
+
+            def Shader "Time"
+            {
+                uniform token info:id = "ND_time_float"
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-1061.0352, 117.933044)
+                int ui:nodegraph:node:stackingOrder = 83
+            }
+
+            def Shader "Multiply"
+            {
+                uniform token info:id = "ND_multiply_float"
+                float inputs:in1.connect = </Root/Cube_EdgeDetectionScharrNeonV2/EdgeDetectionScharrNeonV2Material/Time.outputs:out>
+                float inputs:in2 = 1
+                float outputs:out
+                float2 ui:nodegraph:node:pos = (-912.3092, 114.674225)
+                int ui:nodegraph:node:stackingOrder = 94
+            }
+
+            def "EdgeDetectionScharrNeonV2_1" (
+                active = true
+                instanceable = true
+                references = @Nodes/EdgeDetectionNode.usda@</Root/EdgeDetectionScharrNeonV2>
+            )
+            {
+                float inputs:EdgeNeonFade.connect = </Root/Cube_EdgeDetectionScharrNeonV2/EdgeDetectionScharrNeonV2Material/Remap.outputs:out>
+                asset inputs:Image = @Texture/number.jpeg@
+                float2 ui:nodegraph:node:pos = (-411.6394, 84.04444)
+                int ui:nodegraph:node:stackingOrder = 110
             }
         }
     }
