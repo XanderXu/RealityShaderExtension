@@ -1,9 +1,10 @@
 {
-  "advancedEditorSelectedIdentifier" : "ShaderGraphEditorPluginID",
+  "advancedEditorSelectedIdentifier" : "ProjectBrowser",
   "openSceneRelativePaths" : [
     "Materials\/Nodes\/EdgeDetectionNode.usda",
     "Materials\/EdgeDetectionMaterial.usda",
-    "Materials\/PixelizeMaterial.usda"
+    "Materials\/PixelizeMaterial.usda",
+    "Materials\/Nodes\/ColorspaceNode.usda"
   ],
   "recentIdentifiers" : {
     "028C61D4-4E9B-433B-83E1-F50846CD048E" : [
@@ -496,6 +497,50 @@
     ],
     "6674B60D-5685-4A95-AB24-717E56F3DD9A" : [
       {
+        "date" : 766158316.997059,
+        "title" : "Untitled",
+        "transform" : [
+          0.9998864,
+          -2.3550314e-11,
+          -0.015072034,
+          0,
+          0.00046700638,
+          0.9995198,
+          0.030981444,
+          0,
+          0.015064797,
+          -0.030984957,
+          0.9994063,
+          0,
+          0.011973447,
+          0.26503354,
+          1.0629427,
+          1
+        ]
+      },
+      {
+        "date" : 766158283.339729,
+        "title" : "Untitled",
+        "transform" : [
+          0.9999204,
+          -2.3550314e-11,
+          -0.012615605,
+          0,
+          0.00039089404,
+          0.9995198,
+          0.030982498,
+          0,
+          0.012609548,
+          -0.030984957,
+          0.9994403,
+          0,
+          0.0077856183,
+          0.2709216,
+          0.8839741,
+          1
+        ]
+      },
+      {
         "date" : 766157101.961726,
         "title" : "Untitled",
         "transform" : [
@@ -668,50 +713,6 @@
           -0.0064255,
           -0.059926182,
           1.2245189,
-          1
-        ]
-      },
-      {
-        "date" : 766152858.560979,
-        "title" : "Untitled",
-        "transform" : [
-          0.99999845,
-          -2.3550314e-11,
-          -0.0017516806,
-          0,
-          5.4275737e-05,
-          0.9995198,
-          0.030984916,
-          0,
-          0.0017508395,
-          -0.030984957,
-          0.99951833,
-          0,
-          0.018571973,
-          0.00069466233,
-          0.42357457,
-          1
-        ]
-      },
-      {
-        "date" : 766150561.25749,
-        "title" : "Untitled",
-        "transform" : [
-          0.99999845,
-          -2.3550314e-11,
-          -0.0017516806,
-          0,
-          5.4275737e-05,
-          0.9995198,
-          0.030984916,
-          0,
-          0.0017508395,
-          -0.030984957,
-          0.99951833,
-          0,
-          -0.7272289,
-          -0.046756387,
-          0.42341003,
           1
         ]
       }

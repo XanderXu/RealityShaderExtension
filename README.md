@@ -6,9 +6,16 @@
 
 RealityShaderExtension is a package that provides a set of shader graph nodes for RealityKit in visionOS, iOS and macOS. 
 
-RealityShaderExtension reproduce 28 Shader Graph nodes from Unity, and 28 Blueprint nodes from Unreal. It will be very useful if you convert shader effects from Unity or Unreal.
+RealityShaderExtension reproduce Shader Graph nodes from Unity, and Blueprint nodes from Unreal. It will be very useful if you convert shader effects from Unity or Unreal.
 
-RealityShaderExtension also contains 20+ color blend mode,  8 colorspace conversion nodes, and 9 pixelize art nodes.
+* 28 Shader Graph nodes from Unity
+* 28 Blueprint nodes from Unreal
+* 20+ color blend mode
+* 8 colorspace conversion nodes(RGB -> YUV -> HSV)
+* 9 pixelize art nodes
+* 9 edge-detection nodes
+
+
 
 ## Examples of nodes from Unreal
 
@@ -37,6 +44,12 @@ RealityShaderExtension also contains 20+ color blend mode,  8 colorspace convers
 ![PixelizeArt](./README.assets/PixelizeArt.gif)
 
 
+
+## Examples of EdgeDetection node
+
+[Unity X-PostProcessing Library-EdgeDetection](https://github.com/QianMo/X-PostProcessing-Library/tree/master/Assets/X-PostProcessing/Effects/EdgeDetectionSobel)
+
+![EdgeDetectionMaterial](./README.assets/EdgeDetectionMaterial.gif)
 
 
 ## How to use

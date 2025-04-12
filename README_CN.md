@@ -6,9 +6,16 @@
 
 RealityShaderExtension 是一个为 visionOS、iOS 和 macOS 提供大量 Shader Graph 扩展节点的工具包。
 
-RealityShaderExtension 复刻了来自 Unity 的 28 个 Shader Graph 节点和来自 Unreal 的 28 个 Blueprint 节点。如果您需要将 Unity 或 Unreal 中的 Shader 效果转换到 RealityKit，这将非常有用。
+RealityShaderExtension 复刻了来自 Unity 的 Shader Graph 节点和来自 Unreal 的 Blueprint 节点。如果您需要将 Unity 或 Unreal 中的 Shader 效果转换到 RealityKit，这将非常有用。
 
-RealityShaderExtension 还包含 20 多种颜色混合模式， 8 种颜色空间转换节点，以及 9 个像素化艺术效果节点。
+* 28 个 Unity 的 Shader Graph 节点
+* 28 个 Unreal 的 Blueprint 节点
+* 20+ 个颜色混合模式节点
+* 8 种颜色空间转换节点（RGB -> YUV -> HSV）
+* 9 个像素化艺术效果节点
+* 9 个边缘检测效果节点
+
+
 
 ## Unreal 节点示例
 
@@ -35,6 +42,12 @@ RealityShaderExtension 还包含 20 多种颜色混合模式， 8 种颜色空�
 [Unity X-PostProcessing Library-PixelizeArt](https://github.com/QianMo/X-PostProcessing-Library/tree/master/Assets/X-PostProcessing/Effects/PixelizeQuad)
 
 ![PixelizeArt](./README.assets/PixelizeArt.gif)
+
+## 边缘检测效果节点示例
+
+[Unity X-PostProcessing Library-EdgeDetection](https://github.com/QianMo/X-PostProcessing-Library/tree/master/Assets/X-PostProcessing/Effects/EdgeDetectionSobel)
+
+![EdgeDetectionMaterial](./README.assets/EdgeDetectionMaterial.gif)
 
 ## 如何使用
 
